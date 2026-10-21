@@ -1,0 +1,19 @@
+key: the-launch-sequence
+title: فهرست مطالعه
+description: این فهرست جای فهرست نهایی است. عنوان‌ها فقط چیدمان را نشان می‌دهند و نوشتهٔ انجمن نیستند.
+placeholder: true
+kind: reading
+sections:
+  - title: بخش نخست
+    items:
+      - title: نمونهٔ یک
+        excerpt: جای یک نوشته در این فهرست. متن نهایی بعداً می‌آید.
+        category: نمونه
+      - title: نمونهٔ دو
+        excerpt: جای نوشتهٔ دوم. این سطر فقط چیدمان را نشان می‌دهد.
+        category: نمونه
+  - title: بخش دوم
+    items:
+      - title: نمونهٔ سه
+        excerpt: جای نوشتهٔ سوم در بخش بعدی فهرست.
+        category: نمونه

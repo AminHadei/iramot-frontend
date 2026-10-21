@@ -24,7 +24,15 @@ export default defineNuxtConfig({
   nitro: {
     prerender: {
       crawlLinks: true,
-      routes: ["/styleguide"],
+      routes: [
+        "/styleguide",
+        "/the-launch-sequence",
+        "/transit-abundance-playbook",
+        "/economics-of-ideas",
+        "/economics-of-ideas/syllabus",
+        "/economics-of-ideas/apply",
+        "/independent-filmmaker-project",
+      ],
     },
     publicAssets: [
       {

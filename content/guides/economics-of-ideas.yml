@@ -1,0 +1,11 @@
+key: economics-of-ideas
+title: دوره
+description: معرفی این دوره هنوز نوشتهٔ نهایی ندارد. برنامه و درخواست از همین صفحه به نشانی خودشان می‌روند.
+placeholder: true
+kind: landing
+links:
+  - label: برنامهٔ درسی
+    to: /economics-of-ideas/syllabus
+  - label: درخواست
+    to: /economics-of-ideas/apply
+sections: []
