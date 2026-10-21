@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.0
+
+### Minor Changes
+
+- 65e1c61: Show the association menu, footer map, and component styleguide.
+
 ## 0.0.0
 
 ### Major Changes
