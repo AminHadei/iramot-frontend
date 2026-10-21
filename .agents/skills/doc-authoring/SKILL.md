@@ -10,7 +10,7 @@ description: Use when writing developer docs or ADRs. Single source of truth, cu
 1. One source of truth. Skills and Cursor rules point at it; they do not restate it.
 2. Current reality only.
 3. Terse: tables and bullets.
-4. Site copy stays Persian in `content/`. Developer docs stay English.
+4. Site copy stays Persian in `content/`. Developer docs, skills, and `CHANGELOG.md` stay English.
 
 ## When `docs/` exists
 
