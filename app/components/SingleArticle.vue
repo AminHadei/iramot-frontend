@@ -3,6 +3,7 @@ defineProps<{
   title: string;
   category?: string;
   date?: string;
+  image?: string;
   toc?: Array<{ id: string; label: string }>;
 }>();
 </script>
@@ -22,6 +23,9 @@ defineProps<{
         </p>
       </div>
     </header>
+    <div v-if="image" class="page-inset pt-10">
+      <NuxtImg :src="image" :alt="title" provider="none" class="w-full" />
+    </div>
     <div
       class="page-inset py-10"
       :class="
