@@ -2,7 +2,7 @@
 import type { ListingCard } from "~/utils/archive";
 
 defineProps<{
-  title: string;
+  title?: string;
   description?: string;
   filters: Array<{ label: string; to: string; current: boolean }>;
   cards: ListingCard[];
@@ -15,7 +15,10 @@ defineProps<{
 
 <template>
   <section class="page-inset py-16">
-    <h1 class="font-heading text-4xl font-medium text-primary wide:text-6xl">
+    <h1
+      v-if="title"
+      class="font-heading text-4xl font-medium text-primary wide:text-6xl"
+    >
       {{ title }}
     </h1>
     <p v-if="description" class="mt-6 max-w-2xl text-lg leading-relaxed">
