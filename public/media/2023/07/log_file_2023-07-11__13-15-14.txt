@@ -1,0 +1,33 @@
+
+---Upload files---
+Widget file was not uploaded. Error: No file provided.
+
+---Upload files---
+Customizer file was not uploaded. Error: No file provided.
+
+---Upload files---
+Redux file was not uploaded. Error: No file provided.
+
+---Upload files---
+The import files were successfully uploaded!
+Initial max execution time = 30
+Files info:
+Site URL = https://iramot.ir/newiramot
+Data file = /home/iramotir/public_html/newiramot/wp-content/uploads/2023/07/WordPress.2023-07-11.xml
+Widget file = not defined!
+Customizer file = not defined!
+Redux files:
+not defined!
+
+------
+New AJAX call!
+
+
+------
+New AJAX call!
+[WARNING] Failed to import "[{{{site.name}}}] {{poster.name}} به یک بروزرسانی شما پاسخ داده اند": Invalid post type bp-email
+[WARNING] Failed to import "[{{{site.name}}}] {{poster.name}} به یک دیدگاه شما پاسخ داده اند": Invalid post type bp-email
+[WARNING] Failed to import "[{{{site.name}}}] {{poster.name}} به شما در وضعیت بروزرسانی اشاره شده است": Invalid post type bp-email
+[WARNING] Failed to import "[{{{site.name}}}] {{poster.name}} در بروزرسانی به شما اشاره شده است": Invalid post type bp-email
+[WARNING] Failed to import "[{{{site.name}}}] حساب شما فعال شد": Invalid post type bp-email
+
