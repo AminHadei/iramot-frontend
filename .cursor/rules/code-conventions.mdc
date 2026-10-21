@@ -1,0 +1,7 @@
+---
+description: Vue and TypeScript conventions plus format, lint, and typecheck
+globs: app/**/*.{vue,ts},*.{js,ts}
+alwaysApply: false
+---
+
+Follow @.agents/skills/code-conventions/SKILL.md.

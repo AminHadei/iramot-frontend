@@ -1,0 +1,7 @@
+---
+description: Persian copy, Jalali dates, and content collections
+globs: content/**/*.{md,yml,yaml}
+alwaysApply: false
+---
+
+Follow @.agents/skills/content-fa/SKILL.md.

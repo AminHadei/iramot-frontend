@@ -1,0 +1,7 @@
+---
+description: RTL layout, type, and colour tokens mirrored from ifp.org
+globs: app/**/*.{vue,css},tailwind.config.ts
+alwaysApply: false
+---
+
+Follow @.agents/skills/design-system/SKILL.md.

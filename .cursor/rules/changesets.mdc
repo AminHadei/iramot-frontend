@@ -1,0 +1,7 @@
+---
+description: Changelog and package version via Changesets
+globs: .changeset/**/*.md,CHANGELOG.md,package.json
+alwaysApply: false
+---
+
+Follow @.agents/skills/changesets/SKILL.md.

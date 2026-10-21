@@ -1,0 +1,7 @@
+---
+description: Static generate and GitHub Actions deploy
+globs: .github/workflows/**,nuxt.config.ts
+alwaysApply: false
+---
+
+Follow @.agents/skills/static-deploy/SKILL.md.

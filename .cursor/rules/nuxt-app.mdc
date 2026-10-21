@@ -1,0 +1,7 @@
+---
+description: Nuxt 4 app layout, Vue SFCs, and content-driven pages
+globs: app/**/*.{vue,ts},nuxt.config.ts,content.config.ts
+alwaysApply: false
+---
+
+Follow @.agents/skills/nuxt-app/SKILL.md.

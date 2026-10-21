@@ -1,0 +1,7 @@
+---
+description: Developer docs and ADRs
+globs: docs/**/*.md,AGENTS.md,REVIEW.md
+alwaysApply: false
+---
+
+Follow @.agents/skills/doc-authoring/SKILL.md.
