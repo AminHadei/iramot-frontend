@@ -213,3 +213,15 @@ From the critical CSS in `ref/ifp/html/about.html`, also present for the project
 At `min-width: 61.25em`, `.single-article .article__toc .toc__list` is `position: sticky` with `top: 70px`.
 
 The saved article sets the category variable inline, as listed above. No `border-radius` on `.single-article`.
+
+### Terminology search
+
+The home search field is a title preview: nothing is listed until there is a query, and the list stops at 12 titles. The terminology page uses the same field over every stored term. Source chips reuse the category-filter border: `1px solid`, `border-line` for the rest and `border-primary` with `text-primary` for the current chip, no radius. A result is a `post-listing` card with no link. The stored English title is the card title and the Persian text is the excerpt.
+
+### Three-cell bar
+
+The home bar is a `1px solid` `border-line` grid with no radius. A cell may be a link. The link adds no extra chrome.
+
+### Contact
+
+`/contact` uses `hero-intro`. The stored address lines sit under it, in the page inset. The IFP contact hero also shows an email and a telephone. The archive page is empty and stores neither, so they are not shown.
