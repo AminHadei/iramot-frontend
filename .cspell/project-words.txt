@@ -37,3 +37,11 @@ rtl
 ltr
 noopener
 noreferrer
+Söhne
+Tiempos
+Metascience
+metascience
+rgba
+postid
+pageid
+TGHP
