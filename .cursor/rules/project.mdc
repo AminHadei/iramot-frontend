@@ -1,40 +1,40 @@
 ---
-description: قوانین ثابت استک، RTL، دیزاین و محتوای سایت انجمن مدیریت فناوری و نوآوری ایران
+description: Standing rules for the stack, RTL, design, and content of the association site
 alwaysApply: true
 ---
 
-# انجمن مدیریت فناوری و نوآوری ایران
+# Iran Technology and Innovation Management Association
 
-## استک
+## Stack
 
-- Nuxt و Vue 3. فقط `<script setup lang="ts">`.
-- روتینگ در `app/pages/`. کامپوننت‌ها در `app/components/` و auto-import.
-- داده فقط از `content/` با `@nuxt/content` و `queryCollection`. متن رابط و بدنه را در کامپوننت هاردکد نکن.
-- تصویر با `NuxtImg` یا `NuxtPicture` از `@nuxt/image`.
-- خروجی استاتیک با `nuxt generate`.
+- Nuxt and Vue 3. Only `<script setup lang="ts">`.
+- Routes live in `app/pages/`. Components live in `app/components/` and are auto-imported.
+- Data comes only from `content/` via `@nuxt/content` and `queryCollection`. Do not hardcode interface or body copy in components.
+- Images use `NuxtImg` or `NuxtPicture` from `@nuxt/image`.
+- Static output with `nuxt generate`.
 
 ## RTL
 
-سایت کاملاً راست‌به‌چپ است (`lang=fa` و `dir=rtl` روی `html`). فقط logical properties.
+The site is fully right-to-left (`lang=fa` and `dir=rtl` on `html`). Logical properties only.
 
 ```html
-<!-- بد -->
+<!-- bad -->
 <div class="ml-4 pl-6 text-left left-0">
-<!-- خوب -->
+<!-- good -->
 <div class="ms-4 ps-6 text-start start-0">
 ```
 
-`left`، `right`، `ml`، `mr`، `pl`، `pr`، `text-left` و `text-right` ممنوع‌اند. آیکون جهت‌دار (فلش، chevron) کلاس `rtl:-scale-x-100` می‌گیرد.
+`left`, `right`, `ml`, `mr`, `pl`, `pr`, `text-left`, and `text-right` are forbidden. A directional icon (arrow, chevron) gets `rtl:-scale-x-100`.
 
-## دیزاین
+## Design
 
-ساختار، فاصله، گرید و کامپوننت را از https://ifp.org/ بگیر و برای RTL آینه کن. فونت و نشان IFP را کپی نکن.
+Take structure, spacing, grid, and components from https://ifp.org/ and mirror them for RTL. Do not copy the IFP type or mark.
 
-- تیترها `font-heading` هستند (Noto Naskh Arabic). متن و برچسب‌ها `font-sans` (IRANYekan با اعداد فارسی، فالبک Tahoma). فایل‌های woff2 مجوزدار FaNum در `app/assets/fonts/iranyekan/`.
-- رنگ‌ها: `paper` `#FFFDF5`، `ink` `#2B2B33`، `primary` `#2D317A`، `secondary` `#6967AC`، `secondary-soft` `#9A96CA`، `accent` `#CF4382`، `line` `#373737`.
-- تاریخ نمایشی شمسی و با اعداد فارسی است (`formatPersianDate`). در محتوا تاریخ را ISO نگه دار.
+- Headings use `font-heading` (Noto Naskh Arabic). Text and labels use `font-sans` (IRANYekan with Persian digits, Tahoma fallback). Licensed FaNum woff2 files live in `app/assets/fonts/iranyekan/`.
+- Colours: `paper` `#FFFDF5`, `ink` `#2B2B33`, `primary` `#2D317A`, `secondary` `#6967AC`, `secondary-soft` `#9A96CA`, `accent` `#CF4382`, `line` `#373737`.
+- Display dates are Jalali with Persian digits (`formatPersianDate`). Keep dates as ISO in content.
 
-## محتوا و سئو
+## Content and SEO
 
-- هر صفحه `usePageSeo` را با عنوان و توضیح فارسی و `ogLocale: fa_IR` صدا بزند.
-- محتوای موقت، از جمله الگوی اولیهٔ برگرفته از ساختار IFP، در فرانت‌متر `placeholder: true` دارد.
+- Every page calls `usePageSeo` with a Persian title and description and `ogLocale: fa_IR`.
+- Temporary content, including the first structure taken from IFP, sets `placeholder: true` in frontmatter.
