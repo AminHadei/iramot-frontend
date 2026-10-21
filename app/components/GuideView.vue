@@ -13,8 +13,9 @@ function paragraphs(body?: string) {
 }
 
 const sections = computed(() =>
-  props.guide.sections.map((section) => ({
+  (props.guide.sections ?? []).map((section) => ({
     ...section,
+    items: section.items ?? [],
     paragraphs: paragraphs(section.body),
   })),
 );

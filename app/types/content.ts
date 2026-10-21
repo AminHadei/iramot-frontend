@@ -168,7 +168,7 @@ export interface HomeContent {
 export interface GuideSection {
   title: string;
   body?: string;
-  items: Array<{
+  items?: Array<{
     title: string;
     excerpt?: string;
     category?: string;
