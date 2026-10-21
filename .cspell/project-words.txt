@@ -33,6 +33,9 @@ spellcheck
 tailwindcss
 typecheck
 woff
+workgroups
+styleguide
+hellip
 dek
 rtl
 ltr
