@@ -56,18 +56,28 @@ const { data: home } = await useAsyncData("home-page", async () => {
     });
   });
 
-  const cells: Array<{ label: string; title: string; date?: string }> = [];
+  const cells: Array<{ label: string; title: string; date?: string; to?: string }> = [];
   if (event) {
-    cells.push({ label: page.strip.event, title: event.title, date: event.date });
+    cells.push({
+      label: page.strip.event,
+      title: event.title,
+      date: event.date,
+      to: "/events",
+    });
   }
   if (conference) {
     cells.push({
       label: page.strip.conference,
       title: conference.title,
       date: conference.date,
+      to: "/conference",
     });
   }
-  cells.push({ label: page.strip.membership, title: site.membership.label });
+  cells.push({
+    label: page.strip.membership,
+    title: site.membership.label,
+    to: site.membership.to,
+  });
 
   return {
     page,
@@ -123,7 +133,11 @@ usePageSeo({
     </section>
     <section class="border-t border-line">
       <div class="page-inset py-16">
-        <SectionHeading :title="page.sections.workgroups" />
+        <SectionHeading
+          :title="page.sections.workgroups"
+          to="/workgroups"
+          :link-label="page.sectionLinks.workgroups"
+        />
         <div class="mt-8 grid gap-5 wide:grid-cols-3">
           <PostListing
             v-for="card in view.workgroups"
@@ -140,7 +154,11 @@ usePageSeo({
     </section>
     <section class="border-t border-line">
       <div class="page-inset py-16">
-        <SectionHeading :title="page.sections.events" />
+        <SectionHeading
+          :title="page.sections.events"
+          to="/events"
+          :link-label="page.sectionLinks.events"
+        />
         <div class="mt-8 grid gap-5 wide:grid-cols-2">
           <PostListing
             v-for="card in view.events"
@@ -155,7 +173,11 @@ usePageSeo({
     </section>
     <section class="border-t border-line">
       <div class="page-inset py-16">
-        <SectionHeading :title="page.sections.terms" />
+        <SectionHeading
+          :title="page.sections.terms"
+          to="/terminology"
+          :link-label="page.sectionLinks.terms"
+        />
         <TermSearch
           class="mt-8"
           :terms="view.terms"
@@ -166,7 +188,11 @@ usePageSeo({
     </section>
     <section class="border-t border-line">
       <div class="page-inset py-16">
-        <SectionHeading :title="page.sections.quarterlies" />
+        <SectionHeading
+          :title="page.sections.quarterlies"
+          to="/quarterlies"
+          :link-label="page.sectionLinks.quarterlies"
+        />
         <div class="mt-8 grid gap-5 wide:grid-cols-3">
           <PostListing
             v-for="card in view.quarterlies"
@@ -184,7 +210,11 @@ usePageSeo({
     </section>
     <section class="border-t border-line">
       <div class="page-inset py-16">
-        <SectionHeading :title="page.sections.partners" />
+        <SectionHeading
+          :title="page.sections.partners"
+          to="/partners"
+          :link-label="page.sectionLinks.partners"
+        />
         <PersonCard class="mt-8 max-w-sm" :empty-label="page.partnersEmpty" />
       </div>
     </section>
