@@ -3,6 +3,11 @@ export interface ContentLink {
   to: string;
 }
 
+export interface CategorySet {
+  slugs: string[];
+  prefixes?: string[];
+}
+
 export interface SiteContent {
   name: string;
   shortName: string;
@@ -18,6 +23,19 @@ export interface SiteContent {
     research: { title: string; description: string };
     projects: { title: string; description: string };
   };
+  pages: {
+    about: number;
+    privacy: number;
+    opportunities: number;
+  };
+  sets: {
+    publications: CategorySet;
+    opportunities: CategorySet;
+    conference: CategorySet;
+    workgroups: CategorySet;
+    quarterlies: CategorySet;
+    boardTag: string;
+  };
   ui: {
     menu: string;
     close: string;
@@ -30,6 +48,10 @@ export interface SiteContent {
     next: string;
     navigation: string;
     siteMap: string;
+    all: string;
+    emptyBody: string;
+    team: string;
+    emptyPeople: string;
   };
   styleguide: {
     title: string;
@@ -46,14 +68,26 @@ export interface SiteContent {
   placeholder?: boolean;
 }
 
+export interface ArchiveTerm {
+  id: number;
+  slug: string;
+  name: string;
+}
+
 export interface ArchiveItem {
   id: number;
   slug: string;
   title: string;
   excerpt: string;
   date: string;
-  categories: Array<{ id: number; slug: string; name: string }>;
+  content?: string;
+  categories?: ArchiveTerm[];
+  tags?: ArchiveTerm[];
   featuredImage?: { localPath?: string | null } | null;
+}
+
+export interface ArchiveFile {
+  body?: ArchiveItem[];
 }
 
 export interface HomeContent {
@@ -66,6 +100,51 @@ export interface HomeContent {
   projectsLinkLabel: string;
   recentTitle: string;
   recentLinkLabel: string;
+  publicationsLink: string;
+  strip: {
+    event: string;
+    conference: string;
+    membership: string;
+  };
+  sections: {
+    publications: string;
+    workgroups: string;
+    events: string;
+    terms: string;
+    quarterlies: string;
+    partners: string;
+    newsletter: string;
+  };
+  search: {
+    label: string;
+    empty: string;
+  };
+  newsletter: {
+    label: string;
+    submit: string;
+    note: string;
+  };
+  partnersEmpty: string;
+  placeholder: boolean;
+}
+
+export interface GuideSection {
+  title: string;
+  body?: string;
+  items: Array<{
+    title: string;
+    excerpt?: string;
+    category?: string;
+  }>;
+}
+
+export interface GuideContent {
+  key: string;
+  title: string;
+  description: string;
+  kind: "reading" | "landing" | "article" | "page";
+  links: ContentLink[];
+  sections: GuideSection[];
   placeholder: boolean;
 }
 

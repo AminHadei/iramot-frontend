@@ -68,10 +68,38 @@ footerColumns:
         to: /opportunities
       - label: تماس
         to: /contact
+pages:
+  about: 2885
+  privacy: 1538
+  opportunities: 7343
+sets:
+  publications:
+    slugs:
+      - articles
+      - news
+    prefixes:
+      - اخبار-
+  opportunities:
+    slugs:
+      - آگهی-استخدام
+      - استخدام
+      - فرصت-های-شغلی
+  conference:
+    slugs:
+      - کنفرانس-مدیریت-فناوری-و-نواوری
+      - conference-news
+  workgroups:
+    slugs:
+      - workgroups
+  quarterlies:
+    slugs:
+      - quarterly-magazine
+      - فصلنامه-سیاست-علم-و-فناوری
+  boardTag: هیئت-مدیره
 listings:
   research:
-    title: پژوهش‌ها
-    description: یادداشت‌ها و گزارش‌های انجمن دربارهٔ سیاست علم، نوآوری صنعتی و فناوری‌های نو. این فهرست موقتی است.
+    title: انتشارات
+    description: مقالات و اخبار منتشرشدهٔ انجمن.
   projects:
     title: پروژه‌ها
     description: برنامه‌های پیوستهٔ انجمن برای پیگیری یک موضوع در طول زمان. معرفی‌ها موقتی‌اند.
@@ -87,6 +115,10 @@ ui:
   next: بعدی
   navigation: ناوبری اصلی
   siteMap: نقشهٔ سایت
+  all: همه
+  emptyBody: متن این صفحه در آرشیو خالی است.
+  team: هیئت‌مدیره
+  emptyPeople: فهرستی از افراد در آرشیو نیست.
 styleguide:
   title: راهنمای اجزا
   description: اجزای چیدمان با دادهٔ آرشیو انجمن. این صفحه موقتی است.

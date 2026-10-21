@@ -5,6 +5,11 @@ const link = z.object({
   to: z.string(),
 });
 
+const categorySet = z.object({
+  slugs: z.array(z.string()),
+  prefixes: z.array(z.string()).optional(),
+});
+
 const archiveItem = z
   .object({
     id: z.number(),
@@ -60,6 +65,19 @@ export default defineContentConfig({
           research: z.object({ title: z.string(), description: z.string() }),
           projects: z.object({ title: z.string(), description: z.string() }),
         }),
+        pages: z.object({
+          about: z.number(),
+          privacy: z.number(),
+          opportunities: z.number(),
+        }),
+        sets: z.object({
+          publications: categorySet,
+          opportunities: categorySet,
+          conference: categorySet,
+          workgroups: categorySet,
+          quarterlies: categorySet,
+          boardTag: z.string(),
+        }),
         ui: z.object({
           menu: z.string(),
           close: z.string(),
@@ -72,6 +90,10 @@ export default defineContentConfig({
           next: z.string(),
           navigation: z.string(),
           siteMap: z.string(),
+          all: z.string(),
+          emptyBody: z.string(),
+          team: z.string(),
+          emptyPeople: z.string(),
         }),
         styleguide: z.object({
           title: z.string(),
@@ -101,6 +123,31 @@ export default defineContentConfig({
         projectsLinkLabel: z.string(),
         recentTitle: z.string(),
         recentLinkLabel: z.string(),
+        publicationsLink: z.string(),
+        strip: z.object({
+          event: z.string(),
+          conference: z.string(),
+          membership: z.string(),
+        }),
+        sections: z.object({
+          publications: z.string(),
+          workgroups: z.string(),
+          events: z.string(),
+          terms: z.string(),
+          quarterlies: z.string(),
+          partners: z.string(),
+          newsletter: z.string(),
+        }),
+        search: z.object({
+          label: z.string(),
+          empty: z.string(),
+        }),
+        newsletter: z.object({
+          label: z.string(),
+          submit: z.string(),
+          note: z.string(),
+        }),
+        partnersEmpty: z.string(),
         placeholder: z.boolean().default(true),
       }),
     }),
@@ -150,6 +197,40 @@ export default defineContentConfig({
       type: "data",
       source: "word-choosing.json",
       schema: archiveFile,
+    }),
+    archivePages: defineCollection({
+      type: "data",
+      source: "pages.json",
+      schema: archiveFile,
+    }),
+    guides: defineCollection({
+      type: "data",
+      source: "guides/*.yml",
+      schema: z.object({
+        key: z.string(),
+        title: z.string(),
+        description: z.string(),
+        kind: z.enum(["reading", "landing", "article", "page"]),
+        links: z.array(link).default([]),
+        sections: z
+          .array(
+            z.object({
+              title: z.string(),
+              body: z.string().optional(),
+              items: z
+                .array(
+                  z.object({
+                    title: z.string(),
+                    excerpt: z.string().optional(),
+                    category: z.string().optional(),
+                  }),
+                )
+                .default([]),
+            }),
+          )
+          .default([]),
+        placeholder: z.boolean().default(true),
+      }),
     }),
     pages: defineCollection({
       type: "page",

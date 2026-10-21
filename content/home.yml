@@ -11,4 +11,25 @@ spotlightTitle: پژوهش‌های برجسته
 projectsTitle: پروژه‌های ویژه
 projectsLinkLabel: همهٔ پروژه‌ها
 recentTitle: تازه‌ترین انتشارات
-recentLinkLabel: همهٔ پژوهش‌ها
+recentLinkLabel: همهٔ انتشارات
+publicationsLink: همهٔ انتشارات
+strip:
+  event: رویداد بعدی
+  conference: کنفرانس
+  membership: عضویت
+sections:
+  publications: تازه‌ترین انتشارات
+  workgroups: کارگروه‌ها
+  events: رویدادها
+  terms: جستجوی واژه
+  quarterlies: فصلنامه‌ها
+  partners: همراهان
+  newsletter: خبرنامه
+search:
+  label: عنوان واژه
+  empty: واژه‌ای با این عنوان در آرشیو نیست.
+newsletter:
+  label: نشانی ایمیل
+  submit: ثبت
+  note: این فرم هنوز به سامانهٔ خبرنامه وصل نیست.
+partnersEmpty: فهرستی از همراهان در آرشیو نیست.
