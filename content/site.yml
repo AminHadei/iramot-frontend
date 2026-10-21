@@ -68,10 +68,40 @@ footerColumns:
         to: /opportunities
       - label: تماس
         to: /contact
+listings:
+  research:
+    title: انتشارات
+    description: مقالات و اخبار منتشرشدهٔ انجمن.
+  projects:
+    title: پروژه‌ها
+    description: برنامه‌های پیوستهٔ انجمن برای پیگیری یک موضوع در طول زمان. معرفی‌ها موقتی‌اند.
+  events:
+    title: رویدادها
+    description: جلسه‌ها و برنامه‌های انجمن.
+  quarterlies:
+    title: فصلنامه‌ها
+    description: نشریه‌های همکار انجمن.
+  terminology:
+    title: واژه‌گزینی
+    description: واژه‌های ثبت‌شده در آرشیو کارگروه.
+    label: عنوان واژه
+    empty: واژه‌ای با این عنوان در آرشیو نیست.
+  statute:
+    title: اساسنامه
+    description: متن اساسنامه در فایل آرشیو است.
+    file: /media/2019/08/unnamed-file.pdf
+    label: دریافت اساسنامه
 pages:
   about: 2885
   privacy: 1538
   opportunities: 7343
+  workgroups: 3023
+  conference: 7220
+  award: 10220
+  partners: 38
+  membership: 7022
+  contact: 2856
+  terminology: 10488
 sets:
   publications:
     slugs:
@@ -95,14 +125,45 @@ sets:
     slugs:
       - quarterly-magazine
       - فصلنامه-سیاست-علم-و-فناوری
+  award:
+    slugs:
+      - جایزه-ملی-مدیریت-نوآوری
   boardTag: هیئت-مدیره
-listings:
-  research:
-    title: انتشارات
-    description: مقالات و اخبار منتشرشدهٔ انجمن.
-  projects:
-    title: پروژه‌ها
-    description: برنامه‌های پیوستهٔ انجمن برای پیگیری یک موضوع در طول زمان. معرفی‌ها موقتی‌اند.
+eventFilters:
+  - label: کارگاه
+    to: /events/workshops
+    posts: کارگاه
+    eventIds: []
+  - label: کتاب‌خوانی
+    to: /events/reading
+    posts: رویداد-3
+    eventIds:
+      - 8349
+      - 8340
+      - 8309
+      - 8301
+  - label: سفر رساله
+    to: /events/thesis
+    posts: رویداد-2
+    eventIds:
+      - 8345
+      - 8339
+  - label: نقد فیلم
+    to: /events/film
+    posts: رویداد
+    eventIds:
+      - 8327
+      - 8304
+terminology:
+  sources:
+    - id: 115
+      label: "115"
+    - id: 116
+      label: "116"
+    - id: 128
+      label: "128"
+    - id: 181
+      label: "181"
 ui:
   menu: منو
   close: بستن
@@ -119,6 +180,7 @@ ui:
   emptyBody: متن این صفحه در آرشیو خالی است.
   team: هیئت‌مدیره
   emptyPeople: فهرستی از افراد در آرشیو نیست.
+  emptyPartners: فهرستی از همراهان در آرشیو نیست.
 styleguide:
   title: راهنمای اجزا
   description: اجزای چیدمان با دادهٔ آرشیو انجمن. این صفحه موقتی است.

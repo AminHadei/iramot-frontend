@@ -25,6 +25,12 @@ sections:
   quarterlies: فصلنامه‌ها
   partners: همراهان
   newsletter: خبرنامه
+sectionLinks:
+  workgroups: همهٔ کارگروه‌ها
+  events: همهٔ رویدادها
+  terms: همهٔ واژه‌ها
+  quarterlies: همهٔ فصلنامه‌ها
+  partners: همراهان
 search:
   label: عنوان واژه
   empty: واژه‌ای با این عنوان در آرشیو نیست.

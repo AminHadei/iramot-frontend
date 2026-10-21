@@ -10,6 +10,11 @@ const categorySet = z.object({
   prefixes: z.array(z.string()).optional(),
 });
 
+const listingText = z.object({
+  title: z.string(),
+  description: z.string(),
+});
+
 const archiveItem = z
   .object({
     id: z.number(),
@@ -33,6 +38,12 @@ const archiveItem = z
       })
       .passthrough()
       .nullable()
+      .optional(),
+    fields: z
+      .object({
+        "word-category": z.array(z.number()).optional(),
+      })
+      .passthrough()
       .optional(),
   })
   .passthrough();
@@ -62,13 +73,30 @@ export default defineContentConfig({
           }),
         ),
         listings: z.object({
-          research: z.object({ title: z.string(), description: z.string() }),
-          projects: z.object({ title: z.string(), description: z.string() }),
+          research: listingText,
+          projects: listingText,
+          events: listingText,
+          quarterlies: listingText,
+          terminology: listingText.extend({
+            label: z.string(),
+            empty: z.string(),
+          }),
+          statute: listingText.extend({
+            file: z.string(),
+            label: z.string(),
+          }),
         }),
         pages: z.object({
           about: z.number(),
           privacy: z.number(),
           opportunities: z.number(),
+          workgroups: z.number(),
+          conference: z.number(),
+          award: z.number(),
+          partners: z.number(),
+          membership: z.number(),
+          contact: z.number(),
+          terminology: z.number(),
         }),
         sets: z.object({
           publications: categorySet,
@@ -76,7 +104,24 @@ export default defineContentConfig({
           conference: categorySet,
           workgroups: categorySet,
           quarterlies: categorySet,
+          award: categorySet,
           boardTag: z.string(),
+        }),
+        eventFilters: z.array(
+          z.object({
+            label: z.string(),
+            to: z.string(),
+            posts: z.string(),
+            eventIds: z.array(z.number()),
+          }),
+        ),
+        terminology: z.object({
+          sources: z.array(
+            z.object({
+              id: z.number(),
+              label: z.string(),
+            }),
+          ),
         }),
         ui: z.object({
           menu: z.string(),
@@ -94,6 +139,7 @@ export default defineContentConfig({
           emptyBody: z.string(),
           team: z.string(),
           emptyPeople: z.string(),
+          emptyPartners: z.string(),
         }),
         styleguide: z.object({
           title: z.string(),
@@ -137,6 +183,13 @@ export default defineContentConfig({
           quarterlies: z.string(),
           partners: z.string(),
           newsletter: z.string(),
+        }),
+        sectionLinks: z.object({
+          workgroups: z.string(),
+          events: z.string(),
+          terms: z.string(),
+          quarterlies: z.string(),
+          partners: z.string(),
         }),
         search: z.object({
           label: z.string(),

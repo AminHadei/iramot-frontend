@@ -22,11 +22,27 @@ export interface SiteContent {
   listings: {
     research: { title: string; description: string };
     projects: { title: string; description: string };
+    events: { title: string; description: string };
+    quarterlies: { title: string; description: string };
+    terminology: {
+      title: string;
+      description: string;
+      label: string;
+      empty: string;
+    };
+    statute: { title: string; description: string; file: string; label: string };
   };
   pages: {
     about: number;
     privacy: number;
     opportunities: number;
+    workgroups: number;
+    conference: number;
+    award: number;
+    partners: number;
+    membership: number;
+    contact: number;
+    terminology: number;
   };
   sets: {
     publications: CategorySet;
@@ -34,7 +50,17 @@ export interface SiteContent {
     conference: CategorySet;
     workgroups: CategorySet;
     quarterlies: CategorySet;
+    award: CategorySet;
     boardTag: string;
+  };
+  eventFilters: Array<{
+    label: string;
+    to: string;
+    posts: string;
+    eventIds: number[];
+  }>;
+  terminology: {
+    sources: Array<{ id: number; label: string }>;
   };
   ui: {
     menu: string;
@@ -52,6 +78,7 @@ export interface SiteContent {
     emptyBody: string;
     team: string;
     emptyPeople: string;
+    emptyPartners: string;
   };
   styleguide: {
     title: string;
@@ -84,6 +111,9 @@ export interface ArchiveItem {
   categories?: ArchiveTerm[];
   tags?: ArchiveTerm[];
   featuredImage?: { localPath?: string | null } | null;
+  fields?: {
+    "word-category"?: number[];
+  };
 }
 
 export interface ArchiveFile {
@@ -114,6 +144,13 @@ export interface HomeContent {
     quarterlies: string;
     partners: string;
     newsletter: string;
+  };
+  sectionLinks: {
+    workgroups: string;
+    events: string;
+    terms: string;
+    quarterlies: string;
+    partners: string;
   };
   search: {
     label: string;
