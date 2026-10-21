@@ -1,6 +1,6 @@
 # AGENTS.md — irmot
 
-Orientation for AI agents on the static site of **انجمن مدیریت فناوری و نوآوری ایران**.
+Orientation for AI agents on the static site of the **Iran Technology and Innovation Management Association**.
 
 Claude Code: `CLAUDE.md` → `@AGENTS.md`. Cursor / Codex / others: read this file directly.
 

@@ -1,6 +1,6 @@
 # irmot
 
-Static site for انجمن مدیریت فناوری و نوآوری ایران. Nuxt 4, Persian, RTL.
+Static site for the Iran Technology and Innovation Management Association. Nuxt 4, Persian, RTL.
 
 ```bash
 pnpm install
