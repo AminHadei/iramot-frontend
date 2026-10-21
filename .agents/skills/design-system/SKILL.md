@@ -9,7 +9,7 @@ The always-on rule is [`.cursor/rules/project.mdc`](../../../.cursor/rules/proje
 
 ## Reference
 
-Take structure, spacing, grid, and component patterns from [ifp.org](https://ifp.org/) and mirror them for RTL. Do not copy IFP fonts (Tiempos, Söhne) or the IFP mark.
+Take structure, spacing, grid, and component patterns from [ifp.org](https://ifp.org/) and mirror them for RTL. Measured values live in [`docs/design-system.md`](../../../docs/design-system.md). Do not copy IFP fonts (Tiempos, Söhne) or the IFP mark.
 
 ## Tokens
 
