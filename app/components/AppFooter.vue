@@ -7,22 +7,42 @@ defineProps<{
 </script>
 
 <template>
-  <footer class="border-t border-line">
-    <div class="page-wrap grid gap-10 py-14 md:grid-cols-4">
-      <div class="md:col-span-1">
-        <p class="font-heading text-2xl leading-snug text-primary">{{ site.name }}</p>
-        <p class="mt-4 text-sm leading-relaxed">{{ site.description }}</p>
+  <footer class="full-band full-band-line relative mt-[30px] text-paper">
+    <div
+      class="page-inset grid gap-y-2 py-8 frame:grid-cols-[auto_1fr] frame:gap-x-10 frame:py-10"
+    >
+      <div class="frame:row-span-2">
+        <SiteMark tone="paper" />
       </div>
-      <div v-for="column in site.footerColumns" :key="column.title">
-        <h2 class="text-sm text-secondary">{{ column.title }}</h2>
-        <ul class="mt-4 space-y-2">
-          <li v-for="link in column.links" :key="link.to">
-            <NuxtLink :to="link.to" class="text-sm hover:text-primary">
-              {{ link.label }}
-            </NuxtLink>
+      <nav class="frame:row-span-3" :aria-label="site.ui.siteMap">
+        <ul class="grid gap-8 pt-6 frame:grid-cols-4 frame:pt-0">
+          <li v-for="column in site.footerColumns" :key="column.title">
+            <p
+              class="text-[0.6875rem] font-bold tracking-[0.44px] wide:text-[0.8125rem]"
+            >
+              {{ column.title }}
+            </p>
+            <ul class="mt-3 space-y-2">
+              <li v-for="link in column.links" :key="link.to">
+                <NuxtLink
+                  :to="link.to"
+                  class="text-[0.6875rem] font-light hover:text-secondary-soft wide:text-[0.8125rem]"
+                >
+                  {{ link.label }}
+                </NuxtLink>
+              </li>
+            </ul>
           </li>
         </ul>
-      </div>
+      </nav>
+      <address
+        class="pt-4 text-[0.6875rem] font-light not-italic wide:text-[0.8125rem] frame:pt-0"
+      >
+        <p v-for="line in site.address" :key="line">{{ line }}</p>
+      </address>
+      <p class="text-[0.6875rem] font-light wide:text-[0.8125rem]">
+        {{ site.name }}
+      </p>
     </div>
   </footer>
 </template>
