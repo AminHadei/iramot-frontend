@@ -11,3 +11,11 @@ package-lock.json
 CHANGELOG.md
 app/assets/fonts
 ref
+content/posts.json
+content/pages.json
+content/categories.json
+content/tags.json
+content/events.json
+content/word-choosing.json
+content/media.json
+public/media
