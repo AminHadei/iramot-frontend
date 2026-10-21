@@ -25,14 +25,14 @@ watch(
 </script>
 
 <template>
-  <header class="border-b border-line">
+  <header class="border-b border-line bg-paper">
     <a
       href="#content"
       class="sr-only focus:not-sr-only focus:absolute focus:start-4 focus:top-4 focus:z-50 focus:bg-paper focus:px-3 focus:py-2 focus:text-primary"
     >
       {{ site.ui.skip }}
     </a>
-    <div class="page-wrap flex items-center justify-between gap-6 py-4">
+    <div class="page-inset flex items-center justify-between gap-4 py-4">
       <NuxtLink
         :to="'/'"
         class="inline-flex items-center gap-3"
@@ -42,24 +42,32 @@ watch(
         <span class="font-heading text-2xl text-primary">{{ site.shortName }}</span>
       </NuxtLink>
 
-      <nav class="hidden md:block" aria-label="ناوبری اصلی">
-        <ul class="flex items-center gap-8">
-          <li v-for="item in site.nav" :key="item.to">
-            <NuxtLink
-              :to="item.to"
-              class="text-sm"
-              :class="isCurrent(item.to) ? 'text-primary' : 'text-ink'"
-              :aria-current="isCurrent(item.to) ? 'page' : undefined"
-            >
-              {{ item.label }}
-            </NuxtLink>
-          </li>
-        </ul>
-      </nav>
+      <div class="hidden items-center gap-6 frame:flex">
+        <nav :aria-label="site.ui.navigation">
+          <ul class="flex items-center gap-5">
+            <li v-for="item in site.nav" :key="item.to">
+              <NuxtLink
+                :to="item.to"
+                class="text-sm"
+                :class="isCurrent(item.to) ? 'text-primary' : 'text-ink'"
+                :aria-current="isCurrent(item.to) ? 'page' : undefined"
+              >
+                {{ item.label }}
+              </NuxtLink>
+            </li>
+          </ul>
+        </nav>
+        <NuxtLink
+          :to="site.membership.to"
+          class="border border-accent px-4 py-2 text-sm text-accent"
+        >
+          {{ site.membership.label }}
+        </NuxtLink>
+      </div>
 
       <button
         type="button"
-        class="inline-flex size-11 items-center justify-center md:hidden"
+        class="inline-flex size-11 items-center justify-center frame:hidden"
         :aria-expanded="menuOpen"
         aria-controls="mobile-nav"
         @click="menuOpen = !menuOpen"
@@ -84,21 +92,26 @@ watch(
     <nav
       v-if="menuOpen"
       id="mobile-nav"
-      class="border-t border-line md:hidden"
-      aria-label="ناوبری اصلی"
+      class="border-t border-line frame:hidden"
+      :aria-label="site.ui.navigation"
     >
-      <ul class="page-wrap py-2">
-        <li
-          v-for="item in site.nav"
-          :key="item.to"
-          class="border-b border-line last:border-b-0"
-        >
+      <ul class="page-inset py-2">
+        <li v-for="item in site.nav" :key="item.to" class="border-b border-line">
           <NuxtLink
             :to="item.to"
             class="flex items-center justify-between py-4 font-heading text-2xl"
             :aria-current="isCurrent(item.to) ? 'page' : undefined"
           >
             {{ item.label }}
+            <DirectionalIcon name="chevron" />
+          </NuxtLink>
+        </li>
+        <li>
+          <NuxtLink
+            :to="site.membership.to"
+            class="flex items-center justify-between py-4 font-heading text-2xl text-accent"
+          >
+            {{ site.membership.label }}
             <DirectionalIcon name="chevron" />
           </NuxtLink>
         </li>
