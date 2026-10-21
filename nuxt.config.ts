@@ -34,13 +34,6 @@ export default defineNuxtConfig({
         "/independent-filmmaker-project",
       ],
     },
-    publicAssets: [
-      {
-        baseURL: "/fonts/iranyekan",
-        dir: "app/assets/fonts/iranyekan",
-        maxAge: 60 * 60 * 24 * 365,
-      },
-    ],
   },
   tailwindcss: {
     cssPath: "~/assets/css/tailwind.css",

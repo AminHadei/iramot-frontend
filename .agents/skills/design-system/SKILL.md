@@ -24,8 +24,8 @@ Take structure, spacing, grid, and component patterns from [ifp.org](https://ifp
 | `line`           | `#373737` | Rules            |
 
 - Headings: `font-heading` (Noto Naskh Arabic).
-- Body and labels: `font-sans` (IRANYekan FaNum, Tahoma fallback).
-- Licensed woff2 files belong in `app/assets/fonts/iranyekan/`. Do not download or commit unlicensed font files.
+- Body and labels: `font-sans` (Vazirmatn, Tahoma fallback). Self-host the woff2 files with `@fontsource/vazirmatn`.
+- Do not commit unlicensed IRANYekan files. When the licensed FaNum woff2 files are available, they replace Vazirmatn.
 
 ## RTL
 

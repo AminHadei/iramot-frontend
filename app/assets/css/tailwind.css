@@ -2,38 +2,14 @@
 @import "@fontsource/noto-naskh-arabic/arabic-500.css";
 @import "@fontsource/noto-naskh-arabic/arabic-600.css";
 @import "@fontsource/noto-naskh-arabic/arabic-700.css";
-
-/*
-  IRANYekan is licensed. Drop FaNum woff2 files into app/assets/fonts/iranyekan/
-  (served at /fonts/iranyekan/). Until then, Tahoma is the fallback.
-  Expected files:
-  - IRANYekanFaNum-Regular.woff2 (400)
-  - IRANYekanFaNum-Medium.woff2 (500)
-  - IRANYekanFaNum-Bold.woff2 (700)
-*/
-@font-face {
-  font-family: IRANYekan;
-  src: url("/fonts/iranyekan/IRANYekanFaNum-Regular.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: IRANYekan;
-  src: url("/fonts/iranyekan/IRANYekanFaNum-Medium.woff2") format("woff2");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: IRANYekan;
-  src: url("/fonts/iranyekan/IRANYekanFaNum-Bold.woff2") format("woff2");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
+@import "@fontsource/vazirmatn/arabic-300.css";
+@import "@fontsource/vazirmatn/arabic-400.css";
+@import "@fontsource/vazirmatn/arabic-500.css";
+@import "@fontsource/vazirmatn/arabic-700.css";
+@import "@fontsource/vazirmatn/latin-300.css";
+@import "@fontsource/vazirmatn/latin-400.css";
+@import "@fontsource/vazirmatn/latin-500.css";
+@import "@fontsource/vazirmatn/latin-700.css";
 
 @tailwind base;
 @tailwind components;
