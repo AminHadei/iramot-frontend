@@ -63,6 +63,47 @@
     @apply mx-auto w-full max-w-page px-5 md:px-10;
   }
 
+  .page-inset {
+    padding-inline: 24px;
+  }
+
+  .full-band {
+    position: relative;
+  }
+
+  .full-band::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset-block: 0;
+    width: 100vw;
+    margin-inline-start: calc(50% - 50vw);
+  }
+
+  .full-band-primary::before {
+    background-color: #2d317a;
+  }
+
+  .full-band-accent::before {
+    background-color: #cf4382;
+  }
+
+  .full-band-line::before {
+    background-color: #373737;
+  }
+
+  @media (min-width: 61.25em) {
+    .page-inset {
+      padding-inline: 36px;
+    }
+  }
+
+  @media (min-width: 64em) {
+    .page-inset {
+      padding-inline: 60px;
+    }
+  }
+
   .rich-text :where(p, ul, ol, blockquote) {
     margin-block: 1rem;
   }
