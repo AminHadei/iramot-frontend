@@ -1,3 +1,14 @@
 #!/bin/sh
 set -e
+tmp=$(mktemp)
+awk '
+  $0 == "Co-authored-by: Cursor <cursoragent@cursor.com>" { next }
+  { lines[++n] = $0 }
+  END {
+    while (n > 0 && lines[n] == "") n--
+    for (i = 1; i <= n; i++) print lines[i]
+  }
+' "$1" > "$tmp"
+cat "$tmp" > "$1"
+rm "$tmp"
 pnpm exec commitlint --edit "$1"

@@ -13,7 +13,7 @@ description: Use when creating branches, writing commit messages, or splitting w
 
 - Subject: imperative, lowercase, no period, ≤72 characters, English.
 - No body unless the user asks.
-- No trailers: no `Co-Authored-By`, no `Generated with …`.
+- No trailers: no `Co-authored-by`, including `Co-authored-by: Cursor <cursoragent@cursor.com>`, and no `Generated with …`. Strip that Cursor line if it is already in the message.
 
 ## Types
 
