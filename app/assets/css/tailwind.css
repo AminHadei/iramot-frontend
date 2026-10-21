@@ -1,0 +1,83 @@
+@import "@fontsource/noto-naskh-arabic/arabic-400.css";
+@import "@fontsource/noto-naskh-arabic/arabic-500.css";
+@import "@fontsource/noto-naskh-arabic/arabic-600.css";
+@import "@fontsource/noto-naskh-arabic/arabic-700.css";
+
+/*
+  IRANYekan is licensed. Drop FaNum woff2 files into app/assets/fonts/iranyekan/
+  (served at /fonts/iranyekan/). Until then, Tahoma is the fallback.
+  Expected files:
+  - IRANYekanFaNum-Regular.woff2 (400)
+  - IRANYekanFaNum-Medium.woff2 (500)
+  - IRANYekanFaNum-Bold.woff2 (700)
+*/
+@font-face {
+  font-family: IRANYekan;
+  src: url("/fonts/iranyekan/IRANYekanFaNum-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: IRANYekan;
+  src: url("/fonts/iranyekan/IRANYekanFaNum-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: IRANYekan;
+  src: url("/fonts/iranyekan/IRANYekanFaNum-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    background-color: #fffdf5;
+  }
+
+  body {
+    text-align: start;
+    line-height: 1.8;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: "Noto Naskh Arabic", serif;
+    line-height: 1.35;
+  }
+}
+
+@layer components {
+  .page-wrap {
+    @apply mx-auto w-full max-w-page px-5 md:px-10;
+  }
+
+  .rich-text :where(p, ul, ol, blockquote) {
+    margin-block: 1rem;
+  }
+
+  .rich-text :where(ul, ol) {
+    padding-inline-start: 1.25rem;
+  }
+
+  .rich-text :where(h2, h3) {
+    margin-block: 1.75rem 0.75rem;
+  }
+
+  .rich-text :where(a) {
+    color: #2d317a;
+    text-decoration: underline;
+    text-underline-offset: 0.18em;
+  }
+}
