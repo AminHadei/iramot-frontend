@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.0
+
+### Minor Changes
+
+- 7f1205d: Publish the terminology, events, conference, award, quarterly, partner, membership, statute, and contact pages from the archive.
+
 ## 0.2.0
 
 ### Minor Changes
