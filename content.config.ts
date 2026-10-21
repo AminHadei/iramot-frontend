@@ -5,6 +5,39 @@ const link = z.object({
   to: z.string(),
 });
 
+const archiveItem = z
+  .object({
+    id: z.number(),
+    slug: z.string(),
+    title: z.string(),
+    excerpt: z.string().optional().default(""),
+    date: z.string(),
+    categories: z
+      .array(
+        z.object({
+          id: z.number(),
+          slug: z.string(),
+          name: z.string(),
+        }),
+      )
+      .optional()
+      .default([]),
+    featuredImage: z
+      .object({
+        localPath: z.string().nullable().optional(),
+      })
+      .passthrough()
+      .nullable()
+      .optional(),
+  })
+  .passthrough();
+
+const archiveFile = z
+  .object({
+    body: z.array(archiveItem),
+  })
+  .passthrough();
+
 export default defineContentConfig({
   collections: {
     site: defineCollection({
@@ -102,6 +135,21 @@ export default defineContentConfig({
         featured: z.boolean().default(false),
         placeholder: z.boolean().default(true),
       }),
+    }),
+    archivePosts: defineCollection({
+      type: "data",
+      source: "posts.json",
+      schema: archiveFile,
+    }),
+    archiveEvents: defineCollection({
+      type: "data",
+      source: "events.json",
+      schema: archiveFile,
+    }),
+    archiveTerms: defineCollection({
+      type: "data",
+      source: "word-choosing.json",
+      schema: archiveFile,
     }),
     pages: defineCollection({
       type: "page",

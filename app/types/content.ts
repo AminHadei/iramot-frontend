@@ -46,6 +46,16 @@ export interface SiteContent {
   placeholder?: boolean;
 }
 
+export interface ArchiveItem {
+  id: number;
+  slug: string;
+  title: string;
+  excerpt: string;
+  date: string;
+  categories: Array<{ id: number; slug: string; name: string }>;
+  featuredImage?: { localPath?: string | null } | null;
+}
+
 export interface HomeContent {
   eyebrow: string;
   title: string;
