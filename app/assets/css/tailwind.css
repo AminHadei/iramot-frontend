@@ -114,6 +114,13 @@
 
   .rich-text :where(h2, h3) {
     margin-block: 1.75rem 0.75rem;
+    font-weight: 500;
+    color: #2d317a;
+  }
+
+  .rich-text :where(img) {
+    max-width: 100%;
+    height: auto;
   }
 
   .rich-text :where(a) {
