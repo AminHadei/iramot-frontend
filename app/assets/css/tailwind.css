@@ -69,6 +69,7 @@
 
   .full-band {
     position: relative;
+    isolation: isolate;
   }
 
   .full-band::before {
