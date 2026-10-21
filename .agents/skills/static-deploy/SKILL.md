@@ -26,7 +26,7 @@ Install in CI sets `HUSKY=0`.
 
 ## baseURL
 
-The site is currently served at `/`. A GitHub project site needs `app.baseURL` and `NUXT_APP_BASE_URL` changed together. Head links are not auto-prefixed.
+GitHub Pages serves this project site at `/irmot/`. CI and deploy set `NUXT_APP_BASE_URL=/irmot/` for `pnpm generate`, and `app.baseURL` reads that variable. Local dev stays at `/`. Change the two together. A stylesheet or font URL written as a root path (`/fonts/...`) is not prefixed.
 
 ## Don't
 
