@@ -1,0 +1,35 @@
+{
+  "version": "0.2",
+  "language": "en",
+  "ignorePaths": [
+    "node_modules/**",
+    ".nuxt/**",
+    ".output/**",
+    ".data/**",
+    ".nitro/**",
+    ".cache/**",
+    ".preview/**",
+    "dist/**",
+    "coverage/**",
+    "pnpm-lock.yaml",
+    "package-lock.json",
+    "*.min.*",
+    ".agents/**",
+    ".claude/**",
+    ".cursor/**",
+    "cspell.json",
+    "CHANGELOG.md"
+  ],
+  "ignoreRegExpList": [
+    "[\\u0600-\\u06FF\\u0750-\\u077F\\u08A0-\\u08FF\\uFB50-\\uFDFF\\uFE70-\\uFEFF]+"
+  ],
+  "dictionaryDefinitions": [
+    {
+      "name": "project-words",
+      "path": "./.cspell/project-words.txt",
+      "addWords": true
+    }
+  ],
+  "dictionaries": ["project-words"],
+  "useGitignore": true
+}
