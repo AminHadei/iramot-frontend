@@ -3,25 +3,71 @@ shortName: انجمن
 description: پژوهش، آموزش و گفت‌وگوی سیاستی دربارهٔ مدیریت فناوری و نوآوری. متن این نسخه موقتی است.
 placeholder: true
 nav:
-  - label: پژوهش
+  - label: انتشارات
     to: /research
-  - label: پروژه‌ها
-    to: /projects
-  - label: درباره
+  - label: رویدادها
+    to: /events
+  - label: کارگروه‌ها
+    to: /workgroups
+  - label: کنفرانس
+    to: /conference
+  - label: واژه‌گزینی
+    to: /terminology
+  - label: درباره‌ما
     to: /about
+membership:
+  label: عضویت
+  to: /membership
+address:
+  - پژوهشکده مطالعات سیاست علم
+  - تهران، خیابان ملاصدرا، خیابان شیراز جنوبی، خیابان سهیل، پلاک ۹
 footerColumns:
-  - title: پژوهش
+  - title: انتشارات
     links:
-      - label: همهٔ پژوهش‌ها
+      - label: انتشارات
         to: /research
-  - title: پروژه‌ها
+  - title: رویدادها
     links:
-      - label: همهٔ پروژه‌ها
-        to: /projects
+      - label: رویدادها
+        to: /events
+      - label: کارگاه
+        to: /events/workshops
+      - label: کتاب‌خوانی
+        to: /events/reading
+      - label: سفر رساله
+        to: /events/thesis
+      - label: نقد فیلم
+        to: /events/film
   - title: انجمن
     links:
-      - label: درباره
+      - label: کارگروه‌ها
+        to: /workgroups
+      - label: کنفرانس
+        to: /conference
+      - label: واژه‌گزینی
+        to: /terminology
+      - label: جایزه ملی
+        to: /award
+      - label: فصلنامه‌ها
+        to: /quarterlies
+      - label: همراهان
+        to: /partners
+      - label: درباره‌ما
         to: /about
+      - label: هیئت‌مدیره
+        to: /about#team
+  - title: عضویت
+    links:
+      - label: عضویت
+        to: /membership
+      - label: اساسنامه
+        to: /statute
+      - label: حریم خصوصی
+        to: /privacy
+      - label: فرصت‌های همکاری
+        to: /opportunities
+      - label: تماس
+        to: /contact
 listings:
   research:
     title: پژوهش‌ها
@@ -37,3 +83,18 @@ ui:
   home: بازگشت به خانه
   notFound: صفحه پیدا نشد
   notFoundBody: این نشانی در سایت انجمن وجود ندارد.
+  previous: قبلی
+  next: بعدی
+  navigation: ناوبری اصلی
+  siteMap: نقشهٔ سایت
+styleguide:
+  title: راهنمای اجزا
+  description: اجزای چیدمان با دادهٔ آرشیو انجمن. این صفحه موقتی است.
+  splash: سرصفحه
+  intro: معرفی
+  spotlight: موضوع‌ها
+  listing: فهرست
+  projects: پروژه‌ها
+  article: نوشته
+  people: افراد
+  emptyPerson: فهرستی از افراد در آرشیو نیست.

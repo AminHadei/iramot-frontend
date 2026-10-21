@@ -8,6 +8,8 @@ export interface SiteContent {
   shortName: string;
   description: string;
   nav: ContentLink[];
+  membership: ContentLink;
+  address: string[];
   footerColumns: Array<{
     title: string;
     links: ContentLink[];
@@ -24,6 +26,22 @@ export interface SiteContent {
     home: string;
     notFound: string;
     notFoundBody: string;
+    previous: string;
+    next: string;
+    navigation: string;
+    siteMap: string;
+  };
+  styleguide: {
+    title: string;
+    description: string;
+    splash: string;
+    intro: string;
+    spotlight: string;
+    listing: string;
+    projects: string;
+    article: string;
+    people: string;
+    emptyPerson: string;
   };
   placeholder?: boolean;
 }
