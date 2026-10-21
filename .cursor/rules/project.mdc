@@ -28,10 +28,9 @@ The site is fully right-to-left (`lang=fa` and `dir=rtl` on `html`). Logical pro
 
 ## Design
 
-Take structure, spacing, grid, and components from https://ifp.org/ and mirror them for RTL. Do not copy the IFP type or mark.
+هدف، کپی ۱:۱ مارکاپ و CSS سایت ifp.org است، آینه‌شده برای RTL. فقط متن، تصاویر، لوگو و فونت عوض می‌شوند. هیچ کامپوننتی از روی توضیح متنی بازسازی نمی‌شود؛ منبع حقیقت فایل‌های ref/ifp/ است. کلاس‌های اصلی IFP (site-header، home-splash، home-spotlight-intro، post-listing__*، project-list--layout-3-col، newsletter-pre-footer، site-footer و...) دقیقاً حفظ شوند.
 
 - Headings use `font-heading` (Noto Naskh Arabic). Text and labels use `font-sans` (IRANYekan with Persian digits, Tahoma fallback). Licensed FaNum woff2 files live in `app/assets/fonts/iranyekan/`.
-- Colours: `paper` `#FFFDF5`, `ink` `#2B2B33`, `primary` `#2D317A`, `secondary` `#6967AC`, `secondary-soft` `#9A96CA`, `accent` `#CF4382`, `line` `#373737`.
 - Display dates are Jalali with Persian digits (`formatPersianDate`). Keep dates as ISO in content.
 
 ## Content and SEO

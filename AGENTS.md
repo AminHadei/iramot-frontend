@@ -22,7 +22,9 @@ Claude Code: `CLAUDE.md` → `@AGENTS.md`. Cursor / Codex / others: read this fi
 
 ## Design
 
-Structure, spacing, and components follow [ifp.org](https://ifp.org/), mirrored for RTL. Measured IFP values are in [`docs/design-system.md`](docs/design-system.md). The page inventory is [`docs/ifp-sitemap.md`](docs/ifp-sitemap.md). Which IRAMOT archive feeds which template is [`docs/mapping.md`](docs/mapping.md). Colours, type, and the mark are this association's, not IFP's. Normative rules: `.cursor/rules/project.mdc` and the `design-system` skill.
+هدف، کپی ۱:۱ مارکاپ و CSS سایت ifp.org است، آینه‌شده برای RTL. فقط متن، تصاویر، لوگو و فونت عوض می‌شوند. هیچ کامپوننتی از روی توضیح متنی بازسازی نمی‌شود؛ منبع حقیقت فایل‌های ref/ifp/ است. کلاس‌های اصلی IFP (site-header، home-splash، home-spotlight-intro، post-listing__*، project-list--layout-3-col، newsletter-pre-footer، site-footer و...) دقیقاً حفظ شوند.
+
+Measured IFP values are in [`docs/design-system.md`](docs/design-system.md). The page inventory is [`docs/ifp-sitemap.md`](docs/ifp-sitemap.md). Which IRAMOT archive feeds which template is [`docs/mapping.md`](docs/mapping.md). Normative rules: `.cursor/rules/project.mdc` and the `design-system` skill.
 
 ## Skills (load on demand)
 
