@@ -13,7 +13,7 @@ This is a single private package (`irmot`). Changesets write `CHANGELOG.md` and 
 pnpm changeset
 ```
 
-Commit the generated `.changeset/*.md` with the change. Pick `patch`, `minor`, or `major` from what visitors notice. Write the summary in English.
+Commit the generated `.changeset/*.md` with the change. Pick `patch`, `minor`, or `major` from what visitors notice. Write the summary in English. The changelog line is that summary alone, with no commit hash.
 
 ## Version
 

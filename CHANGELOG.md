@@ -4,25 +4,25 @@
 
 ### Patch Changes
 
-- 3c138ba: Keep a guide page with only prose from failing while the site is generated.
+- Keep a guide page with only prose from failing while the site is generated.
 
 ## 0.3.0
 
 ### Minor Changes
 
-- 7f1205d: Publish the terminology, events, conference, award, quarterly, partner, membership, statute, and contact pages from the archive.
+- Publish the terminology, events, conference, award, quarterly, partner, membership, statute, and contact pages from the archive.
 
 ## 0.2.0
 
 ### Minor Changes
 
-- 3340aeb: Publish the archive on the home, research, about, privacy, and opportunities pages, and add placeholder reading lists and courses.
+- Publish the archive on the home, research, about, privacy, and opportunities pages, and add placeholder reading lists and courses.
 
 ## 0.1.0
 
 ### Minor Changes
 
-- 65e1c61: Show the association menu, footer map, and component styleguide.
+- Show the association menu, footer map, and component styleguide.
 
 ## 0.0.0
 
