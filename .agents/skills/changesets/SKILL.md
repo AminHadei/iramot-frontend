@@ -17,7 +17,11 @@ Commit the generated `.changeset/*.md` with the change. Pick `patch`, `minor`, o
 
 ## Version
 
-On main, the Release workflow runs `pnpm changeset:version`, commits `CHANGELOG.md`, `package.json`, and the consumed changeset files, and pushes. Do not run that by hand unless asked. Cursor `/release` is that ask: it versions locally, commits, and does not push.
+`/release` applies each pending changeset on its own, oldest first, and commits each bump. It does not push. Order is the commit date that added the file. A changeset that is not committed yet comes after those, oldest modification time first.
+
+Do not run `pnpm changeset:version` on every pending changeset at once. Do not edit `CHANGELOG.md` or the `version` field yourself.
+
+The Release workflow on main runs `pnpm changeset:version` for whatever changesets are still pending, commits, and pushes. Do not run that workflow unless asked.
 
 ## Don't
 

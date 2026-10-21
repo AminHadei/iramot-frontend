@@ -43,10 +43,10 @@ Canonical: [`.agents/skills/`](./.agents/skills/). Cursor: [`.cursor/rules/`](./
 
 ## Cursor commands
 
-| Command    | File                          | What it does                                      |
-| ---------- | ----------------------------- | ------------------------------------------------- |
-| `/commit`  | `.cursor/commands/commit.md`  | Split work into small conventional commits        |
-| `/release` | `.cursor/commands/release.md` | Commit, run `pnpm changeset:version`, commit bump |
+| Command    | File                          | What it does                                            |
+| ---------- | ----------------------------- | ------------------------------------------------------- |
+| `/commit`  | `.cursor/commands/commit.md`  | Split work into small conventional commits              |
+| `/release` | `.cursor/commands/release.md` | Commit, then apply each pending changeset in date order |
 
 ## Agent rules
 
