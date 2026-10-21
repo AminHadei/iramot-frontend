@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.1
+
+### Patch Changes
+
+- 3c138ba: Keep a guide page with only prose from failing while the site is generated.
+
 ## 0.3.0
 
 ### Minor Changes
