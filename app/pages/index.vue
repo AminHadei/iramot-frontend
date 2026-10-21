@@ -1,28 +1,94 @@
 <script setup lang="ts">
-import type { ArticleFields, FocusArea, HomeContent } from "~/types/content";
+import type { HomeContent, SiteContent } from "~/types/content";
+import type { ListingCard } from "~/utils/archive";
 
-const { data: site } = await useSite();
+const { data: siteData } = await useSite();
+if (!siteData.value) {
+  throw createError({ statusCode: 500, statusMessage: "محتوای خانه پیدا نشد" });
+}
+const site = siteData.value as SiteContent;
+
 const { data: home } = await useAsyncData("home-page", async () => {
-  const [page, areas, spotlight, recent, projects] = await Promise.all([
+  const [pageFile, postsFile, eventsFile, termsFile] = await Promise.all([
     queryCollection("home").first(),
-    queryCollection("areas").order("stem", "ASC").all(),
-    queryCollection("posts").where("spotlight", "=", true).order("date", "DESC").all(),
-    queryCollection("posts").where("spotlight", "=", false).order("date", "DESC").all(),
-    queryCollection("projects").where("featured", "=", true).order("stem", "ASC").all(),
+    queryCollection("archivePosts").first(),
+    queryCollection("archiveEvents").first(),
+    queryCollection("archiveTerms").first(),
   ]);
+  if (!pageFile) return null;
+  const page = pageFile as HomeContent;
+  const posts = archiveItems(postsFile);
+  const events = archiveItems(eventsFile);
+  const publications = byDateDesc(
+    posts.filter((item) => itemInSet(item, site.sets.publications)),
+  );
+  const event = nextOrLatest(events);
+  const conference = byDateDesc(
+    posts.filter((item) => itemInSet(item, site.sets.conference)),
+  )[0];
 
-  return { page, areas, spotlight, recent, projects };
+  const publicationCards = publications.slice(0, 6).map((item) =>
+    toCard(item, {
+      to: researchPath(item.slug),
+      category: categoryName(item, site.sets.publications),
+    }),
+  );
+  const workgroupCards = byDateDesc(
+    posts.filter((item) => itemInSet(item, site.sets.workgroups)),
+  ).map((item) =>
+    toCard(item, {
+      to: itemInSet(item, site.sets.publications) ? researchPath(item.slug) : undefined,
+      category: categoryName(item, site.sets.workgroups),
+    }),
+  );
+  const eventCards = byDateDesc(events)
+    .slice(0, 4)
+    .map((item) => toCard(item));
+  const quarterlyCards = byDateDesc(
+    posts.filter((item) => itemInSet(item, site.sets.quarterlies)),
+  ).map((item) => {
+    const external = externalHref(item.content ?? "");
+    const linked = itemInSet(item, site.sets.publications);
+    return toCard(item, {
+      external,
+      to: external || !linked ? undefined : researchPath(item.slug),
+      category: categoryName(item, site.sets.quarterlies),
+    });
+  });
+
+  const cells: Array<{ label: string; title: string; date?: string }> = [];
+  if (event) {
+    cells.push({ label: page.strip.event, title: event.title, date: event.date });
+  }
+  if (conference) {
+    cells.push({
+      label: page.strip.conference,
+      title: conference.title,
+      date: conference.date,
+    });
+  }
+  cells.push({ label: page.strip.membership, title: site.membership.label });
+
+  return {
+    page,
+    cells,
+    publications: publicationCards satisfies ListingCard[],
+    workgroups: workgroupCards,
+    events: eventCards,
+    terms: archiveItems(termsFile)
+      .map((item) => item.title)
+      .filter((title) => title.length > 0)
+      .sort((left, right) => left.localeCompare(right, "fa")),
+    quarterlies: quarterlyCards,
+  };
 });
 
-if (!home.value?.page || !site.value) {
+if (!home.value?.page) {
   throw createError({ statusCode: 500, statusMessage: "محتوای خانه پیدا نشد" });
 }
 
-const page = home.value.page as HomeContent;
-const areas = home.value.areas as FocusArea[];
-const spotlight = home.value.spotlight as ArticleFields[];
-const recent = home.value.recent as ArticleFields[];
-const siteContent = site.value;
+const view = home.value;
+const page = view.page;
 
 usePageSeo({
   title: page.title,
@@ -32,61 +98,105 @@ usePageSeo({
 
 <template>
   <div>
-    <HeroBlock
-      :eyebrow="page.eyebrow"
-      :title="page.title"
-      :dek="page.dek"
-      :links="page.links"
-    />
-    <FocusList :areas="areas" />
-    <section class="page-wrap py-16 md:py-20">
-      <SectionHeading :title="page.spotlightTitle" />
-      <div class="mt-4">
-        <ArticleRow
-          v-for="(post, index) in spotlight"
-          :key="post.path"
-          :article="post"
-          :by-label="siteContent.ui.by"
-          :large="index === 0"
-        />
-      </div>
-    </section>
+    <HomeSplash :title="page.title" :links="page.links" />
+    <HomeStrip :cells="view.cells" />
     <section class="border-t border-line">
-      <div class="page-wrap py-16 md:py-20">
+      <div class="page-inset py-16">
         <SectionHeading
-          :title="page.projectsTitle"
-          to="/projects"
-          :link-label="page.projectsLinkLabel"
-        />
-        <div class="mt-10 grid gap-12 md:grid-cols-3">
-          <ProjectCard
-            v-for="project in home?.projects"
-            :key="project.path"
-            :title="project.title"
-            :description="project.description"
-            :to="project.path"
-            :authors="project.authors"
-            :image="project.image"
-            :by-label="siteContent.ui.by"
-          />
-        </div>
-      </div>
-    </section>
-    <section class="border-t border-line">
-      <div class="page-wrap py-16 md:py-20">
-        <SectionHeading
-          :title="page.recentTitle"
+          :title="page.sections.publications"
           to="/research"
-          :link-label="page.recentLinkLabel"
+          :link-label="page.publicationsLink"
         />
-        <div class="mt-4">
-          <ArticleRow
-            v-for="post in recent"
-            :key="post.path"
-            :article="post"
-            :by-label="siteContent.ui.by"
+        <div class="mt-8 grid gap-5 wide:grid-cols-3">
+          <PostListing
+            v-for="card in view.publications"
+            :key="card.id"
+            :title="card.title"
+            :to="card.to"
+            :excerpt="card.excerpt"
+            :category="card.category"
+            :date="card.date"
+            :image="card.image"
           />
         </div>
+      </div>
+    </section>
+    <section class="border-t border-line">
+      <div class="page-inset py-16">
+        <SectionHeading :title="page.sections.workgroups" />
+        <div class="mt-8 grid gap-5 wide:grid-cols-3">
+          <PostListing
+            v-for="card in view.workgroups"
+            :key="card.id"
+            :title="card.title"
+            :to="card.to"
+            :excerpt="card.excerpt"
+            :category="card.category"
+            :date="card.date"
+            :image="card.image"
+          />
+        </div>
+      </div>
+    </section>
+    <section class="border-t border-line">
+      <div class="page-inset py-16">
+        <SectionHeading :title="page.sections.events" />
+        <div class="mt-8 grid gap-5 wide:grid-cols-2">
+          <PostListing
+            v-for="card in view.events"
+            :key="card.id"
+            :title="card.title"
+            :excerpt="card.excerpt"
+            :date="card.date"
+            :image="card.image"
+          />
+        </div>
+      </div>
+    </section>
+    <section class="border-t border-line">
+      <div class="page-inset py-16">
+        <SectionHeading :title="page.sections.terms" />
+        <TermSearch
+          class="mt-8"
+          :terms="view.terms"
+          :label="page.search.label"
+          :empty-label="page.search.empty"
+        />
+      </div>
+    </section>
+    <section class="border-t border-line">
+      <div class="page-inset py-16">
+        <SectionHeading :title="page.sections.quarterlies" />
+        <div class="mt-8 grid gap-5 wide:grid-cols-3">
+          <PostListing
+            v-for="card in view.quarterlies"
+            :key="card.id"
+            :title="card.title"
+            :to="card.to"
+            :external="card.external"
+            :excerpt="card.excerpt"
+            :category="card.category"
+            :date="card.date"
+            :image="card.image"
+          />
+        </div>
+      </div>
+    </section>
+    <section class="border-t border-line">
+      <div class="page-inset py-16">
+        <SectionHeading :title="page.sections.partners" />
+        <PersonCard class="mt-8 max-w-sm" :empty-label="page.partnersEmpty" />
+      </div>
+    </section>
+    <section class="border-t border-line">
+      <div class="page-inset py-16">
+        <SectionHeading :title="page.sections.newsletter" />
+        <NewsletterForm
+          class="mt-8"
+          :label="page.newsletter.label"
+          :submit="page.newsletter.submit"
+          :note="page.newsletter.note"
+        />
       </div>
     </section>
   </div>
