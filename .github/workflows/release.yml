@@ -1,0 +1,58 @@
+name: Release
+
+# Consumes pending changesets on main and writes CHANGELOG.md.
+# This package is private and is not published to npm.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          ref: main
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+        env:
+          HUSKY: "0"
+
+      - name: Require pending changesets
+        run: |
+          set -euo pipefail
+          PENDING=$(find .changeset -maxdepth 1 -type f -name '*.md' ! -name 'README.md' 2>/dev/null || true)
+          if [ -z "$PENDING" ]; then
+            echo "No pending changesets — nothing to release."
+            exit 1
+          fi
+          echo "Pending changesets:"
+          printf '%s\n' "$PENDING" | sed 's/^/  /'
+
+      - name: Version packages
+        run: pnpm changeset:version
+
+      - name: Commit changelog
+        run: |
+          set -euo pipefail
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git add package.json CHANGELOG.md .changeset
+          git commit -m "chore: version packages"
+          git push origin HEAD:main
