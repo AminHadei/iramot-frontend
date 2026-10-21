@@ -1,0 +1,39 @@
+name: انجمن مدیریت فناوری و نوآوری ایران
+shortName: انجمن
+description: پژوهش، آموزش و گفت‌وگوی سیاستی دربارهٔ مدیریت فناوری و نوآوری. متن این نسخه موقتی است.
+placeholder: true
+nav:
+  - label: پژوهش
+    to: /research
+  - label: پروژه‌ها
+    to: /projects
+  - label: درباره
+    to: /about
+footerColumns:
+  - title: پژوهش
+    links:
+      - label: همهٔ پژوهش‌ها
+        to: /research
+  - title: پروژه‌ها
+    links:
+      - label: همهٔ پروژه‌ها
+        to: /projects
+  - title: انجمن
+    links:
+      - label: درباره
+        to: /about
+listings:
+  research:
+    title: پژوهش‌ها
+    description: یادداشت‌ها و گزارش‌های انجمن دربارهٔ سیاست علم، نوآوری صنعتی و فناوری‌های نو. این فهرست موقتی است.
+  projects:
+    title: پروژه‌ها
+    description: برنامه‌های پیوستهٔ انجمن برای پیگیری یک موضوع در طول زمان. معرفی‌ها موقتی‌اند.
+ui:
+  menu: منو
+  close: بستن
+  skip: پرش به محتوا
+  by: نوشتهٔ
+  home: بازگشت به خانه
+  notFound: صفحه پیدا نشد
+  notFoundBody: این نشانی در سایت انجمن وجود ندارد.
