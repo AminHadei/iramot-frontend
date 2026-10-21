@@ -19,6 +19,15 @@ export default {
       maxWidth: {
         page: "76rem",
       },
+      screens: {
+        sm: "640px",
+        wide: "720px",
+        md: "768px",
+        frame: "980px",
+        lg: "1024px",
+        xl: "1280px",
+        "2xl": "1536px",
+      },
     },
   },
 } satisfies Config;
