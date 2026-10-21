@@ -39,6 +39,7 @@ function pageIdFor(site: SiteContent, group: ListingGroup): number | null {
 
 export async function useArchiveListing(group: ListingGroup): Promise<ListingView> {
   const route = useRoute();
+  const baseURL = useRuntimeConfig().app.baseURL;
   const category = oneParam(route.params.slug);
   const page = pageNumber(route.params.page);
   const siteState = useSite();
@@ -101,7 +102,9 @@ export async function useArchiveListing(group: ListingGroup): Promise<ListingVie
       const publication = itemInSet(item, site.sets.publications);
       const external = showBody ? externalHref(item.content ?? "") : undefined;
       const body =
-        showBody && !publication ? articleHtml(item.content ?? "").html.trim() : "";
+        showBody && !publication
+          ? articleHtml(item.content ?? "", baseURL).html.trim()
+          : "";
       return toCard(item, {
         external,
         to: external || !publication ? undefined : researchPath(item.slug),

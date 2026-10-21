@@ -9,6 +9,7 @@ function eventPath(base: string, page: number) {
 
 export async function useEventListing(): Promise<ListingView> {
   const route = useRoute();
+  const baseURL = useRuntimeConfig().app.baseURL;
   const page = pageNumber(route.params.page);
   const siteState = useSite();
   const path = route.path.replace(/\/page\/\d+$/, "").replace(/\/$/, "") || "/events";
@@ -28,7 +29,7 @@ export async function useEventListing(): Promise<ListingView> {
     const events = archiveItems(eventsFile);
     const eventCard = (item: (typeof events)[number]): ListingCard =>
       toCard(item, {
-        html: articleHtml(item.content ?? "").html.trim() || undefined,
+        html: articleHtml(item.content ?? "", baseURL).html.trim() || undefined,
       });
 
     let items: ListingCard[];
@@ -43,7 +44,9 @@ export async function useEventListing(): Promise<ListingView> {
       ).map((item) => {
         const publication = itemInSet(item, site.sets.publications);
         const external = externalHref(item.content ?? "");
-        const body = !publication ? articleHtml(item.content ?? "").html.trim() : "";
+        const body = !publication
+          ? articleHtml(item.content ?? "", baseURL).html.trim()
+          : "";
         return toCard(item, {
           external,
           to: external || !publication ? undefined : researchPath(item.slug),

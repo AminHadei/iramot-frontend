@@ -6,13 +6,14 @@ if (!siteData.value) {
   throw createError({ statusCode: 500, statusMessage: "محتوای سایت پیدا نشد" });
 }
 const site = siteData.value as SiteContent;
+const baseURL = useRuntimeConfig().app.baseURL;
 
 const { data: privacy } = await useAsyncData("privacy-page", async () => {
   const record = archiveItems(await queryCollection("archivePages").first()).find(
     (item) => item.id === site.pages.privacy,
   );
   if (!record) return null;
-  const prepared = articleHtml(record.content ?? "");
+  const prepared = articleHtml(record.content ?? "", baseURL);
   return {
     title: record.title,
     description: plainText(record.excerpt || record.title),

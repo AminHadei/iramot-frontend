@@ -1,4 +1,5 @@
 import { plainText } from "~/utils/plainText";
+import { withBase } from "~/utils/withBase";
 
 export interface ArticleHeading {
   id: string;
@@ -9,19 +10,42 @@ const blocked =
   /<(script|style|iframe|object|embed|noscript|form)\b[^>]*>[\s\S]*?<\/\1>/gi;
 const blockedVoid = /<(script|style|iframe|object|embed|noscript|form)\b[^>]*\/?>/gi;
 
-function cleanTag(tag: string) {
-  return tag
-    .replace(/\s+on[a-z]+\s*=\s*("[^"]*"|'[^']*'|[^\s>]+)/gi, "")
-    .replace(/\s+(href|src)\s*=\s*(["'])\s*(?:javascript:|data:)[^"']*\2/gi, "");
+function prefixMedia(baseURL: string, value: string): string {
+  return value
+    .split(",")
+    .map((part) => {
+      const bits = part.trim().split(/\s+/);
+      const url = bits[0];
+      if (!url?.startsWith("/media/")) return part.trim();
+      bits[0] = withBase(baseURL, url);
+      return bits.join(" ");
+    })
+    .join(", ");
 }
 
-export function articleHtml(source: string): { html: string; toc: ArticleHeading[] } {
+function cleanTag(tag: string, baseURL: string) {
+  return tag
+    .replace(/\s+on[a-z]+\s*=\s*("[^"]*"|'[^']*'|[^\s>]+)/gi, "")
+    .replace(/\s+(href|src)\s*=\s*(["'])\s*(?:javascript:|data:)[^"']*\2/gi, "")
+    .replace(
+      /\s+(src|srcset)\s*=\s*(["'])([^"']*)\2/gi,
+      (match, name: string, quote: string, value: string) => {
+        if (!value.includes("/media/")) return match;
+        return ` ${name}=${quote}${prefixMedia(baseURL, value)}${quote}`;
+      },
+    );
+}
+
+export function articleHtml(
+  source: string,
+  baseURL = "/",
+): { html: string; toc: ArticleHeading[] } {
   const cleaned = source
     .replace(/<!--[\s\S]*?-->/g, "")
     .replace(blocked, "")
     .replace(blockedVoid, "")
     .replace(/\[\/?[a-zA-Z_:][^\]]*\]/g, "")
-    .replace(/<[^>]+>/g, cleanTag);
+    .replace(/<[^>]+>/g, (tag) => cleanTag(tag, baseURL));
 
   const toc: ArticleHeading[] = [];
   let index = 0;

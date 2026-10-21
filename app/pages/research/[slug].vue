@@ -10,6 +10,7 @@ if (!siteData.value) {
 }
 
 const site = siteData.value as SiteContent;
+const baseURL = useRuntimeConfig().app.baseURL;
 
 const { data: article } = await useAsyncData(`research-${slug}`, async () => {
   const posts = archiveItems(await queryCollection("archivePosts").first());
@@ -17,7 +18,7 @@ const { data: article } = await useAsyncData(`research-${slug}`, async () => {
     (entry) => entry.slug === slug && itemInSet(entry, site.sets.publications),
   );
   if (!item) return null;
-  const prepared = articleHtml(item.content ?? "");
+  const prepared = articleHtml(item.content ?? "", baseURL);
   return {
     title: item.title,
     description: plainText(item.excerpt || item.title),

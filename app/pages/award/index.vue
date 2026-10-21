@@ -2,6 +2,7 @@
 import type { SiteContent } from "~/types/content";
 
 const siteState = useSite();
+const baseURL = useRuntimeConfig().app.baseURL;
 const articleState = useAsyncData("award-article", async () => {
   const site = (await siteState).data.value as SiteContent | null;
   if (!site) return null;
@@ -9,7 +10,7 @@ const articleState = useAsyncData("award-article", async () => {
     (item) => item.id === site.pages.award,
   );
   if (!record) return null;
-  const prepared = articleHtml(record.content ?? "");
+  const prepared = articleHtml(record.content ?? "", baseURL);
   return {
     title: record.title,
     description: plainText(record.excerpt || record.title),

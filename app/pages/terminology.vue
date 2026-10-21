@@ -2,6 +2,7 @@
 import type { SiteContent } from "~/types/content";
 
 const siteState = useSite();
+const baseURL = useRuntimeConfig().app.baseURL;
 const state = useAsyncData("terminology-page", async () => {
   const site = (await siteState).data.value as SiteContent | null;
   if (!site) return null;
@@ -28,7 +29,7 @@ const state = useAsyncData("terminology-page", async () => {
     label: site.listings.terminology.label,
     empty: site.listings.terminology.empty,
     groupTitle: record.title,
-    html: articleHtml(record.content ?? "").html.trim(),
+    html: articleHtml(record.content ?? "", baseURL).html.trim(),
     terms,
     sources: site.terminology.sources,
     allLabel: site.ui.all,
