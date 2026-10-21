@@ -1,0 +1,272 @@
+[
+  {
+    "id": 177,
+    "slug": "آکادمی",
+    "name": "آکادمی",
+    "description": "",
+    "count": 9,
+    "parent": 0,
+    "link": "https://iramot.ir/category/%d8%a2%da%a9%d8%a7%d8%af%d9%85%db%8c/"
+  },
+  {
+    "id": 179,
+    "slug": "آگهی-استخدام",
+    "name": "آگهی استخدام",
+    "description": "",
+    "count": 4,
+    "parent": 0,
+    "link": "https://iramot.ir/category/%d8%a2%da%af%d9%87%db%8c-%d8%a7%d8%b3%d8%aa%d8%ae%d8%af%d8%a7%d9%85/"
+  },
+  {
+    "id": 119,
+    "slug": "news",
+    "name": "اخبار",
+    "description": "",
+    "count": 104,
+    "parent": 0,
+    "link": "https://iramot.ir/category/news/"
+  },
+  {
+    "id": 151,
+    "slug": "اخبار-آموزش",
+    "name": "اخبار آموزش",
+    "description": "",
+    "count": 26,
+    "parent": 119,
+    "link": "https://iramot.ir/category/news/%d8%a7%d8%ae%d8%a8%d8%a7%d8%b1-%d8%a2%d9%85%d9%88%d8%b2%d8%b4/"
+  },
+  {
+    "id": 154,
+    "slug": "اخبار-باشگاه",
+    "name": "اخبار باشگاه",
+    "description": "",
+    "count": 11,
+    "parent": 119,
+    "link": "https://iramot.ir/category/news/%d8%a7%d8%ae%d8%a8%d8%a7%d8%b1-%d8%a8%d8%a7%d8%b4%da%af%d8%a7%d9%87/"
+  },
+  {
+    "id": 149,
+    "slug": "اخبار-فناوری",
+    "name": "اخبار فناوری",
+    "description": "",
+    "count": 294,
+    "parent": 119,
+    "link": "https://iramot.ir/category/news/%d8%a7%d8%ae%d8%a8%d8%a7%d8%b1-%d9%81%d9%86%d8%a7%d9%88%d8%b1%db%8c/"
+  },
+  {
+    "id": 161,
+    "slug": "اخبار-کارگروه-زنان",
+    "name": "اخبار کارگروه زنان",
+    "description": "",
+    "count": 4,
+    "parent": 119,
+    "link": "https://iramot.ir/category/news/%d8%a7%d8%ae%d8%a8%d8%a7%d8%b1-%da%a9%d8%a7%d8%b1%da%af%d8%b1%d9%88%d9%87-%d8%b2%d9%86%d8%a7%d9%86/"
+  },
+  {
+    "id": 176,
+    "slug": "conference-news",
+    "name": "اخبار کنفرانس",
+    "description": "",
+    "count": 100,
+    "parent": 119,
+    "link": "https://iramot.ir/category/news/conference-news/"
+  },
+  {
+    "id": 164,
+    "slug": "استخدام",
+    "name": "استخدام",
+    "description": "",
+    "count": 2,
+    "parent": 0,
+    "link": "https://iramot.ir/category/%d8%a7%d8%b3%d8%aa%d8%ae%d8%af%d8%a7%d9%85/"
+  },
+  {
+    "id": 150,
+    "slug": "استخدام-اخبار-فناوری",
+    "name": "استخدام و همکاری‌های پژوهشی",
+    "description": "",
+    "count": 18,
+    "parent": 0,
+    "link": "https://iramot.ir/category/%d8%a7%d8%b3%d8%aa%d8%ae%d8%af%d8%a7%d9%85-%d8%a7%d8%ae%d8%a8%d8%a7%d8%b1-%d9%81%d9%86%d8%a7%d9%88%d8%b1%db%8c/"
+  },
+  {
+    "id": 155,
+    "slug": "باشگاه-سیاست-پژوهان",
+    "name": "باشگاه سیاست پژوهان",
+    "description": "",
+    "count": 13,
+    "parent": 0,
+    "link": "https://iramot.ir/category/%d8%a8%d8%a7%d8%b4%da%af%d8%a7%d9%87-%d8%b3%db%8c%d8%a7%d8%b3%d8%aa-%d9%be%da%98%d9%88%d9%87%d8%a7%d9%86/"
+  },
+  {
+    "id": 166,
+    "slug": "بیاموزیم-بیاموزیم",
+    "name": "بیاموزیم!",
+    "description": "",
+    "count": 3,
+    "parent": 0,
+    "link": "https://iramot.ir/category/%d8%a8%db%8c%d8%a7%d9%85%d9%88%d8%b2%db%8c%d9%85-%d8%a8%db%8c%d8%a7%d9%85%d9%88%d8%b2%db%8c%d9%85/"
+  },
+  {
+    "id": 189,
+    "slug": "جایزه-ملی-مدیریت-نوآوری",
+    "name": "جایزه ملی مدیریت فناوری و نوآوری ایران",
+    "description": "",
+    "count": 3,
+    "parent": 0,
+    "link": "https://iramot.ir/category/%d8%ac%d8%a7%db%8c%d8%b2%d9%87-%d9%85%d9%84%db%8c-%d9%85%d8%af%db%8c%d8%b1%db%8c%d8%aa-%d9%86%d9%88%d8%a2%d9%88%d8%b1%db%8c/"
+  },
+  {
+    "id": 162,
+    "slug": "چالشها-و-فعالیتهای-سیاستی",
+    "name": "چالش‌ها و فعالیت‌های سیاستی",
+    "description": "",
+    "count": 4,
+    "parent": 0,
+    "link": "https://iramot.ir/category/%da%86%d8%a7%d9%84%d8%b4%d9%87%d8%a7-%d9%88-%d9%81%d8%b9%d8%a7%d9%84%db%8c%d8%aa%d9%87%d8%a7%db%8c-%d8%b3%db%8c%d8%a7%d8%b3%d8%aa%db%8c/"
+  },
+  {
+    "id": 197,
+    "slug": "رویداد-2",
+    "name": "سفر رساله",
+    "description": "",
+    "count": 3,
+    "parent": 0,
+    "link": "https://iramot.ir/category/%d8%b1%d9%88%db%8c%d8%af%d8%a7%d8%af-2/"
+  },
+  {
+    "id": 171,
+    "slug": "فرصت-های-شغلی",
+    "name": "فرصت های شغلی",
+    "description": "",
+    "count": 1,
+    "parent": 0,
+    "link": "https://iramot.ir/category/%d9%81%d8%b1%d8%b5%d8%aa-%d9%87%d8%a7%db%8c-%d8%b4%d8%ba%d9%84%db%8c/"
+  },
+  {
+    "id": 118,
+    "slug": "quarterly-magazine",
+    "name": "فصلنامه ها",
+    "description": "",
+    "count": 2,
+    "parent": 0,
+    "link": "https://iramot.ir/category/quarterly-magazine/"
+  },
+  {
+    "id": 199,
+    "slug": "کارگاه",
+    "name": "کارگاه ها",
+    "description": "",
+    "count": 2,
+    "parent": 0,
+    "link": "https://iramot.ir/category/%da%a9%d8%a7%d8%b1%da%af%d8%a7%d9%87/"
+  },
+  {
+    "id": 201,
+    "slug": "کارگروه-متناظر-استانداردسازی-مدیریت",
+    "name": "کارگروه متناظر استانداردسازی مدیریت نوآوری",
+    "description": "",
+    "count": 1,
+    "parent": 0,
+    "link": "https://iramot.ir/category/%da%a9%d8%a7%d8%b1%da%af%d8%b1%d9%88%d9%87-%d9%85%d8%aa%d9%86%d8%a7%d8%b8%d8%b1-%d8%a7%d8%b3%d8%aa%d8%a7%d9%86%d8%af%d8%a7%d8%b1%d8%af%d8%b3%d8%a7%d8%b2%db%8c-%d9%85%d8%af%db%8c%d8%b1%db%8c%d8%aa/"
+  },
+  {
+    "id": 163,
+    "slug": "workgroups",
+    "name": "کارگروه ها",
+    "description": "",
+    "count": 2,
+    "parent": 0,
+    "link": "https://iramot.ir/category/workgroups/"
+  },
+  {
+    "id": 157,
+    "slug": "کارگروه-واژه-گزینی",
+    "name": "کارگروه واژه گزینی",
+    "description": "",
+    "count": 2,
+    "parent": 0,
+    "link": "https://iramot.ir/category/%da%a9%d8%a7%d8%b1%da%af%d8%b1%d9%88%d9%87-%d9%88%d8%a7%da%98%d9%87-%da%af%d8%b2%db%8c%d9%86%db%8c/"
+  },
+  {
+    "id": 198,
+    "slug": "رویداد-3",
+    "name": "کتابخوانی",
+    "description": "",
+    "count": 8,
+    "parent": 0,
+    "link": "https://iramot.ir/category/%d8%b1%d9%88%db%8c%d8%af%d8%a7%d8%af-3/"
+  },
+  {
+    "id": 156,
+    "slug": "کنفرانس-مدیریت-فناوری-و-نواوری",
+    "name": "کنفرانس مدیریت فناوری و نواوری",
+    "description": "",
+    "count": 44,
+    "parent": 0,
+    "link": "https://iramot.ir/category/%da%a9%d9%86%d9%81%d8%b1%d8%a7%d9%86%d8%b3-%d9%85%d8%af%db%8c%d8%b1%db%8c%d8%aa-%d9%81%d9%86%d8%a7%d9%88%d8%b1%db%8c-%d9%88-%d9%86%d9%88%d8%a7%d9%88%d8%b1%db%8c/"
+  },
+  {
+    "id": 160,
+    "slug": "مرکز-آموزش",
+    "name": "مرکز آموزش",
+    "description": "",
+    "count": 7,
+    "parent": 0,
+    "link": "https://iramot.ir/category/%d9%85%d8%b1%da%a9%d8%b2-%d8%a2%d9%85%d9%88%d8%b2%d8%b4/"
+  },
+  {
+    "id": 1,
+    "slug": "articles",
+    "name": "مقالات",
+    "description": "",
+    "count": 186,
+    "parent": 0,
+    "link": "https://iramot.ir/category/articles/"
+  },
+  {
+    "id": 172,
+    "slug": "مناسبت-ها",
+    "name": "مناسبت ها",
+    "description": "",
+    "count": 2,
+    "parent": 0,
+    "link": "https://iramot.ir/category/%d9%85%d9%86%d8%a7%d8%b3%d8%a8%d8%aa-%d9%87%d8%a7/"
+  },
+  {
+    "id": 158,
+    "slug": "فصلنامه-سیاست-علم-و-فناوری",
+    "name": "نشریه سیاست علم و فناوری",
+    "description": "",
+    "count": 1,
+    "parent": 0,
+    "link": "https://iramot.ir/category/%d9%81%d8%b5%d9%84%d9%86%d8%a7%d9%85%d9%87-%d8%b3%db%8c%d8%a7%d8%b3%d8%aa-%d8%b9%d9%84%d9%85-%d9%88-%d9%81%d9%86%d8%a7%d9%88%d8%b1%db%8c/"
+  },
+  {
+    "id": 178,
+    "slug": "رویداد",
+    "name": "نقد فیلم",
+    "description": "",
+    "count": 5,
+    "parent": 0,
+    "link": "https://iramot.ir/category/%d8%b1%d9%88%db%8c%d8%af%d8%a7%d8%af/"
+  },
+  {
+    "id": 152,
+    "slug": "وبینار-اخبار-آموزش-اخبار-آموزش",
+    "name": "وبینار",
+    "description": "",
+    "count": 4,
+    "parent": 0,
+    "link": "https://iramot.ir/category/%d9%88%d8%a8%db%8c%d9%86%d8%a7%d8%b1-%d8%a7%d8%ae%d8%a8%d8%a7%d8%b1-%d8%a2%d9%85%d9%88%d8%b2%d8%b4-%d8%a7%d8%ae%d8%a8%d8%a7%d8%b1-%d8%a2%d9%85%d9%88%d8%b2%d8%b4/"
+  },
+  {
+    "id": 167,
+    "slug": "وبینار",
+    "name": "وبینار",
+    "description": "",
+    "count": 3,
+    "parent": 0,
+    "link": "https://iramot.ir/category/%d9%88%d8%a8%db%8c%d9%86%d8%a7%d8%b1/"
+  }
+]
