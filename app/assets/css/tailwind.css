@@ -7,10 +7,12 @@
 @import "@fontsource/vazirmatn/arabic-400.css";
 @import "@fontsource/vazirmatn/arabic-500.css";
 @import "@fontsource/vazirmatn/arabic-700.css";
+@import "@fontsource/vazirmatn/arabic-900.css";
 @import "@fontsource/vazirmatn/latin-300.css";
 @import "@fontsource/vazirmatn/latin-400.css";
 @import "@fontsource/vazirmatn/latin-500.css";
 @import "@fontsource/vazirmatn/latin-700.css";
+@import "@fontsource/vazirmatn/latin-900.css";
 
 @tailwind base;
 @tailwind components;
