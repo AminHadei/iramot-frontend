@@ -44,7 +44,23 @@ membership:
   to: /membership
 address:
   - پژوهشکده مطالعات سیاست علم
-  - تهران، خیابان ملاصدرا، خیابان شیراز جنوبی، خیابان سهیل، پلاک ۹
+  - تهران، خیابان ملاصدرا،
+  - خیابان شیراز جنوبی،
+  - خیابان سهیل، پلاک ۹
+social:
+  - name: linkedin
+    label: لینکدین
+    href: https://www.linkedin.com/company/iranian-association-for-management-of-technology-iramot
+  - name: telegram
+    label: تلگرام
+    href: https://t.me/ir_iramot
+  - name: instagram
+    label: اینستاگرام
+    href: https://www.instagram.com/iramot_association
+copyright: © انجمن مدیریت فناوری و نوآوری ایران، ۱۴۰۵
+miniMenu:
+  - label: حریم خصوصی
+    to: /privacy
 footerColumns:
   - title: انتشارات
     links:
@@ -205,6 +221,11 @@ ui:
   team: هیئت‌مدیره
   emptyPeople: فهرستی از افراد در آرشیو نیست.
   more: بیشتر
+  latest: آخرین انتشار
+  sort: مرتب‌سازی
+  dateDescending: تاریخ، نزولی
+  dateAscending: تاریخ، صعودی
+  author: نویسنده
   emptyPartners: فهرستی از همراهان در آرشیو نیست.
 styleguide:
   title: راهنمای اجزا

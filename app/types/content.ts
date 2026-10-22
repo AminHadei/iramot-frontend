@@ -16,6 +16,13 @@ export interface SiteContent {
   nav: ContentLink[];
   membership: ContentLink;
   address: string[];
+  social: Array<{
+    name: "linkedin" | "telegram" | "instagram";
+    label: string;
+    href: string;
+  }>;
+  copyright: string;
+  miniMenu: ContentLink[];
   footerColumns: Array<{
     title: string;
     links: ContentLink[];
@@ -81,6 +88,11 @@ export interface SiteContent {
     emptyPeople: string;
     emptyPartners: string;
     more: string;
+    latest: string;
+    sort: string;
+    dateDescending: string;
+    dateAscending: string;
+    author: string;
   };
   styleguide: {
     title: string;
@@ -159,8 +171,8 @@ export interface HomeContent {
     empty: string;
   };
   newsletter: {
-    label: string;
-    submit: string;
+    link: string;
+    to: string;
     note: string;
   };
   partnersEmpty: string;

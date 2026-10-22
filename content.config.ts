@@ -70,6 +70,15 @@ export default defineContentConfig({
         nav: z.array(navItem),
         membership: link,
         address: z.array(z.string()),
+        social: z.array(
+          z.object({
+            name: z.enum(["linkedin", "telegram", "instagram"]),
+            label: z.string(),
+            href: z.string(),
+          }),
+        ),
+        copyright: z.string(),
+        miniMenu: z.array(link),
         footerColumns: z.array(
           z.object({
             title: z.string(),
@@ -145,6 +154,11 @@ export default defineContentConfig({
           emptyPeople: z.string(),
           emptyPartners: z.string(),
           more: z.string(),
+          latest: z.string(),
+          sort: z.string(),
+          dateDescending: z.string(),
+          dateAscending: z.string(),
+          author: z.string(),
         }),
         styleguide: z.object({
           title: z.string(),
@@ -201,8 +215,8 @@ export default defineContentConfig({
           empty: z.string(),
         }),
         newsletter: z.object({
-          label: z.string(),
-          submit: z.string(),
+          link: z.string(),
+          to: z.string(),
           note: z.string(),
         }),
         partnersEmpty: z.string(),
