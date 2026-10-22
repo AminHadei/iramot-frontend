@@ -70,6 +70,12 @@ export default defineContentConfig({
         nav: z.array(navItem),
         membership: link,
         address: z.array(z.string()),
+        contacts: z.array(
+          z.object({
+            label: z.string(),
+            href: z.string(),
+          }),
+        ),
         social: z.array(
           z.object({
             name: z.enum(["linkedin", "telegram", "instagram"]),

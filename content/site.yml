@@ -43,10 +43,19 @@ membership:
   label: عضویت
   to: /membership
 address:
-  - پژوهشکده مطالعات سیاست علم
-  - تهران، خیابان ملاصدرا،
+  - تهران، میدان ونک،
+  - خیابان ملاصدرا،
   - خیابان شیراز جنوبی،
-  - خیابان سهیل، پلاک ۹
+  - خیابان قانعی راد،
+  - مرکز تحقیقات سیاست علمی کشور،
+  - پلاک ۹، طبقه همکف
+contacts:
+  - label: ۰۲۱-۸۸۶۱۵۸۸۹
+    href: tel:+982188615889
+  - label: ۰۲۱-۸۸۶۱۵۸۹۰
+    href: tel:+982188615890
+  - label: iramot.iran@gmail.com
+    href: mailto:iramot.iran@gmail.com
 social:
   - name: linkedin
     label: لینکدین

@@ -16,6 +16,10 @@ export interface SiteContent {
   nav: ContentLink[];
   membership: ContentLink;
   address: string[];
+  contacts: Array<{
+    label: string;
+    href: string;
+  }>;
   social: Array<{
     name: "linkedin" | "telegram" | "instagram";
     label: string;
