@@ -172,3 +172,7 @@ button.simple-swiper-controller__button {
   line-height: 1.15;
   text-align: end;
 }
+
+.site-header__search-submit {
+  white-space: nowrap;
+}

@@ -9,6 +9,9 @@ const route = useRoute();
 const open = ref(false);
 const panel = ref<string | null>(null);
 const opaque = ref(false);
+const searchFocus = ref(false);
+const searchValue = ref("");
+const searchInput = ref<HTMLInputElement | null>(null);
 
 function syncOpaque() {
   opaque.value = window.scrollY > 0;
@@ -35,6 +38,20 @@ function setOpen(next: boolean) {
 function goTerminology() {
   setOpen(false);
   void navigateTo("/terminology");
+}
+
+function onSearchClick(event: MouseEvent) {
+  if (searchValue.value) return;
+  event.preventDefault();
+  searchInput.value?.focus();
+}
+
+function onSearchFocus() {
+  searchFocus.value = true;
+}
+
+function onSearchBlur() {
+  searchFocus.value = false;
 }
 
 watch(
@@ -150,7 +167,14 @@ onBeforeUnmount(() => {
       </li>
     </ul>
   </div>
-  <header class="site-header" :class="{ 'site-header--opaque': opaque }">
+  <header
+    class="site-header"
+    :class="{
+      'site-header--opaque': opaque,
+      'site-header--focus': searchFocus,
+      'site-header--search-has-value': !searchFocus && searchValue.length > 0,
+    }"
+  >
     <a
       href="#content"
       class="sr-only focus:not-sr-only focus:absolute focus:start-4 focus:top-4 focus:z-50"
@@ -185,15 +209,27 @@ onBeforeUnmount(() => {
           <path fill="var(--logo-color, #373737)" d="M19.3 2.3 2.3 19.3l.7.7L20 3z" />
         </svg>
       </button>
-      <form class="site-header__search" @submit.prevent="goTerminology">
+      <form
+        class="site-header__search"
+        :class="{
+          'site-header__search--focus': searchFocus,
+          'site-header__search--has-value': !searchFocus && searchValue.length > 0,
+        }"
+        @submit.prevent="goTerminology"
+      >
         <input
+          ref="searchInput"
           name="s"
           type="text"
           class="site-header__search-input"
           :aria-label="searchLabel"
           :placeholder="searchLabel"
+          :value="searchValue"
+          @input="searchValue = ($event.target as HTMLInputElement).value"
+          @focus="onSearchFocus"
+          @blur="onSearchBlur"
         />
-        <button class="site-header__search-submit" type="submit">
+        <button class="site-header__search-submit" type="submit" @click="onSearchClick">
           <svg
             width="15"
             height="15"
