@@ -103,7 +103,13 @@ onBeforeUnmount(() => {
         >
           <li class="header-item" @click="panel = null">
             <div class="arrow" aria-hidden="true">
-              <svg width="24" height="16" viewBox="0 0 24 16" fill="none">
+              <svg
+                class="rtl:-scale-x-100"
+                width="24"
+                height="16"
+                viewBox="0 0 24 16"
+                fill="none"
+              >
                 <path
                   d="M8 1.5 1.5 8 8 14.5M2 8h21"
                   stroke="currentColor"
@@ -126,7 +132,13 @@ onBeforeUnmount(() => {
         <ul class="sub-menu" :class="panel === 'search' ? 'active' : ''">
           <li class="header-item" @click="panel = null">
             <div class="arrow" aria-hidden="true">
-              <svg width="24" height="16" viewBox="0 0 24 16" fill="none">
+              <svg
+                class="rtl:-scale-x-100"
+                width="24"
+                height="16"
+                viewBox="0 0 24 16"
+                fill="none"
+              >
                 <path
                   d="M8 1.5 1.5 8 8 14.5M2 8h21"
                   stroke="currentColor"
