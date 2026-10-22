@@ -122,6 +122,8 @@ usePageSeo({
               :date="card.date"
               :image="card.image"
               :color-index="index"
+              :link-label="home.readLabel"
+              :by-label="site.ui.by"
             />
           </SimpleSwiper>
         </div>
