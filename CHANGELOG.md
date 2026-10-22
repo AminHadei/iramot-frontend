@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.5
+
+### Patch Changes
+
+- Map the IFP palette to this association's colours.
+
 ## 0.3.4
 
 ### Patch Changes
