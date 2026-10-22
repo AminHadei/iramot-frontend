@@ -9,7 +9,7 @@ The always-on rule is [`.cursor/rules/project.mdc`](../../../.cursor/rules/proje
 
 ## Reference
 
-The global sheet is [`app/assets/css/ifp.rtl.css`](../../../app/assets/css/ifp.rtl.css): rtlcss output of `ref/ifp/css/main.css` and the `<style>` blocks in `ref/ifp/html/`. Söhne maps to Vazirmatn and Tiempos Text maps to Noto Naskh Arabic. IFP colours in that sheet are `:root` custom properties, listed in [`docs/design-system.md`](../../../docs/design-system.md). Do not ship the IFP font files or the IFP mark. Tailwind preflight is off; use Tailwind only for association-specific UI.
+The global sheet is [`app/assets/css/ifp.rtl.css`](../../../app/assets/css/ifp.rtl.css): rtlcss output of `ref/ifp/css/main.css` and the `<style>` blocks in `ref/ifp/html/`. Both Söhne and Tiempos Text map to `IRANYekan, Tahoma, sans-serif`. IFP colours in that sheet are `:root` custom properties, listed in [`docs/design-system.md`](../../../docs/design-system.md). Do not ship the IFP font files or the IFP mark. Tailwind preflight is off; use Tailwind only for association-specific UI.
 
 ## Tokens
 
@@ -23,9 +23,7 @@ The global sheet is [`app/assets/css/ifp.rtl.css`](../../../app/assets/css/ifp.r
 | `accent`         | `#6866AD` | Text, links, rules |
 | `line`           | `#373737` | Rules              |
 
-- Headings: `font-heading` (Noto Naskh Arabic).
-- Body and labels: `font-sans` (Vazirmatn, Tahoma fallback). Self-host the woff2 files with `@fontsource/vazirmatn`.
-- Do not commit unlicensed IRANYekan files. When the licensed FaNum woff2 files are available, they replace Vazirmatn.
+- Headings, body, and labels: IRANYekan (`font-heading`, `font-sans`, and `font-serif`), Tahoma fallback. The FaNum faces are the woff2 and woff files in `public/fonts/iranyekan/`.
 
 ## RTL
 

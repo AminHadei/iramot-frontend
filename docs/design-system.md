@@ -79,6 +79,8 @@ Named lengths on `:root` in the home critical CSS:
 
 ## Type
 
+The built sheet maps both Söhne and Tiempos Text to `IRANYekan, Tahoma, sans-serif`. Weights 100, 300, 400, 500, 700, 800, and 900 are self-hosted from `public/fonts/iranyekan/` (`app/assets/css/fonts.css`). IFP sizes and weights below stay as measured. `font-sans`, `font-serif`, and `font-heading` all use that IRANYekan stack.
+
 `body` in the home critical CSS: `font-size: 1rem`, `line-height: 1.375`, `font-family: Söhne, "sans-serif"`, `font-weight: 300`.
 
 Element headings in that same style block: `h1, h2` are `1.5625rem` under `max-width: 44.99em` and `1.875rem` under `min-width: 45em`. `h3` is `1.4em`, `h4` is `1em`, `h5` is `.83em`, `h6` is `.67em`.
