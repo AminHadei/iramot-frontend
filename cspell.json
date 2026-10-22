@@ -28,6 +28,7 @@
     "content/word-choosing.json",
     "content/media.json",
     "public/media/**",
+    "public/animations/**",
     "app/assets/css/ifp.rtl.css"
   ],
   "ignoreRegExpList": [

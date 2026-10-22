@@ -56,3 +56,4 @@ pageid
 TGHP
 buddyboss
 elementor
+lottie
