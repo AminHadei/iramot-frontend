@@ -25,20 +25,20 @@ nav:
   - label: درباره‌ما
     to: /about
     children:
+      - label: درباره انجمن
+        to: /about#about
+      - label: مأموریت‌ها
+        to: /about#missions
+      - label: تاریخچه
+        to: /about#history
+      - label: اعضا
+        to: /about#board
       - label: کارگروه‌ها
-        to: /workgroups
-      - label: کنفرانس
-        to: /conference
-      - label: واژه‌گزینی
-        to: /terminology
-      - label: جایزه ملی
-        to: /award
-      - label: فصلنامه‌ها
-        to: /quarterlies
-      - label: همراهان
-        to: /partners
-      - label: هیئت‌مدیره
-        to: /about#team
+        to: /about#committees
+      - label: اساسنامه
+        to: /about#statute
+      - label: تماس با ما
+        to: /about#contact
 membership:
   label: عضویت
   to: /membership
@@ -101,22 +101,32 @@ footerColumns:
         to: /quarterlies
       - label: همراهان
         to: /partners
-      - label: درباره‌ما
-        to: /about
-      - label: هیئت‌مدیره
-        to: /about#team
+      - label: درباره انجمن
+        to: /about#about
+      - label: مأموریت‌ها
+        to: /about#missions
+      - label: تاریخچه
+        to: /about#history
+      - label: اعضا
+        to: /about#board
+      - label: کارگروه‌ها
+        to: /about#committees
+      - label: اساسنامه
+        to: /about#statute
+      - label: تماس با ما
+        to: /about#contact
   - title: عضویت
     links:
       - label: عضویت
         to: /membership
       - label: اساسنامه
-        to: /statute
+        to: /about#statute
       - label: حریم خصوصی
         to: /privacy
       - label: فرصت‌های همکاری
         to: /opportunities
       - label: تماس
-        to: /contact
+        to: /about#contact
 listings:
   research:
     title: انتشارات
