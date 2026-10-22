@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.10
+
+### Patch Changes
+
+- Show the newsletter bar on every page, match the footer grid and splash animation to the ported theme, and add the publication sort bar.
+
 ## 0.3.9
 
 ### Patch Changes
