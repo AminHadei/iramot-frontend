@@ -26,6 +26,9 @@ const page = computed(() => home.value as HomeContent | null);
       <template v-for="(line, index) in site.address" :key="line">
         {{ line }}<br v-if="index < site.address.length - 1" />
       </template>
+      <a v-for="item in site.contacts" :key="item.href" :href="item.href" dir="ltr">
+        {{ item.label }}
+      </a>
     </address>
     <nav class="site-footer__main-menu" :aria-label="site.ui.siteMap">
       <ul class="menu">

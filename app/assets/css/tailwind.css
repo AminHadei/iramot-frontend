@@ -155,3 +155,16 @@ button.simple-swiper-controller__button {
 .site-header__search-submit {
   white-space: nowrap;
 }
+
+.newsletter-pre-footer__notice {
+  max-width: 21em;
+}
+
+.site-footer__address a {
+  display: block;
+  width: max-content;
+  margin-top: 0.35em;
+  margin-inline-end: auto;
+  text-align: end;
+  unicode-bidi: isolate;
+}
