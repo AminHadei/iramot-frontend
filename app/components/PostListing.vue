@@ -29,7 +29,7 @@ function slotFromName(name: string) {
   for (let index = 0; index < name.length; index += 1) {
     sum += name.charCodeAt(index);
   }
-  return sum % 5;
+  return sum % 4;
 }
 </script>
 

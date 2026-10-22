@@ -30,7 +30,7 @@ function firstSentence(value: string) {
 }
 
 function accentStyle(index: number): Record<string, string> {
-  const slot = (index % 5) + 1;
+  const slot = (index % 4) + 1;
   return { "--color-accent": `var(--color-category-${slot})` };
 }
 
