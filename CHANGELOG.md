@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.7
+
+### Patch Changes
+
+- Lay out the association-only sections with the ported IFP page templates.
+
 ## 0.3.6
 
 ### Patch Changes
