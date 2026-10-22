@@ -196,7 +196,23 @@ export default defineContentConfig({
         projectsLinkLabel: z.string(),
         recentTitle: z.string(),
         recentLinkLabel: z.string(),
+        readLabel: z.string(),
+        viewLabel: z.string(),
         publicationsLink: z.string(),
+        spotlight: z.object({
+          heading: z.string(),
+          intro: z.string(),
+          groups: z.array(
+            z.object({
+              title: z.string(),
+              body: z.string(),
+              icon: z.string(),
+              color: z.number(),
+              link: z.string(),
+              enabled: z.boolean().default(true),
+            }),
+          ),
+        }),
         strip: z.object({
           event: z.string(),
           conference: z.string(),
@@ -221,8 +237,10 @@ export default defineContentConfig({
         ),
         journals: z.array(
           z.object({
-            id: z.number(),
+            title: z.string(),
             href: z.string(),
+            image: z.string(),
+            description: z.string(),
           }),
         ),
         sectionLinks: z.object({

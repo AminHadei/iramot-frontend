@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { Swiper as SwiperInstance } from "swiper";
 import type { ListingCard } from "~/utils/archive";
 import type { SpotlightGroup } from "~/utils/spotlight";
 
@@ -8,7 +9,63 @@ defineProps<{
   postsTitle: string;
   groups: SpotlightGroup[];
   posts: Array<ListingCard & { colorIndex?: number }>;
+  linkLabel?: string;
 }>();
+
+const postsRoot = ref<HTMLElement | null>(null);
+const narrowPosts = "(max-width: 61.24em)";
+
+let swiper: SwiperInstance | undefined;
+let media: MediaQueryList | undefined;
+let job = 0;
+
+function destroySwiper() {
+  if (swiper && !swiper.destroyed) swiper.destroy(true, true);
+  swiper = undefined;
+}
+
+async function sync() {
+  const id = ++job;
+  const element = postsRoot.value;
+  if (!element) return;
+  if (!window.matchMedia(narrowPosts).matches) {
+    destroySwiper();
+    return;
+  }
+  if (swiper && !swiper.destroyed) return;
+  const [{ default: Swiper }, { Mousewheel }] = await Promise.all([
+    import("swiper"),
+    import("swiper/modules"),
+  ]);
+  if (id !== job || postsRoot.value !== element) return;
+  if (!window.matchMedia(narrowPosts).matches) return;
+  swiper = new Swiper(element, {
+    modules: [Mousewheel],
+    wrapperClass: "simple-swiper__items",
+    slideClass: "simple-swiper__item",
+    slidesPerView: "auto",
+    slidesPerGroup: 1,
+    grabCursor: true,
+    simulateTouch: false,
+    mousewheel: { forceToAxis: true },
+  });
+}
+
+function onMediaChange() {
+  void sync();
+}
+
+onMounted(() => {
+  media = window.matchMedia(narrowPosts);
+  media.addEventListener("change", onMediaChange);
+  void sync();
+});
+
+onBeforeUnmount(() => {
+  job += 1;
+  media?.removeEventListener("change", onMediaChange);
+  destroySwiper();
+});
 </script>
 
 <template>
@@ -22,27 +79,46 @@ defineProps<{
           <p>{{ intro }}</p>
         </div>
         <div class="home-spotlight-intro__categories">
-          <NuxtLink
-            v-for="(group, index) in groups"
-            :key="group.to"
-            :to="group.to"
-            class="spotlight-category"
-            :style="categoryColor(index)"
-          >
-            <div class="spotlight-category__icon" aria-hidden="true">
-              <SpotlightIcon :name="group.title" />
-            </div>
-            <div class="spotlight-category__title">{{ group.title }}</div>
-            <div v-if="group.body" class="spotlight-category__body">
-              {{ group.body }}
-            </div>
-          </NuxtLink>
+          <template v-for="(group, index) in groups" :key="group.to">
+            <a
+              v-if="group.to.startsWith('http')"
+              :href="group.to"
+              class="spotlight-category"
+              :style="categoryColor((group.color ?? index + 1) - 1)"
+            >
+              <div class="spotlight-category__icon" aria-hidden="true">
+                <SpotlightIcon :name="group.icon || group.title" />
+              </div>
+              <div class="spotlight-category__title">{{ group.title }}</div>
+              <div v-if="group.body" class="spotlight-category__body">
+                {{ group.body }}
+              </div>
+            </a>
+            <NuxtLink
+              v-else
+              :to="group.to"
+              class="spotlight-category"
+              :style="categoryColor((group.color ?? index + 1) - 1)"
+            >
+              <div class="spotlight-category__icon" aria-hidden="true">
+                <SpotlightIcon :name="group.icon || group.title" />
+              </div>
+              <div class="spotlight-category__title">{{ group.title }}</div>
+              <div v-if="group.body" class="spotlight-category__body">
+                {{ group.body }}
+              </div>
+            </NuxtLink>
+          </template>
         </div>
       </div>
       <div class="home-spotlight home-spotlight-posts deferred">
         <h2 class="home-spotlight-posts__title">{{ postsTitle }}</h2>
         <div class="home-spotlight-posts__list">
-          <div class="simple-swiper simple-swiper-initialized">
+          <div
+            ref="postsRoot"
+            dir="rtl"
+            class="simple-swiper simple-swiper-initialized"
+          >
             <div class="simple-swiper__items">
               <PostListing
                 v-for="(post, index) in posts"
@@ -56,6 +132,7 @@ defineProps<{
                 :date="post.date"
                 :image="post.image"
                 :color-index="post.colorIndex ?? index"
+                :link-label="linkLabel"
               />
             </div>
           </div>
@@ -64,11 +141,3 @@ defineProps<{
     </div>
   </div>
 </template>
-
-<style>
-@media (max-width: 61.24em) {
-  .home-spotlight-posts__list .simple-swiper-initialized {
-    overflow-x: auto;
-  }
-}
-</style>

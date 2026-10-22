@@ -58,3 +58,7 @@ TGHP
 buddyboss
 elementor
 lottie
+webp
+siasate
+modiriat
+INSO

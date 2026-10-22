@@ -140,6 +140,15 @@ export interface ArchiveFile {
   body?: ArchiveItem[];
 }
 
+export interface SpotlightGroupRecord {
+  title: string;
+  body: string;
+  icon: string;
+  color: number;
+  link: string;
+  enabled?: boolean;
+}
+
 export interface HomeContent {
   eyebrow: string;
   title: string;
@@ -150,7 +159,14 @@ export interface HomeContent {
   projectsLinkLabel: string;
   recentTitle: string;
   recentLinkLabel: string;
+  readLabel: string;
+  viewLabel: string;
   publicationsLink: string;
+  spotlight: {
+    heading: string;
+    intro: string;
+    groups: SpotlightGroupRecord[];
+  };
   strip: {
     event: string;
     conference: string;
@@ -172,8 +188,10 @@ export interface HomeContent {
     page: number;
   }>;
   journals: Array<{
-    id: number;
+    title: string;
     href: string;
+    image: string;
+    description: string;
   }>;
   sectionLinks: {
     workgroups: string;

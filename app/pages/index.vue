@@ -93,10 +93,14 @@ const { data: home } = await useAsyncData("home-page", async () => {
       const filter = site.eventFilters.find((entry) =>
         entry.eventIds.includes(item.id),
       );
-      return toCard(item, {
+      const card = toCard(item, {
         to: filter?.to ?? "/events",
         category: filter?.label,
       });
+      return {
+        ...card,
+        excerpt: card.excerpt || firstSentence(item.content || ""),
+      };
     }),
   );
   const programs: ProgramCard[] = page.programs.map((program) => {
@@ -107,28 +111,15 @@ const { data: home } = await useAsyncData("home-page", async () => {
         : firstSentence(record?.content || record?.excerpt || "");
     return { title: program.title, description, to: program.to };
   });
-  const journals: ProgramCard[] = page.journals.flatMap((journal) => {
-    const record = posts.find((item) => item.id === journal.id);
-    if (!record) return [];
-    return [
-      {
-        title: record.title,
-        description: plainText(record.excerpt || record.content || ""),
-        to: journal.href,
-      },
-    ];
-  });
-
   return {
     page,
     mission: about.description ?? page.title,
     intro: about.lead ?? page.dek,
-    groups: spotlightGroups(posts, site.sets.publications, "/terminology"),
+    groups: spotlightGroups(page.spotlight.groups),
     news: newsCards,
     publications: publicationCards,
     events: eventCards,
     programs,
-    journals,
   };
 });
 
@@ -149,11 +140,12 @@ usePageSeo({
   <div>
     <HomeSplash :title="view.mission" :links="page.links" />
     <Spotlight
-      :title="page.sections.workgroups"
-      :intro="view.intro"
+      :title="page.spotlight.heading"
+      :intro="page.spotlight.intro"
       :posts-title="page.sections.news"
       :groups="view.groups"
       :posts="view.news"
+      :link-label="page.readLabel"
     />
     <div class="home-contain home-contain--no-grid">
       <div class="home-latest home-latest--featured-projects deferred">
@@ -190,6 +182,8 @@ usePageSeo({
               :date="card.date"
               :image="card.image"
               :color-index="card.colorIndex"
+              :link-label="page.readLabel"
+              :by-label="site.ui.by"
             />
           </SimpleSwiper>
         </div>
@@ -209,10 +203,13 @@ usePageSeo({
               swiper
               :title="card.title"
               :to="card.to"
+              :excerpt="card.excerpt"
               :category="card.category"
               :date="card.date"
               :image="card.image"
               :color-index="card.colorIndex"
+              :link-label="page.readLabel"
+              :by-label="site.ui.by"
             />
           </SimpleSwiper>
         </div>
@@ -226,11 +223,13 @@ usePageSeo({
         </div>
         <div class="home-latest__list project-list project-list--layout-3-col">
           <ProjectCard
-            v-for="(journal, index) in view.journals"
-            :key="journal.to"
+            v-for="(journal, index) in page.journals"
+            :key="journal.href"
             :title="journal.title"
             :description="journal.description"
-            :to="journal.to"
+            :to="journal.href"
+            :image="journal.image"
+            :link-label="page.viewLabel"
             :by-label="site.ui.by"
             :style="accentStyle(index + 3)"
           />

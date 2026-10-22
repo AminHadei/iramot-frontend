@@ -12,7 +12,39 @@ projectsTitle: برنامه‌های انجمن
 projectsLinkLabel: همهٔ پروژه‌ها
 recentTitle: تازه‌ترین انتشارات
 recentLinkLabel: همهٔ انتشارات
+readLabel: مطالعه کامل
+viewLabel: مشاهده
 publicationsLink: همهٔ انتشارات
+spotlight:
+  heading: کارگروه‌ها
+  intro: انجمن مدیریت فناوری و نوآوری ایران می‌خواهد بحث نوآوری را از شعار به ظرفیت قابل‌سنجش برساند. پژوهش، آموزش و پیشنهاد سیاست در این‌جا جدا از هم نیستند.
+  groups:
+    - title: کارگروه مدیریت نوآوری
+      body: ""
+      icon: innovation
+      color: 1
+      link: "https://iramot.ir/مدیریت-نوآوری/"
+    - title: کارگروه متناظر استانداردسازی مدیریت نوآوری (INSO/ISO/TC279)
+      body: ""
+      icon: standards-body
+      color: 2
+      link: /workgroups/category/کارگروه-متناظر-استانداردسازی-مدیریت
+    - title: کارگروه واژه‌گزینی
+      body: ""
+      icon: terminology
+      color: 3
+      link: /terminology
+    - title: کارگروه زنان
+      body: ""
+      icon: women
+      color: 4
+      link: /research/category/اخبار-کارگروه-زنان
+    - title: کارگروه صنعت
+      body: ""
+      icon: sector
+      color: 5
+      link: /workgroups
+      enabled: false
 strip:
   event: رویداد بعدی
   conference: کنفرانس
@@ -37,12 +69,18 @@ programs:
     to: /terminology
     page: 10488
 journals:
-  - id: 2832
-    href: https://jstp.nrisp.ac.ir/
-  - id: 2831
-    href: https://www.nowavari.ir/
-  - id: 6989
-    href: https://jtdm.irost.ir/
+  - title: سیاست علم و فناوری
+    href: https://jstp.nrisp.ac.ir
+    image: /media/journals/siasate-elm-750x1024-1.webp
+    description: فصلنامه «سیاست علم و فناوری» پرسابقه ترین مجله علمی پژوهشی ایران است که در زمینه سیاست‌گذاری و مدیریت علم، فناوری و نوآوری از سال ۱۳۸۷ فعالیت می‌کند. این فصلنامه در همکاری با مرکز تحقیقات سیاست علمی کشور منتشر می‌شود.
+  - title: مدیریت نوآوری
+    href: https://www.nowavari.ir
+    image: /media/journals/modiriat.webp
+    description: نشریه مدیریت نوآوری، نشریه‌ای علمی پژوهشی است که در زمینه مطالعات مربوط به حوزه مدیریت نوآوری از ابتدای سال ۱۳۹۱ فعالیت می‌کند. این نشریه در همکاری با موسسه آموزشی و تحقیقاتی صنایع دفاعی منتشر می‌شود.
+  - title: مدیریت توسعه فناوری
+    href: https://jtdm.irost.ir
+    image: /media/journals/411683110107-749x1024-1.webp
+    description: فصلنامه علمی مدیریت توسعه فناوری از سال ۱۳۹۲ فعالیت خود را آغاز و به مباحث مهم و به‌روز در زمینه «مدیریت فناوری و نوآوری، که در سطح خرد انجام شده» می‌پردازد. این فصلنامه در همکاری با پژوهشکده مطالعات فناوری‌های نوین سازمان پژوهش‌های علمی و صنعتی ایران منتشر می‌شود.
 sectionLinks:
   workgroups: همهٔ کارگروه‌ها
   events: همهٔ رویدادها
