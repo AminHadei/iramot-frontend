@@ -1,121 +1,231 @@
 <script setup lang="ts">
-import type { SiteContent } from "~/types/content";
+import type { HomeContent, SiteContent } from "~/types/content";
 
 defineProps<{
   site: SiteContent;
 }>();
 
 const route = useRoute();
-const menuOpen = ref(false);
+const open = ref(false);
+const panel = ref<string | null>(null);
+
+const { data: home } = await useAsyncData("home-chrome", () =>
+  queryCollection("home").first(),
+);
+
+const searchLabel = computed(
+  () => (home.value as HomeContent | null)?.search.label ?? "",
+);
 
 function isCurrent(to: string) {
-  if (to === "/") {
-    return route.path === "/";
-  }
+  const path = to.split("#")[0] ?? to;
+  if (path === "/") return route.path === "/";
+  return route.path === path || route.path.startsWith(`${path}/`);
+}
 
-  return route.path === to || route.path.startsWith(`${to}/`);
+function setOpen(next: boolean) {
+  open.value = next;
+  if (!next) panel.value = null;
+  document.body.classList.toggle("nav-open", next);
+}
+
+function goTerminology() {
+  setOpen(false);
+  void navigateTo("/terminology");
 }
 
 watch(
   () => route.path,
   () => {
-    menuOpen.value = false;
+    if (!open.value) return;
+    setOpen(false);
   },
 );
+
+onBeforeUnmount(() => {
+  document.body.classList.remove("nav-open");
+});
 </script>
 
 <template>
-  <header class="border-b border-line bg-paper">
+  <div class="site-navigation" :aria-hidden="open ? undefined : true">
+    <ul class="site-nav">
+      <li
+        v-for="item in site.nav"
+        :key="item.to"
+        class="menu-item"
+        :class="item.children?.length ? 'menu-item-has-children' : ''"
+      >
+        <a
+          v-if="item.children?.length"
+          :href="item.to"
+          @click.prevent="panel = item.to"
+        >
+          {{ item.label }}
+        </a>
+        <NuxtLink
+          v-else
+          :to="item.to"
+          :aria-current="isCurrent(item.to) ? 'page' : undefined"
+        >
+          {{ item.label }}
+        </NuxtLink>
+        <ul
+          v-if="item.children?.length"
+          class="sub-menu"
+          :class="panel === item.to ? 'active' : ''"
+        >
+          <li class="header-item" @click="panel = null">
+            <div class="arrow" aria-hidden="true">
+              <svg width="24" height="16" viewBox="0 0 24 16" fill="none">
+                <path
+                  d="M8 1.5 1.5 8 8 14.5M2 8h21"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                />
+              </svg>
+            </div>
+            <div class="title">{{ item.label }}</div>
+          </li>
+          <li class="menu-item all-item">
+            <NuxtLink :to="item.to">{{ item.label }}</NuxtLink>
+          </li>
+          <li v-for="child in item.children" :key="child.to" class="menu-item">
+            <NuxtLink :to="child.to">{{ child.label }}</NuxtLink>
+          </li>
+        </ul>
+      </li>
+      <li class="menu-search menu-item">
+        <a href="/terminology" @click.prevent="panel = 'search'">{{ searchLabel }}</a>
+        <ul class="sub-menu" :class="panel === 'search' ? 'active' : ''">
+          <li class="header-item" @click="panel = null">
+            <div class="arrow" aria-hidden="true">
+              <svg width="24" height="16" viewBox="0 0 24 16" fill="none">
+                <path
+                  d="M8 1.5 1.5 8 8 14.5M2 8h21"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                />
+              </svg>
+            </div>
+            <div class="title">{{ searchLabel }}</div>
+          </li>
+          <li class="menu-search-li">
+            <form class="menu-search-form" @submit.prevent="goTerminology">
+              <input
+                type="text"
+                name="s"
+                :placeholder="searchLabel"
+                :aria-label="searchLabel"
+              />
+              <button type="submit" class="menu-search-submit">
+                <svg
+                  width="15"
+                  height="15"
+                  viewBox="0 0 15 15"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M13.125 13.125 10.406 10.406M11.875 6.875a5 5 0 1 1-10 0 5 5 0 0 1 10 0Z"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                  />
+                </svg>
+                {{ searchLabel }}
+              </button>
+            </form>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <header class="site-header">
     <a
       href="#content"
-      class="sr-only focus:not-sr-only focus:absolute focus:start-4 focus:top-4 focus:z-50 focus:bg-paper focus:px-3 focus:py-2 focus:text-primary"
+      class="sr-only focus:not-sr-only focus:absolute focus:start-4 focus:top-4 focus:z-50"
     >
       {{ site.ui.skip }}
     </a>
-    <div class="page-inset flex items-center justify-between gap-4 py-4">
+    <div class="site-header__inner">
       <NuxtLink
-        :to="'/'"
-        class="inline-flex items-center gap-3"
+        to="/"
+        class="site-header__logo"
         :aria-label="site.name"
+        :title="site.name"
       >
         <SiteMark />
-        <span class="font-heading text-2xl text-primary">{{ site.shortName }}</span>
       </NuxtLink>
-
-      <div class="hidden items-center gap-6 frame:flex">
-        <nav :aria-label="site.ui.navigation">
-          <ul class="flex items-center gap-5">
-            <li v-for="item in site.nav" :key="item.to">
-              <NuxtLink
-                :to="item.to"
-                class="text-sm"
-                :class="isCurrent(item.to) ? 'text-primary' : 'text-ink'"
-                :aria-current="isCurrent(item.to) ? 'page' : undefined"
-              >
-                {{ item.label }}
-              </NuxtLink>
-            </li>
-          </ul>
-        </nav>
-        <NuxtLink
-          :to="site.membership.to"
-          class="border border-accent px-4 py-2 text-sm text-accent"
-        >
-          {{ site.membership.label }}
-        </NuxtLink>
-      </div>
-
       <button
         type="button"
-        class="inline-flex size-11 items-center justify-center frame:hidden"
-        :aria-expanded="menuOpen"
-        aria-controls="mobile-nav"
-        @click="menuOpen = !menuOpen"
+        class="site-header__nav-toggle nav-toggle"
+        :aria-expanded="open"
+        :aria-label="open ? site.ui.close : site.ui.menu"
+        @click="setOpen(!open)"
       >
-        <span class="sr-only">{{ menuOpen ? site.ui.close : site.ui.menu }}</span>
-        <span v-if="!menuOpen" class="flex w-6 flex-col gap-1.5" aria-hidden="true">
-          <span class="h-px bg-ink" />
-          <span class="h-px bg-ink" />
-          <span class="h-px bg-ink" />
-        </span>
-        <span v-else class="relative size-5" aria-hidden="true">
-          <span
-            class="absolute start-0 top-1/2 h-px w-full -translate-y-1/2 rotate-45 bg-ink"
-          />
-          <span
-            class="absolute start-0 top-1/2 h-px w-full -translate-y-1/2 -rotate-45 bg-ink"
-          />
-        </span>
+        <svg width="25" height="19" viewBox="0 0 25 19" fill="none" aria-hidden="true">
+          <rect width="25" height="1" fill="currentColor" />
+          <rect y="6" width="25" height="1" fill="currentColor" />
+          <rect y="12" width="25" height="1" fill="currentColor" />
+          <rect y="18" width="25" height="1" fill="currentColor" />
+        </svg>
+        <svg width="23" height="23" viewBox="0 0 23 23" fill="none" aria-hidden="true">
+          <path d="M20 19.3 3 2.3l-.7.7L19.3 20z" fill="currentColor" />
+          <path d="M19.3 2.3 2.3 19.3l.7.7L20 3z" fill="currentColor" />
+        </svg>
       </button>
+      <form class="site-header__search" @submit.prevent="goTerminology">
+        <input
+          name="s"
+          type="text"
+          class="site-header__search-input"
+          :aria-label="searchLabel"
+          :placeholder="searchLabel"
+        />
+        <button class="site-header__search-submit" type="submit">
+          <svg
+            width="15"
+            height="15"
+            viewBox="0 0 15 15"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M13.125 13.125 10.406 10.406M11.875 6.875a5 5 0 1 1-10 0 5 5 0 0 1 10 0Z"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+            />
+          </svg>
+          <span>{{ searchLabel }}</span>
+        </button>
+      </form>
+      <nav class="site-header__nav" :aria-label="site.ui.navigation">
+        <ul class="site-nav">
+          <li
+            v-for="item in site.nav"
+            :key="item.to"
+            class="menu-item"
+            :class="item.children?.length ? 'menu-item-has-children' : ''"
+          >
+            <NuxtLink
+              :to="item.to"
+              :aria-current="isCurrent(item.to) ? 'page' : undefined"
+            >
+              {{ item.label }}
+            </NuxtLink>
+            <ul v-if="item.children?.length" class="sub-menu">
+              <li class="menu-item all-item">
+                <NuxtLink :to="item.to">{{ item.label }}</NuxtLink>
+              </li>
+              <li v-for="child in item.children" :key="child.to" class="menu-item">
+                <NuxtLink :to="child.to">{{ child.label }}</NuxtLink>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
     </div>
-
-    <nav
-      v-if="menuOpen"
-      id="mobile-nav"
-      class="border-t border-line frame:hidden"
-      :aria-label="site.ui.navigation"
-    >
-      <ul class="page-inset py-2">
-        <li v-for="item in site.nav" :key="item.to" class="border-b border-line">
-          <NuxtLink
-            :to="item.to"
-            class="flex items-center justify-between py-4 font-heading text-2xl"
-            :aria-current="isCurrent(item.to) ? 'page' : undefined"
-          >
-            {{ item.label }}
-            <DirectionalIcon name="chevron" />
-          </NuxtLink>
-        </li>
-        <li>
-          <NuxtLink
-            :to="site.membership.to"
-            class="flex items-center justify-between py-4 font-heading text-2xl text-accent"
-          >
-            {{ site.membership.label }}
-            <DirectionalIcon name="chevron" />
-          </NuxtLink>
-        </li>
-      </ul>
-    </nav>
   </header>
 </template>
