@@ -4,9 +4,14 @@ const route = useRoute();
 
 useHead(() => {
   const homeChrome = route.path === "/" || route.path === "/styleguide";
+  const membership = route.path === "/membership";
   return {
     bodyAttrs: {
-      class: homeChrome ? "loaded home page-template-template-home" : "loaded",
+      class: homeChrome
+        ? "loaded home page-template-template-home"
+        : membership
+          ? "loaded page-template-template-course-general-content"
+          : "loaded",
     },
   };
 });
