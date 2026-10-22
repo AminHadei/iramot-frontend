@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.3
+
+### Patch Changes
+
+- Show the hero and footer colour bands, load images from the site base path, and self-host Vazirmatn.
+
 ## 0.3.2
 
 ### Patch Changes
