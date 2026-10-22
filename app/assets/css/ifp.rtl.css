@@ -4,7 +4,8 @@
     --color-paper: #fffdf5;
     --color-ink: #2b2b33;
     --color-hero: #2d317a;
-    --color-emphasis: #cf4382;
+    --color-emphasis: #6866ad;
+    --color-emphasis-fill: #6a64ab;
     --color-band: #06011e;
     --color-meta: #999;
     --color-panel: #faf9f7;
@@ -12,7 +13,6 @@
     --color-category-2: #6967ac;
     --color-category-3: #9a96ca;
     --color-category-4: #3f50a0;
-    --color-category-5: #cf4382;
     --color-on-category: var(--color-paper);
     --color-accent: var(--color-band);
     --color-hero-background: var(--color-hero);
@@ -43,8 +43,8 @@
   }
   [data-post-category="emerging-technology"],
   .spotlight-category[href*="/emerging-technology"] {
-    --color-category: var(--color-category-5) !important;
-    --color-on-category: var(--color-band);
+    --color-category: var(--color-category-1) !important;
+    --color-on-category: var(--color-paper);
   }
   .spotlight-category[href*="/biotechnology"] .spotlight-category__title,
   .spotlight-category[href*="/biotechnology"] .spotlight-category__icon {
@@ -1373,10 +1373,10 @@
     }
   }
   .single-article .article ::-moz-selection {
-    background: rgba(var(--color-category-rgb, 207, 67, 130), 0.35);
+    background: rgba(var(--color-category-rgb, 104, 102, 173), 0.35);
   }
   .single-article .article ::selection {
-    background: rgba(var(--color-category-rgb, 207, 67, 130), 0.35);
+    background: rgba(var(--color-category-rgb, 104, 102, 173), 0.35);
   }
   @media (max-width: 61.24em) {
     .single-article:not(.single-article--no-ref-float)
@@ -2118,8 +2118,9 @@
   }
   @media (min-width: 61.25em) {
     .filter-toolbar__button--active {
-      background: var(--color-category, var(--color-emphasis));
+      background: var(--color-category, var(--color-emphasis-fill));
       border-color: var(--color-category, var(--color-emphasis));
+      color: var(--color-on-category, var(--color-paper));
     }
   }
   @media (max-width: 61.24em) {
@@ -2336,7 +2337,7 @@
     .toolbar-select--taxonomy.toolbar-select--category
     .toolbar-select__item--current
     .toolbar-select__item-checkbox {
-    background-color: var(--color-category, var(--color-emphasis));
+    background-color: var(--color-category, var(--color-emphasis-fill));
   }
   .filter-toolbar .toolbar-select--taxonomy .toolbar-select__list-wrapper {
     width: 100%;
@@ -2805,7 +2806,7 @@
   @media (max-width: 28.74em) {
     .people-group-list .people-group__list .person-card__link:hover {
       color: var(--color-paper);
-      background-color: var(--color-emphasis);
+      background-color: var(--color-emphasis-fill);
       border-color: var(--color-emphasis);
     }
   }
@@ -2865,7 +2866,7 @@
   @media (min-width: 28.75em) {
     .people-group-list .people-group__list .person-card__link:hover {
       color: var(--color-paper);
-      background-color: var(--color-emphasis);
+      background-color: var(--color-emphasis-fill);
       border-color: var(--color-emphasis);
     }
   }
@@ -3883,7 +3884,7 @@
     left: 50%;
     margin-right: -50vw;
     margin-left: -50vw;
-    background-color: var(--color-emphasis);
+    background-color: var(--color-emphasis-fill);
     position: absolute;
     top: 0;
     bottom: 0;
@@ -12578,8 +12579,8 @@
     line-height: 1.3333333333;
     font-weight: 500;
     padding: 10px 20px;
-    background-color: var(--color-category, var(--color-emphasis));
-    color: var(--color-ink);
+    background-color: var(--color-category, var(--color-emphasis-fill));
+    color: var(--color-on-category, var(--color-paper));
     border: 1px solid var(--color-ink);
   }
   @media (min-width: 45em) {
@@ -21480,7 +21481,7 @@
     left: 50%;
     margin-right: -50vw;
     margin-left: -50vw;
-    background-color: var(--color-emphasis);
+    background-color: var(--color-emphasis-fill);
     position: absolute;
     top: 0;
     bottom: 0;
@@ -32321,7 +32322,7 @@
   }
   .research-team .person-card__link:hover {
     color: var(--color-paper);
-    background-color: var(--color-emphasis);
+    background-color: var(--color-emphasis-fill);
     border-color: var(--color-emphasis);
   }
   .post-pagination {
@@ -36959,8 +36960,8 @@
     line-height: 1.3333333333;
     font-weight: 500;
     padding: 10px 20px;
-    background-color: var(--color-category, var(--color-emphasis));
-    color: var(--color-ink);
+    background-color: var(--color-category, var(--color-emphasis-fill));
+    color: var(--color-on-category, var(--color-paper));
     border: 1px solid var(--color-ink);
   }
   @media (min-width: 45em) {
@@ -62776,8 +62777,8 @@
     line-height: 1.3333333333;
     font-weight: 500;
     padding: 10px 20px;
-    background-color: var(--color-category, var(--color-emphasis));
-    color: var(--color-ink);
+    background-color: var(--color-category, var(--color-emphasis-fill));
+    color: var(--color-on-category, var(--color-paper));
     border: 1px solid var(--color-ink);
   }
   @media (min-width: 45em) {
@@ -63169,7 +63170,7 @@
   }
   .research-team .person-card__link:hover {
     color: var(--color-paper);
-    background-color: var(--color-emphasis);
+    background-color: var(--color-emphasis-fill);
     border-color: var(--color-emphasis);
   }
   .project {

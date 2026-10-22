@@ -73,7 +73,8 @@ const palette = `:root {
   --color-paper: #fffdf5;
   --color-ink: #2b2b33;
   --color-hero: #2d317a;
-  --color-emphasis: #cf4382;
+  --color-emphasis: #6866ad;
+  --color-emphasis-fill: #6a64ab;
   --color-band: #06011e;
   --color-meta: #999;
   --color-panel: #faf9f7;
@@ -81,7 +82,6 @@ const palette = `:root {
   --color-category-2: #6967ac;
   --color-category-3: #9a96ca;
   --color-category-4: #3f50a0;
-  --color-category-5: #cf4382;
   --color-on-category: var(--color-paper);
   --color-accent: var(--color-band);
   --color-hero-background: var(--color-hero);
@@ -112,8 +112,8 @@ const palette = `:root {
 }
 [data-post-category="emerging-technology"],
 .spotlight-category[href*="/emerging-technology"] {
-  --color-category: var(--color-category-5) !important;
-  --color-on-category: var(--color-band);
+  --color-category: var(--color-category-1) !important;
+  --color-on-category: var(--color-paper);
 }
 .spotlight-category[href*="/biotechnology"] .spotlight-category__title,
 .spotlight-category[href*="/biotechnology"] .spotlight-category__icon {
@@ -149,16 +149,23 @@ function isDarkChrome(selector, prop) {
   return darkHeader;
 }
 
+function emphasisToken(selector, prop) {
+  const surface = prop === "--color-accent" || /background/i.test(prop);
+  const hairline = /\.simple-swiper__item:before\b/.test(selector);
+  if (surface && !hairline) return "var(--color-emphasis-fill)";
+  return "var(--color-emphasis)";
+}
+
 function tokenFor(hex, selector, prop) {
   const value = expandHex(hex);
   if (value === "fffef2") return "var(--color-paper)";
   if (value === "b17ada") return "var(--color-hero)";
-  if (value === "ff9762") return "var(--color-emphasis)";
+  if (value === "ff9762") return emphasisToken(selector, prop);
   if (value === "fcfbeb" || value === "fcfbe8") return "var(--color-panel)";
   if (value === "999999") return "var(--color-meta)";
   if (value === "39d794") return "var(--color-category-3)";
   if (value === "bd4578") return "var(--color-category-4)";
-  if (value === "41c4fc") return "var(--color-category-5)";
+  if (value === "41c4fc") return "var(--color-category-1)";
   if (value === "3368ce") return "var(--color-category-2)";
   if (value === "ff6565" && /color-category/.test(prop))
     return "var(--color-category-1)";
@@ -173,7 +180,7 @@ function tokenFor(hex, selector, prop) {
 function replaceColors(value, selector, prop) {
   let next = value.replace(
     /rgba\(\s*var\(--color-category-rgb,\s*#ff9762\s*\)\s*,\s*([0-9.]+)\s*\)/gi,
-    "rgba(var(--color-category-rgb, 207, 67, 130), $1)",
+    "rgba(var(--color-category-rgb, 104, 102, 173), $1)",
   );
   next = next.replace(
     /rgba\(\s*255\s*,\s*254\s*,\s*242\s*,\s*([0-9.]+)\s*\)/gi,
@@ -246,6 +253,25 @@ function applyPalette(css) {
           : "var(--color-on-category, var(--color-paper))";
     }
   });
+  root.walkRules((rule) => {
+    if (!rule.selector || /:before\b|:after\b|checkbox/.test(rule.selector)) return;
+    const decls = rule.nodes?.filter((node) => node.type === "decl") ?? [];
+    const paintsFill = decls.some(
+      (decl) =>
+        /background/i.test(decl.prop) &&
+        decl.value.includes("var(--color-emphasis-fill)"),
+    );
+    if (!paintsFill) return;
+    const light = "var(--color-on-category, var(--color-paper))";
+    const colorDecl = decls.find((decl) => decl.prop === "color");
+    if (!colorDecl) {
+      rule.append({ prop: "color", value: light });
+      return;
+    }
+    if (/color-ink|color-band|#373737|#2b2b33|#06011e/i.test(colorDecl.value)) {
+      colorDecl.value = light;
+    }
+  });
   root.prepend(postcss.parse(palette));
   return root
     .toString()
@@ -255,7 +281,7 @@ function applyPalette(css) {
         373737: "2B2B33",
         fffef2: "FFFDF5",
         b17ada: "2D317A",
-        ff9762: "CF4382",
+        ff9762: "6866AD",
         fcfbeb: "FAF9F7",
         fcfbe8: "FAF9F7",
       };

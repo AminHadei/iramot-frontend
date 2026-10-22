@@ -12,7 +12,7 @@ export default {
         primary: "#2D317A",
         secondary: "#6967AC",
         "secondary-soft": "#9A96CA",
-        accent: "#CF4382",
+        accent: "#6866AD",
         line: "#373737",
       },
       fontFamily: {
