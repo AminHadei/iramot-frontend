@@ -8,5 +8,5 @@ usePageSeo({
 </script>
 
 <template>
-  <ArchiveListing v-bind="listing" />
+  <OpportunitiesListing :listing="listing" />
 </template>
