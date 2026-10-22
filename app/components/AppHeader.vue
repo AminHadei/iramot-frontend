@@ -8,6 +8,11 @@ defineProps<{
 const route = useRoute();
 const open = ref(false);
 const panel = ref<string | null>(null);
+const opaque = ref(false);
+
+function syncOpaque() {
+  opaque.value = window.scrollY > 0;
+}
 
 const { data: home } = await useHomeChrome();
 
@@ -40,7 +45,13 @@ watch(
   },
 );
 
+onMounted(() => {
+  syncOpaque();
+  window.addEventListener("scroll", syncOpaque, { passive: true });
+});
+
 onBeforeUnmount(() => {
+  window.removeEventListener("scroll", syncOpaque);
   document.body.classList.remove("nav-open");
 });
 </script>
@@ -139,7 +150,7 @@ onBeforeUnmount(() => {
       </li>
     </ul>
   </div>
-  <header class="site-header">
+  <header class="site-header" :class="{ 'site-header--opaque': opaque }">
     <a
       href="#content"
       class="sr-only focus:not-sr-only focus:absolute focus:start-4 focus:top-4 focus:z-50"
