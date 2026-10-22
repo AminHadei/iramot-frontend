@@ -2,19 +2,31 @@
 const { data: site } = await useSite();
 const route = useRoute();
 
-useHead(() => {
-  const homeChrome = route.path === "/" || route.path === "/styleguide";
-  const membership = route.path === "/membership";
-  return {
-    bodyAttrs: {
-      class: homeChrome
-        ? "loaded home page-template-template-home"
-        : membership
-          ? "loaded page-template-template-course-general-content"
-          : "loaded",
-    },
-  };
-});
+function bodyClass(path: string) {
+  if (path === "/" || path === "/styleguide") {
+    return "loaded home page-template-template-home";
+  }
+  if (path === "/about") return "loaded page-template-template-about";
+  if (path === "/projects") return "loaded page-template-template-newsletters";
+  if (path === "/membership")
+    return "loaded page-template-template-course-general-content";
+  if (path === "/opportunities" || path.startsWith("/opportunities/")) {
+    return "loaded page-template-template-opportunities";
+  }
+  if (path === "/economics-of-ideas" || path.startsWith("/economics-of-ideas/")) {
+    return "loaded page-template-template-course-landing";
+  }
+  if (path === "/the-launch-sequence" || path === "/transit-abundance-playbook") {
+    return "loaded page-template-template-reading-list";
+  }
+  return "loaded";
+}
+
+useHead(() => ({
+  bodyAttrs: {
+    class: bodyClass(route.path),
+  },
+}));
 </script>
 
 <template>
