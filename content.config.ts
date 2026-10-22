@@ -144,6 +144,7 @@ export default defineContentConfig({
           team: z.string(),
           emptyPeople: z.string(),
           emptyPartners: z.string(),
+          more: z.string(),
         }),
         styleguide: z.object({
           title: z.string(),

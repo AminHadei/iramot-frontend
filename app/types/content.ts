@@ -80,6 +80,7 @@ export interface SiteContent {
     team: string;
     emptyPeople: string;
     emptyPartners: string;
+    more: string;
   };
   styleguide: {
     title: string;

@@ -204,6 +204,7 @@ ui:
   emptyBody: متن این صفحه در آرشیو خالی است.
   team: هیئت‌مدیره
   emptyPeople: فهرستی از افراد در آرشیو نیست.
+  more: بیشتر
   emptyPartners: فهرستی از همراهان در آرشیو نیست.
 styleguide:
   title: راهنمای اجزا
