@@ -16,25 +16,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  html {
-    background-color: #fffdf5;
-  }
-
-  body {
-    text-align: start;
-    line-height: 1.8;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4 {
-    font-family: "Noto Naskh Arabic", serif;
-    line-height: 1.35;
-  }
-}
-
 @layer components {
   .page-wrap {
     @apply mx-auto w-full max-w-page px-5 md:px-10;
@@ -124,7 +105,6 @@ button.menu-search-submit,
 .newsletter-pre-footer__form button {
   background: none;
   color: inherit;
-  font: inherit;
 }
 
 button.site-header__nav-toggle,
