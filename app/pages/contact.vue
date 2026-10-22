@@ -29,10 +29,15 @@ usePageSeo({
 </script>
 
 <template>
-  <div>
-    <HeroIntro :title="page.title" :dek="site.ui.emptyBody" />
-    <div class="page-inset space-y-1 pb-16">
-      <p v-for="line in page.address" :key="line">{{ line }}</p>
+  <div class="contact-hero">
+    <div class="contact-hero__title">{{ page.title }}</div>
+    <div class="contact-hero__address">
+      <p>
+        <template v-for="(line, index) in page.address" :key="line">
+          {{ line }}<br v-if="index < page.address.length - 1" />
+        </template>
+      </p>
     </div>
+    <div class="contact-hero__links" />
   </div>
 </template>
