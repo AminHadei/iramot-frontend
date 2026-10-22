@@ -39,6 +39,12 @@ export default defineNuxtConfig({
     cssPath: "~/assets/css/tailwind.css",
     configPath: "tailwind.config.ts",
   },
+  postcss: {
+    plugins: {
+      // Tailwind 3 exposes nesting only as a directory import, which Nuxt cannot load as ESM.
+      "tailwindcss/nesting": false,
+    },
+  },
   image: {
     providers: {
       none: {
