@@ -129,6 +129,34 @@ button.simple-swiper-controller__button {
   pointer-events: none;
 }
 
+.project__image--type-portrait {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.project__image--type-portrait::before {
+  content: "";
+  display: block;
+  width: 100%;
+  padding-top: 55.4761904762%;
+}
+
+.project__image--type-portrait img {
+  position: absolute;
+  top: 24px;
+  inset-inline-start: 50%;
+  height: calc(100% - 48px);
+  width: auto;
+  max-width: none;
+  max-height: none;
+  object-fit: contain;
+  transform: translateX(50%);
+  box-shadow: 0 8px 24px rgb(6 1 30 / 18%);
+  transition: opacity 0.1s;
+}
+
 @property --logo-petal-1 {
   syntax: "<color>";
   inherits: true;
