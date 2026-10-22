@@ -60,6 +60,7 @@ function slotFromName(name: string) {
     </div>
     <div class="post-listing__image">
       <NuxtImg v-if="image" :src="image" :alt="title" provider="none" />
+      <SiteMark v-else placeholder />
     </div>
     <div v-if="featured === 'contain' && latestLabel" class="post-listing__label">
       <span>{{ latestLabel }}</span>

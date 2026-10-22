@@ -17,7 +17,7 @@ defineProps<{
       :class="image ? 'project__image--type-image' : 'project__image--type-icon'"
     >
       <NuxtImg v-if="image" :src="image" :alt="title" provider="none" />
-      <SiteMark v-else />
+      <SiteMark v-else placeholder />
     </NuxtLink>
     <div class="project__body">
       <div class="project__title">
