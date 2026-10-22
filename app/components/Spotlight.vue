@@ -1,34 +1,72 @@
 <script setup lang="ts">
+import type { ListingCard } from "~/utils/archive";
+import type { SpotlightGroup } from "~/utils/spotlight";
+
 defineProps<{
   title: string;
   intro: string;
-  areas: Array<{ title: string; question: string; to: string }>;
+  postsTitle: string;
+  groups: SpotlightGroup[];
+  posts: Array<ListingCard & { colorIndex?: number }>;
 }>();
 </script>
 
 <template>
-  <section
-    class="flex flex-col max-frame:flex-col frame:grid frame:grid-cols-2 frame:border-b frame:border-line"
-  >
-    <div
-      class="full-band full-band-accent self-start px-[24px] pb-10 pt-[72px] text-paper frame:sticky frame:top-[70px] frame:px-9 lg:px-[60px]"
-    >
-      <h2 class="font-heading text-[2rem] leading-none">{{ title }}</h2>
-      <p class="mt-4 max-w-md text-sm font-light leading-relaxed">{{ intro }}</p>
+  <div class="home-slider-container home-slider-container--spotlight">
+    <div class="home-contain home-contain--spotlight">
+      <div class="home-spotlight home-spotlight-intro deferred">
+        <div class="home-spotlight-intro__title">
+          <h2 class="home-spotlight-intro__title-text">{{ title }}</h2>
+        </div>
+        <div class="home-spotlight-intro__body">
+          <p>{{ intro }}</p>
+        </div>
+        <div class="home-spotlight-intro__categories">
+          <NuxtLink
+            v-for="(group, index) in groups"
+            :key="group.to"
+            :to="group.to"
+            class="spotlight-category"
+            :style="categoryColor(index)"
+          >
+            <div class="spotlight-category__icon" aria-hidden="true" />
+            <div class="spotlight-category__title">{{ group.title }}</div>
+            <div v-if="group.body" class="spotlight-category__body">
+              {{ group.body }}
+            </div>
+          </NuxtLink>
+        </div>
+      </div>
+      <div class="home-spotlight home-spotlight-posts deferred">
+        <h2 class="home-spotlight-posts__title">{{ postsTitle }}</h2>
+        <div class="home-spotlight-posts__list">
+          <div class="simple-swiper simple-swiper-initialized">
+            <div class="simple-swiper__items">
+              <PostListing
+                v-for="(post, index) in posts"
+                :key="post.id"
+                swiper
+                :title="post.title"
+                :to="post.to"
+                :external="post.external"
+                :excerpt="post.excerpt"
+                :category="post.category"
+                :date="post.date"
+                :image="post.image"
+                :color-index="post.colorIndex ?? index"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <ul>
-      <li v-for="area in areas" :key="area.title" class="border-t border-accent">
-        <NuxtLink
-          :to="area.to"
-          class="grid grid-cols-[72px_1fr] gap-x-[14px] gap-y-1 px-[24px] py-4 frame:px-9 lg:px-[60px]"
-        >
-          <span class="row-span-2 mt-1 size-8 border border-line" aria-hidden="true" />
-          <span class="font-sans text-[0.875rem] font-bold leading-[1.3]">{{
-            area.title
-          }}</span>
-          <span class="text-sm font-light leading-relaxed">{{ area.question }}</span>
-        </NuxtLink>
-      </li>
-    </ul>
-  </section>
+  </div>
 </template>
+
+<style>
+@media (max-width: 61.24em) {
+  .home-spotlight-posts__list .simple-swiper-initialized {
+    overflow-x: auto;
+  }
+}
+</style>
