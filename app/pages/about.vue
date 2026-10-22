@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { SiteContent } from "~/types/content";
+import type { HomeContent, SiteContent } from "~/types/content";
 
 const { data: siteData } = await useSite();
 if (!siteData.value) {
@@ -8,12 +8,14 @@ if (!siteData.value) {
 const site = siteData.value as SiteContent;
 
 const { data: about } = await useAsyncData("about-page", async () => {
-  const [pagesFile, postsFile] = await Promise.all([
+  const [pagesFile, postsFile, aboutDoc, homeFile] = await Promise.all([
     queryCollection("archivePages").first(),
     queryCollection("archivePosts").first(),
+    queryCollection("pages").path("/about").first(),
+    queryCollection("home").first(),
   ]);
   const record = archiveItems(pagesFile).find((item) => item.id === site.pages.about);
-  if (!record) return null;
+  if (!record || !aboutDoc || !homeFile) return null;
   const board = byDateDesc(
     archiveItems(postsFile).filter(
       (item) =>
@@ -25,7 +27,12 @@ const { data: about } = await useAsyncData("about-page", async () => {
     title: item.title,
     to: researchPath(item.slug),
   }));
-  return { title: record.title, board };
+  return {
+    title: record.title,
+    board,
+    doc: aboutDoc,
+    home: homeFile as HomeContent,
+  };
 });
 
 if (!about.value) {
@@ -36,7 +43,7 @@ const page = about.value;
 
 usePageSeo({
   title: page.title,
-  description: site.ui.emptyBody,
+  description: page.home.dek,
 });
 </script>
 
@@ -45,7 +52,7 @@ usePageSeo({
     <div class="hero-intro">
       <h1 class="hero-intro__title">{{ page.title }}</h1>
       <div class="hero-intro__body">
-        <p>{{ site.ui.emptyBody }}</p>
+        <ContentRenderer :value="page.doc" />
       </div>
     </div>
     <div class="quick-links">
@@ -73,6 +80,19 @@ usePageSeo({
                 <NuxtLink :to="post.to">{{ post.title }}</NuxtLink>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-template-template-home">
+      <div class="home-contain home-contain--no-grid">
+        <div class="home-latest home-latest--featured-projects deferred">
+          <h2 class="home-latest__title">{{ page.home.sections.partners }}</h2>
+          <div class="home-latest__view-all">
+            <NuxtLink to="/partners">{{ page.home.sectionLinks.partners }}</NuxtLink>
+          </div>
+          <div class="home-latest__list project-list project-list--layout-3-col">
+            <p class="project__description">{{ page.home.partnersEmpty }}</p>
           </div>
         </div>
       </div>
