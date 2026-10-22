@@ -200,8 +200,13 @@ onBeforeUnmount(() => {
         :aria-label="site.name"
         :title="site.name"
       >
-        <SiteMark />
-        <span class="site-header__logo-name">{{ site.name }}</span>
+        <NuxtImg
+          src="/brand/logo-horizontal.webp"
+          alt=""
+          width="361"
+          height="92"
+          provider="none"
+        />
       </NuxtLink>
       <button
         type="button"
