@@ -170,6 +170,7 @@ sets:
   workgroups:
     slugs:
       - workgroups
+      - کارگروه-متناظر-استانداردسازی-مدیریت
   quarterlies:
     slugs:
       - quarterly-magazine
