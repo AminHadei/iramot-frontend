@@ -1,18 +1,5 @@
-<script setup lang="ts">
-defineProps<{
-  tone?: "paper";
-}>();
-</script>
-
 <template>
-  <svg
-    viewBox="0 0 32 32"
-    class="shrink-0"
-    :class="
-      tone === 'paper' ? 'size-5 text-paper frame:size-[38px]' : 'size-8 text-primary'
-    "
-    aria-hidden="true"
-  >
+  <svg viewBox="0 0 32 32" width="32" height="32" aria-hidden="true">
     <rect
       x="1.5"
       y="1.5"
