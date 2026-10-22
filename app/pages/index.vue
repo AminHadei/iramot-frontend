@@ -1,18 +1,20 @@
 <script setup lang="ts">
-import type { HomeContent, SiteContent } from "~/types/content";
+import type { ArchiveItem, HomeContent, SiteContent } from "~/types/content";
 import type { ListingCard } from "~/utils/archive";
 
-interface ProjectFields {
-  path: string;
-  title: string;
-  description: string;
-  authors?: string[];
-  image?: string;
-  featured?: boolean;
+interface AboutFields {
+  description?: string;
+  lead?: string;
 }
 
 interface HomeCard extends ListingCard {
   colorIndex: number;
+}
+
+interface ProgramCard {
+  title: string;
+  description: string;
+  to: string;
 }
 
 const { data: siteData } = await useSite();
@@ -21,49 +23,112 @@ if (!siteData.value) {
 }
 const site = siteData.value as SiteContent;
 
-const { data: home } = await useAsyncData("home-page", async () => {
-  const [pageFile, postsFile, projects] = await Promise.all([
-    queryCollection("home").first(),
-    queryCollection("archivePosts").first(),
-    queryCollection("projects").order("stem", "ASC").all(),
-  ]);
-  if (!pageFile) return null;
-  const page = pageFile as HomeContent;
-  const posts = archiveItems(postsFile);
-  const publications = byDateDesc(
-    posts.filter((item) => itemInSet(item, site.sets.publications)),
-  );
-  const seenCategories: string[] = [];
-  const publicationCards = publications.slice(0, 6).map((item) => {
-    const category = categoryName(item, site.sets.publications);
-    const name = category ?? "";
-    let colorIndex = seenCategories.indexOf(name);
+function firstSentence(value: string) {
+  const text = plainText(value);
+  const match = text.match(/^.*?[.؟!]/);
+  return match?.[0] ?? text;
+}
+
+function accentStyle(index: number): Record<string, string> {
+  const slot = (index % 5) + 1;
+  return { "--color-accent": `var(--color-category-${slot})` };
+}
+
+function withColor(cards: ListingCard[]): HomeCard[] {
+  const seen: string[] = [];
+  return cards.map((card) => {
+    const name = card.category ?? "";
+    let colorIndex = seen.indexOf(name);
     if (colorIndex < 0) {
-      seenCategories.push(name);
-      colorIndex = seenCategories.length - 1;
+      seen.push(name);
+      colorIndex = seen.length - 1;
     }
-    return {
-      ...toCard(item, {
-        to: researchPath(item.slug),
-        category,
-      }),
-      colorIndex,
-    } satisfies HomeCard;
+    return { ...card, colorIndex };
   });
-  const terminology = site.nav.find((item) => item.to === "/terminology");
-  const groups = spotlightGroups(posts, site.sets.workgroups, site.sets.publications, {
-    label: terminology?.label ?? site.listings.terminology.title,
-    to: "/terminology",
-    body: site.listings.terminology.description,
+}
+
+function listedEvents(items: ArchiveItem[]) {
+  const today = new Date().toISOString().slice(0, 10);
+  const upcoming = items
+    .filter((item) => item.date.slice(0, 10) >= today)
+    .sort((left, right) => left.date.localeCompare(right.date));
+  return upcoming.length ? upcoming : byDateDesc(items);
+}
+
+const { data: home } = await useAsyncData("home-page", async () => {
+  const [pageFile, aboutFile, postsFile, eventsFile, pagesFile] = await Promise.all([
+    queryCollection("home").first(),
+    queryCollection("pages").path("/about").first(),
+    queryCollection("archivePosts").first(),
+    queryCollection("archiveEvents").first(),
+    queryCollection("archivePages").first(),
+  ]);
+  if (!pageFile || !aboutFile) return null;
+  const page = pageFile as HomeContent;
+  const about = aboutFile as AboutFields;
+  const posts = archiveItems(postsFile);
+  const pages = archiveItems(pagesFile);
+  const publicationCards = withColor(
+    byDateDesc(posts.filter((item) => itemInSet(item, site.sets.latest)))
+      .slice(0, 12)
+      .map((item) =>
+        toCard(item, {
+          to: researchPath(item.slug),
+          category: categoryName(item, site.sets.latest),
+        }),
+      ),
+  );
+  const newsCards = withColor(
+    byDateDesc(posts.filter((item) => itemInSet(item, site.sets.news)))
+      .slice(0, 4)
+      .map((item) =>
+        toCard(item, {
+          to: researchPath(item.slug),
+          category: categoryName(item, site.sets.news),
+        }),
+      ),
+  );
+  const eventCards = withColor(
+    listedEvents(archiveItems(eventsFile)).map((item) => {
+      const filter = site.eventFilters.find((entry) =>
+        entry.eventIds.includes(item.id),
+      );
+      return toCard(item, {
+        to: filter?.to ?? "/events",
+        category: filter?.label,
+      });
+    }),
+  );
+  const programs: ProgramCard[] = page.programs.map((program) => {
+    const record = pages.find((item) => item.id === program.page);
+    const description =
+      program.to === "/terminology"
+        ? site.listings.terminology.description
+        : firstSentence(record?.content || record?.excerpt || "");
+    return { title: program.title, description, to: program.to };
   });
-  const projectCards = (projects as ProjectFields[]).filter((item) => item.featured);
+  const journals: ProgramCard[] = page.journals.flatMap((journal) => {
+    const record = posts.find((item) => item.id === journal.id);
+    if (!record) return [];
+    return [
+      {
+        title: record.title,
+        description: plainText(record.excerpt || record.content || ""),
+        to: journal.href,
+      },
+    ];
+  });
 
   return {
     page,
-    groups,
-    spotlight: publicationCards.slice(0, 3),
+    mission: about.description ?? page.title,
+    intro: about.lead ?? page.dek,
+    groups: spotlightGroups(posts, site.sets.publications, "/terminology"),
+    news: newsCards,
     publications: publicationCards,
-    projects: projectCards.length ? projectCards : (projects as ProjectFields[]),
+    events: eventCards,
+    programs,
+    journals,
   };
 });
 
@@ -75,37 +140,33 @@ const view = home.value;
 const page = view.page;
 
 usePageSeo({
-  title: page.title,
-  description: page.dek,
+  title: view.mission,
+  description: view.intro,
 });
 </script>
 
 <template>
   <div>
-    <HomeSplash :title="page.title" :links="page.links" />
+    <HomeSplash :title="view.mission" :links="page.links" />
     <Spotlight
-      :title="page.spotlightTitle"
-      :intro="page.dek"
-      :posts-title="page.sections.publications"
+      :title="page.sections.workgroups"
+      :intro="view.intro"
+      :posts-title="page.sections.news"
       :groups="view.groups"
-      :posts="view.spotlight"
+      :posts="view.news"
     />
     <div class="home-contain home-contain--no-grid">
       <div class="home-latest home-latest--featured-projects deferred">
         <h2 class="home-latest__title">{{ page.projectsTitle }}</h2>
-        <div class="home-latest__view-all">
-          <NuxtLink to="/projects">{{ page.projectsLinkLabel }}</NuxtLink>
-        </div>
         <div class="home-latest__list project-list project-list--layout-3-col">
           <ProjectCard
-            v-for="project in view.projects"
-            :key="project.path"
-            :title="project.title"
-            :description="project.description"
-            :to="project.path"
-            :authors="project.authors"
-            :image="project.image"
+            v-for="(program, index) in view.programs"
+            :key="program.to"
+            :title="program.title"
+            :description="program.description"
+            :to="program.to"
             :by-label="site.ui.by"
+            :style="accentStyle(index)"
           />
         </div>
       </div>
@@ -131,6 +192,48 @@ usePageSeo({
               :color-index="card.colorIndex"
             />
           </SimpleSwiper>
+        </div>
+      </div>
+    </div>
+    <div class="home-slider-container home-slider-container--latest">
+      <div class="home-contain home-contain--latest home-contain--no-grid">
+        <div class="home-latest deferred">
+          <h2 class="home-latest__title">{{ page.sections.events }}</h2>
+          <div class="home-latest__view-all">
+            <NuxtLink to="/events">{{ page.sectionLinks.events }}</NuxtLink>
+          </div>
+          <SimpleSwiper :previous-label="site.ui.previous" :next-label="site.ui.next">
+            <PostListing
+              v-for="card in view.events"
+              :key="card.id"
+              swiper
+              :title="card.title"
+              :to="card.to"
+              :category="card.category"
+              :date="card.date"
+              :image="card.image"
+              :color-index="card.colorIndex"
+            />
+          </SimpleSwiper>
+        </div>
+      </div>
+    </div>
+    <div class="home-contain home-contain--no-grid">
+      <div class="home-latest home-latest--featured-projects deferred">
+        <h2 class="home-latest__title">{{ page.sections.quarterlies }}</h2>
+        <div class="home-latest__view-all">
+          <NuxtLink to="/quarterlies">{{ page.sectionLinks.quarterlies }}</NuxtLink>
+        </div>
+        <div class="home-latest__list project-list project-list--layout-3-col">
+          <ProjectCard
+            v-for="(journal, index) in view.journals"
+            :key="journal.to"
+            :title="journal.title"
+            :description="journal.description"
+            :to="journal.to"
+            :by-label="site.ui.by"
+            :style="accentStyle(index + 3)"
+          />
         </div>
       </div>
     </div>

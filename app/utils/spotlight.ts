@@ -1,6 +1,6 @@
-import type { ArchiveItem, CategorySet, ContentLink } from "~/types/content";
+import type { ArchiveItem, CategorySet } from "~/types/content";
 import { plainText } from "~/utils/plainText";
-import { byDateDesc, itemInSet, researchPath } from "~/utils/archive";
+import { byDateDesc, categoryInSet, itemInSet, researchPath } from "~/utils/archive";
 
 export interface SpotlightGroup {
   title: string;
@@ -10,36 +10,34 @@ export interface SpotlightGroup {
 
 export function spotlightGroups(
   posts: ArchiveItem[],
-  workgroups: CategorySet,
   publications: CategorySet,
-  terminology: ContentLink & { body: string },
+  terminologyTo: string,
 ): SpotlightGroup[] {
   const groups: SpotlightGroup[] = [];
   const seen = new Set<string>();
 
-  for (const item of byDateDesc(
-    posts.filter((entry) => itemInSet(entry, workgroups)),
-  )) {
+  for (const item of byDateDesc(posts)) {
     const specific = (item.categories ?? []).find(
       (category) =>
         category.slug !== "workgroups" &&
         (category.slug.includes("کارگروه") || category.name.includes("کارگروه")),
     );
-    const key = specific?.slug ?? String(item.id);
-    if (seen.has(key)) continue;
-    seen.add(key);
-    groups.push({
-      title: specific?.name ?? item.title,
-      body: plainText(item.excerpt || ""),
-      to: itemInSet(item, publications) ? researchPath(item.slug) : "/workgroups",
-    });
-  }
+    if (!specific || seen.has(specific.slug)) continue;
+    seen.add(specific.slug);
 
-  if (!groups.some((group) => group.to === terminology.to)) {
+    let to = "/workgroups";
+    if (specific.slug.includes("واژه") || specific.name.includes("واژه")) {
+      to = terminologyTo;
+    } else if (categoryInSet(specific.slug, publications)) {
+      to = `/research/category/${specific.slug}`;
+    } else if (itemInSet(item, publications)) {
+      to = researchPath(item.slug);
+    }
+
     groups.push({
-      title: terminology.label,
-      body: terminology.body,
-      to: terminology.to,
+      title: specific.name,
+      body: plainText(item.excerpt || ""),
+      to,
     });
   }
 
