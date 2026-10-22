@@ -3897,7 +3897,7 @@
   }
   @media (min-width: 61.25em) {
     .page-template-template-home .home-spotlight-intro__title {
-      clip-path: inset(0 0 0 -100vw);
+      clip-path: inset(0 -100vw 0 0);
     }
   }
   @media (min-width: 61.25em) {

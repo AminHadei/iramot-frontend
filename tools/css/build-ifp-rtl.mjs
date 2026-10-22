@@ -308,8 +308,15 @@ function dropMissingImages(css) {
   );
 }
 
+function fixSpotlightClip(css) {
+  return css.replace(
+    /(\.home-spotlight-intro__title\s*\{[^}]*?clip-path\s*:\s*)inset\(0 0 0 -100vw\)/g,
+    "$1inset(0 -100vw 0 0)",
+  );
+}
+
 const source = stripMappedFaces(parts.join("\n"));
-const flipped = rtlcss.process(source);
+const flipped = fixSpotlightClip(rtlcss.process(source));
 const themed = dropMissingImages(
   applyPalette(neutralizePersianType(mapFonts(flipped))),
 );
