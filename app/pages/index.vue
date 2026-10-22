@@ -2,6 +2,19 @@
 import type { HomeContent, SiteContent } from "~/types/content";
 import type { ListingCard } from "~/utils/archive";
 
+interface ProjectFields {
+  path: string;
+  title: string;
+  description: string;
+  authors?: string[];
+  image?: string;
+  featured?: boolean;
+}
+
+interface HomeCard extends ListingCard {
+  colorIndex: number;
+}
+
 const { data: siteData } = await useSite();
 if (!siteData.value) {
   throw createError({ statusCode: 500, statusMessage: "محتوای خانه پیدا نشد" });
@@ -9,87 +22,48 @@ if (!siteData.value) {
 const site = siteData.value as SiteContent;
 
 const { data: home } = await useAsyncData("home-page", async () => {
-  const [pageFile, postsFile, eventsFile, termsFile] = await Promise.all([
+  const [pageFile, postsFile, projects] = await Promise.all([
     queryCollection("home").first(),
     queryCollection("archivePosts").first(),
-    queryCollection("archiveEvents").first(),
-    queryCollection("archiveTerms").first(),
+    queryCollection("projects").order("stem", "ASC").all(),
   ]);
   if (!pageFile) return null;
   const page = pageFile as HomeContent;
   const posts = archiveItems(postsFile);
-  const events = archiveItems(eventsFile);
   const publications = byDateDesc(
     posts.filter((item) => itemInSet(item, site.sets.publications)),
   );
-  const event = nextOrLatest(events);
-  const conference = byDateDesc(
-    posts.filter((item) => itemInSet(item, site.sets.conference)),
-  )[0];
-
-  const publicationCards = publications.slice(0, 6).map((item) =>
-    toCard(item, {
-      to: researchPath(item.slug),
-      category: categoryName(item, site.sets.publications),
-    }),
-  );
-  const workgroupCards = byDateDesc(
-    posts.filter((item) => itemInSet(item, site.sets.workgroups)),
-  ).map((item) =>
-    toCard(item, {
-      to: itemInSet(item, site.sets.publications) ? researchPath(item.slug) : undefined,
-      category: categoryName(item, site.sets.workgroups),
-    }),
-  );
-  const eventCards = byDateDesc(events)
-    .slice(0, 4)
-    .map((item) => toCard(item));
-  const quarterlyCards = byDateDesc(
-    posts.filter((item) => itemInSet(item, site.sets.quarterlies)),
-  ).map((item) => {
-    const external = externalHref(item.content ?? "");
-    const linked = itemInSet(item, site.sets.publications);
-    return toCard(item, {
-      external,
-      to: external || !linked ? undefined : researchPath(item.slug),
-      category: categoryName(item, site.sets.quarterlies),
-    });
+  const seenCategories: string[] = [];
+  const publicationCards = publications.slice(0, 6).map((item) => {
+    const category = categoryName(item, site.sets.publications);
+    const name = category ?? "";
+    let colorIndex = seenCategories.indexOf(name);
+    if (colorIndex < 0) {
+      seenCategories.push(name);
+      colorIndex = seenCategories.length - 1;
+    }
+    return {
+      ...toCard(item, {
+        to: researchPath(item.slug),
+        category,
+      }),
+      colorIndex,
+    } satisfies HomeCard;
   });
-
-  const cells: Array<{ label: string; title: string; date?: string; to?: string }> = [];
-  if (event) {
-    cells.push({
-      label: page.strip.event,
-      title: event.title,
-      date: event.date,
-      to: "/events",
-    });
-  }
-  if (conference) {
-    cells.push({
-      label: page.strip.conference,
-      title: conference.title,
-      date: conference.date,
-      to: "/conference",
-    });
-  }
-  cells.push({
-    label: page.strip.membership,
-    title: site.membership.label,
-    to: site.membership.to,
+  const terminology = site.nav.find((item) => item.to === "/terminology");
+  const groups = spotlightGroups(posts, site.sets.workgroups, site.sets.publications, {
+    label: terminology?.label ?? site.listings.terminology.title,
+    to: "/terminology",
+    body: site.listings.terminology.description,
   });
+  const projectCards = (projects as ProjectFields[]).filter((item) => item.featured);
 
   return {
     page,
-    cells,
-    publications: publicationCards satisfies ListingCard[],
-    workgroups: workgroupCards,
-    events: eventCards,
-    terms: archiveItems(termsFile)
-      .map((item) => item.title)
-      .filter((title) => title.length > 0)
-      .sort((left, right) => left.localeCompare(right, "fa")),
-    quarterlies: quarterlyCards,
+    groups,
+    spotlight: publicationCards.slice(0, 3),
+    publications: publicationCards,
+    projects: projectCards.length ? projectCards : (projects as ProjectFields[]),
   };
 });
 
@@ -109,125 +83,56 @@ usePageSeo({
 <template>
   <div>
     <HomeSplash :title="page.title" :links="page.links" />
-    <HomeStrip :cells="view.cells" />
-    <section class="border-t border-line">
-      <div class="page-inset py-16">
-        <SectionHeading
-          :title="page.sections.publications"
-          to="/research"
-          :link-label="page.publicationsLink"
-        />
-        <div class="mt-8 grid gap-5 wide:grid-cols-3">
-          <PostListing
-            v-for="card in view.publications"
-            :key="card.id"
-            :title="card.title"
-            :to="card.to"
-            :excerpt="card.excerpt"
-            :category="card.category"
-            :date="card.date"
-            :image="card.image"
+    <Spotlight
+      :title="page.spotlightTitle"
+      :intro="page.dek"
+      :posts-title="page.sections.publications"
+      :groups="view.groups"
+      :posts="view.spotlight"
+    />
+    <div class="home-contain home-contain--no-grid">
+      <div class="home-latest home-latest--featured-projects deferred">
+        <h2 class="home-latest__title">{{ page.projectsTitle }}</h2>
+        <div class="home-latest__view-all">
+          <NuxtLink to="/projects">{{ page.projectsLinkLabel }}</NuxtLink>
+        </div>
+        <div class="home-latest__list project-list project-list--layout-3-col">
+          <ProjectCard
+            v-for="project in view.projects"
+            :key="project.path"
+            :title="project.title"
+            :description="project.description"
+            :to="project.path"
+            :authors="project.authors"
+            :image="project.image"
+            :by-label="site.ui.by"
           />
         </div>
       </div>
-    </section>
-    <section class="border-t border-line">
-      <div class="page-inset py-16">
-        <SectionHeading
-          :title="page.sections.workgroups"
-          to="/workgroups"
-          :link-label="page.sectionLinks.workgroups"
-        />
-        <div class="mt-8 grid gap-5 wide:grid-cols-3">
-          <PostListing
-            v-for="card in view.workgroups"
-            :key="card.id"
-            :title="card.title"
-            :to="card.to"
-            :excerpt="card.excerpt"
-            :category="card.category"
-            :date="card.date"
-            :image="card.image"
-          />
+    </div>
+    <div class="home-slider-container home-slider-container--latest">
+      <div class="home-contain home-contain--latest home-contain--no-grid">
+        <div class="home-latest deferred">
+          <h2 class="home-latest__title">{{ page.recentTitle }}</h2>
+          <div class="home-latest__view-all">
+            <NuxtLink to="/research">{{ page.recentLinkLabel }}</NuxtLink>
+          </div>
+          <SimpleSwiper :previous-label="site.ui.previous" :next-label="site.ui.next">
+            <PostListing
+              v-for="card in view.publications"
+              :key="card.id"
+              swiper
+              :title="card.title"
+              :to="card.to"
+              :excerpt="card.excerpt"
+              :category="card.category"
+              :date="card.date"
+              :image="card.image"
+              :color-index="card.colorIndex"
+            />
+          </SimpleSwiper>
         </div>
       </div>
-    </section>
-    <section class="border-t border-line">
-      <div class="page-inset py-16">
-        <SectionHeading
-          :title="page.sections.events"
-          to="/events"
-          :link-label="page.sectionLinks.events"
-        />
-        <div class="mt-8 grid gap-5 wide:grid-cols-2">
-          <PostListing
-            v-for="card in view.events"
-            :key="card.id"
-            :title="card.title"
-            :excerpt="card.excerpt"
-            :date="card.date"
-            :image="card.image"
-          />
-        </div>
-      </div>
-    </section>
-    <section class="border-t border-line">
-      <div class="page-inset py-16">
-        <SectionHeading
-          :title="page.sections.terms"
-          to="/terminology"
-          :link-label="page.sectionLinks.terms"
-        />
-        <TermSearch
-          class="mt-8"
-          :terms="view.terms"
-          :label="page.search.label"
-          :empty-label="page.search.empty"
-        />
-      </div>
-    </section>
-    <section class="border-t border-line">
-      <div class="page-inset py-16">
-        <SectionHeading
-          :title="page.sections.quarterlies"
-          to="/quarterlies"
-          :link-label="page.sectionLinks.quarterlies"
-        />
-        <div class="mt-8 grid gap-5 wide:grid-cols-3">
-          <PostListing
-            v-for="card in view.quarterlies"
-            :key="card.id"
-            :title="card.title"
-            :to="card.to"
-            :external="card.external"
-            :excerpt="card.excerpt"
-            :category="card.category"
-            :date="card.date"
-            :image="card.image"
-          />
-        </div>
-      </div>
-    </section>
-    <section class="border-t border-line">
-      <div class="page-inset py-16">
-        <SectionHeading
-          :title="page.sections.partners"
-          to="/partners"
-          :link-label="page.sectionLinks.partners"
-        />
-        <PersonCard class="mt-8 max-w-sm" :empty-label="page.partnersEmpty" />
-      </div>
-    </section>
-    <section class="border-t border-line">
-      <div class="page-inset py-16">
-        <SectionHeading :title="page.sections.newsletter" />
-        <NewsletterForm
-          class="mt-8"
-          :label="page.newsletter.label"
-          :submit="page.newsletter.submit"
-          :note="page.newsletter.note"
-        />
-      </div>
-    </section>
+    </div>
   </div>
 </template>
