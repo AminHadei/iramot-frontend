@@ -10,7 +10,13 @@ function move(direction: "next" | "previous") {
   const element = scroller.value;
   if (!element) return;
 
-  const amount = element.clientWidth * 0.8;
+  const item = element.querySelector<HTMLElement>(".simple-swiper__item");
+  const style = item ? getComputedStyle(item) : undefined;
+  const gap = style
+    ? (Number.parseFloat(style.marginLeft) || 0) +
+      (Number.parseFloat(style.marginRight) || 0)
+    : 0;
+  const amount = item ? item.getBoundingClientRect().width + gap : element.clientWidth;
   const towardEnd = direction === "next" ? -amount : amount;
   const delta = document.documentElement.dir === "rtl" ? towardEnd : -towardEnd;
   element.scrollBy({ left: delta, behavior: "smooth" });
