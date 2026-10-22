@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.6
+
+### Patch Changes
+
+- Build the home page from the IFP markup, filled with this association's archive.
+
 ## 0.3.5
 
 ### Patch Changes
