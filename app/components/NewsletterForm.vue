@@ -1,5 +1,6 @@
 <script setup lang="ts">
 defineProps<{
+  title: string;
   label: string;
   submit: string;
   note: string;
@@ -7,22 +8,19 @@ defineProps<{
 </script>
 
 <template>
-  <form class="grid max-w-md gap-3" @submit.prevent>
-    <label class="grid gap-2 text-sm">
-      {{ label }}
-      <input
-        type="email"
-        name="email"
-        autocomplete="email"
-        class="border border-line bg-paper px-3 py-2 text-ink"
-      />
-    </label>
-    <button
-      type="submit"
-      class="w-fit border border-accent px-4 py-2 text-sm text-accent"
-    >
-      {{ submit }}
-    </button>
-    <p class="text-sm text-secondary">{{ note }}</p>
-  </form>
+  <div class="newsletter-pre-footer">
+    <div class="newsletter-pre-footer__body">
+      <div class="newsletter-pre-footer__title">{{ title }}</div>
+      <div class="newsletter-pre-footer__notice">{{ note }}</div>
+      <div class="newsletter-pre-footer__form">
+        <form @submit.prevent>
+          <label>
+            {{ label }}
+            <input type="email" name="email" autocomplete="email" :aria-label="label" />
+          </label>
+          <button type="submit">{{ submit }}</button>
+        </form>
+      </div>
+    </div>
+  </div>
 </template>
