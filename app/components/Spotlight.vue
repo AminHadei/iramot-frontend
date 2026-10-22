@@ -29,7 +29,9 @@ defineProps<{
             class="spotlight-category"
             :style="categoryColor(index)"
           >
-            <div class="spotlight-category__icon" aria-hidden="true" />
+            <div class="spotlight-category__icon" aria-hidden="true">
+              <SpotlightIcon :name="group.title" />
+            </div>
             <div class="spotlight-category__title">{{ group.title }}</div>
             <div v-if="group.body" class="spotlight-category__body">
               {{ group.body }}
