@@ -58,9 +58,11 @@ function stripMappedFaces(css) {
 }
 
 function mapFonts(css) {
-  return css
-    .replaceAll("Tiempos Text", '"Noto Naskh Arabic"')
-    .replaceAll("Söhne", "Vazirmatn");
+  const stack = "IRANYekan, Tahoma, sans-serif";
+  return css.replace(/font-family\s*:\s*[^;}{]+/g, (declaration) => {
+    if (!/Söhne|Tiempos Text/.test(declaration)) return declaration;
+    return `font-family: ${stack}`;
+  });
 }
 
 function neutralizePersianType(css) {

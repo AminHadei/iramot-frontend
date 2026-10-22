@@ -334,7 +334,7 @@
     text-decoration: underline;
   }
   .site-footer {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 300;
     position: relative;
     display: grid;
@@ -483,7 +483,7 @@
     pointer-events: none;
   }
   .site-footer__main-menu .menu .sub-menu li a {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 300;
     margin-bottom: 8px;
   }
@@ -622,7 +622,7 @@
     }
   }
   .page-standard__content {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     max-width: 720px;
     margin-right: auto;
@@ -645,7 +645,7 @@
   }
   .page-standard__content h1,
   .page-standard__content h2 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 500;
   }
   @media (max-width: 44.99em) {
@@ -673,7 +673,7 @@
     }
   }
   .page-standard__content h3 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 500;
   }
   @media (max-width: 44.99em) {
@@ -694,7 +694,7 @@
     }
   }
   .page-standard__content h4 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 600;
   }
   @media (max-width: 44.99em) {
@@ -713,7 +713,7 @@
   }
   .page-standard__content h5,
   .page-standard__content h6 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 600;
     font-style: italic;
   }
@@ -834,7 +834,7 @@
     text-decoration: none;
   }
   .site-navigation .site-nav > li > a {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 900;
     text-transform: none;
     padding-top: 30px;
@@ -932,7 +932,7 @@
     right: 0;
   }
   .site-navigation .site-nav > li > .sub-menu > li.header-item {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 900;
     text-transform: none;
     display: grid;
@@ -970,7 +970,7 @@
     grid-column: 2/3;
   }
   .site-navigation .site-nav > li > .sub-menu > li.menu-item {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
   }
   @media (max-width: 44.99em) {
@@ -1005,7 +1005,7 @@
   }
   .site-navigation .site-nav > li.menu-search > .sub-menu li .menu-search-form input,
   .site-navigation .site-nav > li.menu-search > .sub-menu li .menu-search-form button {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     border-bottom: none;
   }
@@ -1053,7 +1053,7 @@
     font-style: italic;
   }
   .site-navigation .site-nav > li.menu-search > .sub-menu li .menu-search-submit {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     text-transform: none;
     display: flex;
@@ -1102,7 +1102,7 @@
     }
   }
   .single-article .article__content {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     word-break: break-word;
     overflow-wrap: break-word;
@@ -1185,7 +1185,7 @@
   }
   .single-article .article__content h1,
   .single-article .article__content h2 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 500;
   }
   @media (max-width: 44.99em) {
@@ -1213,7 +1213,7 @@
     }
   }
   .single-article .article__content h3 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 500;
   }
   @media (max-width: 44.99em) {
@@ -1234,7 +1234,7 @@
     }
   }
   .single-article .article__content h4 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 600;
   }
   @media (max-width: 44.99em) {
@@ -1253,7 +1253,7 @@
   }
   .single-article .article__content h5,
   .single-article .article__content h6 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 600;
     font-style: italic;
   }
@@ -1306,7 +1306,7 @@
     color: var(--color-category);
   }
   .single-article .article__content .article-reference {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 600;
   }
   @media (max-width: 44.99em) {
@@ -1473,7 +1473,7 @@
     }
   }
   .toc__button {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 500;
     height: 48px;
     padding-top: 10px;
@@ -1661,7 +1661,7 @@
     gap: 12px;
   }
   .toc__item {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.875rem;
     line-height: 1.3;
     font-weight: 300;
@@ -1757,7 +1757,7 @@
     opacity: 0;
   }
   .toc__item-sub-items-item {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 300;
     position: relative;
     padding-right: 20px;
@@ -1811,7 +1811,7 @@
     text-decoration: none;
   }
   .toc__download {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.9375rem;
     line-height: 1.4;
     font-weight: 400;
@@ -2010,7 +2010,7 @@
     }
   }
   .filter-toolbar--category .toolbar-select {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.9375rem;
     line-height: 1.4;
     font-weight: 400;
@@ -2042,7 +2042,7 @@
     }
   }
   .filter-toolbar--search .toolbar-select {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 300;
   }
   @media (max-width: 44.99em) {
@@ -2060,7 +2060,7 @@
     }
   }
   .filter-toolbar--search .toolbar-select__item {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
   }
   @media (max-width: 44.99em) {
@@ -2094,7 +2094,7 @@
     position: relative;
   }
   .filter-toolbar__button {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.9375rem;
     line-height: 1.4;
     font-weight: 400;
@@ -2143,7 +2143,7 @@
     }
   }
   .filter-toolbar__filter-text {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 300;
     margin-bottom: 12px;
   }
@@ -2162,7 +2162,7 @@
     }
   }
   .filter-toolbar__reset {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     margin-top: var(--medium-spacing);
   }
@@ -2434,7 +2434,7 @@
     }
   }
   .reference-list__item {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.6875rem;
     line-height: 1.4;
     overflow: hidden;
@@ -2531,7 +2531,7 @@
     max-width: 1440px;
     margin-right: auto;
     margin-left: auto;
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.9375rem;
     line-height: 1.4;
     font-weight: 400;
@@ -2729,7 +2729,7 @@
       grid-template-columns: 1fr auto;
     }
     .people-group-list .people-group__list .person-card__name {
-      font-family: "Noto Naskh Arabic", "serif";
+      font-family: IRANYekan, Tahoma, sans-serif;
       font-weight: 400;
       padding-top: 0;
       margin-top: var(--small-spacing);
@@ -2749,7 +2749,7 @@
   }
   @media (max-width: 28.74em) {
     .people-group-list .people-group__list .person-card__title {
-      font-family: Vazirmatn, "sans-serif";
+      font-family: IRANYekan, Tahoma, sans-serif;
       font-weight: 300;
       margin-bottom: var(--small-spacing);
       min-height: auto;
@@ -2777,7 +2777,7 @@
       margin-bottom: var(--small-spacing);
     }
     .people-group-list .people-group__list .person-card__link {
-      font-family: Vazirmatn, "sans-serif";
+      font-family: IRANYekan, Tahoma, sans-serif;
       font-weight: 400;
       padding: 8px 12px;
       margin-right: var(--small-spacing);
@@ -2838,7 +2838,7 @@
       stroke: var(--color-emphasis);
     }
     .people-group-list .people-group__list .person-card__link {
-      font-family: Vazirmatn, "sans-serif";
+      font-family: IRANYekan, Tahoma, sans-serif;
       font-weight: 400;
       padding: 8px 12px;
       margin-right: var(--small-spacing);
@@ -2909,7 +2909,7 @@
     object-fit: cover;
   }
   .person-card__name {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     grid-area: name;
     margin-bottom: 3px;
@@ -2928,7 +2928,7 @@
   }
   @media (max-width: 44.99em) {
     .person-card__name {
-      font-family: "Noto Naskh Arabic", "serif";
+      font-family: IRANYekan, Tahoma, sans-serif;
       font-size: 1rem;
       line-height: 1.3;
       font-weight: 500;
@@ -2936,7 +2936,7 @@
     }
   }
   .person-card__title {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 300;
     grid-area: title;
   }
@@ -2964,7 +2964,7 @@
   .person-card__email,
   .person-card__twitter,
   .person-card__vcard {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     text-underline-offset: 5px;
   }
@@ -3031,7 +3031,7 @@
     }
   }
   .faqs__title {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     margin-top: 0;
     margin-bottom: 20px;
@@ -3065,7 +3065,7 @@
     }
   }
   .accordion__button {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     padding-top: 15px;
     padding-bottom: 15px;
@@ -3126,7 +3126,7 @@
     overflow: hidden;
     max-height: 0;
     transition: max-height 0.08s ease-out;
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 300;
     padding-left: 40px;
   }
@@ -3334,7 +3334,7 @@
     padding-bottom: 40px;
   }
   .newsletter-pre-footer__title {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     margin-bottom: 10px;
   }
@@ -3357,7 +3357,7 @@
     }
   }
   .newsletter-pre-footer__notice {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 300;
   }
   @media (max-width: 44.99em) {
@@ -3378,7 +3378,7 @@
     margin-top: 30px;
   }
   .newsletter-pre-footer__form a {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     text-underline-offset: 4px;
   }
@@ -3522,7 +3522,7 @@
     grid-area: close;
   }
   .share-modal__title {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 1.875rem;
     line-height: 1;
     grid-area: title;
@@ -3599,7 +3599,7 @@
     float: none !important;
   }
   p.is-style-editors-intro {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     font-style: italic;
     margin-top: 0;
@@ -3648,7 +3648,7 @@
     }
   }
   blockquote.wp-block-quote p {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 1em;
     font-weight: 500;
     opacity: 0.8;
@@ -3693,7 +3693,7 @@
     margin-bottom: 30px;
   }
   figure.wp-block-pullquote blockquote {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     display: block;
     padding: 20px;
@@ -3907,7 +3907,7 @@
     }
   }
   .page-template-template-home .home-spotlight-intro__body {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 300;
     padding-top: var(--default-spacing);
     padding-bottom: var(--default-spacing);
@@ -4023,7 +4023,7 @@
   .page-template-template-home
     .home-spotlight-intro__categories
     .spotlight-category__title {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.875rem;
     line-height: 1.3;
     font-weight: 900;
@@ -4054,7 +4054,7 @@
   .page-template-template-home
     .home-spotlight-intro__categories
     .spotlight-category__body {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 300;
     grid-area: body;
   }
@@ -4253,7 +4253,7 @@
     }
   }
   .page-template-template-home .home-latest__title {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     grid-area: title;
   }
@@ -4271,7 +4271,7 @@
     }
   }
   .page-template-template-home .home-latest__view-all {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.9375rem;
     line-height: 1.4;
     font-weight: 400;
@@ -4573,7 +4573,7 @@
   .page-template-template-reading-list .reading-sections {
     word-break: break-word;
     overflow-wrap: break-word;
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
   }
   .page-template-template-reading-list .reading-sections ul li,
@@ -4645,7 +4645,7 @@
   }
   .page-template-template-reading-list .reading-sections h1,
   .page-template-template-reading-list .reading-sections h2 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 500;
   }
   @media (max-width: 44.99em) {
@@ -4673,7 +4673,7 @@
     }
   }
   .page-template-template-reading-list .reading-sections h3 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 500;
   }
   @media (max-width: 44.99em) {
@@ -4694,7 +4694,7 @@
     }
   }
   .page-template-template-reading-list .reading-sections h4 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 600;
   }
   @media (max-width: 44.99em) {
@@ -4713,7 +4713,7 @@
   }
   .page-template-template-reading-list .reading-sections h5,
   .page-template-template-reading-list .reading-sections h6 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 600;
     font-style: italic;
   }
@@ -4824,7 +4824,7 @@
   body {
     font-size: 1rem;
     line-height: 1.375;
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     background: var(--color-body-background, var(--color-paper));
     color: var(--color-ink);
     font-weight: 300;
@@ -4885,7 +4885,7 @@
   }
   h1,
   h2 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
   }
   @media (max-width: 44.99em) {
@@ -4904,28 +4904,28 @@
     }
   }
   h3 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 1.4em;
     font-weight: 500;
     margin-top: 1em;
     margin-bottom: 1em;
   }
   h4 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 1em;
     font-weight: 500;
     margin-top: 1.33em;
     margin-bottom: 1.25em;
   }
   h5 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.83em;
     font-weight: 500;
     margin-top: 1.67em;
     margin-bottom: 1.67em;
   }
   h6 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.67em;
     font-weight: 500;
     margin-top: 1.67em;
@@ -5690,7 +5690,7 @@
     }
   }
   .site-header__search {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     grid-area: search;
     display: flex;
@@ -5780,7 +5780,7 @@
     font-style: italic;
   }
   .site-header__search-submit {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     display: flex;
     align-items: center;
@@ -5825,7 +5825,7 @@
     gap: 32px;
   }
   .site-header__nav > ul > li {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     position: relative;
   }
@@ -5944,7 +5944,7 @@
     }
   }
   .half-content__body {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
   }
   @media (max-width: 44.99em) {
@@ -5964,7 +5964,7 @@
   }
   .half-content__body h1,
   .half-content__body h2 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 500;
   }
   @media (max-width: 44.99em) {
@@ -5992,7 +5992,7 @@
     }
   }
   .half-content__body h3 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 500;
   }
   @media (max-width: 44.99em) {
@@ -6013,7 +6013,7 @@
     }
   }
   .half-content__body h4 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 600;
   }
   @media (max-width: 44.99em) {
@@ -6032,7 +6032,7 @@
   }
   .half-content__body h5,
   .half-content__body h6 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 600;
     font-style: italic;
   }
@@ -6140,7 +6140,7 @@
     }
   }
   .contact-hero__title {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     margin-bottom: 30px;
     max-width: 620px;
     margin-top: -0.2em;
@@ -6158,7 +6158,7 @@
     }
   }
   .contact-hero__address {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 300;
   }
   @media (max-width: 44.99em) {
@@ -6176,7 +6176,7 @@
     }
   }
   .contact-hero__address strong {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
   }
   @media (max-width: 44.99em) {
@@ -6196,7 +6196,7 @@
     margin-top: 0;
   }
   .contact-hero__links {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     display: flex;
     flex-direction: column;
@@ -6343,7 +6343,7 @@
     fill: currentColor;
   }
   .post-listing__category-name {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.875rem;
     line-height: 1.3;
     font-weight: 900;
@@ -6363,7 +6363,7 @@
     margin-bottom: 10px;
   }
   .post-listing__title {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
   }
   @media (max-width: 44.99em) {
@@ -6379,7 +6379,7 @@
     }
   }
   .post-listing__excerpt {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 300;
   }
   @media (max-width: 44.99em) {
@@ -6401,7 +6401,7 @@
     text-underline-offset: 0.3em;
   }
   .post-listing__meta {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 300;
     color: var(--color-meta);
     display: flex;
@@ -6697,7 +6697,7 @@
     }
   }
   .post-listing--featured-contain .post-listing__label span:first-child {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.875rem;
     line-height: 1.3;
     font-weight: 900;
@@ -6714,7 +6714,7 @@
     }
   }
   .post-listing--featured-contain .post-listing__date {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.9375rem;
     line-height: 1.4;
     font-weight: 400;
@@ -6755,7 +6755,7 @@
     }
   }
   .post-listing--featured-contain .post-listing__title {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
   }
   @media (max-width: 44.99em) {
@@ -6782,7 +6782,7 @@
     }
   }
   .post-listing--featured-contain .post-listing__excerpt {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     margin-top: 10px;
   }
@@ -6805,7 +6805,7 @@
     }
   }
   .post-listing--featured-contain .post-listing__link {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.9375rem;
     line-height: 1.4;
     font-weight: 400;
@@ -6920,7 +6920,7 @@
     fill: var(--color-body-background, var(--color-paper));
   }
   .post-listing--featured-full-bleed .post-listing__title {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
   }
   @media (max-width: 44.99em) {
@@ -6937,7 +6937,7 @@
     }
   }
   .post-listing--featured-full-bleed .post-listing__label {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.875rem;
     line-height: 1.3;
     font-weight: 900;
@@ -7029,7 +7029,7 @@
     }
   }
   .post-listing--featured-full-bleed .post-listing__excerpt {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
   }
   @media (max-width: 44.99em) {
@@ -7054,7 +7054,7 @@
     margin-top: 10px;
   }
   .post-listing--featured-full-bleed .post-listing__link {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.9375rem;
     line-height: 1.4;
     font-weight: 400;
@@ -7179,7 +7179,7 @@
     }
   }
   .project__title {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     margin-bottom: 8px;
   }
@@ -7201,7 +7201,7 @@
   }
   @media (max-width: 44.99em) {
     .project__subtitle {
-      font-family: Vazirmatn, "sans-serif";
+      font-family: IRANYekan, Tahoma, sans-serif;
       font-weight: 300;
     }
   }
@@ -7221,7 +7221,7 @@
   }
   @media (min-width: 45em) {
     .project__subtitle {
-      font-family: Vazirmatn, "sans-serif";
+      font-family: IRANYekan, Tahoma, sans-serif;
       font-weight: 300;
       margin-bottom: var(--small-spacing);
     }
@@ -7239,7 +7239,7 @@
     }
   }
   .project__description {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 300;
     margin-bottom: var(--small-spacing);
   }
@@ -7276,7 +7276,7 @@
     }
   }
   .project__links {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     color: var(--color-emphasis);
     display: flex;
@@ -7455,7 +7455,7 @@
     transition: opacity 0.16s ease;
   }
   .page-template-template-home .home-splash__title {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 900;
     text-transform: none;
     grid-area: title;
@@ -7488,7 +7488,7 @@
     }
   }
   .page-template-template-home .home-splash__links {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.9375rem;
     line-height: 1.4;
     font-weight: 400;
@@ -8049,7 +8049,7 @@
   body {
     font-size: 1rem;
     line-height: 1.375;
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     background: var(--color-body-background, var(--color-paper));
     color: var(--color-ink);
     font-weight: 300;
@@ -8110,7 +8110,7 @@
   }
   h1,
   h2 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
   }
   @media (max-width: 44.99em) {
@@ -8129,28 +8129,28 @@
     }
   }
   h3 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 1.4em;
     font-weight: 500;
     margin-top: 1em;
     margin-bottom: 1em;
   }
   h4 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 1em;
     font-weight: 500;
     margin-top: 1.33em;
     margin-bottom: 1.25em;
   }
   h5 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.83em;
     font-weight: 500;
     margin-top: 1.67em;
     margin-bottom: 1.67em;
   }
   h6 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.67em;
     font-weight: 500;
     margin-top: 1.67em;
@@ -8915,7 +8915,7 @@
     }
   }
   .site-header__search {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     grid-area: search;
     display: flex;
@@ -9005,7 +9005,7 @@
     font-style: italic;
   }
   .site-header__search-submit {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     display: flex;
     align-items: center;
@@ -9050,7 +9050,7 @@
     gap: 32px;
   }
   .site-header__nav > ul > li {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     position: relative;
   }
@@ -9169,7 +9169,7 @@
     }
   }
   .half-content__body {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
   }
   @media (max-width: 44.99em) {
@@ -9189,7 +9189,7 @@
   }
   .half-content__body h1,
   .half-content__body h2 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 500;
   }
   @media (max-width: 44.99em) {
@@ -9217,7 +9217,7 @@
     }
   }
   .half-content__body h3 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 500;
   }
   @media (max-width: 44.99em) {
@@ -9238,7 +9238,7 @@
     }
   }
   .half-content__body h4 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 600;
   }
   @media (max-width: 44.99em) {
@@ -9257,7 +9257,7 @@
   }
   .half-content__body h5,
   .half-content__body h6 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 600;
     font-style: italic;
   }
@@ -9365,7 +9365,7 @@
     }
   }
   .contact-hero__title {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     margin-bottom: 30px;
     max-width: 620px;
     margin-top: -0.2em;
@@ -9383,7 +9383,7 @@
     }
   }
   .contact-hero__address {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 300;
   }
   @media (max-width: 44.99em) {
@@ -9401,7 +9401,7 @@
     }
   }
   .contact-hero__address strong {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
   }
   @media (max-width: 44.99em) {
@@ -9421,7 +9421,7 @@
     margin-top: 0;
   }
   .contact-hero__links {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     display: flex;
     flex-direction: column;
@@ -9633,7 +9633,7 @@
     }
   }
   .hero-intro__title {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     grid-area: title;
   }
   @media (max-width: 44.99em) {
@@ -9654,7 +9654,7 @@
     }
   }
   .hero-intro__body {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     grid-area: body;
   }
@@ -9681,7 +9681,7 @@
     align-self: end;
   }
   .hero-intro__links {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.9375rem;
     line-height: 1.4;
     font-weight: 400;
@@ -9838,7 +9838,7 @@
   body {
     font-size: 1rem;
     line-height: 1.375;
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     background: var(--color-body-background, var(--color-paper));
     color: var(--color-ink);
     font-weight: 300;
@@ -9899,7 +9899,7 @@
   }
   h1,
   h2 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
   }
   @media (max-width: 44.99em) {
@@ -9918,28 +9918,28 @@
     }
   }
   h3 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 1.4em;
     font-weight: 500;
     margin-top: 1em;
     margin-bottom: 1em;
   }
   h4 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 1em;
     font-weight: 500;
     margin-top: 1.33em;
     margin-bottom: 1.25em;
   }
   h5 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.83em;
     font-weight: 500;
     margin-top: 1.67em;
     margin-bottom: 1.67em;
   }
   h6 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.67em;
     font-weight: 500;
     margin-top: 1.67em;
@@ -10704,7 +10704,7 @@
     }
   }
   .site-header__search {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     grid-area: search;
     display: flex;
@@ -10794,7 +10794,7 @@
     font-style: italic;
   }
   .site-header__search-submit {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     display: flex;
     align-items: center;
@@ -10839,7 +10839,7 @@
     gap: 32px;
   }
   .site-header__nav > ul > li {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     position: relative;
   }
@@ -10958,7 +10958,7 @@
     }
   }
   .half-content__body {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
   }
   @media (max-width: 44.99em) {
@@ -10978,7 +10978,7 @@
   }
   .half-content__body h1,
   .half-content__body h2 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 500;
   }
   @media (max-width: 44.99em) {
@@ -11006,7 +11006,7 @@
     }
   }
   .half-content__body h3 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 500;
   }
   @media (max-width: 44.99em) {
@@ -11027,7 +11027,7 @@
     }
   }
   .half-content__body h4 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 600;
   }
   @media (max-width: 44.99em) {
@@ -11046,7 +11046,7 @@
   }
   .half-content__body h5,
   .half-content__body h6 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 600;
     font-style: italic;
   }
@@ -11154,7 +11154,7 @@
     }
   }
   .contact-hero__title {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     margin-bottom: 30px;
     max-width: 620px;
     margin-top: -0.2em;
@@ -11172,7 +11172,7 @@
     }
   }
   .contact-hero__address {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 300;
   }
   @media (max-width: 44.99em) {
@@ -11190,7 +11190,7 @@
     }
   }
   .contact-hero__address strong {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
   }
   @media (max-width: 44.99em) {
@@ -11210,7 +11210,7 @@
     margin-top: 0;
   }
   .contact-hero__links {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     display: flex;
     flex-direction: column;
@@ -11580,7 +11580,7 @@
     fill: currentColor;
   }
   .single-article__header-category-name {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.875rem;
     line-height: 1.3;
     font-weight: 900;
@@ -11597,7 +11597,7 @@
     }
   }
   .single-article__header-category-content-type {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.875rem;
     line-height: 1.3;
     font-weight: 900;
@@ -11623,7 +11623,7 @@
     }
   }
   .single-article__header-title-primary {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     margin-bottom: var(--small-spacing);
   }
@@ -11647,7 +11647,7 @@
     }
   }
   .single-article__header-title-subtitle {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     margin-bottom: var(--small-spacing);
   }
@@ -11669,7 +11669,7 @@
     }
   }
   .single-article__header-date {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 500;
   }
   @media (max-width: 44.99em) {
@@ -11705,7 +11705,7 @@
     }
   }
   .single-article__header-authors {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 500;
     grid-area: authors;
   }
@@ -11889,7 +11889,7 @@
     }
   }
   .single-article__content .article__content-authors-author {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 500;
     font-weight: 400;
     padding-top: 15px;
@@ -12548,7 +12548,7 @@
     margin-bottom: 30px;
   }
   .highlighted-text__text {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     padding: var(--default-spacing);
     background-color: var(--color-ink);
@@ -12572,7 +12572,7 @@
     }
   }
   .highlighted-text__text h3 {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
   }
   .highlighted-text__citation {
     font-size: 0.75rem;
@@ -12799,7 +12799,7 @@
     }
   }
   .callout__title {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 500;
   }
   @media (max-width: 44.99em) {
@@ -12827,7 +12827,7 @@
     }
   }
   .callout__body--quote {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 1em;
     font-weight: 500;
     display: grid;
@@ -19236,7 +19236,7 @@
     fill: currentColor;
   }
   .post-listing__category-name {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.875rem;
     line-height: 1.3;
     font-weight: 900;
@@ -19256,7 +19256,7 @@
     margin-bottom: 10px;
   }
   .post-listing__title {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
   }
   @media (max-width: 44.99em) {
@@ -19272,7 +19272,7 @@
     }
   }
   .post-listing__excerpt {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 300;
   }
   @media (max-width: 44.99em) {
@@ -19294,7 +19294,7 @@
     text-underline-offset: 0.3em;
   }
   .post-listing__meta {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 300;
     color: var(--color-meta);
     display: flex;
@@ -21040,7 +21040,7 @@
     }
   }
   .post-listing--featured-contain .post-listing__label span:first-child {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.875rem;
     line-height: 1.3;
     font-weight: 900;
@@ -21057,7 +21057,7 @@
     }
   }
   .post-listing--featured-contain .post-listing__date {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.9375rem;
     line-height: 1.4;
     font-weight: 400;
@@ -21098,7 +21098,7 @@
     }
   }
   .post-listing--featured-contain .post-listing__title {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
   }
   @media (max-width: 44.99em) {
@@ -21125,7 +21125,7 @@
     }
   }
   .post-listing--featured-contain .post-listing__excerpt {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     margin-top: 10px;
   }
@@ -21148,7 +21148,7 @@
     }
   }
   .post-listing--featured-contain .post-listing__link {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.9375rem;
     line-height: 1.4;
     font-weight: 400;
@@ -21263,7 +21263,7 @@
     fill: var(--color-body-background, var(--color-paper));
   }
   .post-listing--featured-full-bleed .post-listing__title {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
   }
   @media (max-width: 44.99em) {
@@ -21280,7 +21280,7 @@
     }
   }
   .post-listing--featured-full-bleed .post-listing__label {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.875rem;
     line-height: 1.3;
     font-weight: 900;
@@ -21372,7 +21372,7 @@
     }
   }
   .post-listing--featured-full-bleed .post-listing__excerpt {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
   }
   @media (max-width: 44.99em) {
@@ -21397,7 +21397,7 @@
     margin-top: 10px;
   }
   .post-listing--featured-full-bleed .post-listing__link {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.9375rem;
     line-height: 1.4;
     font-weight: 400;
@@ -21463,7 +21463,7 @@
   }
   .related-articles__block-title {
     position: relative;
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.875rem;
     line-height: 1.3;
     font-weight: 900;
@@ -21535,7 +21535,7 @@
   .related-articles__title {
     font-size: 2rem;
     line-height: 1.1;
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
   }
   .related-articles__posts,
@@ -22102,7 +22102,7 @@
   body {
     font-size: 1rem;
     line-height: 1.375;
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     background: var(--color-body-background, var(--color-paper));
     color: var(--color-ink);
     font-weight: 300;
@@ -22163,7 +22163,7 @@
   }
   h1,
   h2 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
   }
   @media (max-width: 44.99em) {
@@ -22182,28 +22182,28 @@
     }
   }
   h3 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 1.4em;
     font-weight: 500;
     margin-top: 1em;
     margin-bottom: 1em;
   }
   h4 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 1em;
     font-weight: 500;
     margin-top: 1.33em;
     margin-bottom: 1.25em;
   }
   h5 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.83em;
     font-weight: 500;
     margin-top: 1.67em;
     margin-bottom: 1.67em;
   }
   h6 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.67em;
     font-weight: 500;
     margin-top: 1.67em;
@@ -22968,7 +22968,7 @@
     }
   }
   .site-header__search {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     grid-area: search;
     display: flex;
@@ -23058,7 +23058,7 @@
     font-style: italic;
   }
   .site-header__search-submit {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     display: flex;
     align-items: center;
@@ -23103,7 +23103,7 @@
     gap: 32px;
   }
   .site-header__nav > ul > li {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     position: relative;
   }
@@ -23222,7 +23222,7 @@
     }
   }
   .half-content__body {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
   }
   @media (max-width: 44.99em) {
@@ -23242,7 +23242,7 @@
   }
   .half-content__body h1,
   .half-content__body h2 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 500;
   }
   @media (max-width: 44.99em) {
@@ -23270,7 +23270,7 @@
     }
   }
   .half-content__body h3 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 500;
   }
   @media (max-width: 44.99em) {
@@ -23291,7 +23291,7 @@
     }
   }
   .half-content__body h4 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 600;
   }
   @media (max-width: 44.99em) {
@@ -23310,7 +23310,7 @@
   }
   .half-content__body h5,
   .half-content__body h6 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 600;
     font-style: italic;
   }
@@ -23418,7 +23418,7 @@
     }
   }
   .contact-hero__title {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     margin-bottom: 30px;
     max-width: 620px;
     margin-top: -0.2em;
@@ -23436,7 +23436,7 @@
     }
   }
   .contact-hero__address {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 300;
   }
   @media (max-width: 44.99em) {
@@ -23454,7 +23454,7 @@
     }
   }
   .contact-hero__address strong {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
   }
   @media (max-width: 44.99em) {
@@ -23474,7 +23474,7 @@
     margin-top: 0;
   }
   .contact-hero__links {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     display: flex;
     flex-direction: column;
@@ -23718,7 +23718,7 @@
     }
   }
   .category-header__info-title {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 900;
     text-transform: none;
   }
@@ -23742,7 +23742,7 @@
     }
   }
   .category-header__info-description {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 300;
     font-weight: 400;
   }
@@ -23801,7 +23801,7 @@
     }
   }
   .category-header__latest-title {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     margin-bottom: var(--default-spacing);
   }
@@ -23910,7 +23910,7 @@
     fill: currentColor;
   }
   .post-listing__category-name {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.875rem;
     line-height: 1.3;
     font-weight: 900;
@@ -23930,7 +23930,7 @@
     margin-bottom: 10px;
   }
   .post-listing__title {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
   }
   @media (max-width: 44.99em) {
@@ -23946,7 +23946,7 @@
     }
   }
   .post-listing__excerpt {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 300;
   }
   @media (max-width: 44.99em) {
@@ -23968,7 +23968,7 @@
     text-underline-offset: 0.3em;
   }
   .post-listing__meta {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 300;
     color: var(--color-meta);
     display: flex;
@@ -25714,7 +25714,7 @@
     }
   }
   .post-listing--featured-contain .post-listing__label span:first-child {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.875rem;
     line-height: 1.3;
     font-weight: 900;
@@ -25731,7 +25731,7 @@
     }
   }
   .post-listing--featured-contain .post-listing__date {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.9375rem;
     line-height: 1.4;
     font-weight: 400;
@@ -25772,7 +25772,7 @@
     }
   }
   .post-listing--featured-contain .post-listing__title {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
   }
   @media (max-width: 44.99em) {
@@ -25799,7 +25799,7 @@
     }
   }
   .post-listing--featured-contain .post-listing__excerpt {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     margin-top: 10px;
   }
@@ -25822,7 +25822,7 @@
     }
   }
   .post-listing--featured-contain .post-listing__link {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.9375rem;
     line-height: 1.4;
     font-weight: 400;
@@ -25937,7 +25937,7 @@
     fill: var(--color-body-background, var(--color-paper));
   }
   .post-listing--featured-full-bleed .post-listing__title {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
   }
   @media (max-width: 44.99em) {
@@ -25954,7 +25954,7 @@
     }
   }
   .post-listing--featured-full-bleed .post-listing__label {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.875rem;
     line-height: 1.3;
     font-weight: 900;
@@ -26046,7 +26046,7 @@
     }
   }
   .post-listing--featured-full-bleed .post-listing__excerpt {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
   }
   @media (max-width: 44.99em) {
@@ -26071,7 +26071,7 @@
     margin-top: 10px;
   }
   .post-listing--featured-full-bleed .post-listing__link {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.9375rem;
     line-height: 1.4;
     font-weight: 400;
@@ -32247,7 +32247,7 @@
     margin-bottom: 20px;
   }
   .research-team .people-group__description {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
   }
   @media (min-width: 64em) {
     .research-team .people-group__description {
@@ -32296,7 +32296,7 @@
     stroke: var(--color-emphasis);
   }
   .research-team .person-card__link {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     padding: 8px 12px;
     margin-right: var(--small-spacing);
@@ -32392,7 +32392,7 @@
     opacity: 0.4;
   }
   .post-pagination__pages {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
   }
   @media (max-width: 44.99em) {
@@ -32478,7 +32478,7 @@
   body {
     font-size: 1rem;
     line-height: 1.375;
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     background: var(--color-body-background, var(--color-paper));
     color: var(--color-ink);
     font-weight: 300;
@@ -32539,7 +32539,7 @@
   }
   h1,
   h2 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
   }
   @media (max-width: 44.99em) {
@@ -32558,28 +32558,28 @@
     }
   }
   h3 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 1.4em;
     font-weight: 500;
     margin-top: 1em;
     margin-bottom: 1em;
   }
   h4 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 1em;
     font-weight: 500;
     margin-top: 1.33em;
     margin-bottom: 1.25em;
   }
   h5 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.83em;
     font-weight: 500;
     margin-top: 1.67em;
     margin-bottom: 1.67em;
   }
   h6 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.67em;
     font-weight: 500;
     margin-top: 1.67em;
@@ -33344,7 +33344,7 @@
     }
   }
   .site-header__search {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     grid-area: search;
     display: flex;
@@ -33434,7 +33434,7 @@
     font-style: italic;
   }
   .site-header__search-submit {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     display: flex;
     align-items: center;
@@ -33479,7 +33479,7 @@
     gap: 32px;
   }
   .site-header__nav > ul > li {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     position: relative;
   }
@@ -33598,7 +33598,7 @@
     }
   }
   .half-content__body {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
   }
   @media (max-width: 44.99em) {
@@ -33618,7 +33618,7 @@
   }
   .half-content__body h1,
   .half-content__body h2 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 500;
   }
   @media (max-width: 44.99em) {
@@ -33646,7 +33646,7 @@
     }
   }
   .half-content__body h3 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 500;
   }
   @media (max-width: 44.99em) {
@@ -33667,7 +33667,7 @@
     }
   }
   .half-content__body h4 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 600;
   }
   @media (max-width: 44.99em) {
@@ -33686,7 +33686,7 @@
   }
   .half-content__body h5,
   .half-content__body h6 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 600;
     font-style: italic;
   }
@@ -33794,7 +33794,7 @@
     }
   }
   .contact-hero__title {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     margin-bottom: 30px;
     max-width: 620px;
     margin-top: -0.2em;
@@ -33812,7 +33812,7 @@
     }
   }
   .contact-hero__address {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 300;
   }
   @media (max-width: 44.99em) {
@@ -33830,7 +33830,7 @@
     }
   }
   .contact-hero__address strong {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
   }
   @media (max-width: 44.99em) {
@@ -33850,7 +33850,7 @@
     margin-top: 0;
   }
   .contact-hero__links {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     display: flex;
     flex-direction: column;
@@ -34022,7 +34022,7 @@
   body {
     font-size: 1rem;
     line-height: 1.375;
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     background: var(--color-body-background, var(--color-paper));
     color: var(--color-ink);
     font-weight: 300;
@@ -34083,7 +34083,7 @@
   }
   h1,
   h2 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
   }
   @media (max-width: 44.99em) {
@@ -34102,28 +34102,28 @@
     }
   }
   h3 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 1.4em;
     font-weight: 500;
     margin-top: 1em;
     margin-bottom: 1em;
   }
   h4 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 1em;
     font-weight: 500;
     margin-top: 1.33em;
     margin-bottom: 1.25em;
   }
   h5 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.83em;
     font-weight: 500;
     margin-top: 1.67em;
     margin-bottom: 1.67em;
   }
   h6 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.67em;
     font-weight: 500;
     margin-top: 1.67em;
@@ -34888,7 +34888,7 @@
     }
   }
   .site-header__search {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     grid-area: search;
     display: flex;
@@ -34978,7 +34978,7 @@
     font-style: italic;
   }
   .site-header__search-submit {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     display: flex;
     align-items: center;
@@ -35023,7 +35023,7 @@
     gap: 32px;
   }
   .site-header__nav > ul > li {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     position: relative;
   }
@@ -35142,7 +35142,7 @@
     }
   }
   .half-content__body {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
   }
   @media (max-width: 44.99em) {
@@ -35162,7 +35162,7 @@
   }
   .half-content__body h1,
   .half-content__body h2 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 500;
   }
   @media (max-width: 44.99em) {
@@ -35190,7 +35190,7 @@
     }
   }
   .half-content__body h3 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 500;
   }
   @media (max-width: 44.99em) {
@@ -35211,7 +35211,7 @@
     }
   }
   .half-content__body h4 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 600;
   }
   @media (max-width: 44.99em) {
@@ -35230,7 +35230,7 @@
   }
   .half-content__body h5,
   .half-content__body h6 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 600;
     font-style: italic;
   }
@@ -35338,7 +35338,7 @@
     }
   }
   .contact-hero__title {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     margin-bottom: 30px;
     max-width: 620px;
     margin-top: -0.2em;
@@ -35356,7 +35356,7 @@
     }
   }
   .contact-hero__address {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 300;
   }
   @media (max-width: 44.99em) {
@@ -35374,7 +35374,7 @@
     }
   }
   .contact-hero__address strong {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
   }
   @media (max-width: 44.99em) {
@@ -35394,7 +35394,7 @@
     margin-top: 0;
   }
   .contact-hero__links {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     display: flex;
     flex-direction: column;
@@ -35606,7 +35606,7 @@
     }
   }
   .hero-intro__title {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     grid-area: title;
   }
   @media (max-width: 44.99em) {
@@ -35627,7 +35627,7 @@
     }
   }
   .hero-intro__body {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     grid-area: body;
   }
@@ -35654,7 +35654,7 @@
     align-self: end;
   }
   .hero-intro__links {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.9375rem;
     line-height: 1.4;
     font-weight: 400;
@@ -35961,7 +35961,7 @@
     fill: currentColor;
   }
   .single-article__header-category-name {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.875rem;
     line-height: 1.3;
     font-weight: 900;
@@ -35978,7 +35978,7 @@
     }
   }
   .single-article__header-category-content-type {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.875rem;
     line-height: 1.3;
     font-weight: 900;
@@ -36004,7 +36004,7 @@
     }
   }
   .single-article__header-title-primary {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     margin-bottom: var(--small-spacing);
   }
@@ -36028,7 +36028,7 @@
     }
   }
   .single-article__header-title-subtitle {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     margin-bottom: var(--small-spacing);
   }
@@ -36050,7 +36050,7 @@
     }
   }
   .single-article__header-date {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 500;
   }
   @media (max-width: 44.99em) {
@@ -36086,7 +36086,7 @@
     }
   }
   .single-article__header-authors {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 500;
     grid-area: authors;
   }
@@ -36270,7 +36270,7 @@
     }
   }
   .single-article__content .article__content-authors-author {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 500;
     font-weight: 400;
     padding-top: 15px;
@@ -36929,7 +36929,7 @@
     margin-bottom: 30px;
   }
   .highlighted-text__text {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     padding: var(--default-spacing);
     background-color: var(--color-ink);
@@ -36953,7 +36953,7 @@
     }
   }
   .highlighted-text__text h3 {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
   }
   .highlighted-text__citation {
     font-size: 0.75rem;
@@ -37180,7 +37180,7 @@
     }
   }
   .callout__title {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 500;
   }
   @media (max-width: 44.99em) {
@@ -37208,7 +37208,7 @@
     }
   }
   .callout__body--quote {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 1em;
     font-weight: 500;
     display: grid;
@@ -37599,7 +37599,7 @@
     }
   }
   .course-cta-bar__title {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 1.8rem;
     line-height: 1.375;
     grid-area: title;
@@ -37610,7 +37610,7 @@
     text-underline-offset: 3px;
   }
   .course-cta-bar__points {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.99375rem;
     line-height: 1.3836477987;
     font-weight: 300;
@@ -37662,7 +37662,7 @@
     text-decoration: underline;
   }
   .course-timeline {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.894875rem;
     line-height: 1.4102528286;
     font-weight: 400;
@@ -37743,7 +37743,7 @@
   }
   .page-template-template-course-general-content .half-content__body h1,
   .page-template-template-course-general-content .half-content__body h2 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 500;
   }
   @media (max-width: 44.99em) {
@@ -37779,7 +37779,7 @@
     }
   }
   .page-template-template-course-general-content .half-content__body h3 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 500;
   }
   @media (max-width: 44.99em) {
@@ -37800,7 +37800,7 @@
     }
   }
   .page-template-template-course-general-content .half-content__body h4 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 600;
   }
   @media (max-width: 44.99em) {
@@ -37819,7 +37819,7 @@
   }
   .page-template-template-course-general-content .half-content__body h5,
   .page-template-template-course-general-content .half-content__body h6 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 600;
     font-style: italic;
   }
@@ -37873,7 +37873,7 @@
     .tghpform--course-form
     .rwmb-field:not(.rwmb-hidden-wrapper):not(.rwmb-form-submit)
     .rwmb-label {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 1.375rem;
     line-height: 1.2;
     margin-bottom: 10px;
@@ -38031,7 +38031,7 @@
   body {
     font-size: 1rem;
     line-height: 1.375;
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     background: var(--color-body-background, var(--color-paper));
     color: var(--color-ink);
     font-weight: 300;
@@ -38092,7 +38092,7 @@
   }
   h1,
   h2 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
   }
   @media (max-width: 44.99em) {
@@ -38111,28 +38111,28 @@
     }
   }
   h3 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 1.4em;
     font-weight: 500;
     margin-top: 1em;
     margin-bottom: 1em;
   }
   h4 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 1em;
     font-weight: 500;
     margin-top: 1.33em;
     margin-bottom: 1.25em;
   }
   h5 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.83em;
     font-weight: 500;
     margin-top: 1.67em;
     margin-bottom: 1.67em;
   }
   h6 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.67em;
     font-weight: 500;
     margin-top: 1.67em;
@@ -38897,7 +38897,7 @@
     }
   }
   .site-header__search {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     grid-area: search;
     display: flex;
@@ -38987,7 +38987,7 @@
     font-style: italic;
   }
   .site-header__search-submit {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     display: flex;
     align-items: center;
@@ -39032,7 +39032,7 @@
     gap: 32px;
   }
   .site-header__nav > ul > li {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     position: relative;
   }
@@ -39151,7 +39151,7 @@
     }
   }
   .half-content__body {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
   }
   @media (max-width: 44.99em) {
@@ -39171,7 +39171,7 @@
   }
   .half-content__body h1,
   .half-content__body h2 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 500;
   }
   @media (max-width: 44.99em) {
@@ -39199,7 +39199,7 @@
     }
   }
   .half-content__body h3 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 500;
   }
   @media (max-width: 44.99em) {
@@ -39220,7 +39220,7 @@
     }
   }
   .half-content__body h4 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 600;
   }
   @media (max-width: 44.99em) {
@@ -39239,7 +39239,7 @@
   }
   .half-content__body h5,
   .half-content__body h6 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 600;
     font-style: italic;
   }
@@ -39347,7 +39347,7 @@
     }
   }
   .contact-hero__title {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     margin-bottom: 30px;
     max-width: 620px;
     margin-top: -0.2em;
@@ -39365,7 +39365,7 @@
     }
   }
   .contact-hero__address {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 300;
   }
   @media (max-width: 44.99em) {
@@ -39383,7 +39383,7 @@
     }
   }
   .contact-hero__address strong {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
   }
   @media (max-width: 44.99em) {
@@ -39403,7 +39403,7 @@
     margin-top: 0;
   }
   .contact-hero__links {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     display: flex;
     flex-direction: column;
@@ -39550,7 +39550,7 @@
     fill: currentColor;
   }
   .post-listing__category-name {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.875rem;
     line-height: 1.3;
     font-weight: 900;
@@ -39570,7 +39570,7 @@
     margin-bottom: 10px;
   }
   .post-listing__title {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
   }
   @media (max-width: 44.99em) {
@@ -39586,7 +39586,7 @@
     }
   }
   .post-listing__excerpt {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 300;
   }
   @media (max-width: 44.99em) {
@@ -39608,7 +39608,7 @@
     text-underline-offset: 0.3em;
   }
   .post-listing__meta {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 300;
     color: var(--color-meta);
     display: flex;
@@ -41354,7 +41354,7 @@
     }
   }
   .post-listing--featured-contain .post-listing__label span:first-child {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.875rem;
     line-height: 1.3;
     font-weight: 900;
@@ -41371,7 +41371,7 @@
     }
   }
   .post-listing--featured-contain .post-listing__date {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.9375rem;
     line-height: 1.4;
     font-weight: 400;
@@ -41412,7 +41412,7 @@
     }
   }
   .post-listing--featured-contain .post-listing__title {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
   }
   @media (max-width: 44.99em) {
@@ -41439,7 +41439,7 @@
     }
   }
   .post-listing--featured-contain .post-listing__excerpt {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     margin-top: 10px;
   }
@@ -41462,7 +41462,7 @@
     }
   }
   .post-listing--featured-contain .post-listing__link {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.9375rem;
     line-height: 1.4;
     font-weight: 400;
@@ -41577,7 +41577,7 @@
     fill: var(--color-body-background, var(--color-paper));
   }
   .post-listing--featured-full-bleed .post-listing__title {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
   }
   @media (max-width: 44.99em) {
@@ -41594,7 +41594,7 @@
     }
   }
   .post-listing--featured-full-bleed .post-listing__label {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.875rem;
     line-height: 1.3;
     font-weight: 900;
@@ -41686,7 +41686,7 @@
     }
   }
   .post-listing--featured-full-bleed .post-listing__excerpt {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
   }
   @media (max-width: 44.99em) {
@@ -41711,7 +41711,7 @@
     margin-top: 10px;
   }
   .post-listing--featured-full-bleed .post-listing__link {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.9375rem;
     line-height: 1.4;
     font-weight: 400;
@@ -47925,7 +47925,7 @@
     opacity: 0.4;
   }
   .post-pagination__pages {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
   }
   @media (max-width: 44.99em) {
@@ -48020,7 +48020,7 @@
   body {
     font-size: 1rem;
     line-height: 1.375;
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     background: var(--color-body-background, var(--color-paper));
     color: var(--color-ink);
     font-weight: 300;
@@ -48081,7 +48081,7 @@
   }
   h1,
   h2 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
   }
   @media (max-width: 44.99em) {
@@ -48100,28 +48100,28 @@
     }
   }
   h3 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 1.4em;
     font-weight: 500;
     margin-top: 1em;
     margin-bottom: 1em;
   }
   h4 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 1em;
     font-weight: 500;
     margin-top: 1.33em;
     margin-bottom: 1.25em;
   }
   h5 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.83em;
     font-weight: 500;
     margin-top: 1.67em;
     margin-bottom: 1.67em;
   }
   h6 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.67em;
     font-weight: 500;
     margin-top: 1.67em;
@@ -48886,7 +48886,7 @@
     }
   }
   .site-header__search {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     grid-area: search;
     display: flex;
@@ -48976,7 +48976,7 @@
     font-style: italic;
   }
   .site-header__search-submit {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     display: flex;
     align-items: center;
@@ -49021,7 +49021,7 @@
     gap: 32px;
   }
   .site-header__nav > ul > li {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     position: relative;
   }
@@ -49140,7 +49140,7 @@
     }
   }
   .half-content__body {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
   }
   @media (max-width: 44.99em) {
@@ -49160,7 +49160,7 @@
   }
   .half-content__body h1,
   .half-content__body h2 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 500;
   }
   @media (max-width: 44.99em) {
@@ -49188,7 +49188,7 @@
     }
   }
   .half-content__body h3 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 500;
   }
   @media (max-width: 44.99em) {
@@ -49209,7 +49209,7 @@
     }
   }
   .half-content__body h4 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 600;
   }
   @media (max-width: 44.99em) {
@@ -49228,7 +49228,7 @@
   }
   .half-content__body h5,
   .half-content__body h6 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 600;
     font-style: italic;
   }
@@ -49336,7 +49336,7 @@
     }
   }
   .contact-hero__title {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     margin-bottom: 30px;
     max-width: 620px;
     margin-top: -0.2em;
@@ -49354,7 +49354,7 @@
     }
   }
   .contact-hero__address {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 300;
   }
   @media (max-width: 44.99em) {
@@ -49372,7 +49372,7 @@
     }
   }
   .contact-hero__address strong {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
   }
   @media (max-width: 44.99em) {
@@ -49392,7 +49392,7 @@
     margin-top: 0;
   }
   .contact-hero__links {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     display: flex;
     flex-direction: column;
@@ -49604,7 +49604,7 @@
     }
   }
   .hero-intro__title {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     grid-area: title;
   }
   @media (max-width: 44.99em) {
@@ -49625,7 +49625,7 @@
     }
   }
   .hero-intro__body {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     grid-area: body;
   }
@@ -49652,7 +49652,7 @@
     align-self: end;
   }
   .hero-intro__links {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.9375rem;
     line-height: 1.4;
     font-weight: 400;
@@ -49742,7 +49742,7 @@
     }
   }
   .toc-layout__nav-item {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.9375rem;
     line-height: 1.4;
     font-weight: 400;
@@ -49751,7 +49751,7 @@
     text-underline-offset: 0.45em;
   }
   .toc-layout__content {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 300;
     display: grid;
     row-gap: 60px;
@@ -49854,7 +49854,7 @@
     }
   }
   .opportunities-posts__list-item-title {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 500;
   }
   @media (max-width: 44.99em) {
@@ -49870,7 +49870,7 @@
     }
   }
   .opportunities-posts__list-item-cta {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.9375rem;
     line-height: 1.4;
     font-weight: 400;
@@ -49965,7 +49965,7 @@
     height: auto;
   }
   .benefits__item-title h3 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     margin: 0;
   }
@@ -49982,7 +49982,7 @@
     }
   }
   .benefits__item-text {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 300;
   }
   @media (max-width: 44.99em) {
@@ -50061,7 +50061,7 @@
   body {
     font-size: 1rem;
     line-height: 1.375;
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     background: var(--color-body-background, var(--color-paper));
     color: var(--color-ink);
     font-weight: 300;
@@ -50122,7 +50122,7 @@
   }
   h1,
   h2 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
   }
   @media (max-width: 44.99em) {
@@ -50141,28 +50141,28 @@
     }
   }
   h3 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 1.4em;
     font-weight: 500;
     margin-top: 1em;
     margin-bottom: 1em;
   }
   h4 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 1em;
     font-weight: 500;
     margin-top: 1.33em;
     margin-bottom: 1.25em;
   }
   h5 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.83em;
     font-weight: 500;
     margin-top: 1.67em;
     margin-bottom: 1.67em;
   }
   h6 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.67em;
     font-weight: 500;
     margin-top: 1.67em;
@@ -50927,7 +50927,7 @@
     }
   }
   .site-header__search {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     grid-area: search;
     display: flex;
@@ -51017,7 +51017,7 @@
     font-style: italic;
   }
   .site-header__search-submit {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     display: flex;
     align-items: center;
@@ -51062,7 +51062,7 @@
     gap: 32px;
   }
   .site-header__nav > ul > li {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     position: relative;
   }
@@ -51181,7 +51181,7 @@
     }
   }
   .half-content__body {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
   }
   @media (max-width: 44.99em) {
@@ -51201,7 +51201,7 @@
   }
   .half-content__body h1,
   .half-content__body h2 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 500;
   }
   @media (max-width: 44.99em) {
@@ -51229,7 +51229,7 @@
     }
   }
   .half-content__body h3 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 500;
   }
   @media (max-width: 44.99em) {
@@ -51250,7 +51250,7 @@
     }
   }
   .half-content__body h4 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 600;
   }
   @media (max-width: 44.99em) {
@@ -51269,7 +51269,7 @@
   }
   .half-content__body h5,
   .half-content__body h6 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 600;
     font-style: italic;
   }
@@ -51377,7 +51377,7 @@
     }
   }
   .contact-hero__title {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     margin-bottom: 30px;
     max-width: 620px;
     margin-top: -0.2em;
@@ -51395,7 +51395,7 @@
     }
   }
   .contact-hero__address {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 300;
   }
   @media (max-width: 44.99em) {
@@ -51413,7 +51413,7 @@
     }
   }
   .contact-hero__address strong {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
   }
   @media (max-width: 44.99em) {
@@ -51433,7 +51433,7 @@
     margin-top: 0;
   }
   .contact-hero__links {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     display: flex;
     flex-direction: column;
@@ -51645,7 +51645,7 @@
     }
   }
   .hero-intro__title {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     grid-area: title;
   }
   @media (max-width: 44.99em) {
@@ -51666,7 +51666,7 @@
     }
   }
   .hero-intro__body {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     grid-area: body;
   }
@@ -51693,7 +51693,7 @@
     align-self: end;
   }
   .hero-intro__links {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.9375rem;
     line-height: 1.4;
     font-weight: 400;
@@ -51859,7 +51859,7 @@
     }
   }
   .project__title {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     margin-bottom: 8px;
   }
@@ -51881,7 +51881,7 @@
   }
   @media (max-width: 44.99em) {
     .project__subtitle {
-      font-family: Vazirmatn, "sans-serif";
+      font-family: IRANYekan, Tahoma, sans-serif;
       font-weight: 300;
     }
   }
@@ -51901,7 +51901,7 @@
   }
   @media (min-width: 45em) {
     .project__subtitle {
-      font-family: Vazirmatn, "sans-serif";
+      font-family: IRANYekan, Tahoma, sans-serif;
       font-weight: 300;
       margin-bottom: var(--small-spacing);
     }
@@ -51919,7 +51919,7 @@
     }
   }
   .project__description {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 300;
     margin-bottom: var(--small-spacing);
   }
@@ -51956,7 +51956,7 @@
     }
   }
   .project__links {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     color: var(--color-emphasis);
     display: flex;
@@ -51995,7 +51995,7 @@
     }
   }
   .page-template-template-newsletters h2 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     margin-bottom: var(--default-spacing);
   }
@@ -52120,7 +52120,7 @@
   body {
     font-size: 1rem;
     line-height: 1.375;
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     background: var(--color-body-background, var(--color-paper));
     color: var(--color-ink);
     font-weight: 300;
@@ -52181,7 +52181,7 @@
   }
   h1,
   h2 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
   }
   @media (max-width: 44.99em) {
@@ -52200,28 +52200,28 @@
     }
   }
   h3 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 1.4em;
     font-weight: 500;
     margin-top: 1em;
     margin-bottom: 1em;
   }
   h4 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 1em;
     font-weight: 500;
     margin-top: 1.33em;
     margin-bottom: 1.25em;
   }
   h5 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.83em;
     font-weight: 500;
     margin-top: 1.67em;
     margin-bottom: 1.67em;
   }
   h6 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.67em;
     font-weight: 500;
     margin-top: 1.67em;
@@ -52986,7 +52986,7 @@
     }
   }
   .site-header__search {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     grid-area: search;
     display: flex;
@@ -53076,7 +53076,7 @@
     font-style: italic;
   }
   .site-header__search-submit {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     display: flex;
     align-items: center;
@@ -53121,7 +53121,7 @@
     gap: 32px;
   }
   .site-header__nav > ul > li {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     position: relative;
   }
@@ -53240,7 +53240,7 @@
     }
   }
   .half-content__body {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
   }
   @media (max-width: 44.99em) {
@@ -53260,7 +53260,7 @@
   }
   .half-content__body h1,
   .half-content__body h2 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 500;
   }
   @media (max-width: 44.99em) {
@@ -53288,7 +53288,7 @@
     }
   }
   .half-content__body h3 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 500;
   }
   @media (max-width: 44.99em) {
@@ -53309,7 +53309,7 @@
     }
   }
   .half-content__body h4 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 600;
   }
   @media (max-width: 44.99em) {
@@ -53328,7 +53328,7 @@
   }
   .half-content__body h5,
   .half-content__body h6 {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 600;
     font-style: italic;
   }
@@ -53436,7 +53436,7 @@
     }
   }
   .contact-hero__title {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     margin-bottom: 30px;
     max-width: 620px;
     margin-top: -0.2em;
@@ -53454,7 +53454,7 @@
     }
   }
   .contact-hero__address {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 300;
   }
   @media (max-width: 44.99em) {
@@ -53472,7 +53472,7 @@
     }
   }
   .contact-hero__address strong {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
   }
   @media (max-width: 44.99em) {
@@ -53492,7 +53492,7 @@
     margin-top: 0;
   }
   .contact-hero__links {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     display: flex;
     flex-direction: column;
@@ -53704,7 +53704,7 @@
     }
   }
   .hero-intro__title {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     grid-area: title;
   }
   @media (max-width: 44.99em) {
@@ -53725,7 +53725,7 @@
     }
   }
   .hero-intro__body {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     grid-area: body;
   }
@@ -53752,7 +53752,7 @@
     align-self: end;
   }
   .hero-intro__links {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.9375rem;
     line-height: 1.4;
     font-weight: 400;
@@ -53836,7 +53836,7 @@
     fill: currentColor;
   }
   .post-listing__category-name {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.875rem;
     line-height: 1.3;
     font-weight: 900;
@@ -53856,7 +53856,7 @@
     margin-bottom: 10px;
   }
   .post-listing__title {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
   }
   @media (max-width: 44.99em) {
@@ -53872,7 +53872,7 @@
     }
   }
   .post-listing__excerpt {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 300;
   }
   @media (max-width: 44.99em) {
@@ -53894,7 +53894,7 @@
     text-underline-offset: 0.3em;
   }
   .post-listing__meta {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 300;
     color: var(--color-meta);
     display: flex;
@@ -55640,7 +55640,7 @@
     }
   }
   .post-listing--featured-contain .post-listing__label span:first-child {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.875rem;
     line-height: 1.3;
     font-weight: 900;
@@ -55657,7 +55657,7 @@
     }
   }
   .post-listing--featured-contain .post-listing__date {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.9375rem;
     line-height: 1.4;
     font-weight: 400;
@@ -55698,7 +55698,7 @@
     }
   }
   .post-listing--featured-contain .post-listing__title {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
   }
   @media (max-width: 44.99em) {
@@ -55725,7 +55725,7 @@
     }
   }
   .post-listing--featured-contain .post-listing__excerpt {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     margin-top: 10px;
   }
@@ -55748,7 +55748,7 @@
     }
   }
   .post-listing--featured-contain .post-listing__link {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.9375rem;
     line-height: 1.4;
     font-weight: 400;
@@ -55863,7 +55863,7 @@
     fill: var(--color-body-background, var(--color-paper));
   }
   .post-listing--featured-full-bleed .post-listing__title {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
   }
   @media (max-width: 44.99em) {
@@ -55880,7 +55880,7 @@
     }
   }
   .post-listing--featured-full-bleed .post-listing__label {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.875rem;
     line-height: 1.3;
     font-weight: 900;
@@ -55972,7 +55972,7 @@
     }
   }
   .post-listing--featured-full-bleed .post-listing__excerpt {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
   }
   @media (max-width: 44.99em) {
@@ -55997,7 +55997,7 @@
     margin-top: 10px;
   }
   .post-listing--featured-full-bleed .post-listing__link {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.9375rem;
     line-height: 1.4;
     font-weight: 400;
@@ -62746,7 +62746,7 @@
     margin-bottom: 30px;
   }
   .highlighted-text__text {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     padding: var(--default-spacing);
     background-color: var(--color-ink);
@@ -62770,7 +62770,7 @@
     }
   }
   .highlighted-text__text h3 {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
   }
   .highlighted-text__citation {
     font-size: 0.75rem;
@@ -62997,7 +62997,7 @@
     }
   }
   .callout__title {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 500;
   }
   @media (max-width: 44.99em) {
@@ -63025,7 +63025,7 @@
     }
   }
   .callout__body--quote {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 1em;
     font-weight: 500;
     display: grid;
@@ -63095,7 +63095,7 @@
     margin-bottom: 20px;
   }
   .research-team .people-group__description {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
   }
   @media (min-width: 64em) {
     .research-team .people-group__description {
@@ -63144,7 +63144,7 @@
     stroke: var(--color-emphasis);
   }
   .research-team .person-card__link {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     padding: 8px 12px;
     margin-right: var(--small-spacing);
@@ -63266,7 +63266,7 @@
     }
   }
   .project__title {
-    font-family: "Noto Naskh Arabic", "serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     margin-bottom: 8px;
   }
@@ -63288,7 +63288,7 @@
   }
   @media (max-width: 44.99em) {
     .project__subtitle {
-      font-family: Vazirmatn, "sans-serif";
+      font-family: IRANYekan, Tahoma, sans-serif;
       font-weight: 300;
     }
   }
@@ -63308,7 +63308,7 @@
   }
   @media (min-width: 45em) {
     .project__subtitle {
-      font-family: Vazirmatn, "sans-serif";
+      font-family: IRANYekan, Tahoma, sans-serif;
       font-weight: 300;
       margin-bottom: var(--small-spacing);
     }
@@ -63326,7 +63326,7 @@
     }
   }
   .project__description {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 300;
     margin-bottom: var(--small-spacing);
   }
@@ -63363,7 +63363,7 @@
     }
   }
   .project__links {
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-weight: 400;
     color: var(--color-emphasis);
     display: flex;
@@ -63459,7 +63459,7 @@
     max-width: 1440px;
     margin-right: auto;
     margin-left: auto;
-    font-family: Vazirmatn, "sans-serif";
+    font-family: IRANYekan, Tahoma, sans-serif;
     font-size: 0.6875rem;
     line-height: 1.9090909091;
     font-weight: 400;
