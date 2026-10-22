@@ -1,3 +1,22 @@
+import { withBase } from "./app/utils/withBase";
+
+// Root-absolute font urls are not prefixed by Vite. Apply app.baseURL once here.
+function prefixPublicFontUrls() {
+  const env = (globalThis as { process?: { env?: Record<string, string | undefined> } })
+    .process?.env;
+  const base = env?.NUXT_APP_BASE_URL || "/";
+  return {
+    name: "prefix-public-font-urls",
+    enforce: "pre" as const,
+    transform(code: string, id: string) {
+      if (!id.includes(".css") || !code.includes('url("/fonts/')) return;
+      return code.replace(/url\("(\/fonts\/[^"]+)"\)/g, (_match, path: string) => {
+        return `url("${withBase(base, path)}")`;
+      });
+    },
+  };
+}
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: "2026-10-21",
@@ -39,6 +58,9 @@ export default defineNuxtConfig({
         "/independent-filmmaker-project",
       ],
     },
+  },
+  vite: {
+    plugins: [prefixPublicFontUrls()],
   },
   tailwindcss: {
     cssPath: "~/assets/css/tailwind.css",
