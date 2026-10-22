@@ -10,6 +10,12 @@ export interface ListingView {
   next?: string;
   previousLabel: string;
   nextLabel: string;
+  latestLabel: string;
+  sortLabel: string;
+  dateDescending: string;
+  dateAscending: string;
+  authorLabel: string;
+  order: "asc" | "desc";
 }
 
 export type ListingGroup =
@@ -42,92 +48,115 @@ export async function useArchiveListing(group: ListingGroup): Promise<ListingVie
   const baseURL = useRuntimeConfig().app.baseURL;
   const category = oneParam(route.params.slug);
   const page = pageNumber(route.params.page);
+  const order = computed(() => {
+    const queryOrder = route.query.order;
+    return (Array.isArray(queryOrder) ? queryOrder[0] : queryOrder) === "asc"
+      ? "asc"
+      : "desc";
+  });
   const siteState = useSite();
   const base = listingBase[group];
-  const listing = useAsyncData(`listing-${group}-${category}-${page}`, async () => {
-    if (page === null) return null;
-    const site = (await siteState).data.value as SiteContent | null;
-    if (!site) return null;
-    const postsFile = await queryCollection("archivePosts").first();
-    const posts = archiveItems(postsFile);
-    const set = site.sets[group];
-    if (category && !categoryInSet(category, set)) return null;
+  const withOrder = (path: string) =>
+    order.value === "asc" ? `${path}?order=asc` : path;
+  const listing = useAsyncData(
+    () => `listing-${group}-${category}-${page}-${order.value}`,
+    async () => {
+      if (page === null) return null;
+      const site = (await siteState).data.value as SiteContent | null;
+      if (!site) return null;
+      const postsFile = await queryCollection("archivePosts").first();
+      const posts = archiveItems(postsFile);
+      const set = site.sets[group];
+      if (category && !categoryInSet(category, set)) return null;
 
-    const inGroup = posts.filter((item) => itemInSet(item, set));
-    const selected = category
-      ? inGroup.filter((item) =>
-          (item.categories ?? []).some((entry) => entry.slug === category),
-        )
-      : inGroup;
-    const paged = slicePage(byDateDesc(selected), page);
-    if (page > paged.pages) return null;
+      const inGroup = posts.filter((item) => itemInSet(item, set));
+      const selected = category
+        ? inGroup.filter((item) =>
+            (item.categories ?? []).some((entry) => entry.slug === category),
+          )
+        : inGroup;
+      const ordered =
+        order.value === "asc"
+          ? [...selected].sort((left, right) => left.date.localeCompare(right.date))
+          : byDateDesc(selected);
+      const paged = slicePage(ordered, page);
+      if (page > paged.pages) return null;
 
-    const filters = [
-      {
-        label: site.ui.all,
-        to: listingPath(base, 1),
-        current: !category,
-      },
-      ...listFilters(inGroup, set).map((entry) => ({
-        label: entry.name,
-        to: listingPath(base, 1, entry.slug),
-        current: entry.slug === category,
-      })),
-    ];
+      const filters = [
+        {
+          label: site.ui.all,
+          to: withOrder(listingPath(base, 1)),
+          current: !category,
+        },
+        ...listFilters(inGroup, set).map((entry) => ({
+          label: entry.name,
+          to: withOrder(listingPath(base, 1, entry.slug)),
+          current: entry.slug === category,
+        })),
+      ];
 
-    let title = site.listings.research.title;
-    let description = site.listings.research.description;
-    const pageId = pageIdFor(site, group);
-    if (pageId !== null) {
-      const record = archiveItems(await queryCollection("archivePages").first()).find(
-        (item) => item.id === pageId,
+      let title = site.listings.research.title;
+      let description = site.listings.research.description;
+      const pageId = pageIdFor(site, group);
+      if (pageId !== null) {
+        const record = archiveItems(await queryCollection("archivePages").first()).find(
+          (item) => item.id === pageId,
+        );
+        if (!record) return null;
+        title = record.title;
+        description =
+          group === "award"
+            ? plainText(record.excerpt || record.title)
+            : site.ui.emptyBody;
+      } else if (group === "quarterlies") {
+        title = site.listings.quarterlies.title;
+        description = site.listings.quarterlies.description;
+      }
+      const current = filters.find(
+        (filter) => filter.current && filter.to !== listingPath(base, 1),
       );
-      if (!record) return null;
-      title = record.title;
-      description =
-        group === "award"
-          ? plainText(record.excerpt || record.title)
-          : site.ui.emptyBody;
-    } else if (group === "quarterlies") {
-      title = site.listings.quarterlies.title;
-      description = site.listings.quarterlies.description;
-    }
-    const current = filters.find(
-      (filter) => filter.current && filter.to !== listingPath(base, 1),
-    );
-    if (current) title = current.label;
+      if (current) title = current.label;
 
-    const showBody = group !== "publications";
-    const cards = paged.items.map((item) => {
-      const publication = itemInSet(item, site.sets.publications);
-      const external = showBody ? externalHref(item.content ?? "") : undefined;
-      const body =
-        showBody && !publication
-          ? articleHtml(item.content ?? "", baseURL).html.trim()
-          : "";
-      return toCard(item, {
-        external,
-        to: external || !publication ? undefined : researchPath(item.slug),
-        category: categoryName(item, set),
-        html: body || undefined,
+      const showBody = group !== "publications";
+      const cards = paged.items.map((item) => {
+        const publication = itemInSet(item, site.sets.publications);
+        const external = showBody ? externalHref(item.content ?? "") : undefined;
+        const body =
+          showBody && !publication
+            ? articleHtml(item.content ?? "", baseURL).html.trim()
+            : "";
+        return toCard(item, {
+          external,
+          to: external || !publication ? undefined : researchPath(item.slug),
+          category: categoryName(item, set),
+          html: body || undefined,
+        });
       });
-    });
 
-    return {
-      title,
-      description,
-      filters,
-      cards,
-      previous:
-        page > 1 ? listingPath(base, page - 1, category || undefined) : undefined,
-      next:
-        page < paged.pages
-          ? listingPath(base, page + 1, category || undefined)
-          : undefined,
-      previousLabel: site.ui.previous,
-      nextLabel: site.ui.next,
-    } satisfies ListingView;
-  });
+      return {
+        title,
+        description,
+        filters,
+        cards,
+        previous:
+          page > 1
+            ? withOrder(listingPath(base, page - 1, category || undefined))
+            : undefined,
+        next:
+          page < paged.pages
+            ? withOrder(listingPath(base, page + 1, category || undefined))
+            : undefined,
+        previousLabel: site.ui.previous,
+        nextLabel: site.ui.next,
+        latestLabel: site.ui.latest,
+        sortLabel: site.ui.sort,
+        dateDescending: site.ui.dateDescending,
+        dateAscending: site.ui.dateAscending,
+        authorLabel: site.ui.author,
+        order: order.value,
+      } satisfies ListingView;
+    },
+  );
 
   const site = (await siteState).data.value as SiteContent | null;
   if (!site) {
@@ -137,5 +166,9 @@ export async function useArchiveListing(group: ListingGroup): Promise<ListingVie
   if (page === null || !data.value) {
     throw createError({ statusCode: 404, statusMessage: site.ui.notFound });
   }
-  return data.value;
+  const view = reactive({ ...data.value });
+  watch(data, (value) => {
+    if (value) Object.assign(view, value);
+  });
+  return view;
 }

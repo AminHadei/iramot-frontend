@@ -11,7 +11,23 @@ const props = defineProps<{
   previousLabel: string;
   nextLabel: string;
   shell?: "archive" | "category";
+  latestLabel?: string;
+  sortLabel?: string;
+  dateDescending?: string;
+  dateAscending?: string;
+  authorLabel?: string;
+  order?: "asc" | "desc";
 }>();
+
+const route = useRoute();
+
+function onSort(event: Event) {
+  const order = (event.target as HTMLSelectElement).value;
+  const query = { ...route.query };
+  if (order === "desc") delete query.order;
+  else query.order = order;
+  void navigateTo({ path: route.path, query });
+}
 
 const lead = computed(() => (props.shell ? props.cards[0] : undefined));
 const listCards = computed(() => (props.shell ? props.cards.slice(1) : props.cards));
@@ -78,6 +94,7 @@ function onFilter(event: Event) {
       <div class="post-listing-list__list">
         <PostListing
           featured="contain"
+          :latest-label="latestLabel"
           :title="lead.title"
           :to="lead.to"
           :external="lead.external"
@@ -91,8 +108,45 @@ function onFilter(event: Event) {
       </div>
     </div>
     <div id="filter" class="post-listing-list">
-      <div v-if="filters.length > 1" class="post-listing-list__toolbar">
-        <div class="filter-toolbar filter-toolbar--loaded">
+      <div
+        v-if="shell === 'archive' || filters.length > 1"
+        class="post-listing-list__toolbar"
+      >
+        <div
+          v-if="shell === 'archive'"
+          class="filter-toolbar filter-toolbar--category filter-toolbar--loaded"
+        >
+          <div
+            class="filter-toolbar__control filter-toolbar__control--sort filter-toolbar__control--no-js"
+          >
+            <select
+              :key="order ?? 'desc'"
+              class="filter-toolbar__button"
+              name="sort"
+              :aria-label="sortLabel"
+              @change="onSort"
+            >
+              <option value="desc" :selected="(order ?? 'desc') === 'desc'">
+                {{ dateDescending }}
+              </option>
+              <option value="asc" :selected="order === 'asc'">
+                {{ dateAscending }}
+              </option>
+            </select>
+          </div>
+          <div
+            class="filter-toolbar__control filter-toolbar__control--author filter-toolbar__control--no-js"
+          >
+            <select
+              class="filter-toolbar__button"
+              name="author"
+              :aria-label="authorLabel"
+            >
+              <option value="">{{ authorLabel }}</option>
+            </select>
+          </div>
+        </div>
+        <div v-else class="filter-toolbar filter-toolbar--loaded">
           <div class="filter-toolbar__control filter-toolbar__control--no-js">
             <select
               class="filter-toolbar__button"

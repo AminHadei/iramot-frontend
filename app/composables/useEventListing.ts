@@ -78,6 +78,12 @@ export async function useEventListing(): Promise<ListingView> {
       next: page < paged.pages ? eventPath(path, page + 1) : undefined,
       previousLabel: site.ui.previous,
       nextLabel: site.ui.next,
+      latestLabel: site.ui.latest,
+      sortLabel: site.ui.sort,
+      dateDescending: site.ui.dateDescending,
+      dateAscending: site.ui.dateAscending,
+      authorLabel: site.ui.author,
+      order: "desc",
     } satisfies ListingView;
   });
 

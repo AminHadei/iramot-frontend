@@ -10,6 +10,7 @@ const props = defineProps<{
   colorIndex?: number;
   swiper?: boolean;
   featured?: "contain" | "full";
+  latestLabel?: string;
 }>();
 
 const slots = useSlots();
@@ -59,6 +60,12 @@ function slotFromName(name: string) {
     </div>
     <div class="post-listing__image">
       <NuxtImg v-if="image" :src="image" :alt="title" provider="none" />
+    </div>
+    <div v-if="featured === 'contain' && latestLabel" class="post-listing__label">
+      <span>{{ latestLabel }}</span>
+      <span v-if="date" class="post-listing__date">
+        <PersianDate :date="date" />
+      </span>
     </div>
     <div class="post-listing__content">
       <div class="post-listing__title">
