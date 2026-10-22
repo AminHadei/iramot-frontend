@@ -357,6 +357,11 @@ export default defineContentConfig({
         placeholder: z.boolean().default(true),
       }),
     }),
+    aboutPage: defineCollection({
+      type: "data",
+      source: "about.yml",
+      schema: z.object({ title: z.string() }).passthrough(),
+    }),
     pages: defineCollection({
       type: "page",
       source: "about.md",
