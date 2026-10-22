@@ -1,6 +1,7 @@
 export interface ContentLink {
   label: string;
   to: string;
+  children?: ContentLink[];
 }
 
 export interface CategorySet {

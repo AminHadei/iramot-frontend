@@ -7,6 +7,15 @@ nav:
     to: /research
   - label: رویدادها
     to: /events
+    children:
+      - label: کارگاه
+        to: /events/workshops
+      - label: کتاب‌خوانی
+        to: /events/reading
+      - label: سفر رساله
+        to: /events/thesis
+      - label: نقد فیلم
+        to: /events/film
   - label: کارگروه‌ها
     to: /workgroups
   - label: کنفرانس
@@ -15,6 +24,21 @@ nav:
     to: /terminology
   - label: درباره‌ما
     to: /about
+    children:
+      - label: کارگروه‌ها
+        to: /workgroups
+      - label: کنفرانس
+        to: /conference
+      - label: واژه‌گزینی
+        to: /terminology
+      - label: جایزه ملی
+        to: /award
+      - label: فصلنامه‌ها
+        to: /quarterlies
+      - label: همراهان
+        to: /partners
+      - label: هیئت‌مدیره
+        to: /about#team
 membership:
   label: عضویت
   to: /membership

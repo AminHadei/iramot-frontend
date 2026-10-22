@@ -5,6 +5,10 @@ const link = z.object({
   to: z.string(),
 });
 
+const navItem = link.extend({
+  children: z.array(link).optional(),
+});
+
 const categorySet = z.object({
   slugs: z.array(z.string()),
   prefixes: z.array(z.string()).optional(),
@@ -63,7 +67,7 @@ export default defineContentConfig({
         name: z.string(),
         shortName: z.string(),
         description: z.string(),
-        nav: z.array(link),
+        nav: z.array(navItem),
         membership: link,
         address: z.array(z.string()),
         footerColumns: z.array(
