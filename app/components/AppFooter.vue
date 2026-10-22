@@ -17,9 +17,7 @@ defineProps<{
       <nav class="frame:row-span-3" :aria-label="site.ui.siteMap">
         <ul class="grid gap-8 pt-6 frame:grid-cols-4 frame:pt-0">
           <li v-for="column in site.footerColumns" :key="column.title">
-            <p
-              class="text-[0.6875rem] font-bold tracking-[0.44px] wide:text-[0.8125rem]"
-            >
+            <p class="text-[0.6875rem] font-bold wide:text-[0.8125rem]">
               {{ column.title }}
             </p>
             <ul class="mt-3 space-y-2">
