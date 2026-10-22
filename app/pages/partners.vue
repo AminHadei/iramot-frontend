@@ -30,9 +30,24 @@ usePageSeo({
 
 <template>
   <div>
-    <HeroIntro :title="page.title" :dek="site.ui.emptyBody" />
-    <section class="page-inset pb-16">
-      <PersonCard class="max-w-sm" :empty-label="page.empty" />
-    </section>
+    <div class="hero-intro">
+      <h1 class="hero-intro__title">{{ page.title }}</h1>
+      <div class="hero-intro__body">
+        <p>{{ site.ui.emptyBody }}</p>
+      </div>
+    </div>
+    <div class="people-group-list">
+      <div class="people-group-list__wrapper">
+        <div
+          v-for="mode in ['desktop', 'mobile']"
+          :key="mode"
+          class="people-group-list__group people-group"
+          :class="`people-group--${mode}`"
+        >
+          <h2 class="people-group__title">{{ page.title }}</h2>
+          <div class="people-group__description">{{ page.empty }}</div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
