@@ -149,3 +149,26 @@ button.simple-swiper-controller__button {
 .post-listing__category {
   pointer-events: none;
 }
+
+.site-header__logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: 103px;
+  height: 30px;
+}
+
+.site-header__logo svg {
+  width: 30px;
+  height: 30px;
+  flex: none;
+}
+
+.site-header__logo-name {
+  min-width: 0;
+  color: var(--logo-color, #373737);
+  font-family: Vazirmatn, Tahoma, sans-serif;
+  font-size: 8px;
+  line-height: 1.15;
+  text-align: end;
+}

@@ -165,6 +165,7 @@ onBeforeUnmount(() => {
         :title="site.name"
       >
         <SiteMark />
+        <span class="site-header__logo-name">{{ site.name }}</span>
       </NuxtLink>
       <button
         type="button"
@@ -173,15 +174,15 @@ onBeforeUnmount(() => {
         :aria-label="open ? site.ui.close : site.ui.menu"
         @click="setOpen(!open)"
       >
-        <svg width="25" height="19" viewBox="0 0 25 19" fill="none" aria-hidden="true">
-          <rect width="25" height="1" fill="currentColor" />
-          <rect y="6" width="25" height="1" fill="currentColor" />
-          <rect y="12" width="25" height="1" fill="currentColor" />
-          <rect y="18" width="25" height="1" fill="currentColor" />
+        <svg width="25" height="19" viewBox="0 0 25 19" aria-hidden="true">
+          <path fill="var(--logo-color, #373737)" d="M0 0h25v1H0z" />
+          <path fill="var(--logo-color, #373737)" d="M0 6h25v1H0z" />
+          <path fill="var(--logo-color, #373737)" d="M0 12h25v1H0z" />
+          <path fill="var(--logo-color, #373737)" d="M0 18h25v1H0z" />
         </svg>
-        <svg width="23" height="23" viewBox="0 0 23 23" fill="none" aria-hidden="true">
-          <path d="M20 19.3 3 2.3l-.7.7L19.3 20z" fill="currentColor" />
-          <path d="M19.3 2.3 2.3 19.3l.7.7L20 3z" fill="currentColor" />
+        <svg width="23" height="23" viewBox="0 0 23 23" aria-hidden="true">
+          <path fill="var(--logo-color, #373737)" d="M20 19.3 3 2.3l-.7.7L19.3 20z" />
+          <path fill="var(--logo-color, #373737)" d="M19.3 2.3 2.3 19.3l.7.7L20 3z" />
         </svg>
       </button>
       <form class="site-header__search" @submit.prevent="goTerminology">
