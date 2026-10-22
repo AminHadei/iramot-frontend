@@ -8,5 +8,5 @@ usePageSeo({
 </script>
 
 <template>
-  <ArchiveListing v-bind="listing" />
+  <ArchiveListing v-bind="listing" shell="category" />
 </template>
