@@ -135,14 +135,18 @@ function mix(token, alpha) {
 }
 
 function isDarkChrome(selector, prop) {
-  if (!/background/i.test(prop)) return false;
   const text = selector.replace(/\s+/g, " ");
-  if (/\.site-footer:before\b/.test(text)) return true;
-  if (/\.newsletter-pre-footer:before\b/.test(text)) return true;
-  if (/body\.nav-open \.site-header\b/.test(text)) return true;
-  if (/\.site-navigation\b/.test(text)) return true;
-  if (/\.site-header__nav\b/.test(text) && /:hover ?> ?ul/.test(text)) return true;
-  return false;
+  const bandOnly =
+    /\.site-footer:before\b/.test(text) ||
+    /\.newsletter-pre-footer:before\b/.test(text);
+  if (bandOnly) return /background/i.test(prop);
+  const darkHeader =
+    /body\.nav-open \.site-header\b/.test(text) ||
+    /\.site-navigation\b/.test(text) ||
+    (/\.site-header__nav\b/.test(text) && /:hover ?> ?ul/.test(text)) ||
+    /\.site-header--(?:focus|opaque|search-has-value)\b/.test(text) ||
+    /\.site-header:hover\b/.test(text);
+  return darkHeader;
 }
 
 function tokenFor(hex, selector, prop) {
@@ -223,6 +227,14 @@ function applyPalette(css) {
     }
     if (selector.trim() === ":root" && decl.prop === "--color-accent") {
       decl.value = "var(--color-band)";
+    }
+    if (
+      /body\.nav-open \.site-header\b/.test(selector) &&
+      !/\.site-header__/.test(selector) &&
+      /background/i.test(decl.prop) &&
+      !decl.parent.nodes?.some((node) => node.prop === "border-color")
+    ) {
+      decl.parent.append({ prop: "border-color", value: "var(--color-band)" });
     }
     if (
       isCategoryInk(selector, decl.prop) &&
