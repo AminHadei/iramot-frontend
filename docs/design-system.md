@@ -2,7 +2,7 @@
 
 هدف، کپی ۱:۱ مارکاپ و CSS سایت ifp.org است، آینه‌شده برای RTL. فقط متن، تصاویر، لوگو و فونت عوض می‌شوند. هیچ کامپوننتی از روی توضیح متنی بازسازی نمی‌شود؛ منبع حقیقت فایل‌های ref/ifp/ است. کلاس‌های اصلی IFP (site-header، home-splash، home-spotlight-intro، post-listing__*، project-list--layout-3-col، newsletter-pre-footer، site-footer و...) دقیقاً حفظ شوند.
 
-Measured from the files in `ref/ifp/`. Nothing here is inferred. The site loads the rtlcss copy at `app/assets/css/ifp.rtl.css`. That copy keeps the IFP selectors and replaces the IFP palette with custom properties on `:root`: paper `#FFFDF5`, ink `#2B2B33`, hero `#2D317A`, emphasis `#CF4382`, dark bands `#06011E`, meta `#999`, panels `#FAF9F7`. The five domain colours repeat `#2D317A`, `#6967AC`, `#9A96CA`, `#3F50A0`, `#CF4382`. Label text on `#9A96CA` and `#CF4382` is `#06011E`.
+Measured from the files in `ref/ifp/`. Nothing here is inferred. The site loads the rtlcss copy at `app/assets/css/ifp.rtl.css`. That copy keeps the IFP selectors and replaces the IFP palette with custom properties on `:root`: paper `#FFFDF5`, ink `#2B2B33`, hero `#2D317A`, emphasis `#6866AD` for text, links, icons, and hairlines, emphasis fill `#6A64AB` for solid surfaces, dark bands `#06011E`, meta `#999`, panels `#FAF9F7`. Topic colours cycle `#2D317A`, `#6967AC`, `#9A96CA`, `#3F50A0`. Label text on `#9A96CA` is `#06011E`. Text on `#6866AD` and `#6A64AB` is `#FFFDF5`.
 
 Sources:
 

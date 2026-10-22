@@ -13,15 +13,15 @@ The global sheet is [`app/assets/css/ifp.rtl.css`](../../../app/assets/css/ifp.r
 
 ## Tokens
 
-| Token            | Value     | Role             |
-| ---------------- | --------- | ---------------- |
-| `paper`          | `#FFFDF5` | Background       |
-| `ink`            | `#2B2B33` | Text             |
-| `primary`        | `#2D317A` | Headlines, links |
-| `secondary`      | `#6967AC` | Labels           |
-| `secondary-soft` | `#9A96CA` | Soft fills       |
-| `accent`         | `#CF4382` | Emphasis         |
-| `line`           | `#373737` | Rules            |
+| Token            | Value     | Role               |
+| ---------------- | --------- | ------------------ |
+| `paper`          | `#FFFDF5` | Background         |
+| `ink`            | `#2B2B33` | Text               |
+| `primary`        | `#2D317A` | Headlines, links   |
+| `secondary`      | `#6967AC` | Labels             |
+| `secondary-soft` | `#9A96CA` | Soft fills         |
+| `accent`         | `#6866AD` | Text, links, rules |
+| `line`           | `#373737` | Rules              |
 
 - Headings: `font-heading` (Noto Naskh Arabic).
 - Body and labels: `font-sans` (Vazirmatn, Tahoma fallback). Self-host the woff2 files with `@fontsource/vazirmatn`.
