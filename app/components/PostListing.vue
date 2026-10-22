@@ -93,7 +93,7 @@ function slotFromName(name: string) {
           <template v-if="authors?.length">
             <span>&nbsp;&nbsp;/&nbsp;&nbsp;</span>
             <div class="author-list">
-              <span>{{ byLabel }}</span>
+              <span>{{ byLabel + "\u00a0" }}</span>
               <span v-for="author in authors" :key="author" class="author-list__author">
                 <span>{{ author }}</span>
               </span>
