@@ -94,36 +94,46 @@ usePageSeo({
   <div>
     <HomeSplash :title="home.title" :links="home.links" />
     <HeroIntro :title="about.title" :dek="about.description" />
-    <Spotlight :title="home.spotlightTitle" :intro="home.dek" :areas="areas" />
-    <section class="page-inset py-16">
-      <h2 class="font-heading text-3xl text-primary">{{ site.styleguide.listing }}</h2>
-      <SimpleSwiper
-        class="mt-8"
-        :previous-label="site.ui.previous"
-        :next-label="site.ui.next"
-      >
-        <div
-          v-for="card in cards"
-          :key="card.id"
-          class="w-[90%] shrink-0 pe-5 wide:w-[calc(40%-10px)] lg:w-[calc(33.33%-13.333px)]"
-        >
-          <PostListing
-            :title="card.title"
-            :to="card.to"
-            :excerpt="card.excerpt"
-            :category="card.category"
-            :date="card.date"
-            :image="card.image"
-          />
+    <Spotlight
+      :title="home.spotlightTitle"
+      :intro="home.dek"
+      :posts-title="home.sections.publications"
+      :groups="
+        areas.map((area) => ({ title: area.title, body: area.question, to: area.to }))
+      "
+      :posts="cards.slice(0, 3)"
+    />
+    <div class="home-slider-container home-slider-container--latest">
+      <div class="home-contain home-contain--latest home-contain--no-grid">
+        <div class="home-latest">
+          <h2 class="home-latest__title">{{ site.styleguide.listing }}</h2>
+          <div class="home-latest__view-all">
+            <NuxtLink to="/research">{{ home.recentLinkLabel }}</NuxtLink>
+          </div>
+          <SimpleSwiper :previous-label="site.ui.previous" :next-label="site.ui.next">
+            <PostListing
+              v-for="(card, index) in cards"
+              :key="card.id"
+              swiper
+              :title="card.title"
+              :to="card.to"
+              :excerpt="card.excerpt"
+              :category="card.category"
+              :date="card.date"
+              :image="card.image"
+              :color-index="index"
+            />
+          </SimpleSwiper>
         </div>
-      </SimpleSwiper>
-    </section>
-    <section class="border-t border-line">
-      <div class="page-inset py-16">
-        <h2 class="font-heading text-3xl text-primary">
-          {{ site.styleguide.projects }}
-        </h2>
-        <div class="mt-8 grid gap-6 wide:grid-cols-3">
+      </div>
+    </div>
+    <div class="home-contain home-contain--no-grid">
+      <div class="home-latest home-latest--featured-projects">
+        <h2 class="home-latest__title">{{ site.styleguide.projects }}</h2>
+        <div class="home-latest__view-all">
+          <NuxtLink to="/projects">{{ home.projectsLinkLabel }}</NuxtLink>
+        </div>
+        <div class="home-latest__list project-list project-list--layout-3-col">
           <ProjectCard
             v-for="project in projects"
             :key="project.path"
@@ -136,7 +146,7 @@ usePageSeo({
           />
         </div>
       </div>
-    </section>
+    </div>
     <SingleArticle
       :title="article.title"
       :category="article.category"
