@@ -16,8 +16,9 @@ export default {
         line: "#373737",
       },
       fontFamily: {
-        sans: ["Vazirmatn", "Tahoma", "sans-serif"],
-        heading: ['"Noto Naskh Arabic"', "serif"],
+        sans: ["IRANYekan", "Tahoma", "sans-serif"],
+        serif: ["IRANYekan", "Tahoma", "sans-serif"],
+        heading: ["IRANYekan", "Tahoma", "sans-serif"],
       },
       maxWidth: {
         page: "76rem",

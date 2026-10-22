@@ -26,8 +26,6 @@
     "visual:ifp": "node tools/visual/compare-ifp.mjs"
   },
   "dependencies": {
-    "@fontsource/noto-naskh-arabic": "^5.3.0",
-    "@fontsource/vazirmatn": "^5.3.0",
     "@nuxt/content": "^3.16.2",
     "@nuxt/image": "^2.2.0",
     "better-sqlite3": "^13.0.3",
