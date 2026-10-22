@@ -251,6 +251,8 @@ export default defineContentConfig({
             title: z.string(),
             href: z.string(),
             image: z.string(),
+            width: z.number(),
+            height: z.number(),
             description: z.string(),
           }),
         ),

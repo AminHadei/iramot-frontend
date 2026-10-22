@@ -202,6 +202,8 @@ export interface HomeContent {
     title: string;
     href: string;
     image: string;
+    width: number;
+    height: number;
     description: string;
   }>;
   sectionLinks: {
