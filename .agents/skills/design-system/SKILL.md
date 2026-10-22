@@ -9,7 +9,7 @@ The always-on rule is [`.cursor/rules/project.mdc`](../../../.cursor/rules/proje
 
 ## Reference
 
-Take structure, spacing, grid, and component patterns from [ifp.org](https://ifp.org/) and mirror them for RTL. Measured values live in [`docs/design-system.md`](../../../docs/design-system.md). Do not copy IFP fonts (Tiempos, Söhne) or the IFP mark.
+The global sheet is [`app/assets/css/ifp.rtl.css`](../../../app/assets/css/ifp.rtl.css): rtlcss output of `ref/ifp/css/main.css` and the `<style>` blocks in `ref/ifp/html/`. Söhne maps to Vazirmatn and Tiempos Text maps to Noto Naskh Arabic. Do not ship the IFP font files or the IFP mark. Measured values live in [`docs/design-system.md`](../../../docs/design-system.md). Tailwind preflight is off; use Tailwind only for association-specific UI.
 
 ## Tokens
 
