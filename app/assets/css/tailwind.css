@@ -261,7 +261,7 @@ body.nav-open .site-header {
   display: inline-flex;
   align-items: center;
   justify-self: start;
-  width: min-content;
+  width: auto;
   height: 70px;
   min-width: 44px;
   min-height: 44px;
@@ -269,9 +269,6 @@ body.nav-open .site-header {
 }
 
 body.page-template-template-home
-  .site-header:not(.site-header--opaque)
-  .site-header__logo,
-body.page-template-template-about
   .site-header:not(.site-header--opaque)
   .site-header__logo,
 body.page-template-template-newsletters
@@ -305,7 +302,7 @@ body.page-template-template-media
 .site-header__logo img {
   display: block;
   flex: none;
-  height: 38px;
+  height: 46px;
   width: auto;
   max-width: none;
 }
@@ -367,4 +364,70 @@ body.page-template-template-media
 .font-serif,
 .font-heading {
   font-family: IRANYekan, Tahoma, sans-serif;
+}
+
+@media (min-width: 61.25em) {
+  body.page-template-template-about {
+    --color-header-background: var(--color-band);
+  }
+
+  body.page-template-template-about .site-header--opaque,
+  body.page-template-template-about .site-header:hover,
+  body.page-template-template-about .site-header--focus,
+  body.page-template-template-about .site-header--search-has-value {
+    color: var(--color-paper);
+    --logo-color: var(--color-paper);
+  }
+}
+
+@media (max-width: 61.24em) {
+  body.page-template-template-about .site-header--opaque,
+  body.page-template-template-about .site-header:hover,
+  body.page-template-template-about .site-header--focus,
+  body.page-template-template-about .site-header--search-has-value {
+    color: var(--color-ink);
+  }
+}
+
+.page-template-template-about .hero-intro:after {
+  background-image: var(--hero-image, none);
+  opacity: var(--hero-opacity, 0.25);
+  transition: opacity 0.5s ease;
+}
+
+.page-template-template-about #about,
+.page-template-template-about #missions,
+.page-template-template-about #history,
+.page-template-template-about #board,
+.page-template-template-about #past-boards,
+.page-template-template-about #founders,
+.page-template-template-about #committees,
+.page-template-template-about #statute,
+.page-template-template-about #contact {
+  scroll-margin-top: 110px;
+}
+
+.toc-layout__nav-item.is-active {
+  color: var(--color-emphasis);
+  text-decoration-color: var(--color-emphasis);
+}
+
+@media (max-width: 44.99em) {
+  .page-template-template-about .toc-layout__nav {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    position: static;
+  }
+
+  .page-template-template-about .toc-layout__nav-item {
+    flex: none;
+  }
+}
+
+.page-template-template-about .pitch__image iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
 }
