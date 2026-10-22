@@ -54,25 +54,24 @@ usePageSeo({
 
 <template>
   <div>
-    <section class="page-inset py-16">
-      <h1 class="font-heading text-4xl font-medium text-primary wide:text-6xl">
-        {{ page.title }}
-      </h1>
-      <p class="mt-6 max-w-2xl text-lg leading-relaxed">{{ page.description }}</p>
-      <TermSearch
-        class="mt-8"
-        :terms="page.terms"
-        :label="page.label"
-        :empty-label="page.empty"
-        :sources="page.sources"
-        :all-label="page.allLabel"
-      />
-    </section>
-    <section v-if="page.html" class="border-t border-line">
-      <div class="page-inset py-16">
-        <h2 class="font-heading text-3xl text-primary">{{ page.groupTitle }}</h2>
-        <ArchiveHtml class="rich-text mt-6" :html="page.html" />
+    <div class="hero-intro">
+      <h1 class="hero-intro__title">{{ page.title }}</h1>
+      <div class="hero-intro__body">
+        <p>{{ page.description }}</p>
       </div>
-    </section>
+    </div>
+    <TermSearch
+      :terms="page.terms"
+      :label="page.label"
+      :empty-label="page.empty"
+      :sources="page.sources"
+      :all-label="page.allLabel"
+    />
+    <div v-if="page.html" class="half-content">
+      <div class="half-content__body">
+        <h2>{{ page.groupTitle }}</h2>
+        <ArchiveHtml :html="page.html" />
+      </div>
+    </div>
   </div>
 </template>
