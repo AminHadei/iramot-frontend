@@ -11,6 +11,9 @@ const props = defineProps<{
   swiper?: boolean;
   featured?: "contain" | "full";
   latestLabel?: string;
+  linkLabel?: string;
+  authors?: string[];
+  byLabel?: string;
 }>();
 
 const slots = useSlots();
@@ -81,11 +84,21 @@ function slotFromName(name: string) {
       </div>
       <div v-if="excerpt" class="post-listing__excerpt">{{ excerpt }}</div>
       <slot />
+      <div v-if="linkLabel" class="post-listing__link">{{ linkLabel }}</div>
       <div v-if="date" class="post-listing__meta">
         <div class="post-listing__info">
           <div class="post-listing__date">
             <PersianDate :date="date" />
           </div>
+          <template v-if="authors?.length">
+            <span>&nbsp;&nbsp;/&nbsp;&nbsp;</span>
+            <div class="author-list">
+              <span>{{ byLabel }}</span>
+              <span v-for="author in authors" :key="author" class="author-list__author">
+                <span>{{ author }}</span>
+              </span>
+            </div>
+          </template>
         </div>
       </div>
     </div>
