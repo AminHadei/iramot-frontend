@@ -1,4 +1,4 @@
-import { readdirSync } from "node:fs";
+import { existsSync, readdirSync } from "node:fs";
 import { readdir, readFile, writeFile } from "node:fs/promises";
 import { createRequire } from "node:module";
 import { join } from "node:path";
@@ -285,9 +285,22 @@ for (const name of ordered) {
   for (const block of await styleBlocks(join(htmlDir, name))) add(block);
 }
 
+function dropMissingImages(css) {
+  const images = join(root, "app/assets/images");
+  return css.replace(
+    /url\((['"]?)(\.\.\/images\/[^'")]+)\1\)/g,
+    (full, _quote, relative) => {
+      const file = join(images, relative.slice("../images/".length));
+      return existsSync(file) ? full : "none";
+    },
+  );
+}
+
 const source = stripMappedFaces(parts.join("\n"));
 const flipped = rtlcss.process(source);
-const themed = applyPalette(neutralizePersianType(mapFonts(flipped)));
+const themed = dropMissingImages(
+  applyPalette(neutralizePersianType(mapFonts(flipped))),
+);
 const css = `@layer base, ifp, components, utilities;\n@layer ifp {\n${themed}\n}\n`;
 
 await writeFile(outPath, css);
