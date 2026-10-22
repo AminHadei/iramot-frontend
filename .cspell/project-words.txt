@@ -20,6 +20,7 @@ husky
 ifp
 pixelmatch
 pngjs
+potrace
 playwright
 domcontentloaded
 IRANYekan
