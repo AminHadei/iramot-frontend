@@ -202,14 +202,25 @@ export default defineContentConfig({
         spotlight: z.object({
           heading: z.string(),
           intro: z.string(),
+          postsTitle: z.string(),
           groups: z.array(
             z.object({
               title: z.string(),
               body: z.string(),
-              icon: z.string(),
               color: z.number(),
               link: z.string(),
-              enabled: z.boolean().default(true),
+            }),
+          ),
+          posts: z.array(
+            z.object({
+              id: z.number(),
+              title: z.string(),
+              date: z.string(),
+              href: z.string(),
+              category: z.string(),
+              excerpt: z.string(),
+              image: z.string(),
+              author: z.string().optional(),
             }),
           ),
         }),

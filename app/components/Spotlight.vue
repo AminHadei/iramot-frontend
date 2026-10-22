@@ -8,8 +8,9 @@ defineProps<{
   intro: string;
   postsTitle: string;
   groups: SpotlightGroup[];
-  posts: Array<ListingCard & { colorIndex?: number }>;
+  posts: Array<ListingCard & { colorIndex?: number; authors?: string[] }>;
   linkLabel?: string;
+  byLabel?: string;
 }>();
 
 const postsRoot = ref<HTMLElement | null>(null);
@@ -86,9 +87,7 @@ onBeforeUnmount(() => {
               class="spotlight-category"
               :style="categoryColor((group.color ?? index + 1) - 1)"
             >
-              <div class="spotlight-category__icon" aria-hidden="true">
-                <SpotlightIcon :name="group.icon || group.title" />
-              </div>
+              <GroupLines :index="index" />
               <div class="spotlight-category__title">{{ group.title }}</div>
               <div v-if="group.body" class="spotlight-category__body">
                 {{ group.body }}
@@ -100,9 +99,7 @@ onBeforeUnmount(() => {
               class="spotlight-category"
               :style="categoryColor((group.color ?? index + 1) - 1)"
             >
-              <div class="spotlight-category__icon" aria-hidden="true">
-                <SpotlightIcon :name="group.icon || group.title" />
-              </div>
+              <GroupLines :index="index" />
               <div class="spotlight-category__title">{{ group.title }}</div>
               <div v-if="group.body" class="spotlight-category__body">
                 {{ group.body }}
@@ -133,6 +130,8 @@ onBeforeUnmount(() => {
                 :image="post.image"
                 :color-index="post.colorIndex ?? index"
                 :link-label="linkLabel"
+                :authors="post.authors"
+                :by-label="byLabel"
               />
             </div>
           </div>

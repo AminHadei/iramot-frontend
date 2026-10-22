@@ -78,16 +78,20 @@ const { data: home } = await useAsyncData("home-page", async () => {
         }),
       ),
   );
-  const newsCards = withColor(
-    byDateDesc(posts.filter((item) => itemInSet(item, site.sets.news)))
-      .slice(0, 4)
-      .map((item) =>
-        toCard(item, {
-          to: researchPath(item.slug),
-          category: categoryName(item, site.sets.news),
-        }),
-      ),
-  );
+  const spotlightPosts = page.spotlight.posts.map((post) => {
+    const group = page.spotlight.groups.find((entry) => entry.title === post.category);
+    return {
+      id: post.id,
+      title: post.title,
+      excerpt: post.excerpt,
+      date: post.date,
+      category: post.category,
+      image: post.image,
+      external: post.href,
+      colorIndex: (group?.color ?? 1) - 1,
+      authors: post.author ? [post.author] : undefined,
+    };
+  });
   const eventCards = withColor(
     listedEvents(archiveItems(eventsFile)).map((item) => {
       const filter = site.eventFilters.find((entry) =>
@@ -116,7 +120,7 @@ const { data: home } = await useAsyncData("home-page", async () => {
     mission: about.description ?? page.title,
     intro: about.lead ?? page.dek,
     groups: spotlightGroups(page.spotlight.groups),
-    news: newsCards,
+    news: spotlightPosts,
     publications: publicationCards,
     events: eventCards,
     programs,
@@ -142,10 +146,11 @@ usePageSeo({
     <Spotlight
       :title="page.spotlight.heading"
       :intro="page.spotlight.intro"
-      :posts-title="page.sections.news"
+      :posts-title="page.spotlight.postsTitle"
       :groups="view.groups"
       :posts="view.news"
       :link-label="page.readLabel"
+      :by-label="site.ui.by"
     />
     <div class="home-contain home-contain--no-grid">
       <div class="home-latest home-latest--featured-projects deferred">

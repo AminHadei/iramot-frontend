@@ -143,10 +143,19 @@ export interface ArchiveFile {
 export interface SpotlightGroupRecord {
   title: string;
   body: string;
-  icon: string;
   color: number;
   link: string;
-  enabled?: boolean;
+}
+
+export interface SpotlightPostRecord {
+  id: number;
+  title: string;
+  date: string;
+  href: string;
+  category: string;
+  excerpt: string;
+  image: string;
+  author?: string;
 }
 
 export interface HomeContent {
@@ -165,7 +174,9 @@ export interface HomeContent {
   spotlight: {
     heading: string;
     intro: string;
+    postsTitle: string;
     groups: SpotlightGroupRecord[];
+    posts: SpotlightPostRecord[];
   };
   strip: {
     event: string;
