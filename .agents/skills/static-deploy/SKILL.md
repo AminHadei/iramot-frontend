@@ -26,7 +26,7 @@ Install in CI sets `HUSKY=0`.
 
 ## baseURL
 
-GitHub Pages serves this project site at `/irmot/`. CI and deploy set `NUXT_APP_BASE_URL=/irmot/` for `pnpm generate`, and `app.baseURL` reads that variable. Local dev stays at `/`. Change the two together. A stylesheet or font URL written as a root path (`/fonts/...`) is not prefixed.
+GitHub Pages serves this project site at `/irmot/`. CI and deploy set `NUXT_APP_BASE_URL=/irmot/` for `pnpm generate`, and `app.baseURL` reads that variable. Local dev stays at `/`. Change the two together. A stylesheet URL written as a root path is not prefixed by Vite. `fonts.css` uses `/fonts/...`, and the Vite plugin in `nuxt.config.ts` applies `withBase` once so those urls pick up `NUXT_APP_BASE_URL` without a second prefix.
 
 ## Don't
 
