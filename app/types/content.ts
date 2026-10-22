@@ -63,6 +63,8 @@ export interface SiteContent {
     workgroups: CategorySet;
     quarterlies: CategorySet;
     award: CategorySet;
+    latest: CategorySet;
+    news: CategorySet;
     boardTag: string;
   };
   eventFilters: Array<{
@@ -162,7 +164,17 @@ export interface HomeContent {
     quarterlies: string;
     partners: string;
     newsletter: string;
+    news: string;
   };
+  programs: Array<{
+    title: string;
+    to: string;
+    page: number;
+  }>;
+  journals: Array<{
+    id: number;
+    href: string;
+  }>;
   sectionLinks: {
     workgroups: string;
     events: string;

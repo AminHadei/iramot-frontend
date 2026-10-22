@@ -1,14 +1,14 @@
 eyebrow: انجمن مدیریت فناوری و نوآوری ایران
-title: نوآوری در ایران باید از ایده به ظرفیت تبدیل شود
-dek: انجمن مدیریت فناوری و نوآوری ایران پژوهش، آموزش و پیشنهاد سیاست را کنار هم می‌گذارد. متن‌های این نسخه موقتی‌اند و محتوای نهایی انجمن جای‌شان را می‌گیرد.
+title: انجمن مدیریت فناوری و نوآوری ایران برای پیوند پژوهش، سیاست و عمل در نوآوری شکل گرفته است.
+dek: انجمن مدیریت فناوری و نوآوری ایران می‌خواهد بحث نوآوری را از شعار به ظرفیت قابل‌سنجش برساند. پژوهش، آموزش و پیشنهاد سیاست در این‌جا جدا از هم نیستند.
 placeholder: true
 links:
-  - label: با نحوهٔ کار ما آشنا شوید
+  - label: عضویت در انجمن
+    to: /membership
+  - label: دربارهٔ انجمن
     to: /about
-  - label: تازه‌ها را بخوانید
-    to: /research
-spotlightTitle: پژوهش‌های برجسته
-projectsTitle: پروژه‌های ویژه
+spotlightTitle: کارگروه‌ها
+projectsTitle: برنامه‌های انجمن
 projectsLinkLabel: همهٔ پروژه‌ها
 recentTitle: تازه‌ترین انتشارات
 recentLinkLabel: همهٔ انتشارات
@@ -25,6 +25,24 @@ sections:
   quarterlies: فصلنامه‌ها
   partners: همراهان
   newsletter: خبرنامه
+  news: اخبار
+programs:
+  - title: کنفرانس سالانه
+    to: /conference
+    page: 7220
+  - title: جایزه ملی
+    to: /award
+    page: 10220
+  - title: واژه‌گزینی
+    to: /terminology
+    page: 10488
+journals:
+  - id: 2832
+    href: https://jstp.nrisp.ac.ir/
+  - id: 2831
+    href: https://www.nowavari.ir/
+  - id: 6989
+    href: https://jtdm.irost.ir/
 sectionLinks:
   workgroups: همهٔ کارگروه‌ها
   events: همهٔ رویدادها

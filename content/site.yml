@@ -177,6 +177,13 @@ sets:
   award:
     slugs:
       - جایزه-ملی-مدیریت-نوآوری
+  latest:
+    slugs:
+      - articles
+      - اخبار-فناوری
+  news:
+    slugs:
+      - news
   boardTag: هیئت-مدیره
 eventFilters:
   - label: کارگاه

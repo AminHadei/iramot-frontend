@@ -124,6 +124,8 @@ export default defineContentConfig({
           workgroups: categorySet,
           quarterlies: categorySet,
           award: categorySet,
+          latest: categorySet,
+          news: categorySet,
           boardTag: z.string(),
         }),
         eventFilters: z.array(
@@ -208,7 +210,21 @@ export default defineContentConfig({
           quarterlies: z.string(),
           partners: z.string(),
           newsletter: z.string(),
+          news: z.string(),
         }),
+        programs: z.array(
+          z.object({
+            title: z.string(),
+            to: z.string(),
+            page: z.number(),
+          }),
+        ),
+        journals: z.array(
+          z.object({
+            id: z.number(),
+            href: z.string(),
+          }),
+        ),
         sectionLinks: z.object({
           workgroups: z.string(),
           events: z.string(),
@@ -314,6 +330,7 @@ export default defineContentConfig({
       type: "page",
       source: "about.md",
       schema: z.object({
+        lead: z.string(),
         placeholder: z.boolean().default(true),
       }),
     }),
