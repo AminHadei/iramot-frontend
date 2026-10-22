@@ -9,7 +9,7 @@ The always-on rule is [`.cursor/rules/project.mdc`](../../../.cursor/rules/proje
 
 ## Reference
 
-The global sheet is [`app/assets/css/ifp.rtl.css`](../../../app/assets/css/ifp.rtl.css): rtlcss output of `ref/ifp/css/main.css` and the `<style>` blocks in `ref/ifp/html/`. Söhne maps to Vazirmatn and Tiempos Text maps to Noto Naskh Arabic. Do not ship the IFP font files or the IFP mark. Measured values live in [`docs/design-system.md`](../../../docs/design-system.md). Tailwind preflight is off; use Tailwind only for association-specific UI.
+The global sheet is [`app/assets/css/ifp.rtl.css`](../../../app/assets/css/ifp.rtl.css): rtlcss output of `ref/ifp/css/main.css` and the `<style>` blocks in `ref/ifp/html/`. Söhne maps to Vazirmatn and Tiempos Text maps to Noto Naskh Arabic. IFP colours in that sheet are `:root` custom properties, listed in [`docs/design-system.md`](../../../docs/design-system.md). Do not ship the IFP font files or the IFP mark. Tailwind preflight is off; use Tailwind only for association-specific UI.
 
 ## Tokens
 

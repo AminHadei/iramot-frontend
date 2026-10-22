@@ -31,6 +31,7 @@ The site is fully right-to-left (`lang=fa` and `dir=rtl` on `html`). Logical pro
 هدف، کپی ۱:۱ مارکاپ و CSS سایت ifp.org است، آینه‌شده برای RTL. فقط متن، تصاویر، لوگو و فونت عوض می‌شوند. هیچ کامپوننتی از روی توضیح متنی بازسازی نمی‌شود؛ منبع حقیقت فایل‌های ref/ifp/ است. کلاس‌های اصلی IFP (site-header، home-splash، home-spotlight-intro، post-listing__*، project-list--layout-3-col، newsletter-pre-footer، site-footer و...) دقیقاً حفظ شوند.
 
 - The global stylesheet is `app/assets/css/ifp.rtl.css`, built with rtlcss from `ref/ifp/css/main.css` and the `<style>` blocks in `ref/ifp/html/`. Söhne maps to Vazirmatn and Tiempos Text maps to Noto Naskh Arabic. Uppercase and letter-spacing are neutralized; font-weight stays.
+- IFP colours in that sheet are custom properties on `:root`. Paper is `#FFFDF5`, ink and rules are `#2B2B33`, the hero is `#2D317A` with paper text, emphasis is `#CF4382`, and the newsletter, footer, and dark header are `#06011E`. Meta stays `#999`. Panels are `#FAF9F7`. Domain colours repeat `#2D317A`, `#6967AC`, `#9A96CA`, `#3F50A0`, `#CF4382`. Label text on `#9A96CA` and `#CF4382` is `#06011E`.
 - Tailwind preflight is off. Use Tailwind only for association-specific UI.
 - Headings use `font-heading` (Noto Naskh Arabic). Text and labels use `font-sans` (Vazirmatn, self-hosted woff2, Tahoma fallback) until licensed IRANYekan FaNum files are added.
 - Display dates are Jalali with Persian digits (`formatPersianDate`). Keep dates as ISO in content.
