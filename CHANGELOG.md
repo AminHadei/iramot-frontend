@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.4
+
+### Patch Changes
+
+- Load the IFP stylesheet as a right-to-left copy, with this association's fonts.
+
 ## 0.3.3
 
 ### Patch Changes
