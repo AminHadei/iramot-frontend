@@ -6,9 +6,7 @@ defineProps<{
 }>();
 
 const route = useRoute();
-const { data: home } = await useAsyncData("home-chrome", () =>
-  queryCollection("home").first(),
-);
+const { data: home } = await useHomeChrome();
 
 const page = computed(() => home.value as HomeContent | null);
 const showNewsletter = computed(() => route.path === "/" && page.value);

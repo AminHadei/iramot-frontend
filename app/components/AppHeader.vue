@@ -9,9 +9,7 @@ const route = useRoute();
 const open = ref(false);
 const panel = ref<string | null>(null);
 
-const { data: home } = await useAsyncData("home-chrome", () =>
-  queryCollection("home").first(),
-);
+const { data: home } = await useHomeChrome();
 
 const searchLabel = computed(
   () => (home.value as HomeContent | null)?.search.label ?? "",
