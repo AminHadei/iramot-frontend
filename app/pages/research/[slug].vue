@@ -49,6 +49,7 @@ usePageSeo({
     :category="post.category"
     :date="post.date"
     :image="post.image"
+    :subtitle="post.description"
     :toc="post.toc"
   >
     <ArchiveHtml v-if="post.html" :html="post.html" />

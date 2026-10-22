@@ -4,45 +4,70 @@ defineProps<{
   category?: string;
   date?: string;
   image?: string;
+  subtitle?: string;
   toc?: Array<{ id: string; label: string }>;
 }>();
+
+const tocOpen = ref(false);
 </script>
 
 <template>
-  <article class="mx-auto max-w-[1440px]">
-    <header class="full-band full-band-primary text-paper">
-      <div class="page-inset py-16">
-        <p v-if="category" class="text-sm text-secondary-soft">{{ category }}</p>
-        <h1
-          class="mt-3 max-w-[880px] font-heading text-[2.5rem] font-normal leading-[1.15] wide:text-[3.75rem] wide:leading-[1.2]"
+  <article class="single-article" :style="categoryColor(0)">
+    <header class="single-article__header">
+      <div v-if="category || date" class="single-article__header-category">
+        <div v-if="category" class="single-article__header-category-container">
+          <div class="single-article__header-category-name">{{ category }}</div>
+        </div>
+        <div
+          v-if="date"
+          class="single-article__header-date single-article__header-date--desktop"
         >
-          {{ title }}
-        </h1>
-        <p v-if="date" class="mt-4 text-sm">
           <PersianDate :date="date" />
-        </p>
+        </div>
+      </div>
+      <div class="single-article__header-title">
+        <h1 class="single-article__header-title-primary">{{ title }}</h1>
+        <div v-if="subtitle" class="single-article__header-title-subtitle">
+          {{ subtitle }}
+        </div>
+      </div>
+      <div
+        v-if="date"
+        class="single-article__header-date single-article__header-date--mobile"
+      >
+        <PersianDate :date="date" />
       </div>
     </header>
-    <div v-if="image" class="page-inset pt-10">
-      <NuxtImg :src="image" :alt="title" provider="none" class="w-full" />
-    </div>
-    <div
-      class="page-inset py-10"
-      :class="
-        toc?.length ? 'frame:grid frame:grid-cols-[16rem_1fr] frame:gap-[60px]' : ''
-      "
-    >
-      <nav v-if="toc?.length">
-        <ul class="frame:sticky frame:top-[70px]">
-          <li v-for="item in toc" :key="item.id" class="border-b border-line">
-            <a :href="`#${item.id}`" class="block py-3 text-sm text-primary">
-              {{ item.label }}
-            </a>
+    <div class="single-article__content">
+      <div class="article">
+        <ul
+          v-if="toc?.length"
+          class="article__toc toc toc--has-list-items"
+          :class="{ 'toc--nav-open': tocOpen }"
+        >
+          <li
+            class="toc__button"
+            role="button"
+            tabindex="0"
+            @click="tocOpen = !tocOpen"
+            @keydown.enter.prevent="tocOpen = !tocOpen"
+          >
+            <div class="toc__button-text">{{ title }}</div>
+          </li>
+          <li class="toc__list">
+            <div class="toc__list-container">
+              <ul>
+                <li v-for="item in toc" :key="item.id" class="toc__item">
+                  <a class="toc__link" :href="`#${item.id}`">{{ item.label }}</a>
+                </li>
+              </ul>
+            </div>
           </li>
         </ul>
-      </nav>
-      <div class="rich-text font-heading text-base font-normal leading-relaxed">
-        <slot />
+        <div class="article__content">
+          <NuxtImg v-if="image" :src="image" :alt="title" provider="none" />
+          <slot />
+        </div>
       </div>
     </div>
   </article>
