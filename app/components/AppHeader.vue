@@ -27,7 +27,7 @@ function setOpen(next: boolean) {
 }
 
 watch(
-  () => route.path,
+  () => route.fullPath,
   () => {
     if (!open.value) return;
     setOpen(false);
