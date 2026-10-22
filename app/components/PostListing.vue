@@ -1,5 +1,5 @@
 <script setup lang="ts">
-defineProps<{
+const props = defineProps<{
   title: string;
   to?: string;
   external?: string;
@@ -7,43 +7,59 @@ defineProps<{
   category?: string;
   date?: string;
   image?: string;
+  colorIndex?: number;
+  swiper?: boolean;
 }>();
+
+const tone = computed(() =>
+  props.category
+    ? categoryColor(props.colorIndex ?? slotFromName(props.category))
+    : undefined,
+);
+
+function slotFromName(name: string) {
+  let sum = 0;
+  for (let index = 0; index < name.length; index += 1) {
+    sum += name.charCodeAt(index);
+  }
+  return sum % 5;
+}
 </script>
 
 <template>
-  <article class="grid h-full border border-line bg-paper">
-    <NuxtImg
-      v-if="image"
-      :src="image"
-      :alt="title"
-      provider="none"
-      class="aspect-[3/2] w-full object-cover"
+  <div
+    class="post-listing"
+    :class="{
+      'post-listing--has-category post-listing--category-has-color': category,
+      'post-listing--no-image': !image,
+      'simple-swiper__item': swiper,
+    }"
+    :style="tone"
+  >
+    <NuxtLink v-if="to" class="post-listing__anchor" :to="to" :aria-label="title" />
+    <a
+      v-else-if="external"
+      class="post-listing__anchor"
+      :href="external"
+      rel="noopener noreferrer"
+      :aria-label="title"
     />
-    <div class="p-5" :class="image ? 'border-t border-line' : ''">
-      <p
-        v-if="category"
-        class="inline-block bg-primary px-2 py-1 font-sans text-[0.875rem] font-bold leading-[1.3] text-paper"
-      >
-        {{ category }}
-      </p>
-      <h3
-        class="mt-3 font-heading text-[1.25rem] font-normal leading-snug text-ink wide:text-[1.375rem]"
-      >
-        <NuxtLink v-if="to" :to="to">{{ title }}</NuxtLink>
-        <a v-else-if="external" :href="external" rel="noopener noreferrer">{{
-          title
-        }}</a>
-        <span v-else>{{ title }}</span>
-      </h3>
-      <p
-        v-if="excerpt"
-        class="mt-2 text-[0.8125rem] font-light leading-relaxed wide:text-[0.9375rem]"
-      >
-        {{ excerpt }}
-      </p>
-      <p v-if="date" class="mt-3 text-sm text-secondary">
-        <PersianDate :date="date" />
-      </p>
+    <div v-if="category" class="post-listing__category">
+      <div class="post-listing__category-name">{{ category }}</div>
     </div>
-  </article>
+    <div class="post-listing__image">
+      <NuxtImg v-if="image" :src="image" :alt="title" provider="none" />
+    </div>
+    <div class="post-listing__content">
+      <div class="post-listing__title">{{ title }}</div>
+      <div v-if="excerpt" class="post-listing__excerpt">{{ excerpt }}</div>
+      <div v-if="date" class="post-listing__meta">
+        <div class="post-listing__info">
+          <div class="post-listing__date">
+            <PersianDate :date="date" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
