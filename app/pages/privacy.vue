@@ -35,7 +35,10 @@ usePageSeo({
 </script>
 
 <template>
-  <SingleArticle :title="page.title" :toc="page.toc">
-    <ArchiveHtml :html="page.html" />
-  </SingleArticle>
+  <div class="page-standard">
+    <h1 class="page-standard__title">{{ page.title }}</h1>
+    <div class="page-standard__content">
+      <ArchiveHtml :html="page.html" />
+    </div>
+  </div>
 </template>
