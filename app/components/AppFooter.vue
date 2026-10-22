@@ -20,7 +20,13 @@ const page = computed(() => home.value as HomeContent | null);
   />
   <footer class="site-footer">
     <div class="site-footer__logo">
-      <SiteMark />
+      <NuxtImg
+        src="/brand/logo-two-line.webp"
+        :alt="site.name"
+        width="600"
+        height="424"
+        provider="none"
+      />
     </div>
     <address class="site-footer__address">
       <template v-for="(line, index) in site.address" :key="line">
