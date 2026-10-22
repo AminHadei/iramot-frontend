@@ -24,6 +24,9 @@ logs
 .fleet
 .idea
 
+# Visual comparison captures
+/tools/visual/out/
+
 # Local env files
 .env
 .env.*

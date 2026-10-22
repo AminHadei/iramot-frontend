@@ -18,6 +18,10 @@ FaNum
 frontmatter
 husky
 ifp
+pixelmatch
+pngjs
+playwright
+domcontentloaded
 IRANYekan
 Vazirmatn
 lint-staged
