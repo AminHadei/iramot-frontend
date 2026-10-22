@@ -1,0 +1,69 @@
+@font-face {
+  font-family: "IRANYekan";
+  font-style: normal;
+  font-weight: 100;
+  font-display: swap;
+  src:
+    url("/fonts/iranyekan/iranyekanwebthinfanum.woff2") format("woff2"),
+    url("/fonts/iranyekan/iranyekanwebthinfanum.woff") format("woff");
+}
+
+@font-face {
+  font-family: "IRANYekan";
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src:
+    url("/fonts/iranyekan/iranyekanweblightfanum.woff2") format("woff2"),
+    url("/fonts/iranyekan/iranyekanweblightfanum.woff") format("woff");
+}
+
+@font-face {
+  font-family: "IRANYekan";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src:
+    url("/fonts/iranyekan/iranyekanwebregularfanum.woff2") format("woff2"),
+    url("/fonts/iranyekan/iranyekanwebregularfanum.woff") format("woff");
+}
+
+@font-face {
+  font-family: "IRANYekan";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src:
+    url("/fonts/iranyekan/iranyekanwebmediumfanum.woff2") format("woff2"),
+    url("/fonts/iranyekan/iranyekanwebmediumfanum.woff") format("woff");
+}
+
+@font-face {
+  font-family: "IRANYekan";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src:
+    url("/fonts/iranyekan/iranyekanwebboldfanum.woff2") format("woff2"),
+    url("/fonts/iranyekan/iranyekanwebboldfanum.woff") format("woff");
+}
+
+@font-face {
+  font-family: "IRANYekan";
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src:
+    url("/fonts/iranyekan/iranyekanwebextraboldfanum.woff2") format("woff2"),
+    url("/fonts/iranyekan/iranyekanwebextraboldfanum.woff") format("woff");
+}
+
+@font-face {
+  font-family: "IRANYekan";
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src:
+    url("/fonts/iranyekan/iranyekanwebblackfanum.woff2") format("woff2"),
+    url("/fonts/iranyekan/iranyekanwebblackfanum.woff") format("woff");
+}

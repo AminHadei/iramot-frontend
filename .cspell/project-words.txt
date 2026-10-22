@@ -24,6 +24,13 @@ potrace
 playwright
 domcontentloaded
 IRANYekan
+iranyekanwebblackfanum
+iranyekanwebboldfanum
+iranyekanwebextraboldfanum
+iranyekanweblightfanum
+iranyekanwebmediumfanum
+iranyekanwebregularfanum
+iranyekanwebthinfanum
 Vazirmatn
 lint-staged
 Naskh
@@ -39,6 +46,7 @@ spellcheck
 tailwindcss
 typecheck
 woff
+woff2
 workgroups
 styleguide
 hellip
