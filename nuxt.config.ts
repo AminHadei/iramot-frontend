@@ -44,6 +44,8 @@ export default defineNuxtConfig({
   },
   routeRules: {
     "/**": { prerender: true },
+    "/statute": { redirect: "/about#statute" },
+    "/contact": { redirect: "/about#contact" },
   },
   nitro: {
     prerender: {
@@ -56,6 +58,8 @@ export default defineNuxtConfig({
         "/economics-of-ideas/syllabus",
         "/economics-of-ideas/apply",
         "/independent-filmmaker-project",
+        "/statute",
+        "/contact",
       ],
     },
   },
