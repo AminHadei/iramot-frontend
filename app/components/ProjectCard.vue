@@ -10,32 +10,23 @@ defineProps<{
 </script>
 
 <template>
-  <article class="border border-line bg-paper">
-    <div class="relative border-b border-line">
-      <div class="pt-[55.476%]" />
-      <NuxtImg
-        v-if="image"
-        :src="image"
-        :alt="title"
-        provider="none"
-        class="absolute inset-0 size-full object-cover"
-      />
-      <span
-        v-else
-        class="absolute inset-0 m-auto size-10 border border-line"
-        aria-hidden="true"
-      />
-    </div>
-    <div class="p-4">
-      <h3
-        class="font-heading text-[1.25rem] font-normal leading-snug wide:text-[1.375rem]"
-      >
-        <NuxtLink :to="to" class="text-accent">{{ title }}</NuxtLink>
-      </h3>
-      <p v-if="authors?.length" class="mt-2 text-sm text-secondary">
+  <div class="project project--column">
+    <NuxtLink
+      :to="to"
+      class="project__image"
+      :class="image ? 'project__image--type-image' : 'project__image--type-icon'"
+    >
+      <NuxtImg v-if="image" :src="image" :alt="title" provider="none" />
+      <SiteMark v-else />
+    </NuxtLink>
+    <div class="project__body">
+      <div class="project__title">
+        <NuxtLink :to="to">{{ title }}</NuxtLink>
+      </div>
+      <div v-if="authors?.length" class="project__subtitle">
         {{ byLabel }} {{ formatAuthors(authors) }}
-      </p>
-      <p class="mt-3 text-sm font-light leading-relaxed">{{ description }}</p>
+      </div>
+      <div class="project__description">{{ description }}</div>
     </div>
-  </article>
+  </div>
 </template>
