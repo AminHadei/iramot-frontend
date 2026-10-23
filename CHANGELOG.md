@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.30
+
+### Patch Changes
+
+- Let the event article use the page width, with space above the details.
+
 ## 0.3.29
 
 ### Patch Changes
