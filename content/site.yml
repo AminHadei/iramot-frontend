@@ -134,8 +134,19 @@ listings:
   terminology:
     title: واژه‌گزینی
     description: واژه‌های ثبت‌شده در آرشیو کارگروه.
-    label: عنوان واژه
+    label: جستجوی واژه
     empty: واژه‌ای با این عنوان در آرشیو نیست.
+    sourceLabel: منبع واژه
+    pending: در حال جستجو…
+    statusDefault: "{n} واژه — جدیدترین‌ها ابتدا"
+    statusResults: "{n} نتیجه برای «{q}» — مرتبط‌ترین‌ها ابتدا"
+    statusEmpty: "نتیجه‌ای برای «{q}» یافت نشد."
+    shown: "نمایش {a} از {b}"
+    loadMore: بارگذاری بیشتر
+    clear: پاک کردن جستجو
+    expand: ادامه
+    collapse: بستن
+    definition: "تعریف «{title}»"
   statute:
     title: اساسنامه
     description: متن اساسنامه در فایل آرشیو است.
@@ -198,13 +209,11 @@ eventFilters:
 terminology:
   sources:
     - id: 115
-      label: "115"
+      label: کلمات مصوب فرهنگستان زبان و ادب فارسی
     - id: 116
-      label: "116"
-    - id: 128
-      label: "128"
+      label: کلمات مصوب انجمن
     - id: 181
-      label: "181"
+      label: پیکره واژگان انجمن
 ui:
   menu: منو
   close: بستن

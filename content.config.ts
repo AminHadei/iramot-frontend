@@ -100,6 +100,17 @@ export default defineContentConfig({
           terminology: listingText.extend({
             label: z.string(),
             empty: z.string(),
+            sourceLabel: z.string(),
+            pending: z.string(),
+            statusDefault: z.string(),
+            statusResults: z.string(),
+            statusEmpty: z.string(),
+            shown: z.string(),
+            loadMore: z.string(),
+            clear: z.string(),
+            expand: z.string(),
+            collapse: z.string(),
+            definition: z.string(),
           }),
           statute: listingText.extend({
             file: z.string(),

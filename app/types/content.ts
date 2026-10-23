@@ -59,6 +59,17 @@ export interface SiteContent {
       description: string;
       label: string;
       empty: string;
+      sourceLabel: string;
+      pending: string;
+      statusDefault: string;
+      statusResults: string;
+      statusEmpty: string;
+      shown: string;
+      loadMore: string;
+      clear: string;
+      expand: string;
+      collapse: string;
+      definition: string;
     };
     statute: { title: string; description: string; file: string; label: string };
   };

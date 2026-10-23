@@ -1,110 +1,227 @@
 <script setup lang="ts">
-interface GlossaryTerm {
-  id: number;
-  title: string;
-  text: string;
-  sources: number[];
-}
+import type { TermSummary } from "~/data/terms/types";
+import type { SearchableTerm } from "~/utils/persianSearch";
+import { persianDigits } from "~/utils/persianDate";
+
+type TermRecord = SearchableTerm & {
+  slug: string;
+  sourceLabels: Array<{ id: number; label: string }>;
+};
 
 const props = defineProps<{
-  terms: string[] | GlossaryTerm[];
+  terms: TermSummary[];
+  sources: Array<{ id: number; label: string }>;
   label: string;
+  sourceLabel: string;
+  allLabel: string;
   emptyLabel: string;
-  sources?: Array<{ id: number; label: string }>;
-  allLabel?: string;
+  pendingLabel: string;
+  statusDefault: string;
+  statusResults: string;
+  statusEmpty: string;
+  shownLabel: string;
+  loadMoreLabel: string;
+  clearLabel: string;
+  expandLabel: string;
+  collapseLabel: string;
+  definitionTemplate: string;
 }>();
 
-const query = ref("");
-const source = ref<number | null>(null);
+const emit = defineEmits<{ query: [value: string] }>();
 
-function fold(value: string) {
-  return value
-    .replace(/ي/g, "ی")
-    .replace(/ك/g, "ک")
-    .replace(/\u200c/g, "")
-    .toLowerCase();
-}
-
-const detailed = computed(
-  () => props.terms.length > 0 && typeof props.terms[0] !== "string",
+const records = computed<TermRecord[]>(() =>
+  props.terms.map((term) => ({
+    id: term.id,
+    en: term.title,
+    fa: term.fa,
+    text: term.text,
+    sources: term.sources.map((source) => source.id),
+    date: term.date,
+    slug: term.slug,
+    sourceLabels: term.sources,
+  })),
 );
 
-const titles = computed(() => {
-  if (detailed.value) return [];
-  const needle = fold(query.value.trim());
-  if (!needle) return [];
-  return (props.terms as string[])
-    .filter((term) => fold(term).includes(needle))
-    .slice(0, 12);
-});
+const {
+  input,
+  query,
+  source,
+  pending,
+  visible,
+  total,
+  hasMore,
+  loadMore,
+  clear,
+  flush,
+  statusKey,
+} = useTermSearch(records);
 
-const cards = computed(() => {
-  if (!detailed.value) return [];
-  const needle = fold(query.value.trim());
-  return (props.terms as GlossaryTerm[]).filter((term) => {
-    if (source.value !== null && !term.sources.includes(source.value)) return false;
-    if (!needle) return true;
-    return fold(`${term.title} ${term.text}`).includes(needle);
+const field = ref<HTMLInputElement | null>(null);
+const list = ref<HTMLElement | null>(null);
+
+watch(query, (value) => emit("query", value));
+
+function fill(template: string, values: Record<string, string | number>) {
+  return template.replace(/\{(\w+)\}/g, (_match, key: string) => {
+    const value = values[key];
+    if (value == null) return "";
+    return typeof value === "number" ? persianDigits(value) : value;
   });
+}
+
+const status = computed(() => {
+  if (statusKey.value === "results") {
+    return fill(props.statusResults, { n: total.value, q: query.value });
+  }
+  if (statusKey.value === "empty") {
+    return fill(props.statusEmpty, { q: query.value });
+  }
+  return fill(props.statusDefault, { n: total.value });
 });
 
-const showEmpty = computed(() => {
-  if (detailed.value) {
-    return (
-      (query.value.trim().length > 0 || source.value !== null) &&
-      cards.value.length === 0
-    );
-  }
-  return query.value.trim().length > 0 && titles.value.length === 0;
-});
+const shownText = computed(() =>
+  fill(props.shownLabel, { a: visible.value.length, b: total.value }),
+);
 
 function onSource(event: Event) {
   const value = (event.target as HTMLSelectElement).value;
   source.value = value === "" ? null : Number(value);
 }
+
+function onKeydown(event: KeyboardEvent) {
+  if (event.key !== "Escape" || !input.value) return;
+  event.preventDefault();
+  clear();
+  field.value?.focus();
+}
+
+function onClear() {
+  clear();
+  field.value?.focus();
+}
+
+async function onLoadMore() {
+  const index = visible.value.length;
+  loadMore();
+  await nextTick();
+  list.value?.querySelectorAll<HTMLElement>(".post-listing--term")[index]?.focus();
+}
+
+function definitionLabel(title: string) {
+  return fill(props.definitionTemplate, { title });
+}
 </script>
 
 <template>
-  <div id="filter" class="post-listing-list">
-    <div class="post-listing-list__toolbar">
-      <div class="filter-toolbar filter-toolbar--search filter-toolbar--loaded">
-        <form class="menu-search-form" @submit.prevent>
-          <label class="filter-toolbar__filter-text">
-            {{ label }}
-            <input v-model="query" type="search" :aria-label="label" />
-          </label>
-        </form>
-        <div v-if="sources?.length" class="filter-toolbar__taxonomy-filters">
-          <div class="filter-toolbar__control filter-toolbar__control--no-js">
-            <select
-              class="filter-toolbar__button"
-              :aria-label="allLabel"
-              @change="onSource"
-            >
-              <option value="">{{ allLabel }}</option>
-              <option v-for="entry in sources" :key="entry.id" :value="entry.id">
-                {{ entry.label }}
-              </option>
-            </select>
+  <div class="term-search-region">
+    <div id="filter" class="post-listing-list post-listing-list--no-qty-columns">
+      <div class="post-listing-list__toolbar">
+        <div
+          class="filter-toolbar filter-toolbar--search filter-toolbar--loaded term-search"
+          role="search"
+          @keydown="onKeydown"
+        >
+          <form class="menu-search-form" @submit.prevent="flush">
+            <div class="filter-toolbar__control">
+              <label class="filter-toolbar__filter-text" for="term-q">{{
+                label
+              }}</label>
+              <span class="term-search__field">
+                <input
+                  id="term-q"
+                  ref="field"
+                  v-model="input"
+                  type="search"
+                  autocomplete="off"
+                  spellcheck="false"
+                  enterkeyhint="search"
+                />
+                <button
+                  type="button"
+                  class="term-search__clear"
+                  :hidden="!input"
+                  :aria-label="clearLabel"
+                  @click="onClear"
+                >
+                  ×
+                </button>
+              </span>
+            </div>
+          </form>
+          <div class="filter-toolbar__taxonomy-filters">
+            <div class="filter-toolbar__control">
+              <label class="filter-toolbar__filter-text" for="term-src">{{
+                sourceLabel
+              }}</label>
+              <select
+                id="term-src"
+                class="filter-toolbar__button"
+                :value="source ?? ''"
+                @change="onSource"
+              >
+                <option value="">{{ allLabel }}</option>
+                <option v-for="entry in sources" :key="entry.id" :value="entry.id">
+                  {{ entry.label }}
+                </option>
+              </select>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <p v-if="showEmpty" class="post-listing-list__no-results">{{ emptyLabel }}</p>
-    <div v-else-if="titles.length" class="post-listing-list__list">
-      <PostListing
-        v-for="(term, index) in titles"
-        :key="`${term}-${index}`"
-        :title="term"
-      />
-    </div>
-    <div v-else-if="cards.length" class="post-listing-list__list">
-      <PostListing
-        v-for="term in cards"
-        :key="term.id"
-        :title="term.title"
-        :excerpt="term.text"
-      />
+      <div class="term-search__bar">
+        <p
+          id="term-status"
+          class="term-search__status"
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
+        >
+          {{ status }}
+        </p>
+        <p class="term-search__pending" aria-hidden="true" :hidden="!pending">
+          {{ pendingLabel }}
+        </p>
+      </div>
+      <div
+        id="term-results"
+        class="term-results"
+        :class="{ 'is-pending': pending }"
+        :aria-busy="pending ? 'true' : 'false'"
+      >
+        <ul
+          ref="list"
+          class="post-listing-list__list term-list"
+          :hidden="statusKey === 'empty'"
+        >
+          <TermCard
+            v-for="hit in visible"
+            :id="hit.term.id"
+            :key="hit.term.id"
+            :fa="hit.term.fa"
+            :en="hit.term.en"
+            :text="hit.term.text"
+            :sources="hit.term.sourceLabels"
+            :date="hit.term.date"
+            :ranges="hit.ranges"
+            :expand-label="expandLabel"
+            :collapse-label="collapseLabel"
+            :definition-label="definitionLabel(hit.term.fa || hit.term.en)"
+          />
+        </ul>
+        <p class="post-listing-list__no-results" :hidden="statusKey !== 'empty'">
+          {{ emptyLabel }}
+        </p>
+        <div class="term-more" :hidden="!hasMore">
+          <p>{{ shownText }}</p>
+          <button
+            type="button"
+            class="filter-toolbar__button term-more__btn"
+            @click="onLoadMore"
+          >
+            {{ loadMoreLabel }}
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </template>

@@ -3266,3 +3266,260 @@ a.conference-banner:focus-visible .hero-intro__link--featured {
     color: var(--color-on-category, var(--color-paper));
   }
 }
+/* v14 — minimal additions for /terminology. Everything else is existing ifp.rtl.css (hero-intro, filter-toolbar--search,
+   menu-search-form, filter-toolbar__button, post-listing(--no-image), post-listing__meta/__info/__date, post-pagination__pages). */
+@layer ifp {
+  /* 0. page gutters: --no-qty-columns (needed so the stock qty-based column spans don't re-flow on every filter change) also drops the stock gutters, so repeat them */
+  .term-search-region {
+    max-width: 1440px;
+    margin-inline: auto;
+    padding-inline: 24px;
+  }
+  @media (min-width: 61.25em) and (max-width: 63.99em) {
+    .term-search-region {
+      padding-inline: 36px;
+    }
+  }
+  @media (min-width: 64em) {
+    .term-search-region {
+      padding-inline: 60px;
+    }
+  }
+  /* 1. search field: same underline input as the live page, plus a clear (×) button */
+  .term-search__field {
+    position: relative;
+    display: block;
+  }
+  .term-search__field input[type="search"] {
+    display: block;
+    width: 100%;
+    height: 44px;
+    padding: 0 0 0 36px;
+    padding-inline: 0 36px;
+    font-family: IRANYekan, Tahoma, sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
+    color: var(--color-ink);
+    border-radius: 0;
+    -webkit-appearance: none;
+    appearance: none;
+  } /* 16px: iOS Safari zooms smaller inputs */
+  .term-search__field input[type="search"]:focus-visible {
+    outline: 2px solid var(--color-emphasis);
+    outline-offset: 2px;
+  }
+  .term-search__field input[type="search"]::-webkit-search-cancel-button {
+    display: none;
+  }
+  .term-search__clear {
+    position: absolute;
+    inset-inline-end: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-ink);
+    border: 0;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+  }
+  .term-search__clear:focus-visible {
+    outline: 2px solid var(--color-emphasis);
+    outline-offset: 0;
+  }
+  .term-search__clear:hover {
+    color: var(--color-emphasis);
+  }
+  .term-search__clear[hidden] {
+    display: none;
+  }
+  .term-search .menu-search-form {
+    flex: 1 1 auto;
+  }
+  .term-search .filter-toolbar__control .filter-toolbar__filter-text {
+    display: block;
+  }
+  .term-search .filter-toolbar__taxonomy-filters {
+    margin-top: var(--default-spacing);
+  }
+  .term-search .menu-search-form .filter-toolbar__filter-text {
+    display: block;
+  }
+  .post-listing--term .post-listing__meta,
+  .post-listing--term .post-listing__meta * {
+    font-weight: 400;
+  }
+  /* 2. status line (aria-live) */
+  .term-search__bar {
+    display: flex;
+    gap: 16px;
+    align-items: baseline;
+    min-height: 24px;
+    margin-top: var(--small-spacing);
+    margin-bottom: var(--small-spacing);
+  }
+  .term-search__status {
+    font-family: IRANYekan, Tahoma, sans-serif;
+    font-weight: 400;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    margin: 0;
+    color: var(--color-ink);
+  }
+  .term-search__pending {
+    font-family: IRANYekan, Tahoma, sans-serif;
+    font-weight: 400;
+    font-size: 0.8125rem;
+    color: var(--color-emphasis);
+  }
+  .term-search__pending[hidden] {
+    display: none;
+  }
+  .term-results.is-pending .term-list {
+    opacity: 0.55;
+    transition: opacity 0.15s ease;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .term-results.is-pending .term-list {
+      transition: none;
+    }
+  }
+  /* 3. compact term card (no image block) */
+  ul.term-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .post-listing:not(.post-listing--featured).post-listing--term:before {
+    display: none;
+  }
+  .post-listing:not(.post-listing--featured).post-listing--term {
+    grid-template-areas: "content";
+    grid-template-rows: 1fr;
+    min-width: 0;
+  }
+  /* column spans are fixed (the stock qty-based spans would re-flow the grid on every filter change; the page already sets --no-qty-columns) */
+  .term-list.post-listing-list__list > .post-listing:not(.post-listing--featured) {
+    grid-column: span 12;
+  }
+  @media (min-width: 45em) {
+    .term-list.post-listing-list__list > .post-listing:not(.post-listing--featured) {
+      grid-column: span 6;
+    }
+  }
+  @media (min-width: 61.25em) {
+    .term-list.post-listing-list__list > .post-listing:not(.post-listing--featured) {
+      grid-column: span 4;
+    }
+  }
+  .post-listing--term .post-listing__content {
+    padding: 20px;
+  }
+  .post-listing--term:focus {
+    outline: 2px solid var(--color-emphasis);
+    outline-offset: 2px;
+  }
+  .term-card__en {
+    font-family: IRANYekan, Tahoma, sans-serif;
+    font-weight: 300;
+    font-size: 0.875rem;
+    line-height: 1.4;
+    margin-top: 4px;
+    color: var(--color-ink);
+  }
+  .term-card__text {
+    overflow-wrap: anywhere;
+  }
+  .term-card__text.is-clamped {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .term-card__more {
+    font-family: IRANYekan, Tahoma, sans-serif;
+    font-weight: 400;
+    font-size: 0.8125rem;
+    margin-top: 6px;
+    padding: 0;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    color: var(--color-emphasis);
+    position: relative;
+    z-index: 2;
+  }
+  .term-card__sr {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+  .term-card__source {
+    display: block;
+    overflow-wrap: anywhere;
+  }
+  .post-listing--term .post-listing__info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+  }
+  .post-listing--term .post-listing__meta {
+    margin-top: 12px;
+    color: var(--color-emphasis);
+    opacity: 1;
+  }
+  .post-listing--term:hover .post-listing__meta {
+    opacity: 1;
+  }
+  .post-listing--term .post-listing__date {
+    color: var(--color-ink);
+  }
+  mark.term-hit {
+    background: #9a96ca;
+    color: #06011e;
+    padding: 0 2px;
+    border-radius: 2px;
+  }
+  /* 4. load more */
+  .term-more {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding-top: var(--default-spacing);
+  }
+  .term-more[hidden] {
+    display: none;
+  }
+  .term-more__btn {
+    width: auto;
+    min-width: 200px;
+    cursor: pointer;
+  }
+  .term-more__btn:hover {
+    background: var(--color-emphasis-fill);
+    color: var(--color-paper);
+  }
+  .term-more__btn:focus-visible,
+  .term-search__clear:focus-visible,
+  .term-card__more:focus-visible {
+    outline: 2px solid var(--color-emphasis);
+    outline-offset: 2px;
+  }
+  .term-list[hidden],
+  .post-listing-list__no-results[hidden] {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .term-results.is-pending .term-list {
+    transition: none;
+  }
+}
