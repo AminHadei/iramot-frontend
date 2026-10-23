@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.26
+
+### Patch Changes
+
+- Label filtered news cards with the category that is selected.
+
 ## 0.3.25
 
 ### Patch Changes
