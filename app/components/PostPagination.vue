@@ -4,11 +4,12 @@ defineProps<{
   next?: string;
   previousLabel: string;
   nextLabel: string;
+  pageLabel?: string;
 }>();
 </script>
 
 <template>
-  <nav v-if="previous || next" class="post-pagination">
+  <nav v-if="previous || next || pageLabel" class="post-pagination">
     <NuxtLink
       v-if="previous"
       class="post-pagination__prev"
@@ -46,6 +47,7 @@ defineProps<{
         />
       </svg>
     </span>
+    <div v-if="pageLabel" class="post-pagination__pages">{{ pageLabel }}</div>
     <NuxtLink
       v-if="next"
       class="post-pagination__next"
