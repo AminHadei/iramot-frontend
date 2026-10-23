@@ -1,4 +1,4 @@
-export const newsPageSize = 16;
+export const newsPageSize = 15;
 
 export interface NewsImage {
   url: string;
@@ -39,6 +39,7 @@ export interface NewsListQuery {
   category?: string;
   order?: "asc" | "desc";
   author?: string;
+  skip?: number;
 }
 
 export interface NewsList {

@@ -80,11 +80,12 @@ export function createJsonNewsRepository(baseURL: string): NewsRepository {
         if (byDate !== 0) return byDate * direction;
         return (left.id - right.id) * direction;
       });
-      const total = items.length;
+      const pool = items.slice(Math.max(0, query.skip ?? 0));
+      const total = pool.length;
       const pages = total === 0 ? 0 : Math.ceil(total / query.perPage);
       const start = (query.page - 1) * query.perPage;
       return {
-        items: items
+        items: pool
           .slice(start, start + query.perPage)
           .map((item) => present(item, baseURL)),
         total,

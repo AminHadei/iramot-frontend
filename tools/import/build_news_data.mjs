@@ -336,10 +336,10 @@ async function pruneMedia() {
 }
 
 async function writePrerenderRoutes(data) {
-  const perPage = 16;
+  const perPage = 15;
   const routes = new Set(["/news", "/research"]);
   const addPages = (count, prefix) => {
-    const pages = Math.ceil(count / perPage);
+    const pages = Math.ceil(Math.max(count - 1, 0) / perPage);
     for (let page = 2; page <= pages; page += 1) routes.add(`${prefix}/page/${page}`);
   };
   addPages(data.items.filter((item) => item.feed).length, "/news");

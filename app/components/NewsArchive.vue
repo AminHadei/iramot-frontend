@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { NewsCategory, NewsList } from "~/data/news/types";
+import type { NewsCategory, NewsList, NewsSummary } from "~/data/news/types";
 import type { SiteContent } from "~/types/content";
 
 const props = defineProps<{
@@ -11,12 +11,13 @@ const props = defineProps<{
     category?: string;
     order: "asc" | "desc";
     list: NewsList;
+    featured: NewsSummary | null;
     filters: NewsCategory[];
   };
 }>();
 
-const featured = computed(() => props.archive.list.items[0]);
-const cards = computed(() => props.archive.list.items.slice(1));
+const featured = computed(() => props.archive.featured);
+const cards = computed(() => props.archive.list.items);
 const pageLabel = computed(() => {
   const pages = props.archive.list.pages;
   if (pages < 2) return "";
@@ -96,7 +97,10 @@ function setCategory(value: string) {
           />
         </div>
       </div>
-      <p v-if="!archive.list.items.length" class="post-listing-list__no-results">
+      <p
+        v-if="!featured && !archive.list.items.length"
+        class="post-listing-list__no-results"
+      >
         {{ archive.site.ui.newsEmpty }}
       </p>
       <div v-else-if="cards.length" class="post-listing-list__list">

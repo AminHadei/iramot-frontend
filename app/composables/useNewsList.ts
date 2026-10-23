@@ -1,23 +1,34 @@
+import type { NuxtApp } from "#app";
 import { newsPageSize } from "~/data/news/types";
-import type { NewsList } from "~/data/news/types";
+import type { NewsList, NewsSummary } from "~/data/news/types";
 import type { SiteContent } from "~/types/content";
+
+function payloadDuringHydration(key: string, nuxtApp: NuxtApp): NewsList | undefined {
+  if (!nuxtApp.isHydrating) return undefined;
+  return nuxtApp.payload.data[key] as NewsList | undefined;
+}
 
 export function useNewsList(input: {
   page: number;
   category?: string;
   order: Ref<"asc" | "desc">;
+  skip?: number;
 }) {
   const repo = useNewsRepository();
   return useAsyncData(
-    `news-list-${input.category ?? "all"}-${input.page}`,
+    () => `news-list-${input.category ?? "all"}-${input.order.value}-${input.page}`,
     () =>
       repo.list({
         page: input.page,
         perPage: newsPageSize,
         category: input.category,
         order: input.order.value,
+        skip: input.skip,
       }),
-    { watch: [input.order] },
+    {
+      watch: [input.order],
+      getCachedData: payloadDuringHydration,
+    },
   );
 }
 
@@ -29,15 +40,24 @@ export async function useNewsArchive() {
   const category = route.path.includes("/news/category/")
     ? oneParam(route.params.slug)
     : undefined;
-  const order = ref<"asc" | "desc">("desc");
+  const order = ref<"asc" | "desc">(route.query.order === "asc" ? "asc" : "desc");
   const list = ref<NewsList | null>(null);
-  const listState = useNewsList({ page: page ?? 1, category, order });
+  const featured = ref<NewsSummary | null>(null);
+  const listState = useNewsList({ page: page ?? 1, category, order, skip: 1 });
+  const featuredState = useAsyncData(
+    () => `news-featured-${category ?? "all"}-${order.value}`,
+    () => repo.list({ page: 1, perPage: 1, category, order: order.value }),
+    {
+      watch: [order],
+      getCachedData: payloadDuringHydration,
+    },
+  );
 
   watch(listState.data, (value) => {
     if (value) list.value = value;
   });
-  onMounted(() => {
-    if (route.query.order === "asc") order.value = "asc";
+  watch(featuredState.data, (value) => {
+    featured.value = value?.items[0] ?? null;
   });
   watch(
     () => route.query.order,
@@ -49,6 +69,7 @@ export async function useNewsArchive() {
   const siteData = await siteState;
   const site = siteData.data.value as SiteContent | null;
   const { data } = await listState;
+  const featuredData = await featuredState;
   const filters = await repo.categories();
   const known = !category || filters.some((filter) => filter.slug === category);
   const pages = data.value?.pages ?? 0;
@@ -58,6 +79,7 @@ export async function useNewsArchive() {
 
   const current = filters.find((filter) => filter.slug === category);
   list.value = data.value;
+  featured.value = featuredData.data.value?.items[0] ?? null;
   const state = reactive({
     title: current?.name ?? site.listings.research.title,
     description: site.listings.research.description,
@@ -66,6 +88,7 @@ export async function useNewsArchive() {
     category,
     order,
     list: list as Ref<NewsList>,
+    featured,
     filters,
   });
 
