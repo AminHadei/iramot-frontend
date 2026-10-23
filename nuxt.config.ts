@@ -1,6 +1,7 @@
 import { withBase } from "./app/utils/withBase";
 import { eventPrerenderRoutes } from "./app/data/events/prerender-routes";
 import { newsPrerenderRoutes } from "./app/data/news/prerender-routes";
+import { termPrerenderRoutes } from "./app/data/terms/prerender-routes";
 import { workgroupPrerenderRoutes } from "./app/data/workgroups/prerender-routes";
 
 // Root-absolute font urls are not prefixed by Vite. Apply app.baseURL once here.
@@ -65,6 +66,8 @@ export default defineNuxtConfig({
     public: {
       newsSource: "json",
       newsApiBase: "",
+      termsSource: "json",
+      termsApiBase: "",
       eventsSource: "json",
       eventsApiBase: "",
       partnersSource: "json",
@@ -98,6 +101,7 @@ export default defineNuxtConfig({
         "/category/جایزه-ملی-مدیریت-نوآوری",
         "/جایزه-ملی-مدیریت-فناوری-و-نوآوری",
         ...newsPrerenderRoutes,
+        ...termPrerenderRoutes,
         ...eventPrerenderRoutes,
         ...workgroupPrerenderRoutes,
       ],
