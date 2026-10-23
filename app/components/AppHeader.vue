@@ -15,9 +15,10 @@ function syncOpaque() {
 }
 
 function isCurrent(to: string) {
-  const path = to.split("#")[0] ?? to;
-  if (path === "/") return route.path === "/";
-  return route.path === path || route.path.startsWith(`${path}/`);
+  const path = (to.split("#")[0] ?? to).replace(/\/+$/, "") || "/";
+  const current = route.path.replace(/\/+$/, "") || "/";
+  if (path === "/") return current === "/";
+  return current === path || current.startsWith(`${path}/`);
 }
 
 function setOpen(next: boolean) {

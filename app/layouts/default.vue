@@ -3,28 +3,29 @@ const { data: site } = await useSite();
 const route = useRoute();
 
 function bodyClass(path: string) {
-  if (path === "/" || path === "/styleguide") {
+  const p = path.replace(/\/+$/, "") || "/";
+  if (p === "/" || p === "/styleguide") {
     return "loaded home page-template-template-home";
   }
-  if (path === "/about") return "loaded page-template-template-about";
-  if (path === "/news" || path.startsWith("/news/")) {
-    const parts = path.split("/").filter(Boolean);
+  if (p === "/about") return "loaded page-template-template-about";
+  if (p === "/news" || p.startsWith("/news/")) {
+    const parts = p.split("/").filter(Boolean);
     const article =
       parts.length === 2 && parts[1] !== "page" && parts[1] !== "category";
     return article
       ? "loaded single-post"
       : "loaded page-template-template-post-archive";
   }
-  if (path === "/projects") return "loaded page-template-template-newsletters";
-  if (path === "/membership")
+  if (p === "/projects") return "loaded page-template-template-newsletters";
+  if (p === "/membership")
     return "loaded page-template-template-course-general-content";
-  if (path === "/opportunities" || path.startsWith("/opportunities/")) {
+  if (p === "/opportunities" || p.startsWith("/opportunities/")) {
     return "loaded page-template-template-opportunities";
   }
-  if (path === "/economics-of-ideas" || path.startsWith("/economics-of-ideas/")) {
+  if (p === "/economics-of-ideas" || p.startsWith("/economics-of-ideas/")) {
     return "loaded page-template-template-course-landing";
   }
-  if (path === "/the-launch-sequence" || path === "/transit-abundance-playbook") {
+  if (p === "/the-launch-sequence" || p === "/transit-abundance-playbook") {
     return "loaded page-template-template-reading-list";
   }
   return "loaded";
