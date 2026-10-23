@@ -249,6 +249,22 @@ ui:
   newsRead: مطالعه کامل
   newsCategory: دسته
   newsContents: محتوا
+  eventPast: برگزار شد
+  eventUpcoming: به‌زودی
+  eventDetails: جزئیات رویداد
+  eventTime: زمان
+  eventPlace: مکان
+  eventMode: نحوه برگزاری
+  eventExpert: صاحب‌نظر
+  eventPresenter: ارائه‌دهنده
+  eventLead: راهبر برنامه
+  eventInstructor: مدرس
+  eventRegister: ثبت‌نام
+  eventVideo: ویدیوی برنامه در آپارات
+  eventRelated: رویدادهای مرتبط
+  eventEmpty: رویدادی برای نمایش نیست
+  eventInPerson: حضوری
+  eventOnline: آنلاین
   emptyPartners: فهرستی از همراهان در آرشیو نیست.
 styleguide:
   title: راهنمای اجزا

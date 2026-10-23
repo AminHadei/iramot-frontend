@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { ArchiveItem, HomeContent, SiteContent } from "~/types/content";
+import type { HomeContent, SiteContent } from "~/types/content";
 import type { NewsSummary } from "~/data/news/types";
 import type { ListingCard } from "~/utils/archive";
 
@@ -20,6 +20,7 @@ interface ProgramCard {
 
 const siteState = useSite();
 const newsRepo = useNewsRepository();
+const eventRepo = useEventRepository();
 const { data: siteData } = await siteState;
 if (!siteData.value) {
   throw createError({ statusCode: 500, statusMessage: "محتوای خانه پیدا نشد" });
@@ -50,21 +51,13 @@ function withColor(cards: ListingCard[]): HomeCard[] {
   });
 }
 
-function listedEvents(items: ArchiveItem[]) {
-  const today = new Date().toISOString().slice(0, 10);
-  const upcoming = items
-    .filter((item) => item.date.slice(0, 10) >= today)
-    .sort((left, right) => left.date.localeCompare(right.date));
-  return upcoming.length ? upcoming : byDateDesc(items);
-}
-
 const { data: home } = await useAsyncData("home-page", async () => {
-  const [pageFile, aboutFile, eventsFile, pagesFile, newsList] = await Promise.all([
+  const [pageFile, aboutFile, pagesFile, newsList, eventList] = await Promise.all([
     queryCollection("home").first(),
     queryCollection("pages").path("/about").first(),
-    queryCollection("archiveEvents").first(),
     queryCollection("archivePages").first(),
     newsRepo.list({ page: 1, perPage: 12, order: "desc" }),
+    eventRepo.list({ page: 1, perPage: 12, order: "desc" }),
   ]);
   if (!pageFile || !aboutFile) return null;
   const page = pageFile as HomeContent;
@@ -98,17 +91,18 @@ const { data: home } = await useAsyncData("home-page", async () => {
     };
   });
   const eventCards = withColor(
-    listedEvents(archiveItems(eventsFile)).map((item) => {
-      const filter = site.eventFilters.find((entry) =>
-        entry.eventIds.includes(item.id),
+    eventList.items.map((item) => {
+      const filter = site.eventFilters.find(
+        (entry) => entry.to === `/events/${item.program}`,
       );
-      const card = toCard(item, {
-        to: filter?.to ?? "/events",
-        category: filter?.label,
-      });
       return {
-        ...card,
-        excerpt: card.excerpt || firstSentence(item.content || ""),
+        id: item.id,
+        title: item.title,
+        excerpt: item.excerpt,
+        date: item.startsAt || item.dateText,
+        category: filter?.label,
+        image: item.poster,
+        to: `/events/${item.slug}`,
       };
     }),
   );

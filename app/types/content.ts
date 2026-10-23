@@ -109,6 +109,22 @@ export interface SiteContent {
     newsRead: string;
     newsCategory: string;
     newsContents: string;
+    eventPast: string;
+    eventUpcoming: string;
+    eventDetails: string;
+    eventTime: string;
+    eventPlace: string;
+    eventMode: string;
+    eventExpert: string;
+    eventPresenter: string;
+    eventLead: string;
+    eventInstructor: string;
+    eventRegister: string;
+    eventVideo: string;
+    eventRelated: string;
+    eventEmpty: string;
+    eventInPerson: string;
+    eventOnline: string;
   };
   styleguide: {
     title: string;

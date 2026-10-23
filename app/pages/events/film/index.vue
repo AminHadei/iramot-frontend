@@ -1,12 +1,12 @@
 <script setup lang="ts">
-const listing = await useEventListing();
+const archive = await useEventArchive();
 
 usePageSeo({
-  title: listing.title,
-  description: listing.description,
+  title: archive.title,
+  description: archive.description,
 });
 </script>
 
 <template>
-  <ArchiveListing v-bind="listing" shell="category" />
+  <EventsArchive :archive="archive" />
 </template>

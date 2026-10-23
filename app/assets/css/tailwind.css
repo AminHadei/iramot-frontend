@@ -1278,6 +1278,388 @@ body.page-template-template-about .newsletter-pre-footer {
   }
 }
 
+.events-archive .category-header {
+  min-height: 0;
+  display: block;
+  background: var(--color-category);
+  box-shadow: 0 0 0 100vmax var(--color-category);
+  clip-path: inset(0 -100vmax);
+}
+
+.events-archive .category-header::before {
+  content: none;
+}
+
+.events-archive .category-header .category-header__inner {
+  width: 100%;
+}
+
+@media (min-width: 61.25em) {
+  .events-archive .category-header .category-header__inner {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.events-archive .category-header .category-header__info-title,
+.events-archive .category-header .category-header__info-description,
+.events-archive .category-header .category-header__info-description p {
+  color: var(--color-on-category);
+}
+
+.events-archive .category-header__latest,
+.events-archive .category-header__latest::before {
+  background: transparent;
+  content: none;
+}
+
+.events-archive .category-header__latest .event-card {
+  color: var(--color-ink);
+}
+
+.events-archive .category-header__latest .event-card .post-listing__content,
+.events-archive .category-header__latest .event-card .post-listing__category {
+  display: none;
+}
+
+.events-archive .category-header__latest .event-card .post-listing__image::before {
+  content: none;
+  padding-top: 0 !important;
+}
+
+.events-archive .category-header__latest .event-card .post-listing__image img {
+  position: static;
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 420px;
+  object-fit: contain;
+}
+
+.event-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.event-tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.event-tabs .filter-toolbar__button {
+  width: auto;
+  height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 20px;
+  white-space: nowrap;
+  text-decoration: none;
+  color: var(--color-ink);
+  background: transparent;
+}
+
+.event-tabs .filter-toolbar__button--active {
+  background: var(--color-category);
+  color: var(--color-on-category);
+  border-color: var(--color-category);
+}
+
+.event-toolbar .toolbar-select {
+  width: 260px;
+  flex: 0 0 auto;
+}
+
+@media (max-width: 44.99em) {
+  .event-toolbar {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .event-tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    scrollbar-width: none;
+  }
+
+  .event-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .event-toolbar .toolbar-select {
+    width: 100%;
+  }
+}
+
+.post-listing-list .event-grid.post-listing-list__list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 30px;
+}
+
+@media (min-width: 45em) {
+  .post-listing-list .event-grid.post-listing-list__list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 61.25em) {
+  .post-listing-list .event-grid.post-listing-list__list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.post-listing-list .event-grid.post-listing-list__list > .post-listing {
+  grid-column: auto !important;
+}
+
+.post-listing-list .event-grid > .post-listing.event-card {
+  grid-template-columns: 1fr !important;
+  grid-template-areas: "image" "content" !important;
+  grid-template-rows: auto 1fr !important;
+}
+
+.post-listing-list .event-grid > .post-listing.event-card .post-listing__image {
+  grid-area: image !important;
+}
+
+.post-listing-list .event-grid > .post-listing.event-card .post-listing__content {
+  grid-area: content !important;
+}
+
+.event-card {
+  position: relative;
+}
+
+.event-card .post-listing__anchor {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+}
+
+.event-card:not(.post-listing--featured) .post-listing__image::before {
+  padding-top: 75% !important;
+}
+
+.event-card .post-listing__image {
+  background: var(--color-category);
+}
+
+.event-card .post-listing__image img {
+  object-fit: contain;
+}
+
+.event-card__placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-category);
+  color: var(--color-on-category);
+  font-weight: 700;
+  font-size: 1.5rem;
+  letter-spacing: 0;
+}
+
+.event-card__placeholder span {
+  opacity: 0.92;
+}
+
+.event-chip {
+  display: inline-flex;
+  align-items: center;
+  height: 22px;
+  padding: 0 9px;
+  margin-inline-start: 12px;
+  font-size: 0.8125rem;
+  line-height: 1;
+  font-weight: 500;
+  border: 1px solid;
+  white-space: nowrap;
+}
+
+.event-chip--past {
+  color: #55535f;
+  border-color: #9a96ca;
+  background: transparent;
+}
+
+.event-chip--upcoming {
+  color: #fffdf5;
+  background: #2d317a;
+  border-color: #2d317a;
+}
+
+.single-article__header .event-chip {
+  margin-inline-start: 14px;
+  vertical-align: middle;
+}
+
+.single-article__header .event-chip--past {
+  color: var(--color-on-category);
+  border-color: currentColor;
+  opacity: 0.9;
+}
+
+.single-article__header .event-chip--upcoming {
+  background: var(--color-on-category);
+  color: var(--color-category);
+  border-color: var(--color-on-category);
+}
+
+.event-top {
+  display: grid;
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+@media (min-width: 61.25em) {
+  .event-top {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: start;
+  }
+}
+
+.event-top .event-poster {
+  margin: 0;
+}
+
+.event-top .event-poster img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.event-details.opportunities-posts {
+  margin: 0;
+}
+
+.event-details .opportunities-posts__title {
+  font-family: IRANYekan, Tahoma, sans-serif;
+  font-weight: 500;
+  font-size: 1.25rem;
+  line-height: 1.3;
+  margin: 0 0 12px;
+  color: var(--color-ink);
+}
+
+.event-details .opportunities-posts__list {
+  border-top: 1px solid var(--color-ink);
+}
+
+.event-details .opportunities-posts__list-item {
+  padding-top: 16px;
+  padding-bottom: 16px;
+  align-items: baseline;
+  gap: 20px;
+  border-bottom: 1px solid rgba(43, 43, 51, 0.35);
+}
+
+.event-details .opportunities-posts__list-item-title {
+  flex: 0 0 7.5em;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  font-weight: 500;
+  color: #55535f;
+}
+
+.event-details .opportunities-posts__list-item-cta {
+  flex: 1 1 auto;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--color-ink);
+  text-align: start;
+}
+
+.event-register {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 42px;
+  padding: 0 24px;
+  background: var(--color-category);
+  color: var(--color-on-category);
+  border: 1px solid var(--color-category);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.event-register:hover {
+  background: transparent;
+  color: var(--color-ink);
+}
+
+.event-article .event-top {
+  margin-top: 30px;
+  padding-inline: 24px;
+}
+
+@media (min-width: 61.25em) and (max-width: 63.99em) {
+  .event-article .event-top {
+    padding-inline: 36px;
+  }
+}
+
+@media (min-width: 64em) {
+  .event-article .event-top {
+    padding-inline: 60px;
+  }
+}
+
+.event-body {
+  max-width: 46em;
+}
+
+.event-video-link a {
+  color: var(--color-emphasis);
+  text-decoration: underline;
+  text-underline-offset: 0.35em;
+}
+
+@media (max-width: 44.99em) {
+  .event-details .opportunities-posts__list-item {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .event-details .opportunities-posts__list-item-title {
+    flex: none;
+  }
+}
+
+.event-article .single-article__header {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: var(--color-category);
+}
+
+.event-article .single-article__header-category-container {
+  display: block;
+}
+
+.event-article .single-article__header::after {
+  content: none;
+}
+
+.event-article .single-article__header,
+.event-article .single-article__header a,
+.event-article .news-breadcrumb {
+  color: var(--color-on-category, var(--color-paper));
+}
+
 #contact .contact-card .rwmb-form-submit .rwmb-button {
   align-self: flex-start;
 }

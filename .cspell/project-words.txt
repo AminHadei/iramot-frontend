@@ -75,3 +75,8 @@ INSO
 magick
 featuredmedia
 totalpages
+aparat
+evand
+evnd
+tetris
+zwnj
