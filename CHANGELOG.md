@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.25
+
+### Patch Changes
+
+- Enlarge board photos and place their icons at the bottom left.
+
 ## 0.3.24
 
 ### Patch Changes
