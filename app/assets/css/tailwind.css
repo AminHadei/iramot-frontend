@@ -2704,6 +2704,89 @@ body.page-template-template-about .newsletter-pre-footer {
   outline: none;
 }
 
+.list-card__media--wide {
+  aspect-ratio: 16 / 9;
+  --tile-pad: 6%;
+}
+
+.list-card--opportunity .list-card__text {
+  --clamp: 3;
+}
+
+.list-card__meta {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  margin: 0;
+  color: var(--color-emphasis);
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+.list-card__type:not(:last-child)::after {
+  content: "·";
+  margin-inline: 8px;
+}
+
+.list-card__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 12px;
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.list-card__deadline {
+  margin: 0;
+  color: var(--color-ink);
+}
+
+.list-card__badge {
+  display: inline-block;
+  padding: 1px 10px;
+  background: var(--color-category-3);
+  color: var(--color-band);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1.7;
+}
+
+.list-card--ended {
+  background: #f3f1e8;
+  border-color: rgb(43 43 51 / 55%);
+}
+
+.list-card--ended .list-card__media {
+  filter: grayscale(1);
+  opacity: 0.8;
+}
+
+.list-card--ended .list-card__meta {
+  color: var(--color-ink);
+}
+
+.list-card--ended .list-card__title,
+.list-card--ended .list-card__text {
+  color: #4a4a54;
+}
+
+.list-card--opportunity .list-card__title,
+.list-card--opportunity .list-card__meta,
+.list-card--opportunity .list-card__text {
+  overflow-wrap: anywhere;
+}
+
+.list-card--opportunity .list-card__title {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+}
+
 .list-empty {
   margin: 0;
   padding: 40px 24px;
