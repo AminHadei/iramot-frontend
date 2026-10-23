@@ -1,0 +1,78 @@
+<script setup lang="ts">
+import type { NewsSummary } from "~/data/news/types";
+
+const props = defineProps<{
+  item: NewsSummary;
+  featured?: boolean;
+  linkLabel: string;
+  byLabel: string;
+  featuredLabel?: string;
+}>();
+
+const category = computed(() => primaryNewsCategory(props.item.categories));
+const tone = computed(() => newsCategoryColor(category.value?.slug ?? "news"));
+const categoryTo = computed(() => newsCategoryPath(category.value?.slug));
+const author = computed(() => props.item.author?.name || "");
+</script>
+
+<template>
+  <div
+    class="post-listing news-card"
+    :class="{
+      'post-listing--has-category post-listing--category-has-color': category,
+      'post-listing--featured post-listing--featured-contain': featured,
+    }"
+    :style="tone"
+  >
+    <NuxtLink
+      class="post-listing__anchor"
+      :to="`/news/${item.slug}`"
+      :aria-label="item.title"
+    />
+    <NuxtLink v-if="category" class="post-listing__category" :to="categoryTo">
+      <div class="post-listing__category-icon">
+        <SiteMark />
+      </div>
+      <div class="post-listing__category-name">{{ category.name }}</div>
+    </NuxtLink>
+    <div class="post-listing__image">
+      <img
+        v-if="item.image"
+        :src="item.image.url"
+        :alt="item.image.alt"
+        :width="item.image.width"
+        :height="item.image.height"
+      />
+      <span v-else class="news-card__placeholder" aria-hidden="true">
+        <SiteMark />
+      </span>
+    </div>
+    <div v-if="featured && item.date" class="post-listing__label">
+      <span>{{ featuredLabel }}</span>
+      <span class="post-listing__date">
+        <PersianDate :date="item.date" />
+      </span>
+    </div>
+    <div class="post-listing__content">
+      <div class="post-listing__title">{{ item.title }}</div>
+      <div v-if="item.excerpt" class="post-listing__excerpt">{{ item.excerpt }}</div>
+      <div v-if="linkLabel" class="post-listing__link">{{ linkLabel }}</div>
+      <div v-if="!featured && (item.date || author)" class="post-listing__meta">
+        <div class="post-listing__info">
+          <div v-if="item.date" class="post-listing__date">
+            <PersianDate :date="item.date" />
+          </div>
+          <template v-if="author">
+            <span v-if="item.date">&nbsp;&nbsp;/&nbsp;&nbsp;</span>
+            <div class="author-list">
+              <span>{{ byLabel + "\u00a0" }}</span>
+              <span class="author-list__author">
+                <span>{{ author }}</span>
+              </span>
+            </div>
+          </template>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
