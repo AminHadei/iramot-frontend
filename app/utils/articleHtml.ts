@@ -4,6 +4,7 @@ import { withBase } from "~/utils/withBase";
 export interface ArticleHeading {
   id: string;
   label: string;
+  level: 2 | 3;
 }
 
 const blocked =
@@ -27,37 +28,91 @@ function cleanTag(tag: string, baseURL: string) {
   return tag
     .replace(/\s+on[a-z]+\s*=\s*("[^"]*"|'[^']*'|[^\s>]+)/gi, "")
     .replace(/\s+(href|src)\s*=\s*(["'])\s*(?:javascript:|data:)[^"']*\2/gi, "")
+    .replace(/\s+style\s*=\s*("[^"]*"|'[^']*')/gi, "")
+    .replace(/\s+(srcset|sizes)\s*=\s*("[^"]*"|'[^']*')/gi, "")
     .replace(
-      /\s+(src|srcset)\s*=\s*(["'])([^"']*)\2/gi,
-      (match, name: string, quote: string, value: string) => {
+      /\s+src\s*=\s*(["'])([^"']*)\1/gi,
+      (match, quote: string, value: string) => {
         if (!value.includes("/media/")) return match;
-        return ` ${name}=${quote}${prefixMedia(baseURL, value)}${quote}`;
+        return ` src=${quote}${prefixMedia(baseURL, value)}${quote}`;
       },
     );
+}
+
+function newsHref(
+  href: string,
+  baseURL: string,
+  slugs: ReadonlySet<string>,
+): string | null {
+  if (!/iramot\.ir/i.test(href)) return null;
+  let pathname: string;
+  try {
+    pathname = new URL(href).pathname;
+  } catch {
+    return null;
+  }
+  const parts = pathname.split("/").filter(Boolean);
+  const head = parts[0] ?? "";
+  if (
+    ["category", "tag", "author", "wp-content", "wp-json", "wp-admin"].includes(head)
+  ) {
+    return null;
+  }
+  const last = parts.at(-1);
+  if (!last) return null;
+  let slug: string;
+  try {
+    slug = decodeURIComponent(last);
+  } catch {
+    slug = last;
+  }
+  if (!slugs.has(slug)) return null;
+  return withBase(baseURL, `/news/${slug}`);
+}
+
+function rewriteIramotLinks(
+  html: string,
+  baseURL: string,
+  slugs?: ReadonlySet<string>,
+) {
+  if (!slugs?.size) return html;
+  return html.replace(
+    /href=(["'])([^"']+)\1/gi,
+    (match, quote: string, href: string) => {
+      const next = newsHref(href, baseURL, slugs);
+      return next ? `href=${quote}${next}${quote}` : match;
+    },
+  );
 }
 
 export function articleHtml(
   source: string,
   baseURL = "/",
+  slugs?: ReadonlySet<string>,
 ): { html: string; toc: ArticleHeading[] } {
-  const cleaned = source
-    .replace(/<!--[\s\S]*?-->/g, "")
-    .replace(blocked, "")
-    .replace(blockedVoid, "")
-    .replace(/\[\/?[a-zA-Z_:][^\]]*\]/g, "")
-    .replace(/<[^>]+>/g, (tag) => cleanTag(tag, baseURL));
+  const cleaned = rewriteIramotLinks(
+    source
+      .replace(/<!--[\s\S]*?-->/g, "")
+      .replace(blocked, "")
+      .replace(blockedVoid, "")
+      .replace(/\[\/?[a-zA-Z_:][^\]]*\]/g, "")
+      .replace(/<[^>]+>/g, (tag) => cleanTag(tag, baseURL)),
+    baseURL,
+    slugs,
+  );
 
   const toc: ArticleHeading[] = [];
   let index = 0;
   const html = cleaned.replace(
     /<h([23])([^>]*)>([\s\S]*?)<\/h\1>/gi,
-    (_match, level: string, attrs: string, inner: string) => {
+    (_match, depth: string, attrs: string, inner: string) => {
       index += 1;
       const id = `section-${index}`;
       const label = plainText(inner);
-      if (label) toc.push({ id, label });
+      const level = depth === "3" ? 3 : 2;
+      if (label) toc.push({ id, label, level });
       const withoutId = attrs.replace(/\s+id\s*=\s*("[^"]*"|'[^']*')/i, "");
-      return `<h${level}${withoutId} id="${id}">${inner}</h${level}>`;
+      return `<h${depth}${withoutId} id="${id}">${inner}</h${depth}>`;
     },
   );
 
