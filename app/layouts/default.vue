@@ -7,6 +7,14 @@ function bodyClass(path: string) {
     return "loaded home page-template-template-home";
   }
   if (path === "/about") return "loaded page-template-template-about";
+  if (path === "/news" || path.startsWith("/news/")) {
+    const parts = path.split("/").filter(Boolean);
+    const article =
+      parts.length === 2 && parts[1] !== "page" && parts[1] !== "category";
+    return article
+      ? "loaded single-post"
+      : "loaded page-template-template-post-archive";
+  }
   if (path === "/projects") return "loaded page-template-template-newsletters";
   if (path === "/membership")
     return "loaded page-template-template-course-general-content";

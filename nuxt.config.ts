@@ -1,4 +1,5 @@
 import { withBase } from "./app/utils/withBase";
+import { newsPrerenderRoutes } from "./app/data/news/prerender-routes";
 
 // Root-absolute font urls are not prefixed by Vite. Apply app.baseURL once here.
 function prefixPublicFontUrls() {
@@ -46,6 +47,13 @@ export default defineNuxtConfig({
     "/**": { prerender: true },
     "/statute": { redirect: "/about#statute" },
     "/contact": { redirect: "/about#contact" },
+    "/research": { redirect: "/news" },
+  },
+  runtimeConfig: {
+    public: {
+      newsSource: "json",
+      newsApiBase: "",
+    },
   },
   nitro: {
     prerender: {
@@ -60,6 +68,7 @@ export default defineNuxtConfig({
         "/independent-filmmaker-project",
         "/statute",
         "/contact",
+        ...newsPrerenderRoutes,
       ],
     },
   },

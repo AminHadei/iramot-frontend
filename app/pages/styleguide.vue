@@ -63,11 +63,11 @@ const { data } = await useAsyncData("styleguide", async () => {
     projects,
     about,
     cards: [
-      ...toCards(posts, "/research", 4),
+      ...toCards(posts, "/news", 4),
       ...toCards(events, "/events", 2),
       ...toCards(terms, "/terminology", 3),
     ],
-    article: toCards(posts, "/research", 1)[0],
+    article: toCards(posts, "/news", 1)[0],
   };
 });
 
@@ -108,7 +108,7 @@ usePageSeo({
         <div class="home-latest">
           <h2 class="home-latest__title">{{ site.styleguide.listing }}</h2>
           <div class="home-latest__view-all">
-            <NuxtLink to="/research">{{ home.recentLinkLabel }}</NuxtLink>
+            <NuxtLink to="/news">{{ home.recentLinkLabel }}</NuxtLink>
           </div>
           <SimpleSwiper :previous-label="site.ui.previous" :next-label="site.ui.next">
             <PostListing

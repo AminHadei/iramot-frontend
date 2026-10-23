@@ -82,7 +82,7 @@ export function listingPath(base: string, page: number, category?: string): stri
 }
 
 export function researchPath(slug: string): string {
-  return `/research/${slug}`;
+  return `/news/${slug}`;
 }
 
 export interface ListingCard {

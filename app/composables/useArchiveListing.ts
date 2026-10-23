@@ -27,7 +27,7 @@ export type ListingGroup =
   | "award";
 
 const listingBase: Record<ListingGroup, string> = {
-  publications: "/research",
+  publications: "/news",
   opportunities: "/opportunities",
   conference: "/conference",
   workgroups: "/workgroups",

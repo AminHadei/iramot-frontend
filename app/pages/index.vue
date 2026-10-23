@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { ArchiveItem, HomeContent, SiteContent } from "~/types/content";
+import type { NewsSummary } from "~/data/news/types";
 import type { ListingCard } from "~/utils/archive";
 
 interface AboutFields {
@@ -17,7 +18,9 @@ interface ProgramCard {
   to: string;
 }
 
-const { data: siteData } = await useSite();
+const siteState = useSite();
+const newsRepo = useNewsRepository();
+const { data: siteData } = await siteState;
 if (!siteData.value) {
   throw createError({ statusCode: 500, statusMessage: "محتوای خانه پیدا نشد" });
 }
@@ -56,28 +59,30 @@ function listedEvents(items: ArchiveItem[]) {
 }
 
 const { data: home } = await useAsyncData("home-page", async () => {
-  const [pageFile, aboutFile, postsFile, eventsFile, pagesFile] = await Promise.all([
+  const [pageFile, aboutFile, eventsFile, pagesFile, newsList] = await Promise.all([
     queryCollection("home").first(),
     queryCollection("pages").path("/about").first(),
-    queryCollection("archivePosts").first(),
     queryCollection("archiveEvents").first(),
     queryCollection("archivePages").first(),
+    newsRepo.list({ page: 1, perPage: 12, order: "desc" }),
   ]);
   if (!pageFile || !aboutFile) return null;
   const page = pageFile as HomeContent;
   const about = aboutFile as AboutFields;
-  const posts = archiveItems(postsFile);
   const pages = archiveItems(pagesFile);
-  const publicationCards = withColor(
-    byDateDesc(posts.filter((item) => itemInSet(item, site.sets.latest)))
-      .slice(0, 12)
-      .map((item) =>
-        toCard(item, {
-          to: researchPath(item.slug),
-          category: categoryName(item, site.sets.latest),
-        }),
-      ),
-  );
+  const publicationCards: HomeCard[] = newsList.items.map((item: NewsSummary) => {
+    const category = primaryNewsCategory(item.categories);
+    return {
+      id: item.id,
+      title: item.title,
+      excerpt: item.excerpt,
+      date: item.date,
+      category: category?.name,
+      image: item.image?.url,
+      to: `/news/${item.slug}`,
+      colorIndex: newsColorIndex(category?.slug ?? "news"),
+    };
+  });
   const spotlightPosts = page.spotlight.posts.map((post) => {
     const group = page.spotlight.groups.find((entry) => entry.title === post.category);
     return {
@@ -173,7 +178,7 @@ usePageSeo({
         <div class="home-latest deferred">
           <h2 class="home-latest__title">{{ page.recentTitle }}</h2>
           <div class="home-latest__view-all">
-            <NuxtLink to="/research">{{ page.recentLinkLabel }}</NuxtLink>
+            <NuxtLink to="/news">{{ page.recentLinkLabel }}</NuxtLink>
           </div>
           <SimpleSwiper :previous-label="site.ui.previous" :next-label="site.ui.next">
             <PostListing
