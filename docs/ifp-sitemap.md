@@ -126,6 +126,8 @@ Team, Non-Resident Fellows, Board Members, and FAQs are hashes on `/about/`, not
 
 - https://ifp.org/opportunities/
 
+This project renders `/opportunities` with body class `page-lists`, the same class as `/partners`.
+
 ### `wp-singular page-template page-template-template-post-archive page-template-template-post-archive-php page`
 
 - https://ifp.org/latest-publications/
