@@ -935,6 +935,23 @@ body.single-post .site-header--search-has-value {
   }
 }
 
+@media (max-width: 61.24em) {
+  body.nav-open .site-navigation,
+  body.nav-open .site-navigation .site-nav > li > .sub-menu,
+  body.nav-open .site-navigation .site-nav > li > .sub-menu > li.header-item .title {
+    background: var(--color-paper);
+    color: var(--color-ink);
+  }
+
+  body.nav-open .site-navigation .site-nav > li > .sub-menu {
+    border-top: 0;
+  }
+
+  body.nav-open .site-navigation .site-nav a {
+    color: var(--color-ink);
+  }
+}
+
 .accordion:not(.people-group) > .accordion__reveal > :first-child {
   margin-top: 0;
 }
