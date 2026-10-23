@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.12
+
+### Patch Changes
+
+- Replace the site mark with the association logo, including the header, footer, favicon, and social image.
+
 ## 0.3.11
 
 ### Patch Changes
