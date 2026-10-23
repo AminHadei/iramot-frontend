@@ -18,17 +18,11 @@ export interface ListingView {
   order: "asc" | "desc";
 }
 
-export type ListingGroup = "publications" | "opportunities";
+export type ListingGroup = "publications";
 
 const listingBase: Record<ListingGroup, string> = {
   publications: "/news",
-  opportunities: "/opportunities",
 };
-
-function pageIdFor(site: SiteContent, group: ListingGroup): number | null {
-  if (group === "opportunities") return site.pages.opportunities;
-  return null;
-}
 
 export async function useArchiveListing(group: ListingGroup): Promise<ListingView> {
   const route = useRoute();
@@ -83,16 +77,7 @@ export async function useArchiveListing(group: ListingGroup): Promise<ListingVie
       ];
 
       let title = site.listings.research.title;
-      let description = site.listings.research.description;
-      const pageId = pageIdFor(site, group);
-      if (pageId !== null) {
-        const record = archiveItems(await queryCollection("archivePages").first()).find(
-          (item) => item.id === pageId,
-        );
-        if (!record) return null;
-        title = record.title;
-        description = site.ui.emptyBody;
-      }
+      const description = site.listings.research.description;
       const current = filters.find(
         (filter) => filter.current && filter.to !== listingPath(base, 1),
       );

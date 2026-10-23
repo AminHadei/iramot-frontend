@@ -9,7 +9,14 @@ function bodyClass(path: string) {
   }
   if (p === "/about") return "loaded page-template-template-about";
   if (p === "/privacy") return "loaded page-privacy";
-  if (p === "/partners" || p === "/quarterlies") return "loaded page-lists";
+  if (
+    p === "/partners" ||
+    p === "/quarterlies" ||
+    p === "/opportunities" ||
+    p.startsWith("/opportunities/")
+  ) {
+    return "loaded page-lists";
+  }
   if (
     p === "/award" ||
     p.startsWith("/award/") ||
@@ -35,9 +42,6 @@ function bodyClass(path: string) {
   if (p === "/projects") return "loaded page-template-template-newsletters";
   if (p === "/membership")
     return "loaded page-template-template-course-general-content";
-  if (p === "/opportunities" || p.startsWith("/opportunities/")) {
-    return "loaded page-template-template-opportunities";
-  }
   if (p === "/economics-of-ideas" || p.startsWith("/economics-of-ideas/")) {
     return "loaded page-template-template-course-landing";
   }

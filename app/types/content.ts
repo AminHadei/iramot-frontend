@@ -54,6 +54,7 @@ export interface SiteContent {
     events: { title: string; description: string };
     quarterlies: { title: string; description: string };
     partners: { title: string; description: string };
+    opportunities: { title: string; heroBody: string };
     terminology: {
       title: string;
       description: string;
@@ -85,7 +86,6 @@ export interface SiteContent {
   };
   sets: {
     publications: CategorySet;
-    opportunities: CategorySet;
     latest: CategorySet;
     news: CategorySet;
     boardTag: string;
@@ -166,6 +166,13 @@ export interface SiteContent {
     emptyQuarterlies: string;
     listWebsite: string;
     listExternal: string;
+    opportunityCta: string;
+    opportunityDeadline: string;
+    opportunityEnded: string;
+    opportunityTypeResearch: string;
+    opportunityTypeJob: string;
+    opportunitiesEmpty: string;
+    opportunitiesEmpty2: string;
     awardTopic: string;
     awardNews: string;
     awardHeroTitle: string;

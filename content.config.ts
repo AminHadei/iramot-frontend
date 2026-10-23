@@ -97,6 +97,10 @@ export default defineContentConfig({
           events: listingText,
           quarterlies: listingText,
           partners: listingText,
+          opportunities: z.object({
+            title: z.string(),
+            heroBody: z.string(),
+          }),
           terminology: listingText.extend({
             label: z.string(),
             empty: z.string(),
@@ -129,7 +133,6 @@ export default defineContentConfig({
         }),
         sets: z.object({
           publications: categorySet,
-          opportunities: categorySet,
           latest: categorySet,
           news: categorySet,
           boardTag: z.string(),
@@ -238,6 +241,13 @@ export default defineContentConfig({
           emptyQuarterlies: z.string(),
           listWebsite: z.string(),
           listExternal: z.string(),
+          opportunityCta: z.string(),
+          opportunityDeadline: z.string(),
+          opportunityEnded: z.string(),
+          opportunityTypeResearch: z.string(),
+          opportunityTypeJob: z.string(),
+          opportunitiesEmpty: z.string(),
+          opportunitiesEmpty2: z.string(),
           awardTopic: z.string(),
           awardNews: z.string(),
           awardHeroTitle: z.string(),

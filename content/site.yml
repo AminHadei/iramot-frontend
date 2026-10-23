@@ -131,6 +131,9 @@ listings:
   partners:
     title: همراهان
     description: نهادهای همراه انجمن مدیریت فناوری و نوآوری ایران.
+  opportunities:
+    title: فرصت‌های همکاری
+    heroBody: فهرست فرصت‌های همکاری؛ هر مورد در وب‌سایت منتشرکننده باز می‌شود.
   terminology:
     title: واژه‌گزینی
     description: واژه‌های ثبت‌شده در آرشیو کارگروه.
@@ -168,11 +171,6 @@ sets:
       - news
     prefixes:
       - اخبار-
-  opportunities:
-    slugs:
-      - آگهی-استخدام
-      - استخدام
-      - فرصت-های-شغلی
   latest:
     slugs:
       - articles
@@ -277,6 +275,13 @@ ui:
   emptyQuarterlies: فصلنامه‌ای در آرشیو نیست.
   listWebsite: مشاهده وب‌سایت
   listExternal: در برگهٔ جدید باز می‌شود
+  opportunityCta: مشاهده فرصت
+  opportunityDeadline: "مهلت:"
+  opportunityEnded: مهلت به اتمام رسید
+  opportunityTypeResearch: تحقیقاتی
+  opportunityTypeJob: شغلی
+  opportunitiesEmpty: در حال حاضر فرصت همکاری بازی وجود ندارد.
+  opportunitiesEmpty2: فرصت‌های تازه، پس از انتشار در همین صفحه فهرست می‌شوند.
   privacyContents: فهرست مطالب
   privacyTop: بازگشت به بالا
   privacyUpdated: آخرین به‌روزرسانی

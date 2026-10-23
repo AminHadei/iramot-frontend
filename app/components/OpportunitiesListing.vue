@@ -1,89 +1,81 @@
 <script setup lang="ts">
-import type { ListingView } from "~/composables/useArchiveListing";
+import type { Opportunity } from "~/data/opportunities/types";
 import type { SiteContent } from "~/types/content";
 
-defineProps<{
-  listing: ListingView;
+const props = defineProps<{
+  title: string;
+  items: Opportunity[];
+  page: number;
+  pages: number;
+  site: SiteContent;
 }>();
 
-const { data: siteData } = await useSite();
-const site = siteData.value as SiteContent | null;
-
-function onFilter(event: Event) {
-  const value = (event.target as HTMLSelectElement).value;
-  if (value) void navigateTo(value);
+function tehranDay(now: Date) {
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Asia/Tehran",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(now);
 }
+
+const today = useState("opportunity-today", () => tehranDay(new Date()));
+
+onMounted(() => {
+  today.value = tehranDay(new Date());
+});
+
+function isEnded(deadline?: string) {
+  return Boolean(deadline && deadline < today.value);
+}
+
+const pageLabel = computed(() => {
+  if (props.pages < 2) return "";
+  return props.site.ui.newsPage
+    .replace("{current}", persianDigits(props.page))
+    .replace("{total}", persianDigits(props.pages));
+});
+
+const previous = computed(() =>
+  props.page > 1 ? listingPath("/opportunities", props.page - 1) : undefined,
+);
+
+const next = computed(() =>
+  props.page < props.pages ? listingPath("/opportunities", props.page + 1) : undefined,
+);
 </script>
 
 <template>
   <div>
-    <div class="hero-intro">
-      <h1 class="hero-intro__title">{{ listing.title }}</h1>
-      <div v-if="listing.description" class="hero-intro__body">
-        <p>{{ listing.description }}</p>
-      </div>
+    <div class="hero-intro hero-intro--compact">
+      <h1 class="hero-intro__title">{{ title }}</h1>
     </div>
-    <div class="opportunities toc-layout">
-      <div class="toc-layout__nav">
-        <a class="toc-layout__nav-item" href="#opportunities">{{ listing.title }}</a>
-      </div>
-      <div class="opportunities__content toc-layout__content">
-        <div id="opportunities" class="opportunities-posts">
-          <h2 class="opportunities-posts__title">{{ listing.title }}</h2>
-          <div
-            v-if="listing.filters.length > 1"
-            class="filter-toolbar filter-toolbar--loaded"
-          >
-            <div class="filter-toolbar__control filter-toolbar__control--no-js">
-              <select
-                class="filter-toolbar__button"
-                :aria-label="listing.title"
-                :value="listing.filters.find((filter) => filter.current)?.to"
-                @change="onFilter"
-              >
-                <option
-                  v-for="filter in listing.filters"
-                  :key="filter.to"
-                  :value="filter.to"
-                >
-                  {{ filter.label }}
-                </option>
-              </select>
-            </div>
-          </div>
-          <div class="opportunities-posts__list">
-            <p v-if="!listing.cards.length && site">{{ site.ui.emptyBody }}</p>
-            <template v-for="card in listing.cards" :key="card.id">
-              <a
-                v-if="card.external"
-                class="opportunities-posts__list-item"
-                :href="card.external"
-              >
-                <div class="opportunities-posts__list-item-title">{{ card.title }}</div>
-                <div v-if="site" class="opportunities-posts__list-item-cta">
-                  {{ site.ui.more }}
-                </div>
-              </a>
-              <NuxtLink
-                v-else-if="card.to"
-                class="opportunities-posts__list-item"
-                :to="card.to"
-              >
-                <div class="opportunities-posts__list-item-title">{{ card.title }}</div>
-                <div v-if="site" class="opportunities-posts__list-item-cta">
-                  {{ site.ui.more }}
-                </div>
-              </NuxtLink>
-            </template>
-          </div>
-          <PostPagination
-            :previous="listing.previous"
-            :next="listing.next"
-            :previous-label="listing.previousLabel"
-            :next-label="listing.nextLabel"
+    <div class="people-group-list list-page">
+      <p v-if="!items.length" class="list-empty">
+        {{ site.ui.opportunitiesEmpty }}<br />{{ site.ui.opportunitiesEmpty2 }}
+      </p>
+      <ul v-else class="people-group__list list-grid">
+        <li v-for="item in items" :key="item.id">
+          <OpportunityCard
+            :item="item"
+            :ended="isEnded(item.deadline)"
+            :cta="site.ui.opportunityCta"
+            :deadline-label="site.ui.opportunityDeadline"
+            :ended-label="site.ui.opportunityEnded"
+            :research-label="site.ui.opportunityTypeResearch"
+            :job-label="site.ui.opportunityTypeJob"
+            :external-label="site.ui.listExternal"
           />
-        </div>
-      </div>
+        </li>
+      </ul>
+      <PostPagination
+        v-if="pageLabel"
+        :previous="previous"
+        :next="next"
+        :previous-label="site.ui.previous"
+        :next-label="site.ui.next"
+        :page-label="pageLabel"
+      />
     </div>
   </div>
 </template>
