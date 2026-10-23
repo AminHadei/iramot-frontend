@@ -2404,3 +2404,432 @@ body.page-template-template-about .newsletter-pre-footer {
   min-width: 0;
   max-width: 100%;
 }
+
+@media (prefers-reduced-motion: no-preference) {
+  html:has(body.page-privacy) {
+    scroll-behavior: smooth;
+  }
+}
+
+.page-privacy :focus-visible {
+  outline: 2px solid var(--color-hero);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.page-privacy .hero-intro--compact .hero-intro__body > p + p {
+  margin-top: 1.1rem;
+}
+
+.page-privacy .privacy-updated {
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+.page-privacy .privacy-updated time {
+  font-weight: 700;
+}
+
+.privacy-layout {
+  padding-top: 56px;
+  padding-bottom: 96px;
+}
+
+@media (max-width: 61.24em) {
+  .privacy-layout {
+    padding-top: 0;
+  }
+}
+
+.privacy-toc {
+  color: var(--color-ink);
+}
+
+.privacy-toc__list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.privacy-toc__label {
+  margin: 0 0 14px;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  font-weight: 500;
+  color: var(--color-ink);
+}
+
+.privacy-toc .toc-layout__nav-item {
+  display: grid;
+  grid-template-columns: 1.6em minmax(0, 1fr);
+  column-gap: 8px;
+  align-items: baseline;
+  padding-block: 8px;
+  padding-inline: 14px 0;
+  border-inline-start: 2px solid color-mix(in srgb, var(--color-ink) 18%, transparent);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  font-weight: 500;
+  text-decoration: none;
+  color: var(--color-ink);
+}
+
+.privacy-toc__num {
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+.privacy-toc .toc-layout__nav-item:hover {
+  color: var(--color-emphasis);
+}
+
+.privacy-toc .toc-layout__nav-item.is-active {
+  border-inline-start-color: var(--color-emphasis);
+  font-weight: 700;
+  color: var(--color-emphasis);
+}
+
+.privacy-toc .toc-layout__nav-item.is-active .privacy-toc__num {
+  color: var(--color-emphasis);
+}
+
+.privacy-toc__toggle {
+  display: none;
+}
+
+@media (min-width: 61.25em) {
+  .privacy-toc.toc-layout__nav {
+    padding-top: 8px;
+  }
+}
+
+@media (max-width: 61.24em) {
+  .privacy-toc.toc-layout__nav {
+    display: block;
+    top: 70px;
+    margin-top: 0;
+    padding: 0;
+    border-bottom: 1px solid color-mix(in srgb, var(--color-ink) 35%, transparent);
+    font-size: 0.9375rem;
+    line-height: 1.4;
+  }
+
+  .privacy-toc__toggle {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding-block: 14px;
+    padding-inline: 0;
+    border: 0;
+    background: transparent;
+    font: inherit;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: var(--color-ink);
+    text-align: start;
+    cursor: pointer;
+  }
+
+  .privacy-toc__toggle svg {
+    flex: none;
+    transition: transform 0.2s ease;
+  }
+
+  .privacy-toc.is-open .privacy-toc__toggle svg {
+    transform: rotate(180deg);
+  }
+
+  .privacy-toc__label {
+    display: none;
+  }
+
+  .privacy-toc__list {
+    display: none;
+    padding-block: 0 16px;
+  }
+
+  .privacy-toc.is-open .privacy-toc__list {
+    display: flex;
+  }
+}
+
+@media (min-width: 61.25em) and (max-width: 80em) {
+  .privacy-layout .toc-layout__nav {
+    grid-column: 1 / 5;
+  }
+
+  .privacy-layout .toc-layout__content {
+    grid-column: 5 / -1;
+  }
+}
+
+.privacy-content {
+  row-gap: 0;
+  min-width: 0;
+  font-size: 1.0625rem;
+  line-height: 1.9;
+  font-weight: 400;
+  color: var(--color-ink);
+}
+
+@media (max-width: 44.99em) {
+  .privacy-content {
+    font-size: 1rem;
+    line-height: 1.85;
+  }
+}
+
+.privacy-section {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  row-gap: 12px;
+  padding-top: 44px;
+  padding-bottom: 48px;
+  border-top: 1px solid color-mix(in srgb, var(--color-ink) 35%, transparent);
+  scroll-margin-top: 110px;
+}
+
+.privacy-section:first-child {
+  padding-top: 40px;
+  border-top: 1px solid var(--color-ink);
+}
+
+@media (max-width: 61.24em) {
+  .privacy-section:first-child {
+    padding-top: 28px;
+    border-top: 0;
+  }
+}
+
+@media (min-width: 45em) {
+  .privacy-section {
+    grid-template-columns: 5.5rem minmax(0, 1fr);
+    column-gap: 24px;
+  }
+}
+
+.privacy-section__index {
+  font-size: 2.75rem;
+  line-height: 1;
+  font-weight: 300;
+  letter-spacing: 0;
+  color: var(--color-emphasis);
+}
+
+@media (max-width: 44.99em) {
+  .privacy-section__index {
+    font-size: 1.75rem;
+  }
+}
+
+.privacy-section__title {
+  margin: 0 0 14px;
+  padding-top: 0.15rem;
+  font-size: 1.625rem;
+  line-height: 1.4;
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+@media (max-width: 44.99em) {
+  .privacy-section__title {
+    font-size: 1.375rem;
+  }
+}
+
+.privacy-section__body {
+  max-width: 70ch;
+  min-width: 0;
+}
+
+.privacy-section__body p {
+  margin: 0;
+}
+
+.privacy-section__body p + p,
+.privacy-section__body p + .privacy-list {
+  margin-top: 1rem;
+}
+
+.privacy-list {
+  display: grid;
+  row-gap: 0.75rem;
+  margin: 1rem 0 0;
+  padding: 0;
+  padding-inline-start: 2.2em;
+  list-style: persian;
+}
+
+.privacy-list li {
+  padding-inline-start: 0.35em;
+}
+
+.privacy-list li::marker {
+  font-weight: 700;
+  color: var(--color-emphasis);
+}
+
+.privacy-contact.opportunities-posts {
+  margin: 1.25rem 0 0;
+}
+
+.privacy-contact .opportunities-posts__list {
+  border-top: 1px solid var(--color-ink);
+}
+
+.privacy-contact .opportunities-posts__list-item {
+  align-items: baseline;
+  gap: 20px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-ink) 35%, transparent);
+}
+
+.privacy-contact .opportunities-posts__list-item-title {
+  flex: 0 0 7.5em;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  font-weight: 500;
+  color: var(--color-ink);
+}
+
+.privacy-contact .opportunities-posts__list-item-cta {
+  flex: 1 1 auto;
+  font-size: 1.125rem;
+  line-height: 1.6;
+  font-weight: 500;
+  text-align: end;
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
+  unicode-bidi: isolate;
+}
+
+@media (max-width: 44.99em) {
+  .privacy-contact .opportunities-posts__list-item {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+  }
+
+  .privacy-contact .opportunities-posts__list-item-title {
+    flex: none;
+  }
+
+  .privacy-contact .opportunities-posts__list-item-cta {
+    text-align: start;
+  }
+}
+
+.privacy-end {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px 24px;
+  padding-top: 28px;
+}
+
+.privacy-end p {
+  margin: 0;
+}
+
+.privacy-end__date {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--color-ink);
+}
+
+.privacy-end__date strong {
+  font-weight: 700;
+}
+
+.privacy-return {
+  margin: 0;
+}
+
+.privacy-return__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--color-emphasis);
+  text-decoration: underline;
+  text-underline-offset: 0.45em;
+}
+
+.privacy-return__link:hover {
+  color: var(--color-hero);
+}
+
+@media print {
+  .site-header,
+  .site-footer,
+  .site-navigation,
+  .newsletter-pre-footer,
+  .privacy-toc,
+  .privacy-return {
+    display: none !important;
+  }
+
+  .page-privacy .hero-intro--compact {
+    padding: 0 0 12pt;
+    background: none;
+    color: var(--color-ink);
+  }
+
+  .page-privacy .hero-intro--compact::before,
+  .page-privacy .hero-intro--compact::after {
+    display: none !important;
+  }
+
+  .page-privacy .hero-intro--compact,
+  .page-privacy .hero-intro--compact .hero-intro__title,
+  .page-privacy .hero-intro--compact .hero-intro__body {
+    color: var(--color-ink) !important;
+  }
+
+  .page-privacy .hero-intro--compact .hero-intro__title {
+    padding-top: 6pt;
+    font-size: 24pt;
+    line-height: 1.5;
+  }
+
+  .page-privacy .hero-intro--compact .hero-intro__body {
+    font-size: 12pt;
+  }
+
+  .privacy-layout {
+    display: block;
+    padding: 0;
+  }
+
+  .privacy-content {
+    display: block;
+    font-size: 11pt;
+    line-height: 1.7;
+  }
+
+  .privacy-section {
+    break-inside: avoid;
+    padding: 14pt 0;
+    grid-template-columns: 3rem minmax(0, 1fr);
+  }
+
+  .privacy-section__index {
+    font-size: 20pt;
+    color: var(--color-ink);
+  }
+
+  .privacy-section__title {
+    font-size: 14pt;
+  }
+
+  .privacy-contact .opportunities-posts__list-item-cta,
+  .page-privacy a {
+    color: var(--color-ink) !important;
+  }
+}

@@ -202,6 +202,9 @@ export default defineContentConfig({
           workgroupPrevious: z.string(),
           workgroupNext: z.string(),
           workgroupEmpty: z.string(),
+          privacyContents: z.string(),
+          privacyTop: z.string(),
+          privacyUpdated: z.string(),
         }),
         styleguide: z.object({
           title: z.string(),

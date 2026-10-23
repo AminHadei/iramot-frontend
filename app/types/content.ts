@@ -134,6 +134,9 @@ export interface SiteContent {
     workgroupPrevious: string;
     workgroupNext: string;
     workgroupEmpty: string;
+    privacyContents: string;
+    privacyTop: string;
+    privacyUpdated: string;
   };
   styleguide: {
     title: string;

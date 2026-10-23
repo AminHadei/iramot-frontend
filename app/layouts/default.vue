@@ -8,6 +8,7 @@ function bodyClass(path: string) {
     return "loaded home page-template-template-home";
   }
   if (p === "/about") return "loaded page-template-template-about";
+  if (p === "/privacy") return "loaded page-privacy";
   if (p === "/workgroups" || p.startsWith("/workgroups/")) {
     const parts = p.split("/").filter(Boolean);
     return parts.length === 2

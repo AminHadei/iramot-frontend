@@ -272,6 +272,9 @@ ui:
   workgroupNext: کارگروه بعدی
   workgroupEmpty: اطلاعات تفصیلی این کارگروه به‌زودی تکمیل می‌شود
   emptyPartners: فهرستی از همراهان در آرشیو نیست.
+  privacyContents: فهرست مطالب
+  privacyTop: بازگشت به بالا
+  privacyUpdated: آخرین به‌روزرسانی
 styleguide:
   title: راهنمای اجزا
   description: اجزای چیدمان با دادهٔ آرشیو انجمن. این صفحه موقتی است.

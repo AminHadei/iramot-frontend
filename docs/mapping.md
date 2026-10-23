@@ -16,7 +16,7 @@ IFP template, IRAMOT data.
 | دسته            | `/news/category/[slug]` | `archive category`                         | `اخبار-فناوری`, `اخبار-آموزش`, `اخبار-باشگاه`, `اخبار-کارگروه-زنان`, `conference-news`, and `articles`. `/research` redirects here.                    |
 | درباره          | `/about`                | `template-about`                           | Page `2885` `about-us` (empty body). Mission and history are sections of this page, not separate pages.                                                |
 | هیئت‌مدیره      | `/about#team`           | `person-card`                              | Tag `هیئت مدیره` in `content/tags.json`, plus election posts in `content/posts.json`. There is no people collection. Do not invent a roster.           |
-| حریم خصوصی      | `/privacy`              | `privacy-policy`                           | Page `1538` `سیاست-حریم-خصوصی`, which has a body.                                                                                                      |
+| حریم خصوصی      | `/privacy`              | `privacy-policy` (`toc-layout`)            | Page `1538` `سیاست-حریم-خصوصی`. The body is parsed into sections; a failed parse stays the archive HTML.                                               |
 | فرصت‌های همکاری | `/opportunities`        | `template-opportunities`                   | Page `7343` `فرصت-های-همکاری` (empty body), and categories `آگهی-استخدام`, `استخدام`, `فرصت-های-شغلی`.                                                 |
 
 ## IRAMOT only
