@@ -6,27 +6,22 @@ const siteState = useSite();
 const repo = useTermRepository();
 const route = useRoute();
 const request = useRequestURL();
-const baseURL = useRuntimeConfig().app.baseURL;
+const config = useRuntimeConfig();
+const baseURL = config.app.baseURL;
 const noindex = ref(false);
+const heroStyle = {
+  "--hero-blend": `url("${withBase(baseURL, "/images/hero-intro-blend-1.webp")}")`,
+};
 const state = useAsyncData("terminology-page", async () => {
   const site = (await siteState).data.value as SiteContent | null;
   if (!site) return null;
-  const [pagesFile, listed] = await Promise.all([
-    queryCollection("archivePages").first(),
-    repo.list(),
-  ]);
-  const record = archiveItems(pagesFile).find(
-    (item) => item.id === site.pages.terminology,
-  );
-  if (!record) return null;
+  const listed = await repo.list();
   return {
     title: site.listings.terminology.title,
     description: site.listings.terminology.description,
     copy: site.listings.terminology,
     allLabel: site.ui.all,
     sources: site.terminology.sources,
-    groupTitle: record.title,
-    html: articleHtml(record.content ?? "", baseURL).html.trim(),
     terms: listed.items,
   };
 });
@@ -64,11 +59,8 @@ function onQuery(value: string) {
 
 <template>
   <div>
-    <div class="hero-intro">
+    <div class="hero-intro term-hero" :style="heroStyle">
       <h1 class="hero-intro__title">{{ page.title }}</h1>
-      <div class="hero-intro__body">
-        <p>{{ page.description }}</p>
-      </div>
     </div>
     <TermSearch
       :terms="page.terms"
@@ -89,11 +81,5 @@ function onQuery(value: string) {
       :definition-template="page.copy.definition"
       @query="onQuery"
     />
-    <div v-if="page.html" class="half-content">
-      <div class="half-content__body">
-        <h2>{{ page.groupTitle }}</h2>
-        <ArchiveHtml :html="page.html" />
-      </div>
-    </div>
   </div>
 </template>

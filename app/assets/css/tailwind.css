@@ -517,7 +517,8 @@ body.page-template-template-about .site-header__nav a,
 }
 
 .page-template-template-about .hero-intro:after,
-.award-hero.hero-intro:after {
+.award-hero.hero-intro:after,
+.term-hero.hero-intro:after {
   background-image: var(--hero-blend, none), var(--hero-image, none);
   background-size: cover, cover;
   background-position:
@@ -527,17 +528,20 @@ body.page-template-template-about .site-header__nav a,
   transition: opacity 0.5s ease;
 }
 
-.award-hero.hero-intro:after {
+.award-hero.hero-intro:after,
+.term-hero.hero-intro:after {
   opacity: 0.38;
 }
 
 .award-hero .hero-intro__title,
-.conference-banner .hero-intro__title {
+.conference-banner .hero-intro__title,
+.term-hero .hero-intro__title {
   grid-column: 1 / -1;
 }
 
 .award-hero.hero-intro,
-.conference-banner .hero-intro {
+.conference-banner .hero-intro,
+.term-hero.hero-intro {
   min-height: 0;
   padding-top: 91px;
   padding-bottom: 32px;
@@ -545,14 +549,16 @@ body.page-template-template-about .site-header__nav a,
 
 @media (max-width: 41.24em) {
   .award-hero.hero-intro,
-  .conference-banner .hero-intro {
+  .conference-banner .hero-intro,
+  .term-hero.hero-intro {
     padding-top: 246px;
   }
 }
 
 @media (min-width: 45em) {
   .award-hero.hero-intro,
-  .conference-banner .hero-intro {
+  .conference-banner .hero-intro,
+  .term-hero.hero-intro {
     min-height: 440px;
     padding-bottom: 42px;
   }
