@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.19
+
+### Patch Changes
+
+- Turn the about page into one scrolling landing.
+
 ## 0.3.18
 
 ### Patch Changes
