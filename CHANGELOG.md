@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.13
+
+### Patch Changes
+
+- Rebuild the homepage from the existing first-page sections, and remove search from the header.
+
 ## 0.3.12
 
 ### Patch Changes
