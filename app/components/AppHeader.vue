@@ -10,6 +10,13 @@ const open = ref(false);
 const panel = ref<string | null>(null);
 const opaque = ref(false);
 
+const headerOpenStyle = {
+  background: "var(--color-paper) !important",
+  color: "var(--color-ink) !important",
+  borderBottomColor: "var(--color-band) !important",
+  "--logo-color": "var(--color-band) !important",
+};
+
 function syncOpaque() {
   opaque.value = window.scrollY > 0;
 }
@@ -107,6 +114,7 @@ onBeforeUnmount(() => {
     :class="{
       'site-header--opaque': opaque,
     }"
+    :style="open ? headerOpenStyle : undefined"
   >
     <a
       href="#content"

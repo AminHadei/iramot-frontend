@@ -218,58 +218,111 @@ body.loaded .site-header {
   height: auto;
   min-width: 44px;
   min-height: 0;
-  padding: 6px 12px;
-  background: var(--color-paper);
-  border-radius: 12px;
+  padding: 0;
+  background: none;
+  border-radius: 0;
   transition: opacity 0.16s ease;
 }
 
-body.page-template-template-home
-  .site-header:not(.site-header--opaque)
-  .site-header__logo,
-body.page-template-template-newsletters
-  .site-header:not(.site-header--opaque)
-  .site-header__logo,
-body.search.search-results .site-header:not(.site-header--opaque) .site-header__logo,
-body.search.search-no-results .site-header:not(.site-header--opaque) .site-header__logo,
-body.page-template-template-course-landing
-  .site-header:not(.site-header--opaque)
-  .site-header__logo,
-body.page-template-template-course-general-content
-  .site-header:not(.site-header--opaque)
-  .site-header__logo,
-body.page-template-template-course-longform-content
-  .site-header:not(.site-header--opaque)
-  .site-header__logo,
-body.single-opportunities .site-header:not(.site-header--opaque) .site-header__logo,
-body.page-template-template-opportunities
-  .site-header:not(.site-header--opaque)
-  .site-header__logo,
-body.page-template-template-reading-list
-  .site-header:not(.site-header--opaque)
-  .site-header__logo,
-body.page-template-template-media
-  .site-header:not(.site-header--opaque)
-  .site-header__logo {
+body.page-template-template-home .site-header__logo,
+body.page-template-template-newsletters .site-header__logo,
+body.search.search-results .site-header__logo,
+body.search.search-no-results .site-header__logo,
+body.page-template-template-course-landing .site-header__logo,
+body.page-template-template-course-general-content .site-header__logo,
+body.page-template-template-course-longform-content .site-header__logo,
+body.single-opportunities .site-header__logo,
+body.page-template-template-opportunities .site-header__logo,
+body.page-template-template-reading-list .site-header__logo,
+body.page-template-template-media .site-header__logo {
   opacity: 0;
   visibility: hidden;
+}
+
+body.page-template-template-home .site-header--opaque .site-header__logo,
+body.page-template-template-home .site-header:hover .site-header__logo,
+body.page-template-template-home .site-header--focus .site-header__logo,
+body.page-template-template-home .site-header--search-has-value .site-header__logo,
+body.page-template-template-newsletters .site-header--opaque .site-header__logo,
+body.page-template-template-newsletters .site-header:hover .site-header__logo,
+body.page-template-template-newsletters .site-header--focus .site-header__logo,
+body.page-template-template-newsletters
+  .site-header--search-has-value
+  .site-header__logo,
+body.search.search-results .site-header--opaque .site-header__logo,
+body.search.search-results .site-header:hover .site-header__logo,
+body.search.search-results .site-header--focus .site-header__logo,
+body.search.search-results .site-header--search-has-value .site-header__logo,
+body.search.search-no-results .site-header--opaque .site-header__logo,
+body.search.search-no-results .site-header:hover .site-header__logo,
+body.search.search-no-results .site-header--focus .site-header__logo,
+body.search.search-no-results .site-header--search-has-value .site-header__logo,
+body.page-template-template-course-landing .site-header--opaque .site-header__logo,
+body.page-template-template-course-landing .site-header:hover .site-header__logo,
+body.page-template-template-course-landing .site-header--focus .site-header__logo,
+body.page-template-template-course-landing
+  .site-header--search-has-value
+  .site-header__logo,
+body.page-template-template-course-general-content
+  .site-header--opaque
+  .site-header__logo,
+body.page-template-template-course-general-content
+  .site-header:hover
+  .site-header__logo,
+body.page-template-template-course-general-content
+  .site-header--focus
+  .site-header__logo,
+body.page-template-template-course-general-content
+  .site-header--search-has-value
+  .site-header__logo,
+body.page-template-template-course-longform-content
+  .site-header--opaque
+  .site-header__logo,
+body.page-template-template-course-longform-content
+  .site-header:hover
+  .site-header__logo,
+body.page-template-template-course-longform-content
+  .site-header--focus
+  .site-header__logo,
+body.page-template-template-course-longform-content
+  .site-header--search-has-value
+  .site-header__logo,
+body.single-opportunities .site-header--opaque .site-header__logo,
+body.single-opportunities .site-header:hover .site-header__logo,
+body.single-opportunities .site-header--focus .site-header__logo,
+body.single-opportunities .site-header--search-has-value .site-header__logo,
+body.page-template-template-opportunities .site-header--opaque .site-header__logo,
+body.page-template-template-opportunities .site-header:hover .site-header__logo,
+body.page-template-template-opportunities .site-header--focus .site-header__logo,
+body.page-template-template-opportunities
+  .site-header--search-has-value
+  .site-header__logo,
+body.page-template-template-reading-list .site-header--opaque .site-header__logo,
+body.page-template-template-reading-list .site-header:hover .site-header__logo,
+body.page-template-template-reading-list .site-header--focus .site-header__logo,
+body.page-template-template-reading-list
+  .site-header--search-has-value
+  .site-header__logo,
+body.page-template-template-media .site-header--opaque .site-header__logo,
+body.page-template-template-media .site-header:hover .site-header__logo,
+body.page-template-template-media .site-header--focus .site-header__logo,
+body.page-template-template-media .site-header--search-has-value .site-header__logo,
+body.nav-open .site-header__logo {
+  opacity: 1;
+  visibility: visible;
 }
 
 .site-header__logo img {
   display: block;
   flex: none;
-  height: 34px;
+  height: 46px;
   width: auto;
   max-width: none;
 }
 
 @media (max-width: 61.24em) {
-  .site-header__logo {
-    padding: 5px 10px;
-  }
-
   .site-header__logo img {
-    height: 28px;
+    height: 34px;
   }
 }
 
@@ -312,42 +365,49 @@ body.page-template-template-media
   font-family: IRANYekan, Tahoma, sans-serif;
 }
 
-@media (min-width: 61.25em) {
-  body.page-template-template-about {
-    --color-header-background: var(--color-paper);
-  }
-
-  body.page-template-template-about .site-header--opaque,
-  body.page-template-template-about .site-header:hover,
-  body.page-template-template-about .site-header--focus,
-  body.page-template-template-about .site-header--search-has-value {
-    background: var(--color-paper);
-    color: var(--color-ink);
-    border-bottom-color: var(--color-band);
-    --logo-color: var(--color-band);
-  }
-}
-
-body.page-template-template-about .site-header--opaque,
-body.page-template-template-about .site-header:hover,
-body.page-template-template-about .site-header--focus,
-body.page-template-template-about .site-header--search-has-value {
+body.page-template-template-about .site-header,
+body.single-post .site-header,
+.site-header--opaque,
+.site-header:hover,
+.site-header--focus,
+.site-header--search-has-value,
+body.nav-open .site-header {
+  background: var(--color-paper);
   color: var(--color-ink);
+  border-bottom-color: var(--color-band);
+  --logo-color: var(--color-band);
 }
 
-body.page-template-template-about .site-header--opaque .site-header__nav,
-body.page-template-template-about .site-header:hover .site-header__nav,
-body.page-template-template-about .site-header--focus .site-header__nav,
-body.page-template-template-about .site-header--search-has-value .site-header__nav,
-body.page-template-template-about .site-header--opaque .site-header__search,
-body.page-template-template-about .site-header:hover .site-header__search,
-body.page-template-template-about .site-header--focus .site-header__search,
-body.page-template-template-about .site-header--search-has-value .site-header__search,
-body.page-template-template-about .site-header--opaque .site-header__nav a,
-body.page-template-template-about .site-header:hover .site-header__nav a,
-body.page-template-template-about .site-header--focus .site-header__nav a,
-body.page-template-template-about .site-header--search-has-value .site-header__nav a {
+body.nav-open .site-header {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  border-bottom-color: var(--color-band);
+  --logo-color: var(--color-band);
+}
+
+body.page-template-template-about .site-header__nav,
+body.page-template-template-about .site-header__search,
+body.page-template-template-about .site-header__nav a,
+.site-header--opaque .site-header__nav,
+.site-header:hover .site-header__nav,
+.site-header--focus .site-header__nav,
+.site-header--search-has-value .site-header__nav,
+.site-header--opaque .site-header__search,
+.site-header:hover .site-header__search,
+.site-header--focus .site-header__search,
+.site-header--search-has-value .site-header__search,
+.site-header--opaque .site-header__nav a,
+.site-header:hover .site-header__nav a,
+.site-header--focus .site-header__nav a,
+.site-header--search-has-value .site-header__nav a {
   color: inherit;
+}
+
+.site-header__nav ul > li:hover > ul,
+.site-header__nav ul > li:focus-within > ul {
+  background: var(--color-paper);
+  border-color: var(--color-band);
+  color: var(--color-ink);
 }
 
 .page-template-template-about .hero-intro:before {
@@ -650,20 +710,14 @@ body.page-template-template-about .site-header--search-has-value .site-header__n
   }
 }
 
-body.single-post .site-header:not(.site-header--opaque) {
-  background: var(--color-dark, #06011e);
-  color: var(--color-paper);
-  border-bottom: 1px solid var(--color-paper);
-  --logo-color: var(--color-paper);
-}
-
+body.single-post .site-header,
 body.single-post .site-header--opaque,
 body.single-post .site-header:hover,
 body.single-post .site-header--focus,
 body.single-post .site-header--search-has-value {
   background: var(--color-paper);
-  color: var(--color-band);
-  border-bottom-color: var(--color-band);
+  color: var(--color-ink);
+  border-bottom: 1px solid var(--color-band);
   --logo-color: var(--color-band);
 }
 
