@@ -96,6 +96,7 @@ export default defineContentConfig({
           projects: listingText,
           events: listingText,
           quarterlies: listingText,
+          partners: listingText,
           terminology: listingText.extend({
             label: z.string(),
             empty: z.string(),
@@ -111,7 +112,6 @@ export default defineContentConfig({
           opportunities: z.number(),
           conference: z.number(),
           award: z.number(),
-          partners: z.number(),
           membership: z.number(),
           contact: z.number(),
           terminology: z.number(),
@@ -120,7 +120,6 @@ export default defineContentConfig({
           publications: categorySet,
           opportunities: categorySet,
           conference: categorySet,
-          quarterlies: categorySet,
           award: categorySet,
           latest: categorySet,
           news: categorySet,
@@ -205,6 +204,9 @@ export default defineContentConfig({
           privacyContents: z.string(),
           privacyTop: z.string(),
           privacyUpdated: z.string(),
+          emptyQuarterlies: z.string(),
+          listWebsite: z.string(),
+          listExternal: z.string(),
         }),
         styleguide: z.object({
           title: z.string(),
@@ -283,16 +285,6 @@ export default defineContentConfig({
             page: z.number(),
           }),
         ),
-        journals: z.array(
-          z.object({
-            title: z.string(),
-            href: z.string(),
-            image: z.string(),
-            width: z.number(),
-            height: z.number(),
-            description: z.string(),
-          }),
-        ),
         sectionLinks: z.object({
           workgroups: z.string(),
           events: z.string(),
@@ -309,7 +301,6 @@ export default defineContentConfig({
           to: z.string(),
           note: z.string(),
         }),
-        partnersEmpty: z.string(),
         placeholder: z.boolean().default(true),
       }),
     }),

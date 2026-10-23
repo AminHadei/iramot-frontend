@@ -36,6 +36,7 @@ export interface SiteContent {
     projects: { title: string; description: string };
     events: { title: string; description: string };
     quarterlies: { title: string; description: string };
+    partners: { title: string; description: string };
     terminology: {
       title: string;
       description: string;
@@ -50,7 +51,6 @@ export interface SiteContent {
     opportunities: number;
     conference: number;
     award: number;
-    partners: number;
     membership: number;
     contact: number;
     terminology: number;
@@ -59,7 +59,6 @@ export interface SiteContent {
     publications: CategorySet;
     opportunities: CategorySet;
     conference: CategorySet;
-    quarterlies: CategorySet;
     award: CategorySet;
     latest: CategorySet;
     news: CategorySet;
@@ -137,6 +136,9 @@ export interface SiteContent {
     privacyContents: string;
     privacyTop: string;
     privacyUpdated: string;
+    emptyQuarterlies: string;
+    listWebsite: string;
+    listExternal: string;
   };
   styleguide: {
     title: string;
@@ -235,14 +237,6 @@ export interface HomeContent {
     to: string;
     page: number;
   }>;
-  journals: Array<{
-    title: string;
-    href: string;
-    image: string;
-    width: number;
-    height: number;
-    description: string;
-  }>;
   sectionLinks: {
     workgroups: string;
     events: string;
@@ -259,7 +253,6 @@ export interface HomeContent {
     to: string;
     note: string;
   };
-  partnersEmpty: string;
   placeholder: boolean;
 }
 

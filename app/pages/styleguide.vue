@@ -83,6 +83,10 @@ const projects = guide.projects as GuideProject[];
 const about = guide.about as { title: string; description: string };
 const cards = guide.cards;
 const article = guide.article as GuideCard;
+const partnerList = await usePartnerList();
+const quarterlyList = await useQuarterlyList();
+const partners = partnerList.data.value?.items ?? [];
+const quarterlies = quarterlyList.data.value?.items ?? [];
 
 usePageSeo({
   title: site.styleguide.title,
@@ -159,6 +163,37 @@ usePageSeo({
     <section class="page-inset pb-16">
       <h2 class="font-heading text-3xl text-primary">{{ site.styleguide.people }}</h2>
       <PersonCard class="mt-8 max-w-sm" :empty-label="site.styleguide.emptyPerson" />
+    </section>
+    <section class="people-group-list list-page">
+      <h2 class="font-heading text-3xl text-primary">
+        {{ site.listings.partners.title }}
+      </h2>
+      <ul class="people-group__list list-grid list-grid--logos">
+        <li v-for="item in partners" :key="item.id">
+          <IfpListCard
+            :name="item.name"
+            media="logo"
+            :tone="item.tone"
+            :image="item.image"
+            :description="item.description"
+            :links="item.url ? [{ href: item.url, label: site.ui.listWebsite }] : []"
+            :external-label="site.ui.listExternal"
+          />
+        </li>
+      </ul>
+      <ul class="people-group__list list-grid">
+        <li v-for="item in quarterlies" :key="item.id">
+          <IfpListCard
+            :name="item.name"
+            media="cover"
+            :tone="item.tone"
+            :image="item.image"
+            :description="item.description"
+            :links="item.url ? [{ href: item.url, label: site.ui.listWebsite }] : []"
+            :external-label="site.ui.listExternal"
+          />
+        </li>
+      </ul>
     </section>
   </div>
 </template>

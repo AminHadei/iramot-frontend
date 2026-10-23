@@ -53,6 +53,9 @@ export default defineNuxtConfig({
     "/committees": { redirect: "/workgroups" },
     "/کارگروه-واژه-گزینی": { redirect: "/workgroups/word-selection" },
     "/مدیریت-نوآوری": { redirect: "/workgroups/innovation-management-expertise" },
+    "/category/quarterly-magazine": { redirect: "/news" },
+    "/quarterlies/category/**": { redirect: "/quarterlies" },
+    "/quarterlies/page/**": { redirect: "/quarterlies" },
   },
   runtimeConfig: {
     public: {
@@ -60,6 +63,10 @@ export default defineNuxtConfig({
       newsApiBase: "",
       eventsSource: "json",
       eventsApiBase: "",
+      partnersSource: "json",
+      partnersApiBase: "",
+      quarterliesSource: "json",
+      quarterliesApiBase: "",
     },
   },
   nitro: {
@@ -79,6 +86,10 @@ export default defineNuxtConfig({
         "/کارگروه-واژه-گزینی",
         "/مدیریت-نوآوری",
         "/کارگروه-متناظر-استانداردسازی-مدیریت",
+        "/category/quarterly-magazine",
+        "/quarterlies/category/quarterly-magazine",
+        "/quarterlies/category/فصلنامه-سیاست-علم-و-فناوری",
+        "/quarterlies/page/2",
         ...newsPrerenderRoutes,
         ...eventPrerenderRoutes,
         ...workgroupPrerenderRoutes,

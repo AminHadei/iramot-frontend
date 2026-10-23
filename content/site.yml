@@ -126,6 +126,9 @@ listings:
   quarterlies:
     title: فصلنامه‌ها
     description: نشریه‌های همکار انجمن.
+  partners:
+    title: همراهان
+    description: نهادهای همراه انجمن مدیریت فناوری و نوآوری ایران.
   terminology:
     title: واژه‌گزینی
     description: واژه‌های ثبت‌شده در آرشیو کارگروه.
@@ -142,7 +145,6 @@ pages:
   opportunities: 7343
   conference: 7220
   award: 10220
-  partners: 38
   membership: 7022
   contact: 2856
   terminology: 10488
@@ -162,10 +164,6 @@ sets:
     slugs:
       - کنفرانس-مدیریت-فناوری-و-نواوری
       - conference-news
-  quarterlies:
-    slugs:
-      - quarterly-magazine
-      - فصلنامه-سیاست-علم-و-فناوری
   award:
     slugs:
       - جایزه-ملی-مدیریت-نوآوری
@@ -272,6 +270,9 @@ ui:
   workgroupNext: کارگروه بعدی
   workgroupEmpty: اطلاعات تفصیلی این کارگروه به‌زودی تکمیل می‌شود
   emptyPartners: فهرستی از همراهان در آرشیو نیست.
+  emptyQuarterlies: فصلنامه‌ای در آرشیو نیست.
+  listWebsite: مشاهده وب‌سایت
+  listExternal: در برگهٔ جدید باز می‌شود
   privacyContents: فهرست مطالب
   privacyTop: بازگشت به بالا
   privacyUpdated: آخرین به‌روزرسانی

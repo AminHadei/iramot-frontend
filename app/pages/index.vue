@@ -27,6 +27,10 @@ if (!siteData.value) {
 }
 const site = siteData.value as SiteContent;
 const workgroupList = await useWorkgroupList();
+const quarterlyList = await useQuarterlyList();
+const journals = (quarterlyList.data.value?.items ?? []).flatMap((item) =>
+  item.url ? [{ ...item, url: item.url }] : [],
+);
 const workgroupPath = new Map(
   (workgroupList.data.value?.groups ?? []).map((group) => [
     group.title,
@@ -234,14 +238,14 @@ usePageSeo({
         </div>
         <div class="home-latest__list project-list project-list--layout-3-col">
           <ProjectCard
-            v-for="(journal, index) in page.journals"
-            :key="journal.href"
-            :title="journal.title"
-            :description="journal.description"
-            :to="journal.href"
-            :image="journal.image"
-            :image-width="journal.width"
-            :image-height="journal.height"
+            v-for="(journal, index) in journals"
+            :key="journal.id"
+            :title="journal.name"
+            :description="journal.description ?? ''"
+            :to="journal.url"
+            :image="journal.image?.src"
+            :image-width="journal.image?.width"
+            :image-height="journal.image?.height"
             image-mode="auto"
             :link-label="page.viewLabel"
             :by-label="site.ui.by"

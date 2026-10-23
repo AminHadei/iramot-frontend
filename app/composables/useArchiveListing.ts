@@ -18,14 +18,12 @@ export interface ListingView {
   order: "asc" | "desc";
 }
 
-export type ListingGroup =
-  "publications" | "opportunities" | "conference" | "quarterlies" | "award";
+export type ListingGroup = "publications" | "opportunities" | "conference" | "award";
 
 const listingBase: Record<ListingGroup, string> = {
   publications: "/news",
   opportunities: "/opportunities",
   conference: "/conference",
-  quarterlies: "/quarterlies",
   award: "/award",
 };
 
@@ -101,9 +99,6 @@ export async function useArchiveListing(group: ListingGroup): Promise<ListingVie
           group === "award"
             ? plainText(record.excerpt || record.title)
             : site.ui.emptyBody;
-      } else if (group === "quarterlies") {
-        title = site.listings.quarterlies.title;
-        description = site.listings.quarterlies.description;
       }
       const current = filters.find(
         (filter) => filter.current && filter.to !== listingPath(base, 1),

@@ -1,0 +1,52 @@
+{
+  "items": [
+    {
+      "id": "siasat-elm",
+      "slug": "siasat-elm",
+      "name": "سیاست علم و فناوری",
+      "cover": {
+        "src": "/media/journals/siasate-elm-750x1024-1.webp",
+        "width": 389,
+        "height": 530,
+        "alt": "جلد فصلنامه سیاست علم و فناوری",
+        "originalUrl": "https://iramot.ir/wp-content/uploads/2025/04/siasate-elm-750x1024-1.webp"
+      },
+      "description": "فصلنامه «سیاست علم و فناوری» پرسابقه ترین مجله علمی پژوهشی ایران است که در زمینه سیاست‌گذاری و مدیریت علم، فناوری و نوآوری از سال ۱۳۸۷ فعالیت می‌کند. این فصلنامه در همکاری با مرکز تحقیقات سیاست علمی کشور منتشر می‌شود.",
+      "url": "https://jstp.nrisp.ac.ir",
+      "sourceUrl": "https://iramot.ir/",
+      "order": 1
+    },
+    {
+      "id": "modiriat-novavari",
+      "slug": "modiriat-novavari",
+      "name": "مدیریت نوآوری",
+      "cover": {
+        "src": "/media/journals/modiriat.webp",
+        "width": 389,
+        "height": 530,
+        "alt": "جلد فصلنامه مدیریت نوآوری",
+        "originalUrl": "https://iramot.ir/wp-content/uploads/2025/04/modiriat.webp"
+      },
+      "description": "نشریه مدیریت نوآوری، نشریه‌ای علمی پژوهشی است که در زمینه مطالعات مربوط به حوزه مدیریت نوآوری از ابتدای سال ۱۳۹۱ فعالیت می‌کند. این نشریه در همکاری با موسسه آموزشی و تحقیقاتی صنایع دفاعی منتشر می‌شود.",
+      "url": "https://www.nowavari.ir",
+      "sourceUrl": "https://iramot.ir/",
+      "order": 2
+    },
+    {
+      "id": "modiriat-tose-fanavari",
+      "slug": "modiriat-tose-fanavari",
+      "name": "مدیریت توسعه فناوری",
+      "cover": {
+        "src": "/media/journals/411683110107-749x1024-1.webp",
+        "width": 749,
+        "height": 1024,
+        "alt": "جلد فصلنامه مدیریت توسعه فناوری",
+        "originalUrl": "https://iramot.ir/wp-content/uploads/2025/06/411683110107-749x1024-1.webp"
+      },
+      "description": "فصلنامه علمی مدیریت توسعه فناوری از سال ۱۳۹۲ فعالیت خود را آغاز و به مباحث مهم و به‌روز در زمینه «مدیریت فناوری و نوآوری، که در سطح خرد انجام شده» می‌پردازد. این فصلنامه در همکاری با پژوهشکده مطالعات فناوری‌های نوین سازمان پژوهش‌های علمی و صنعتی ایران منتشر می‌شود.",
+      "url": "https://jtdm.irost.ir",
+      "sourceUrl": "https://iramot.ir/",
+      "order": 3
+    }
+  ]
+}
