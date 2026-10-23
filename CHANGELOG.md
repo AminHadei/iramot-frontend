@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.15
+
+### Patch Changes
+
+- Match the workgroup spotlight to the IFP section, including its news cards.
+
 ## 0.3.14
 
 ### Patch Changes
