@@ -26,7 +26,10 @@ const timing = computed(() => eventTiming(props.item.startsAt));
 <template>
   <div
     class="post-listing news-card event-card"
-    :class="{ 'post-listing--featured': featured }"
+    :class="{
+      'post-listing--featured': featured,
+      'post-listing--no-image': !item.poster,
+    }"
     :style="tone"
   >
     <NuxtLink
@@ -39,9 +42,7 @@ const timing = computed(() => eventTiming(props.item.startsAt));
     </div>
     <div class="post-listing__image">
       <img v-if="item.poster" :src="item.poster" :alt="item.title" />
-      <div v-else class="event-card__placeholder">
-        <span>{{ programName }}</span>
-      </div>
+      <CoverPlaceholder v-else />
     </div>
     <div class="post-listing__content">
       <div class="post-listing__title">{{ item.title }}</div>
