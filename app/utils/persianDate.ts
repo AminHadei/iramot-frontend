@@ -1,3 +1,9 @@
+const persianDigit = "۰۱۲۳۴۵۶۷۸۹";
+
+export function persianDigits(value: number | string) {
+  return String(value).replace(/\d/g, (digit) => persianDigit[Number(digit)] ?? digit);
+}
+
 const persianDate = new Intl.DateTimeFormat("fa-IR", {
   calendar: "persian",
   day: "numeric",
