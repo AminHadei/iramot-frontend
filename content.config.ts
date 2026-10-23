@@ -119,10 +119,31 @@ export default defineContentConfig({
         sets: z.object({
           publications: categorySet,
           opportunities: categorySet,
-          conference: categorySet,
           latest: categorySet,
           news: categorySet,
           boardTag: z.string(),
+        }),
+        conference: z.object({
+          intro: z.string().nullable(),
+          banner: z
+            .object({
+              title: z.string().nullable(),
+              startDate: z.string().nullable(),
+              endDate: z.string().nullable(),
+              dateText: z.string().nullable(),
+              place: z.string().nullable(),
+              image: z.string().nullable(),
+              imageAlt: z.string().nullable(),
+              ctaLabel: z.string().nullable(),
+              ctaUrl: z.string().nullable(),
+            })
+            .refine(
+              (banner) =>
+                !banner.startDate ||
+                !banner.endDate ||
+                banner.endDate >= banner.startDate,
+              { message: "endDate is before startDate" },
+            ),
         }),
         eventFilters: z.array(
           z.object({
@@ -210,6 +231,9 @@ export default defineContentConfig({
           awardNews: z.string(),
           awardHeroTitle: z.string(),
           awardHeroSubtitle: z.string(),
+          conferenceNews: z.string(),
+          conferenceTitle: z.string(),
+          conferenceNeutral: z.string().nullable(),
         }),
         styleguide: z.object({
           title: z.string(),

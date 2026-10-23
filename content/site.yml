@@ -162,10 +162,6 @@ sets:
       - آگهی-استخدام
       - استخدام
       - فرصت-های-شغلی
-  conference:
-    slugs:
-      - کنفرانس-مدیریت-فناوری-و-نواوری
-      - conference-news
   latest:
     slugs:
       - articles
@@ -279,6 +275,21 @@ ui:
   awardNews: اخبار جایزه ملی
   awardHeroTitle: جایزه ملی
   awardHeroSubtitle: مدیریت فناوری و نوآوری ایران
+  conferenceNews: اخبار کنفرانس
+  conferenceTitle: کنفرانس
+  conferenceNeutral: null
+conference:
+  intro: null
+  banner:
+    title: null
+    startDate: null
+    endDate: null
+    dateText: null
+    place: null
+    image: null
+    imageAlt: null
+    ctaLabel: null
+    ctaUrl: null
 styleguide:
   title: راهنمای اجزا
   description: اجزای چیدمان با دادهٔ آرشیو انجمن. این صفحه موقتی است.

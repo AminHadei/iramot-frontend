@@ -70,6 +70,7 @@ export function primaryNewsCategory<T extends { slug: string }>(
 }
 
 export function newsCategoryPath(slug?: string): string {
+  if (slug === "conference-news") return "/conference";
   if (slug && newsCategoryOrder.includes(slug)) return `/news/category/${slug}`;
   return "/news";
 }

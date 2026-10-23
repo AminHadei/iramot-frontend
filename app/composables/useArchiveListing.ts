@@ -18,17 +18,15 @@ export interface ListingView {
   order: "asc" | "desc";
 }
 
-export type ListingGroup = "publications" | "opportunities" | "conference";
+export type ListingGroup = "publications" | "opportunities";
 
 const listingBase: Record<ListingGroup, string> = {
   publications: "/news",
   opportunities: "/opportunities",
-  conference: "/conference",
 };
 
 function pageIdFor(site: SiteContent, group: ListingGroup): number | null {
   if (group === "opportunities") return site.pages.opportunities;
-  if (group === "conference") return site.pages.conference;
   return null;
 }
 

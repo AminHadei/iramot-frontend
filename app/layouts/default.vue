@@ -10,7 +10,12 @@ function bodyClass(path: string) {
   if (p === "/about") return "loaded page-template-template-about";
   if (p === "/privacy") return "loaded page-privacy";
   if (p === "/partners" || p === "/quarterlies") return "loaded page-lists";
-  if (p === "/award" || p.startsWith("/award/")) {
+  if (
+    p === "/award" ||
+    p.startsWith("/award/") ||
+    p === "/conference" ||
+    p.startsWith("/conference/")
+  ) {
     return "loaded page-template-template-post-archive";
   }
   if (p === "/workgroups" || p.startsWith("/workgroups/")) {

@@ -9,6 +9,23 @@ export interface CategorySet {
   prefixes?: string[];
 }
 
+export interface ConferenceBanner {
+  title: string | null;
+  startDate: string | null;
+  endDate: string | null;
+  dateText: string | null;
+  place: string | null;
+  image: string | null;
+  imageAlt: string | null;
+  ctaLabel: string | null;
+  ctaUrl: string | null;
+}
+
+export interface ConferenceContent {
+  banner: ConferenceBanner;
+  intro: string | null;
+}
+
 export interface SiteContent {
   name: string;
   shortName: string;
@@ -58,11 +75,11 @@ export interface SiteContent {
   sets: {
     publications: CategorySet;
     opportunities: CategorySet;
-    conference: CategorySet;
     latest: CategorySet;
     news: CategorySet;
     boardTag: string;
   };
+  conference: ConferenceContent;
   eventFilters: Array<{
     label: string;
     to: string;
@@ -142,6 +159,9 @@ export interface SiteContent {
     awardNews: string;
     awardHeroTitle: string;
     awardHeroSubtitle: string;
+    conferenceNews: string;
+    conferenceTitle: string;
+    conferenceNeutral: string | null;
   };
   styleguide: {
     title: string;

@@ -57,6 +57,7 @@ export default defineNuxtConfig({
     "/quarterlies/category/**": { redirect: "/quarterlies" },
     "/quarterlies/page/**": { redirect: "/quarterlies" },
     "/award/category/**": { redirect: "/award" },
+    "/conference/category/**": { redirect: "/conference" },
     "/category/جایزه-ملی-مدیریت-نوآوری": { redirect: "/award" },
     "/جایزه-ملی-مدیریت-فناوری-و-نوآوری": { redirect: "/award" },
   },
