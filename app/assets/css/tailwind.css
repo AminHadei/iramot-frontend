@@ -876,9 +876,33 @@ body.single-post .site-header--search-has-value {
   border-bottom: 0;
 }
 
-#past-boards .accordion__button-arrow,
-#past-boards .accordion__button:hover .accordion__button-arrow {
+.page-template-template-about .accordion__button-arrow,
+.page-template-template-about .accordion__button:hover .accordion__button-arrow {
   border: 0;
+}
+
+@media (max-width: 44.99em) {
+  .page-template-template-about .accordion:last-child {
+    border-bottom: 1px solid var(--color-ink);
+  }
+
+  .page-template-template-about .accordion__button {
+    padding-bottom: 15px;
+  }
+
+  .page-template-template-about .accordion__button-arrow {
+    top: 50%;
+  }
+}
+
+#committees .accordion.accordion--open > .accordion__reveal {
+  padding-top: 28px;
+  padding-bottom: 8px;
+}
+
+#committees .accordion__reveal > :last-child {
+  padding-bottom: 0;
+  margin-bottom: 0;
 }
 
 .accordion:not(.people-group) > .accordion__reveal > :first-child {
