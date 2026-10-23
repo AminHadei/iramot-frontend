@@ -339,7 +339,7 @@ body.nav-open .site-header__logo {
 .cover-placeholder__wave {
   position: absolute;
   inset: 0;
-  z-index: 1;
+  z-index: 0;
   background-position: 50% 100%;
   background-size: cover;
   opacity: 0.34;
@@ -348,7 +348,7 @@ body.nav-open .site-header__logo {
 
 .cover-placeholder__mark {
   position: relative;
-  z-index: 0;
+  z-index: 1;
   display: flex;
   width: 28%;
   max-width: 220px;
