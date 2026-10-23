@@ -14,6 +14,13 @@ function syncOpaque() {
   opaque.value = window.scrollY > 0;
 }
 
+const singlePost = computed(() => {
+  const path = route.path.replace(/\/+$/, "") || "/";
+  if (!path.startsWith("/news/")) return false;
+  const parts = path.split("/").filter(Boolean);
+  return parts.length === 2 && parts[1] !== "page" && parts[1] !== "category";
+});
+
 function isCurrent(to: string) {
   const path = (to.split("#")[0] ?? to).replace(/\/+$/, "") || "/";
   const current = route.path.replace(/\/+$/, "") || "/";
@@ -121,7 +128,9 @@ onBeforeUnmount(() => {
         :aria-label="site.name"
         :title="site.name"
       >
+        <SiteMark v-if="singlePost" variant="stacked" />
         <NuxtImg
+          v-else
           src="/brand/logo-horizontal.webp"
           alt=""
           width="361"

@@ -185,6 +185,10 @@ body.loaded .site-header {
   transition-delay: 0ms;
 }
 
+:root {
+  --color-dark: #06011e;
+}
+
 .site-header__logo .logo-petal-1,
 .site-footer__logo .logo-petal-1,
 .site-mark--placeholder .logo-petal-1 {
@@ -299,7 +303,8 @@ body.page-template-template-media
   visibility: hidden;
 }
 
-.site-header__logo img {
+.site-header__logo img,
+.site-header__logo .site-mark--stacked {
   display: block;
   flex: none;
   height: 46px;
@@ -580,7 +585,7 @@ body.page-template-template-media
 .news-breadcrumb {
   max-width: 1440px;
   margin-inline: auto;
-  padding-top: 24px;
+  padding-block: 24px;
   padding-inline: 60px;
   font-size: 0.875rem;
   line-height: 1.4;
@@ -600,6 +605,80 @@ body.page-template-template-media
 .news-article.single-article .single-article__header,
 .news-article.single-article .single-article__header a {
   color: var(--color-on-category, var(--color-paper));
+}
+
+.news-article .single-article__header {
+  position: relative;
+  z-index: 0;
+  margin-top: -70px;
+  padding-top: 70px;
+  grid-template-areas:
+    "crumbs crumbs crumbs crumbs crumbs"
+    "image image image image image"
+    "category . title title title"
+    ". . authors authors authors";
+}
+
+.news-article .single-article__header .news-breadcrumb {
+  grid-area: crumbs;
+  max-width: none;
+  margin-inline: 0;
+  padding-inline: 0;
+}
+
+.news-article .single-article__header::before,
+.news-article .single-article__header::after {
+  content: "";
+  display: block;
+  position: absolute;
+  inset-block: 0;
+  inset-inline: auto;
+  width: 100vw;
+  margin-inline: -50vw;
+  inset-inline-start: 50%;
+  z-index: -1;
+}
+
+.news-article .single-article__header::before {
+  background-color: var(--color-category);
+}
+
+.news-article .single-article__header::after {
+  background-image: var(--hero-blend, none);
+  background-size: cover;
+  background-position: 50% 100%;
+  opacity: 0.25;
+}
+
+@media (max-width: 61.24em) {
+  .news-article .single-article__header {
+    grid-template-areas: "crumbs" "category" "title" "authors" "date" "image";
+  }
+}
+
+body.single-post .site-header:not(.site-header--opaque) {
+  background: var(--color-dark, #06011e);
+  color: var(--color-paper);
+  border-bottom: 1px solid var(--color-paper);
+  --logo-color: var(--color-paper);
+  --logo-petal-1: #fffdf5;
+  --logo-petal-2: #9a96ca;
+  --logo-petal-3: #6967ac;
+  --logo-text: #fffdf5;
+}
+
+body.single-post .site-header--opaque,
+body.single-post .site-header:hover,
+body.single-post .site-header--focus,
+body.single-post .site-header--search-has-value {
+  background: var(--color-paper);
+  color: var(--color-band);
+  border-bottom-color: var(--color-band);
+  --logo-color: var(--color-band);
+  --logo-petal-1: #2d317a;
+  --logo-petal-2: #6967ac;
+  --logo-petal-3: #9a96ca;
+  --logo-text: #2d317a;
 }
 
 .news-article .article__content img,

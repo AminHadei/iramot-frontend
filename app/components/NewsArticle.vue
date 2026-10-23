@@ -2,15 +2,21 @@
 import type { NewsArticleView } from "~/composables/useNews";
 import type { ArticleHeading } from "~/utils/articleHtml";
 import type { SiteContent } from "~/types/content";
+import { withBase } from "~/utils/withBase";
 
 const props = defineProps<{
   post: NewsArticleView;
   site: SiteContent;
 }>();
 
+const config = useRuntimeConfig();
 const tocOpen = ref(false);
 const category = computed(() => primaryNewsCategory(props.post.categories));
 const tone = computed(() => newsCategoryColor(category.value?.slug ?? "news"));
+const articleStyle = computed(() => ({
+  ...tone.value,
+  "--hero-blend": `url("${withBase(config.app.baseURL, "/images/hero-intro-blend-1.webp")}")`,
+}));
 const categoryTo = computed(() => newsCategoryPath(category.value?.slug));
 const author = computed(() => props.post.author?.name || "");
 const groups = computed(() => {
@@ -28,21 +34,21 @@ const groups = computed(() => {
 
 <template>
   <div>
-    <nav class="news-breadcrumb" :aria-label="site.ui.navigation">
-      <NuxtLink to="/news">{{ site.listings.research.title }}</NuxtLink>
-      <template v-if="category && category.slug !== 'news'">
-        <span aria-hidden="true"> / </span>
-        <NuxtLink :to="categoryTo">{{ category.name }}</NuxtLink>
-      </template>
-      <span aria-hidden="true"> / </span>
-      <span>{{ post.title }}</span>
-    </nav>
     <article
       class="single-article news-article"
       :class="{ 'single-article--no-toc': !groups.length }"
-      :style="tone"
+      :style="articleStyle"
     >
       <header class="single-article__header">
+        <nav class="news-breadcrumb" :aria-label="site.ui.navigation">
+          <NuxtLink to="/news">{{ site.listings.research.title }}</NuxtLink>
+          <template v-if="category && category.slug !== 'news'">
+            <span aria-hidden="true"> / </span>
+            <NuxtLink :to="categoryTo">{{ category.name }}</NuxtLink>
+          </template>
+          <span aria-hidden="true"> / </span>
+          <span>{{ post.title }}</span>
+        </nav>
         <div v-if="category || post.date" class="single-article__header-category">
           <NuxtLink
             v-if="category"
