@@ -742,3 +742,49 @@ body.single-post .site-header--search-has-value {
   padding-inline: 20px;
   margin-top: 12px;
 }
+
+#founders .opportunities-posts__list-item,
+#founders .opportunities-posts__list-item-cta {
+  cursor: default;
+}
+
+#founders .opportunities-posts__list-item:hover .opportunities-posts__list-item-cta {
+  text-decoration: none !important;
+}
+
+#founders .opportunities-posts__list-item-cta {
+  flex-shrink: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 44.99em) {
+  #founders .opportunities-posts__list-item {
+    flex-direction: column;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 6px 30px;
+  }
+}
+
+.person-card__image {
+  align-self: start;
+  aspect-ratio: 1 / 1;
+}
+
+@media (min-width: 28.75em) {
+  .people-group-list .people-group__list .person-card {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 18%);
+  }
+}
+
+@media (max-width: 28.74em) {
+  .people-group-list .people-group__list .person-card {
+    grid-template-columns: minmax(0, 50fr) minmax(0, 32fr) minmax(0, 18fr);
+  }
+}
+
+.person-card__contacts {
+  flex-wrap: wrap;
+  min-width: 0;
+}
