@@ -60,7 +60,7 @@ function onImageLoad(event: Event) {
         provider="none"
         @load="onImageLoad"
       />
-      <SiteMark v-else placeholder />
+      <CoverPlaceholder v-else />
     </NuxtLink>
     <div class="project__body">
       <div class="project__title">

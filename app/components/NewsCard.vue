@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { NewsSummary } from "~/data/news/types";
+import { withBase } from "~/utils/withBase";
 
 const props = defineProps<{
   item: NewsSummary;
@@ -10,10 +11,18 @@ const props = defineProps<{
   categorySlug?: string;
 }>();
 
+const config = useRuntimeConfig();
 const category = computed(() =>
   primaryNewsCategory(props.item.categories, props.categorySlug),
 );
-const tone = computed(() => newsCategoryColor(category.value?.slug ?? "news"));
+const tone = computed(() => {
+  const color = newsCategoryColor(category.value?.slug ?? "news");
+  if (props.item.image) return color;
+  return {
+    ...color,
+    "--cover-wave": `url("${withBase(config.app.baseURL, "/images/hero-intro-blend-1.webp")}")`,
+  };
+});
 const categoryTo = computed(() => newsCategoryPath(category.value?.slug));
 const author = computed(() => props.item.author?.name || "");
 </script>
@@ -24,6 +33,7 @@ const author = computed(() => props.item.author?.name || "");
     :class="{
       'post-listing--has-category post-listing--category-has-color': category,
       'post-listing--featured post-listing--featured-contain': featured,
+      'news-card--blank': !item.image,
     }"
     :style="tone"
   >
@@ -46,9 +56,7 @@ const author = computed(() => props.item.author?.name || "");
         :width="item.image.width"
         :height="item.image.height"
       />
-      <span v-else class="news-card__placeholder" aria-hidden="true">
-        <SiteMark />
-      </span>
+      <CoverPlaceholder v-else :title="featured ? undefined : category?.name" />
     </div>
     <div v-if="featured && item.date" class="post-listing__label">
       <span>{{ featuredLabel }}</span>

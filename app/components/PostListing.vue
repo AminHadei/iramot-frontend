@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { withBase } from "~/utils/withBase";
+
 const props = defineProps<{
   title: string;
   to?: string;
@@ -17,12 +19,18 @@ const props = defineProps<{
 }>();
 
 const slots = useSlots();
+const config = useRuntimeConfig();
 
-const tone = computed(() =>
-  props.category
+const tone = computed(() => {
+  const color = props.category
     ? categoryColor(props.colorIndex ?? slotFromName(props.category))
-    : undefined,
-);
+    : undefined;
+  if (props.image) return color;
+  return {
+    ...color,
+    "--cover-wave": `url("${withBase(config.app.baseURL, "/images/hero-intro-blend-1.webp")}")`,
+  };
+});
 
 function slotFromName(name: string) {
   let sum = 0;
@@ -63,7 +71,7 @@ function slotFromName(name: string) {
     </div>
     <div class="post-listing__image">
       <NuxtImg v-if="image" :src="image" :alt="title" provider="none" />
-      <SiteMark v-else placeholder />
+      <CoverPlaceholder v-else :title="featured ? undefined : category" />
     </div>
     <div v-if="featured === 'contain' && latestLabel" class="post-listing__label">
       <span>{{ latestLabel }}</span>
