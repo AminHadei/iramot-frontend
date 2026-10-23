@@ -850,13 +850,23 @@ body.single-post .site-header--search-has-value {
 
 @media (min-width: 28.75em) {
   .people-group-list .people-group__list .person-card {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 18%);
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+    grid-template-rows: auto auto minmax(0, 1fr);
+    grid-template-areas:
+      "image name"
+      "image title"
+      "image contacts";
   }
 }
 
 @media (max-width: 28.74em) {
   .people-group-list .people-group__list .person-card {
-    grid-template-columns: minmax(0, 50fr) minmax(0, 32fr) minmax(0, 18fr);
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    grid-template-rows: auto auto minmax(0, 1fr);
+    grid-template-areas:
+      "image name"
+      "image title"
+      "image contacts";
   }
 }
 
@@ -865,6 +875,17 @@ body.single-post .site-header--search-has-value {
   flex-wrap: wrap;
   gap: 12px;
   min-width: 0;
+  justify-content: flex-end;
+  align-items: flex-end;
+  align-self: end;
+}
+
+@media (max-width: 28.74em) {
+  .people-group-list .people-group__list .person-card__contacts {
+    margin: 0;
+    padding-inline-end: 12px;
+    padding-bottom: 12px;
+  }
 }
 
 .person-card__contacts a {
