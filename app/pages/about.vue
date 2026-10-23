@@ -546,7 +546,11 @@ onBeforeUnmount(() => {
 
         <div id="committees">
           <div class="people-group-list">
-            <IfpPeopleGroup :title="page.committees.title" :people="managers" />
+            <IfpPeopleGroup
+              :title="page.committees.title"
+              :people="managers"
+              expanded
+            />
           </div>
           <div class="faqs__list">
             <div

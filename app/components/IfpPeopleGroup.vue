@@ -7,6 +7,7 @@ defineProps<{
     image: string;
     links: { href: string; label: string; type: string }[];
   }[];
+  expanded?: boolean;
 }>();
 
 const { isOpen, reveal, maxHeight, toggle } = useAccordionPanel(false);
@@ -14,13 +15,17 @@ const { isOpen, reveal, maxHeight, toggle } = useAccordionPanel(false);
 
 <template>
   <div class="people-group-list__wrapper">
-    <div class="people-group-list__group people-group people-group--desktop">
+    <div
+      class="people-group-list__group people-group people-group--desktop"
+      :class="{ 'people-group--static': expanded }"
+    >
       <h2 class="people-group__title">{{ title }}</h2>
       <div class="people-group__list">
         <IfpPersonCard v-for="person in people" :key="person.name" :person="person" />
       </div>
     </div>
     <div
+      v-if="!expanded"
       class="people-group-list__group people-group people-group--mobile accordion"
       :class="{ 'accordion--open': isOpen }"
     >
