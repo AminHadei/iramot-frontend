@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.31
+
+### Patch Changes
+
+- Separate related events from the article text.
+
 ## 0.3.30
 
 ### Patch Changes
