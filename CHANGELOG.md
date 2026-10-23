@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.14
+
+### Patch Changes
+
+- Align the homepage carousels, quarterlies, and workgroups with the IFP sections.
+
 ## 0.3.13
 
 ### Patch Changes
