@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.28
+
+### Patch Changes
+
+- Give the four event programs one shared listing and event page.
+
 ## 0.3.27
 
 ### Patch Changes
