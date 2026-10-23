@@ -277,6 +277,8 @@ ui:
   privacyUpdated: آخرین به‌روزرسانی
   awardTopic: جایزه ملی
   awardNews: اخبار جایزه ملی
+  awardHeroTitle: جایزه ملی
+  awardHeroSubtitle: مدیریت فناوری و نوآوری ایران
 styleguide:
   title: راهنمای اجزا
   description: اجزای چیدمان با دادهٔ آرشیو انجمن. این صفحه موقتی است.

@@ -1,8 +1,6 @@
 import type { NuxtApp } from "#app";
 import type { NewsList, NewsSummary } from "~/data/news/types";
 import type { SiteContent } from "~/types/content";
-import { articleHtml } from "~/utils/articleHtml";
-import { mirrorAwardMedia } from "~/utils/awardMedia";
 import { withBase } from "~/utils/withBase";
 
 interface AwardBlock {
@@ -19,7 +17,6 @@ interface AwardFile {
 export interface AwardDocument {
   title: string;
   lead: string;
-  html: string;
 }
 
 function cached<T>(key: string, nuxtApp: NuxtApp): T | undefined {
@@ -40,12 +37,6 @@ async function readAwardFile(): Promise<AwardFile> {
   ) as AwardFile;
 }
 
-function withoutLead(html: string, lead: string): string {
-  if (!lead) return html;
-  const escaped = lead.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  return html.replace(new RegExp(`<p>\\s*${escaped}\\s*</p>`), "");
-}
-
 export async function useAwardPage() {
   const route = useRoute();
   const repo = useNewsRepository();
@@ -63,11 +54,7 @@ export async function useAwardPage() {
         ? await readAwardFile()
         : await $fetch<AwardFile>(withBase(baseURL, "/data/award/page.json"));
       const lead = file.blocks.find((block) => block.type === "paragraph")?.text ?? "";
-      const prepared = articleHtml(
-        mirrorAwardMedia(withoutLead(file.bodyHtmlVerbatim, lead), baseURL),
-        baseURL,
-      );
-      return { title: file.title, lead, html: prepared.html } satisfies AwardDocument;
+      return { title: file.title, lead } satisfies AwardDocument;
     },
     { getCachedData: cached },
   );

@@ -1,16 +1,20 @@
 <script setup lang="ts">
 import type { NewsList, NewsSummary } from "~/data/news/types";
-import type { AwardDocument } from "~/composables/useAwardPage";
 import type { SiteContent } from "~/types/content";
+import { withBase } from "~/utils/withBase";
 
 const props = defineProps<{
-  page: AwardDocument;
   site: SiteContent;
   listPage: number;
   order: "asc" | "desc";
   list: NewsList;
   featured: NewsSummary | null;
 }>();
+
+const config = useRuntimeConfig();
+const heroStyle = {
+  "--hero-blend": `url("${withBase(config.app.baseURL, "/images/hero-intro-blend-1.webp")}")`,
+};
 
 const cards = computed(() => props.list.items);
 const pageLabel = computed(() => {
@@ -40,16 +44,11 @@ function setOrder(value: string) {
 
 <template>
   <div>
-    <div class="hero-intro">
-      <h1 class="hero-intro__title">{{ page.title }}</h1>
-      <div v-if="page.lead" class="hero-intro__body">
-        <p>{{ page.lead }}</p>
-      </div>
-    </div>
-    <div class="half-content">
-      <div class="half-content__body">
-        <ArchiveHtml :html="page.html" />
-      </div>
+    <div class="hero-intro award-hero" :style="heroStyle">
+      <h1 class="hero-intro__title">
+        {{ site.ui.awardHeroTitle }}
+        <span class="award-hero__line">{{ site.ui.awardHeroSubtitle }}</span>
+      </h1>
     </div>
     <section class="award-news news-archive">
       <h2 class="news-related__title">{{ site.ui.awardNews }}</h2>

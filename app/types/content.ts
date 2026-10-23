@@ -140,6 +140,8 @@ export interface SiteContent {
     listExternal: string;
     awardTopic: string;
     awardNews: string;
+    awardHeroTitle: string;
+    awardHeroSubtitle: string;
   };
   styleguide: {
     title: string;

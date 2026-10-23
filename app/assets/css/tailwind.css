@@ -516,7 +516,8 @@ body.page-template-template-about .site-header__nav a,
   opacity: 0.55;
 }
 
-.page-template-template-about .hero-intro:after {
+.page-template-template-about .hero-intro:after,
+.award-hero.hero-intro:after {
   background-image: var(--hero-blend, none), var(--hero-image, none);
   background-size: cover, cover;
   background-position:
@@ -524,6 +525,22 @@ body.page-template-template-about .site-header__nav a,
     50% 100%;
   opacity: var(--hero-opacity, 0.25);
   transition: opacity 0.5s ease;
+}
+
+.award-hero.hero-intro:after {
+  opacity: 0.38;
+}
+
+.award-hero .hero-intro__title {
+  grid-column: 1 / -1;
+}
+
+.award-hero__line {
+  display: block;
+  margin-top: 0.2em;
+  font-size: 0.55em;
+  font-weight: 400;
+  line-height: 1.35;
 }
 
 .page-template-template-about #about,

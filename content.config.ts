@@ -208,6 +208,8 @@ export default defineContentConfig({
           listExternal: z.string(),
           awardTopic: z.string(),
           awardNews: z.string(),
+          awardHeroTitle: z.string(),
+          awardHeroSubtitle: z.string(),
         }),
         styleguide: z.object({
           title: z.string(),

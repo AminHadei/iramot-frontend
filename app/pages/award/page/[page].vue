@@ -2,14 +2,13 @@
 const award = await useAwardPage();
 
 usePageSeo({
-  title: award.document.title,
-  description: award.document.lead || award.document.title,
+  title: `${award.site.ui.awardHeroTitle} ${award.site.ui.awardHeroSubtitle}`,
+  description: award.document.lead || award.site.ui.awardHeroTitle,
 });
 </script>
 
 <template>
   <AwardPage
-    :page="award.document"
     :site="award.site"
     :list-page="award.page"
     :order="award.order"
