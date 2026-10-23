@@ -234,7 +234,11 @@ body.page-template-template-media .site-header {
   body.page-template-template-home .site-header--focus,
   body.page-template-template-home .site-header--search-has-value,
   body.page-template-template-home .site-header--opaque,
-  body.page-template-template-home .site-header:hover {
+  body.page-template-template-home .site-header:hover,
+  body.page-template-template-about .site-header--focus,
+  body.page-template-template-about .site-header--search-has-value,
+  body.page-template-template-about .site-header--opaque,
+  body.page-template-template-about .site-header:hover {
     --logo-petal-1: #2d317a;
     --logo-petal-2: #6967ac;
     --logo-petal-3: #9a96ca;
@@ -273,6 +277,9 @@ body.nav-open .site-header {
 }
 
 body.page-template-template-home
+  .site-header:not(.site-header--opaque)
+  .site-header__logo,
+body.page-template-template-about
   .site-header:not(.site-header--opaque)
   .site-header__logo,
 body.page-template-template-newsletters
@@ -373,29 +380,31 @@ body.page-template-template-media
 
 @media (min-width: 61.25em) {
   body.page-template-template-about {
-    --color-header-background: var(--color-band);
+    --color-header-background: var(--color-paper);
   }
 
   body.page-template-template-about .site-header--opaque,
   body.page-template-template-about .site-header:hover,
   body.page-template-template-about .site-header--focus,
   body.page-template-template-about .site-header--search-has-value {
-    color: var(--color-paper);
-    --logo-color: var(--color-paper);
+    background: var(--color-paper);
+    color: var(--color-band);
+    border-bottom-color: var(--color-band);
+    --logo-color: var(--color-band);
   }
 }
 
-@media (max-width: 61.24em) {
-  body.page-template-template-about .site-header--opaque,
-  body.page-template-template-about .site-header:hover,
-  body.page-template-template-about .site-header--focus,
-  body.page-template-template-about .site-header--search-has-value {
-    color: var(--color-ink);
-  }
+.page-template-template-about .hero-intro:before {
+  background-color: #2d317a;
+  opacity: 0.55;
 }
 
 .page-template-template-about .hero-intro:after {
-  background-image: var(--hero-image, none);
+  background-image: var(--hero-blend, none), var(--hero-image, none);
+  background-size: cover, cover;
+  background-position:
+    50% 100%,
+    50% 100%;
   opacity: var(--hero-opacity, 0.25);
   transition: opacity 0.5s ease;
 }

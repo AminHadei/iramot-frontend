@@ -140,6 +140,11 @@ usePageSeo({
 
 function mediaPath(src: string) {
   const file = decodeURIComponent(src.split("/").pop() ?? "");
+  const located = src.match(/uploads\/(\d{4})\/(\d{2})\//);
+  const sized = file.match(/^(.*)-\d+x\d+(\.[a-z0-9]+)$/i);
+  if (located && sized) {
+    return `/media/${located[1]}/${located[2]}/${sized[1]}${sized[2]}`;
+  }
   return `/media/about/${file}`;
 }
 
@@ -237,8 +242,10 @@ const heroStyle = computed(() => {
   const slide = page.hero.slides[slideIndex.value];
   if (!slide) return {} as CSSProperties;
   const url = withBase(config.app.baseURL, encodeURI(mediaPath(slide.src)));
+  const blend = withBase(config.app.baseURL, "/images/hero-intro-blend-1.webp");
   return {
     "--hero-image": `url("${url}")`,
+    "--hero-blend": `url("${blend}")`,
     "--hero-opacity": fading.value ? "0" : "0.25",
   } as CSSProperties;
 });
