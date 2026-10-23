@@ -2411,7 +2411,8 @@ body.page-template-template-about .newsletter-pre-footer {
   border-radius: 2px;
 }
 
-.page-lists .hero-intro--compact .hero-intro__body {
+.page-lists .hero-intro--compact .hero-intro__body,
+.wg-index .hero-intro--compact .hero-intro__body {
   text-align: end;
 }
 
