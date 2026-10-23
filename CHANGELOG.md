@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.24
+
+### Patch Changes
+
+- Use a white header bar, with the logo visible, wherever the bar used to be navy.
+
 ## 0.3.23
 
 ### Patch Changes
