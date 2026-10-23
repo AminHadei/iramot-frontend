@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.23
+
+### Patch Changes
+
+- Align the about contact block and footer address, drop the extra footer links, and remove the past-board chevron border.
+
 ## 0.3.22
 
 ### Patch Changes
