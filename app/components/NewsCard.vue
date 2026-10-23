@@ -7,9 +7,12 @@ const props = defineProps<{
   linkLabel: string;
   byLabel: string;
   featuredLabel?: string;
+  categorySlug?: string;
 }>();
 
-const category = computed(() => primaryNewsCategory(props.item.categories));
+const category = computed(() =>
+  primaryNewsCategory(props.item.categories, props.categorySlug),
+);
 const tone = computed(() => newsCategoryColor(category.value?.slug ?? "news"));
 const categoryTo = computed(() => newsCategoryPath(category.value?.slug));
 const author = computed(() => props.item.author?.name || "");

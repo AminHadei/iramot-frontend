@@ -48,7 +48,12 @@ export function newsCategoryColor(slug: string): Record<string, string> {
 
 export function primaryNewsCategory<T extends { slug: string }>(
   categories: T[],
+  preferred?: string,
 ): T | undefined {
+  if (preferred) {
+    const match = categories.find((category) => category.slug === preferred);
+    if (match) return match;
+  }
   for (const slug of newsCategoryOrder) {
     const found = categories.find((category) => category.slug === slug);
     if (found) return found;

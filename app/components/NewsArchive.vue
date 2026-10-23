@@ -73,6 +73,7 @@ function setCategory(value: string) {
         <NewsCard
           featured
           :item="featured"
+          :category-slug="archive.category"
           :link-label="archive.site.ui.newsRead"
           :by-label="archive.site.ui.newsAuthor"
           :featured-label="archive.site.ui.latest"
@@ -108,6 +109,7 @@ function setCategory(value: string) {
           v-for="item in cards"
           :key="item.id"
           :item="item"
+          :category-slug="archive.category"
           :link-label="archive.site.ui.newsRead"
           :by-label="archive.site.ui.newsAuthor"
         />
