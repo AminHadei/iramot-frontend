@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.16
+
+### Patch Changes
+
+- Replace the pink emphasis colour with two purples and four topic colours.
+
 ## 0.3.15
 
 ### Patch Changes
