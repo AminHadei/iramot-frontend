@@ -728,6 +728,11 @@ body.single-post .site-header--search-has-value {
   border-bottom: 0;
 }
 
+#past-boards .accordion__button-arrow,
+#past-boards .accordion__button:hover .accordion__button-arrow {
+  border: 0;
+}
+
 .accordion:not(.people-group) > .accordion__reveal > :first-child {
   margin-top: 0;
 }
@@ -759,6 +764,11 @@ body.single-post .site-header--search-has-value {
 
 #founders .opportunities-posts__list-item:hover .opportunities-posts__list-item-cta {
   text-decoration: none !important;
+}
+
+.site-footer__address {
+  margin-top: 0;
+  align-self: start;
 }
 
 @media (min-width: 61.25em) {
@@ -823,7 +833,22 @@ body.single-post .site-header--search-has-value {
   grid-template-columns: 5fr 7fr;
   gap: 40px;
   align-items: start;
+  max-width: 1440px;
+  margin-inline: auto;
   padding-block: 10px 40px;
+  padding-inline: 24px;
+}
+
+@media (min-width: 61.25em) and (max-width: 63.99em) {
+  #contact .contact-split {
+    padding-inline: 36px;
+  }
+}
+
+@media (min-width: 64em) {
+  #contact .contact-split {
+    padding-inline: 60px;
+  }
 }
 
 @media (max-width: 61.24em) {
@@ -1047,6 +1072,11 @@ body.single-post .site-header--search-has-value {
   aspect-ratio: 16 / 6;
   min-height: 280px;
   margin-top: 20px;
+  margin-bottom: 0;
+}
+
+body.page-template-template-about .newsletter-pre-footer {
+  margin-top: 0;
 }
 
 @media (max-width: 44.99em) {

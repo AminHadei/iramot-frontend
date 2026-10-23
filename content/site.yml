@@ -109,14 +109,10 @@ footerColumns:
     links:
       - label: عضویت
         to: /membership
-      - label: اساسنامه
-        to: /about#statute
       - label: حریم خصوصی
         to: /privacy
       - label: فرصت‌های همکاری
         to: /opportunities
-      - label: تماس
-        to: /about#contact
 listings:
   research:
     title: اخبار
