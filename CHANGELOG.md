@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.27
+
+### Patch Changes
+
+- Give imageless covers a purple field, the original logo, and the about-page wave.
+
 ## 0.3.26
 
 ### Patch Changes
