@@ -22,6 +22,8 @@ pixelmatch
 pngjs
 potrace
 playwright
+rwmb
+tghpform
 domcontentloaded
 IRANYekan
 iranyekanwebblackfanum
