@@ -48,7 +48,6 @@ export interface SiteContent {
     about: number;
     privacy: number;
     opportunities: number;
-    workgroups: number;
     conference: number;
     award: number;
     partners: number;
@@ -60,7 +59,6 @@ export interface SiteContent {
     publications: CategorySet;
     opportunities: CategorySet;
     conference: CategorySet;
-    workgroups: CategorySet;
     quarterlies: CategorySet;
     award: CategorySet;
     latest: CategorySet;
@@ -125,6 +123,17 @@ export interface SiteContent {
     eventEmpty: string;
     eventInPerson: string;
     eventOnline: string;
+    workgroupView: string;
+    workgroupPage: string;
+    workgroupAbout: string;
+    workgroupManager: string;
+    workgroupMembers: string;
+    workgroupInfo: string;
+    workgroupLinks: string;
+    workgroupOthers: string;
+    workgroupPrevious: string;
+    workgroupNext: string;
+    workgroupEmpty: string;
   };
   styleguide: {
     title: string;

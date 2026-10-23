@@ -8,6 +8,12 @@ function bodyClass(path: string) {
     return "loaded home page-template-template-home";
   }
   if (p === "/about") return "loaded page-template-template-about";
+  if (p === "/workgroups" || p.startsWith("/workgroups/")) {
+    const parts = p.split("/").filter(Boolean);
+    return parts.length === 2
+      ? "loaded single-post"
+      : "loaded page-template-template-post-archive";
+  }
   if (p === "/news" || p.startsWith("/news/")) {
     const parts = p.split("/").filter(Boolean);
     const article =

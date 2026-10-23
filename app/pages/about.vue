@@ -15,6 +15,7 @@ interface CardPerson {
   role: string;
   image: string;
   links: { href: string; label: string; type: string }[];
+  page?: { to: string; label: string };
 }
 
 interface ContactBlock {
@@ -174,7 +175,9 @@ function fieldDomId(name: string) {
 
 function visibleParagraphs(lines: string[] | undefined) {
   // TODO: lorem ipsum paragraphs from the source are omitted.
-  return (lines ?? []).filter((line) => !line.includes("لورم ایپسوم"));
+  return (lines ?? []).filter(
+    (line) => !line.includes("لورم") && !line.includes("شرایط فعلی تکنولوژی مورد نیاز"),
+  );
 }
 
 function cardLinks(links: AboutLink[] | undefined) {
@@ -192,14 +195,28 @@ const boardPeople: CardPerson[] = page.board.people.map((person) => ({
   links: cardLinks(person.links),
 }));
 
+const workgroupList = await useWorkgroupList();
+const workgroupByTitle = new Map(
+  (workgroupList.data.value?.groups ?? []).map((group) => [
+    group.titleFull,
+    `/workgroups/${group.slug}`,
+  ]),
+);
+
+function workgroupPath(title: string) {
+  return workgroupByTitle.get(title);
+}
+
 const managers: CardPerson[] = page.committees.groups.flatMap((group) => {
   if (!group.manager) return [];
+  const to = workgroupPath(group.title);
   return [
     {
       name: group.manager.name,
       role: group.title,
       image: mediaPath(group.manager.photo.src),
       links: cardLinks(group.social),
+      ...(to ? { page: { to, label: site.ui.workgroupPage } } : {}),
     },
   ];
 });
@@ -572,8 +589,10 @@ onBeforeUnmount(() => {
                 <p v-if="group.manager">
                   {{ page.committees.manager_label }} {{ group.manager.name }}
                 </p>
-                <p v-if="group.link">
-                  <a :href="group.link.href">{{ group.link.label }}</a>
+                <p v-if="workgroupPath(group.title)" class="wg-acc-link">
+                  <NuxtLink :to="workgroupPath(group.title) || '/workgroups'">
+                    {{ site.ui.workgroupPage }}
+                  </NuxtLink>
                 </p>
               </IfpAccordion>
             </div>

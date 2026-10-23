@@ -27,6 +27,7 @@
     "content/events.json",
     "content/word-choosing.json",
     "content/media.json",
+    "content/workgroups.json",
     "content/about.yml",
     "public/media/**",
     "public/animations/**",

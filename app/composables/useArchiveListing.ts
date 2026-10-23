@@ -19,18 +19,12 @@ export interface ListingView {
 }
 
 export type ListingGroup =
-  | "publications"
-  | "opportunities"
-  | "conference"
-  | "workgroups"
-  | "quarterlies"
-  | "award";
+  "publications" | "opportunities" | "conference" | "quarterlies" | "award";
 
 const listingBase: Record<ListingGroup, string> = {
   publications: "/news",
   opportunities: "/opportunities",
   conference: "/conference",
-  workgroups: "/workgroups",
   quarterlies: "/quarterlies",
   award: "/award",
 };
@@ -38,7 +32,6 @@ const listingBase: Record<ListingGroup, string> = {
 function pageIdFor(site: SiteContent, group: ListingGroup): number | null {
   if (group === "opportunities") return site.pages.opportunities;
   if (group === "conference") return site.pages.conference;
-  if (group === "workgroups") return site.pages.workgroups;
   if (group === "award") return site.pages.award;
   return null;
 }

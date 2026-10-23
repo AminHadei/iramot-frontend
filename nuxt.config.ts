@@ -1,6 +1,7 @@
 import { withBase } from "./app/utils/withBase";
 import { eventPrerenderRoutes } from "./app/data/events/prerender-routes";
 import { newsPrerenderRoutes } from "./app/data/news/prerender-routes";
+import { workgroupPrerenderRoutes } from "./app/data/workgroups/prerender-routes";
 
 // Root-absolute font urls are not prefixed by Vite. Apply app.baseURL once here.
 function prefixPublicFontUrls() {
@@ -73,6 +74,7 @@ export default defineNuxtConfig({
         "/contact",
         ...newsPrerenderRoutes,
         ...eventPrerenderRoutes,
+        ...workgroupPrerenderRoutes,
       ],
     },
   },

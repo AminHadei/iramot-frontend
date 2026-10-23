@@ -4,8 +4,9 @@ defineProps<{
   people: {
     name: string;
     role: string;
-    image: string;
+    image?: string;
     links: { href: string; label: string; type: string }[];
+    page?: { to: string; label: string };
   }[];
   expanded?: boolean;
 }>();

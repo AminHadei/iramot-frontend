@@ -140,7 +140,6 @@ pages:
   about: 2885
   privacy: 1538
   opportunities: 7343
-  workgroups: 3023
   conference: 7220
   award: 10220
   partners: 38
@@ -163,10 +162,6 @@ sets:
     slugs:
       - کنفرانس-مدیریت-فناوری-و-نواوری
       - conference-news
-  workgroups:
-    slugs:
-      - workgroups
-      - کارگروه-متناظر-استانداردسازی-مدیریت
   quarterlies:
     slugs:
       - quarterly-magazine
@@ -265,6 +260,17 @@ ui:
   eventEmpty: رویدادی برای نمایش نیست
   eventInPerson: حضوری
   eventOnline: آنلاین
+  workgroupView: مشاهده کارگروه
+  workgroupPage: مشاهده صفحه کارگروه
+  workgroupAbout: درباره کارگروه
+  workgroupManager: مدیر کارگروه
+  workgroupMembers: اعضای کارگروه
+  workgroupInfo: اطلاعات کارگروه
+  workgroupLinks: پیوندهای مرتبط
+  workgroupOthers: سایر کارگروه‌ها
+  workgroupPrevious: کارگروه قبلی
+  workgroupNext: کارگروه بعدی
+  workgroupEmpty: اطلاعات تفصیلی این کارگروه به‌زودی تکمیل می‌شود
   emptyPartners: فهرستی از همراهان در آرشیو نیست.
 styleguide:
   title: راهنمای اجزا
