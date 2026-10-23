@@ -70,3 +70,6 @@ webp
 siasate
 modiriat
 INSO
+magick
+featuredmedia
+totalpages

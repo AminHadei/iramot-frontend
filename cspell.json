@@ -30,6 +30,8 @@
     "content/about.yml",
     "public/media/**",
     "public/animations/**",
+    "public/data/**",
+    "app/data/news/prerender-routes.ts",
     "app/assets/css/ifp.rtl.css"
   ],
   "ignoreRegExpList": [

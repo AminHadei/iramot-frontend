@@ -20,3 +20,5 @@ content/word-choosing.json
 content/media.json
 public/media
 public/animations
+public/data
+app/data/news/prerender-routes.ts
