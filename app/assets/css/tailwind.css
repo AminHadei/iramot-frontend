@@ -2411,6 +2411,10 @@ body.page-template-template-about .newsletter-pre-footer {
   border-radius: 2px;
 }
 
+.page-lists .hero-intro--compact .hero-intro__body {
+  text-align: end;
+}
+
 .list-page {
   padding-top: 8px;
   padding-bottom: 96px;
