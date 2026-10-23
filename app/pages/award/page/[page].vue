@@ -1,12 +1,19 @@
 <script setup lang="ts">
-const listing = await useArchiveListing("award");
+const award = await useAwardPage();
 
 usePageSeo({
-  title: listing.title,
-  description: listing.description,
+  title: award.document.title,
+  description: award.document.lead || award.document.title,
 });
 </script>
 
 <template>
-  <ArchiveListing v-bind="listing" shell="archive" />
+  <AwardPage
+    :page="award.document"
+    :site="award.site"
+    :list-page="award.page"
+    :order="award.order"
+    :list="award.list"
+    :featured="award.featured"
+  />
 </template>

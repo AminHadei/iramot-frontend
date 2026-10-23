@@ -27,6 +27,7 @@ export interface NewsSummary {
   image: NewsImage | null;
   categories: NewsCategory[];
   author: NewsAuthor | null;
+  topic?: string;
 }
 
 export interface NewsPost extends NewsSummary {
@@ -37,6 +38,7 @@ export interface NewsListQuery {
   page: number;
   perPage: number;
   category?: string;
+  topic?: string;
   order?: "asc" | "desc";
   author?: string;
   skip?: number;

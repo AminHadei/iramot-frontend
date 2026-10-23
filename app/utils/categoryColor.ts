@@ -34,6 +34,14 @@ export function newsColorIndex(slug: string): number {
   return sum % 3;
 }
 
+export function awardTopicColor(): Record<string, string> {
+  return {
+    "--color-category": "#3F50A0",
+    "--color-on-category": "#FFFDF5",
+    "--color-category-rgb": "63, 80, 160",
+  };
+}
+
 export function newsCategoryColor(slug: string): Record<string, string> {
   const index = newsColorIndex(slug);
   const color = index === 1 ? "#6967AC" : index === 2 ? "#9A96CA" : "#2D317A";

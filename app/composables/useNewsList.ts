@@ -11,17 +11,20 @@ function payloadDuringHydration(key: string, nuxtApp: NuxtApp): NewsList | undef
 export function useNewsList(input: {
   page: number;
   category?: string;
+  topic?: string;
   order: Ref<"asc" | "desc">;
   skip?: number;
 }) {
   const repo = useNewsRepository();
   return useAsyncData(
-    () => `news-list-${input.category ?? "all"}-${input.order.value}-${input.page}`,
+    () =>
+      `news-list-${input.topic ?? "any"}-${input.category ?? "all"}-${input.order.value}-${input.page}-s${input.skip ?? 0}`,
     () =>
       repo.list({
         page: input.page,
         perPage: newsPageSize,
         category: input.category,
+        topic: input.topic,
         order: input.order.value,
         skip: input.skip,
       }),

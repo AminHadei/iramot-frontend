@@ -30,6 +30,8 @@
     "content/workgroups.json",
     "content/partners.json",
     "content/quarterlies.json",
+    "content/award.json",
+    "content/award-news.json",
     "content/about.yml",
     "public/media/**",
     "public/animations/**",

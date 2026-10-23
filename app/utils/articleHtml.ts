@@ -36,6 +36,13 @@ function cleanTag(tag: string, baseURL: string) {
         if (!value.includes("/media/")) return match;
         return ` src=${quote}${prefixMedia(baseURL, value)}${quote}`;
       },
+    )
+    .replace(
+      /\s+href\s*=\s*(["'])([^"']*)\1/gi,
+      (match, quote: string, value: string) => {
+        if (!value.startsWith("/media/")) return match;
+        return ` href=${quote}${withBase(baseURL, value)}${quote}`;
+      },
     );
 }
 

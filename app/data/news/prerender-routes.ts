@@ -1,5 +1,8 @@
 export const newsPrerenderRoutes = [
   "/news",
+  "/news/فراخوان-دوره-نهم-جایزه-ملی-مدیریت-فناو",
+  "/news/گسترش-تعاملات-حرفهای",
+  "/news/فراخوان-ثبت-نام-ارزیابان",
   "/research",
   "/news/page/2",
   "/news/page/3",

@@ -56,6 +56,9 @@ export default defineNuxtConfig({
     "/category/quarterly-magazine": { redirect: "/news" },
     "/quarterlies/category/**": { redirect: "/quarterlies" },
     "/quarterlies/page/**": { redirect: "/quarterlies" },
+    "/award/category/**": { redirect: "/award" },
+    "/category/جایزه-ملی-مدیریت-نوآوری": { redirect: "/award" },
+    "/جایزه-ملی-مدیریت-فناوری-و-نوآوری": { redirect: "/award" },
   },
   runtimeConfig: {
     public: {
@@ -90,6 +93,9 @@ export default defineNuxtConfig({
         "/quarterlies/category/quarterly-magazine",
         "/quarterlies/category/فصلنامه-سیاست-علم-و-فناوری",
         "/quarterlies/page/2",
+        "/award/category/جایزه-ملی-مدیریت-نوآوری",
+        "/category/جایزه-ملی-مدیریت-نوآوری",
+        "/جایزه-ملی-مدیریت-فناوری-و-نوآوری",
         ...newsPrerenderRoutes,
         ...eventPrerenderRoutes,
         ...workgroupPrerenderRoutes,

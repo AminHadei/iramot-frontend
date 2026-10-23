@@ -59,7 +59,6 @@ export interface SiteContent {
     publications: CategorySet;
     opportunities: CategorySet;
     conference: CategorySet;
-    award: CategorySet;
     latest: CategorySet;
     news: CategorySet;
     boardTag: string;
@@ -139,6 +138,8 @@ export interface SiteContent {
     emptyQuarterlies: string;
     listWebsite: string;
     listExternal: string;
+    awardTopic: string;
+    awardNews: string;
   };
   styleguide: {
     title: string;

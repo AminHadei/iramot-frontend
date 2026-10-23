@@ -22,6 +22,8 @@ nav:
     to: /conference
   - label: واژه‌گزینی
     to: /terminology
+  - label: جایزه ملی
+    to: /award
   - label: درباره‌ما
     to: /about
     children:
@@ -164,9 +166,6 @@ sets:
     slugs:
       - کنفرانس-مدیریت-فناوری-و-نواوری
       - conference-news
-  award:
-    slugs:
-      - جایزه-ملی-مدیریت-نوآوری
   latest:
     slugs:
       - articles
@@ -276,6 +275,8 @@ ui:
   privacyContents: فهرست مطالب
   privacyTop: بازگشت به بالا
   privacyUpdated: آخرین به‌روزرسانی
+  awardTopic: جایزه ملی
+  awardNews: اخبار جایزه ملی
 styleguide:
   title: راهنمای اجزا
   description: اجزای چیدمان با دادهٔ آرشیو انجمن. این صفحه موقتی است.

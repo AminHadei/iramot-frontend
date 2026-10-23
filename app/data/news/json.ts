@@ -51,6 +51,7 @@ function present(item: NewsIndexItem | NewsPost, baseURL: string): NewsSummary {
       : null,
     categories: item.categories,
     author: item.author,
+    ...(item.topic ? { topic: item.topic } : {}),
   };
 }
 
@@ -71,6 +72,9 @@ export function createJsonNewsRepository(baseURL: string): NewsRepository {
           ? item.categories.some((category) => category.slug === query.category)
           : item.feed,
       );
+      if (query.topic) {
+        items = items.filter((item) => item.topic === query.topic);
+      }
       if (query.author) {
         items = items.filter((item) => matchesAuthor(item, query.author ?? ""));
       }

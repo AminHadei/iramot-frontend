@@ -8,3 +8,9 @@ export function newsListingPath(
   const query = order === "asc" ? "?order=asc" : "";
   return `${path}${query}#filter`;
 }
+
+export function awardListingPath(page: number, order?: "asc" | "desc") {
+  const path = page > 1 ? `/award/page/${page}` : "/award";
+  const query = order === "asc" ? "?order=asc" : "";
+  return `${path}${query}#filter`;
+}

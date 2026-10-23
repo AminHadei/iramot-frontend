@@ -21,6 +21,8 @@ content/media.json
 content/workgroups.json
 content/partners.json
 content/quarterlies.json
+content/award.json
+content/award-news.json
 public/media
 public/animations
 public/data

@@ -120,7 +120,6 @@ export default defineContentConfig({
           publications: categorySet,
           opportunities: categorySet,
           conference: categorySet,
-          award: categorySet,
           latest: categorySet,
           news: categorySet,
           boardTag: z.string(),
@@ -207,6 +206,8 @@ export default defineContentConfig({
           emptyQuarterlies: z.string(),
           listWebsite: z.string(),
           listExternal: z.string(),
+          awardTopic: z.string(),
+          awardNews: z.string(),
         }),
         styleguide: z.object({
           title: z.string(),

@@ -9,21 +9,31 @@ const props = defineProps<{
   byLabel: string;
   featuredLabel?: string;
   categorySlug?: string;
+  topicBadge?: string;
 }>();
 
 const config = useRuntimeConfig();
+const showTopic = computed(
+  () => Boolean(props.topicBadge) && props.item.topic === "award",
+);
 const category = computed(() =>
-  primaryNewsCategory(props.item.categories, props.categorySlug),
+  showTopic.value
+    ? { slug: "award", name: props.topicBadge ?? "" }
+    : primaryNewsCategory(props.item.categories, props.categorySlug),
 );
 const tone = computed(() => {
-  const color = newsCategoryColor(category.value?.slug ?? "news");
+  const color = showTopic.value
+    ? awardTopicColor()
+    : newsCategoryColor(category.value?.slug ?? "news");
   if (props.item.image) return color;
   return {
     ...color,
     "--cover-wave": `url("${withBase(config.app.baseURL, "/images/hero-intro-blend-1.webp")}")`,
   };
 });
-const categoryTo = computed(() => newsCategoryPath(category.value?.slug));
+const categoryTo = computed(() =>
+  showTopic.value ? "/award" : newsCategoryPath(category.value?.slug),
+);
 const author = computed(() => props.item.author?.name || "");
 </script>
 

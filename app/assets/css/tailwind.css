@@ -333,7 +333,7 @@ body.nav-open .site-header__logo {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  background: #b17ada;
+  background: #9a96ca;
 }
 
 .cover-placeholder__wave {
@@ -388,7 +388,7 @@ body.nav-open .site-header__logo {
 .post-listing__image:has(.cover-placeholder),
 .project__image:has(.cover-placeholder) {
   position: relative;
-  background: #b17ada;
+  background: #9a96ca;
 }
 
 .post-listing:not(.post-listing--featured)
@@ -400,7 +400,7 @@ body.nav-open .site-header__logo {
 }
 
 .post-listing:not(.post-listing--featured).post-listing--no-image:before {
-  background: #b17ada;
+  background: #9a96ca;
 }
 
 .project__image--type-icon .cover-placeholder__mark,
@@ -420,7 +420,7 @@ body.nav-open .site-header__logo {
 
 .news-card--blank.post-listing--featured-contain:before,
 .post-listing--no-image.post-listing--featured-contain:before {
-  background-color: #b17ada;
+  background-color: #9a96ca;
   background-image: var(--cover-wave);
   background-position: 50% 100%;
   background-size: cover;
@@ -439,7 +439,7 @@ body.nav-open .site-header__logo {
 @media (max-width: 44.99em) {
   .news-card--blank.post-listing--featured .post-listing__category,
   .post-listing--no-image.post-listing--featured .post-listing__category {
-    background: #b17ada;
+    background: #9a96ca;
   }
 }
 
@@ -607,7 +607,7 @@ body.page-template-template-about .site-header__nav a,
 }
 
 .news-card--blank .post-listing__image {
-  background: #b17ada;
+  background: #9a96ca;
 }
 
 .news-card .post-listing__image:has(img)::after {
@@ -3072,4 +3072,32 @@ body.page-template-template-about .newsletter-pre-footer {
   .page-privacy a {
     color: var(--color-ink) !important;
   }
+}
+
+.half-content__body .wp-block-media-text__media video,
+.article__content .wp-block-video video,
+.article__content .wp-block-media-text__media video {
+  display: block;
+  width: 100%;
+  max-width: 360px;
+  max-height: 640px;
+  margin-inline: auto;
+  background: #06011e;
+}
+
+.article__content,
+.half-content__body {
+  overflow-wrap: anywhere;
+}
+
+.award-news {
+  margin-top: 48px;
+}
+
+.cover-placeholder {
+  background: #9a96ca;
+}
+
+.post-listing__info {
+  color: #6866ad;
 }

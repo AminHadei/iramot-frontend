@@ -11,13 +11,21 @@ const props = defineProps<{
 
 const config = useRuntimeConfig();
 const tocOpen = ref(false);
+const award = computed(() => props.post.topic === "award");
 const category = computed(() => primaryNewsCategory(props.post.categories));
-const tone = computed(() => newsCategoryColor(category.value?.slug ?? "news"));
+const tone = computed(() =>
+  award.value ? awardTopicColor() : newsCategoryColor(category.value?.slug ?? "news"),
+);
 const articleStyle = computed(() => ({
   ...tone.value,
   "--hero-blend": `url("${withBase(config.app.baseURL, "/images/hero-intro-blend-1.webp")}")`,
 }));
-const categoryTo = computed(() => newsCategoryPath(category.value?.slug));
+const categoryTo = computed(() =>
+  award.value ? "/award" : newsCategoryPath(category.value?.slug),
+);
+const label = computed(() =>
+  award.value ? props.site.ui.awardTopic : category.value?.name,
+);
 const author = computed(() => props.post.author?.name || "");
 const groups = computed(() => {
   const grouped: Array<{ id: string; label: string; children: ArticleHeading[] }> = [];
@@ -41,7 +49,11 @@ const groups = computed(() => {
     >
       <nav class="news-breadcrumb" :aria-label="site.ui.navigation">
         <NuxtLink to="/news">{{ site.listings.research.title }}</NuxtLink>
-        <template v-if="category && category.slug !== 'news'">
+        <template v-if="award">
+          <span aria-hidden="true"> / </span>
+          <NuxtLink to="/award">{{ site.ui.awardTopic }}</NuxtLink>
+        </template>
+        <template v-else-if="category && category.slug !== 'news'">
           <span aria-hidden="true"> / </span>
           <NuxtLink :to="categoryTo">{{ category.name }}</NuxtLink>
         </template>
@@ -49,13 +61,13 @@ const groups = computed(() => {
         <span>{{ post.title }}</span>
       </nav>
       <header class="single-article__header">
-        <div v-if="category || post.date" class="single-article__header-category">
+        <div v-if="label || post.date" class="single-article__header-category">
           <NuxtLink
-            v-if="category"
+            v-if="label"
             class="single-article__header-category-container"
             :to="categoryTo"
           >
-            <div class="single-article__header-category-name">{{ category.name }}</div>
+            <div class="single-article__header-category-name">{{ label }}</div>
           </NuxtLink>
           <div
             v-if="post.date"
@@ -133,6 +145,7 @@ const groups = computed(() => {
           :item="item"
           :link-label="site.ui.newsRead"
           :by-label="site.ui.newsAuthor"
+          :topic-badge="site.ui.awardTopic"
         />
       </div>
     </div>

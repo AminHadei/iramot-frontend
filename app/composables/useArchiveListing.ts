@@ -18,19 +18,17 @@ export interface ListingView {
   order: "asc" | "desc";
 }
 
-export type ListingGroup = "publications" | "opportunities" | "conference" | "award";
+export type ListingGroup = "publications" | "opportunities" | "conference";
 
 const listingBase: Record<ListingGroup, string> = {
   publications: "/news",
   opportunities: "/opportunities",
   conference: "/conference",
-  award: "/award",
 };
 
 function pageIdFor(site: SiteContent, group: ListingGroup): number | null {
   if (group === "opportunities") return site.pages.opportunities;
   if (group === "conference") return site.pages.conference;
-  if (group === "award") return site.pages.award;
   return null;
 }
 
@@ -95,10 +93,7 @@ export async function useArchiveListing(group: ListingGroup): Promise<ListingVie
         );
         if (!record) return null;
         title = record.title;
-        description =
-          group === "award"
-            ? plainText(record.excerpt || record.title)
-            : site.ui.emptyBody;
+        description = site.ui.emptyBody;
       }
       const current = filters.find(
         (filter) => filter.current && filter.to !== listingPath(base, 1),

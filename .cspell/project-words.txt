@@ -72,6 +72,7 @@ webp
 siasate
 modiriat
 INSO
+IRAMIT
 magick
 featuredmedia
 totalpages
