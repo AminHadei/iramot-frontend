@@ -23,39 +23,30 @@ spotlight:
     - title: ارتباط با اکوسیستم استارتاپی
       body: "مدیر کارگروه: صابر خسروی"
       color: 1
-      link: https://iramot.ir/committees/
     - title: شبکه‌سازی بین‌المللی
       body: "مدیر کارگروه: رضا حافظی"
       color: 2
-      link: https://iramot.ir/committees/
     - title: آموزش و توانمندسازی
       body: "مدیر کارگروه: مریم نوذری"
       color: 3
-      link: https://iramot.ir/committees/
     - title: استاندارد و اعتباربخشی
       body: "مدیر کارگروه: سامان روح‌بخشان"
       color: 4
-      link: "https://iramot.ir/کارگروه-متناظر-استانداردسازی-مدیریت/"
     - title: ارتباط با صنعت
       body: "مدیر کارگروه: سهراب آقازاده"
       color: 1
-      link: https://iramot.ir/committees/
     - title: سیاست‌گذاری و حکمرانی
       body: "مدیر کارگروه: مصطفی صفدری رنجبر"
       color: 2
-      link: https://iramot.ir/committees/
     - title: ترویج علمی و انتشارات
       body: "مدیر کارگروه: کیارش فرتاش"
       color: 3
-      link: https://iramot.ir/committees/
     - title: واژه‌گزینی
       body: "رئیس: سیدکمال طبائیان، دبیر: سامان روح‌بخشان"
       color: 4
-      link: /terminology
     - title: کارشناسی مدیریت نوآوری
       body: ""
       color: 1
-      link: "https://iramot.ir/مدیریت-نوآوری/"
   posts:
     - id: 10314
       title: کارگروه متناظر استانداردسازی مدیریت نوآوری INSO/ISO/TC279

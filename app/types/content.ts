@@ -179,7 +179,6 @@ export interface SpotlightGroupRecord {
   title: string;
   body: string;
   color: number;
-  link: string;
 }
 
 export interface SpotlightPostRecord {

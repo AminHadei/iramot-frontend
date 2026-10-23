@@ -26,6 +26,13 @@ if (!siteData.value) {
   throw createError({ statusCode: 500, statusMessage: "محتوای خانه پیدا نشد" });
 }
 const site = siteData.value as SiteContent;
+const workgroupList = await useWorkgroupList();
+const workgroupPath = new Map(
+  (workgroupList.data.value?.groups ?? []).map((group) => [
+    group.title,
+    `/workgroups/${group.slug}`,
+  ]),
+);
 
 function firstSentence(value: string) {
   const text = plainText(value);
@@ -118,7 +125,7 @@ const { data: home } = await useAsyncData("home-page", async () => {
     page,
     mission: about.description ?? page.title,
     intro: about.lead ?? page.dek,
-    groups: spotlightGroups(page.spotlight.groups),
+    groups: spotlightGroups(page.spotlight.groups, (title) => workgroupPath.get(title)),
     news: spotlightPosts,
     publications: publicationCards,
     events: eventCards,

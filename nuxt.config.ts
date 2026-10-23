@@ -50,6 +50,9 @@ export default defineNuxtConfig({
     "/statute": { redirect: "/about#statute" },
     "/contact": { redirect: "/about#contact" },
     "/research": { redirect: "/news" },
+    "/committees": { redirect: "/workgroups" },
+    "/کارگروه-واژه-گزینی": { redirect: "/workgroups/word-selection" },
+    "/مدیریت-نوآوری": { redirect: "/workgroups/innovation-management-expertise" },
   },
   runtimeConfig: {
     public: {
@@ -72,6 +75,10 @@ export default defineNuxtConfig({
         "/independent-filmmaker-project",
         "/statute",
         "/contact",
+        "/committees",
+        "/کارگروه-واژه-گزینی",
+        "/مدیریت-نوآوری",
+        "/کارگروه-متناظر-استانداردسازی-مدیریت",
         ...newsPrerenderRoutes,
         ...eventPrerenderRoutes,
         ...workgroupPrerenderRoutes,

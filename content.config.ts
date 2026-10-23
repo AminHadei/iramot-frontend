@@ -243,7 +243,6 @@ export default defineContentConfig({
               title: z.string(),
               body: z.string(),
               color: z.number(),
-              link: z.string(),
             }),
           ),
           posts: z.array(

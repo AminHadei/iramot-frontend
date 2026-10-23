@@ -72,7 +72,7 @@ interface AboutDocument {
     terms: { tab: string; groups: { heading: string; items: string[] }[] }[];
   };
   founders: { title: string; rows: { name: string; degree: string }[] };
-  committees: {
+  workgroups: {
     title: string;
     manager_label: string;
     groups: CommitteeGroup[];
@@ -173,11 +173,9 @@ function fieldDomId(name: string) {
   return `about-${name.replace(/[^a-z0-9]+/gi, "-")}`;
 }
 
-function visibleParagraphs(lines: string[] | undefined) {
-  // TODO: lorem ipsum paragraphs from the source are omitted.
-  return (lines ?? []).filter(
-    (line) => !line.includes("لورم") && !line.includes("شرایط فعلی تکنولوژی مورد نیاز"),
-  );
+function visibleParagraphs(title: string, lines: string[] | undefined) {
+  if (placeholderTitles.has(title)) return [];
+  return lines ?? [];
 }
 
 function cardLinks(links: AboutLink[] | undefined) {
@@ -196,18 +194,19 @@ const boardPeople: CardPerson[] = page.board.people.map((person) => ({
 }));
 
 const workgroupList = await useWorkgroupList();
+const workgroupRecords = workgroupList.data.value?.groups ?? [];
 const workgroupByTitle = new Map(
-  (workgroupList.data.value?.groups ?? []).map((group) => [
-    group.titleFull,
-    `/workgroups/${group.slug}`,
-  ]),
+  workgroupRecords.map((group) => [group.titleFull, `/workgroups/${group.slug}`]),
+);
+const placeholderTitles = new Set(
+  workgroupRecords.filter((group) => group.placeholder).map((group) => group.titleFull),
 );
 
 function workgroupPath(title: string) {
   return workgroupByTitle.get(title);
 }
 
-const managers: CardPerson[] = page.committees.groups.flatMap((group) => {
+const managers: CardPerson[] = page.workgroups.groups.flatMap((group) => {
   if (!group.manager) return [];
   const to = workgroupPath(group.title);
   return [
@@ -223,7 +222,7 @@ const managers: CardPerson[] = page.committees.groups.flatMap((group) => {
 
 const pastColumns = splitInTwo(page.past_boards.terms);
 const founderColumns = splitInTwo(page.founders.rows);
-const committeeColumns = splitInTwo(page.committees.groups);
+const committeeColumns = splitInTwo(page.workgroups.groups);
 
 const brokenPhone = "http://02188621518";
 
@@ -564,7 +563,7 @@ onBeforeUnmount(() => {
         <div id="committees">
           <div class="people-group-list">
             <IfpPeopleGroup
-              :title="page.committees.title"
+              :title="page.workgroups.title"
               :people="managers"
               expanded
             />
@@ -581,13 +580,16 @@ onBeforeUnmount(() => {
                 :label="group.title"
               >
                 <p
-                  v-for="(paragraph, index) in visibleParagraphs(group.body)"
+                  v-for="(paragraph, index) in visibleParagraphs(
+                    group.title,
+                    group.body,
+                  )"
                   :key="index"
                 >
                   {{ paragraph }}
                 </p>
                 <p v-if="group.manager">
-                  {{ page.committees.manager_label }} {{ group.manager.name }}
+                  {{ page.workgroups.manager_label }} {{ group.manager.name }}
                 </p>
                 <p v-if="workgroupPath(group.title)" class="wg-acc-link">
                   <NuxtLink :to="workgroupPath(group.title) || '/workgroups'">

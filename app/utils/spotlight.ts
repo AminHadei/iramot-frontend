@@ -7,11 +7,14 @@ export interface SpotlightGroup {
   color?: number;
 }
 
-export function spotlightGroups(groups: SpotlightGroupRecord[]): SpotlightGroup[] {
+export function spotlightGroups(
+  groups: SpotlightGroupRecord[],
+  pathFor: (title: string) => string | undefined,
+): SpotlightGroup[] {
   return groups.map((group) => ({
     title: group.title,
     body: group.body,
-    to: group.link,
+    to: pathFor(group.title) ?? "/workgroups",
     color: group.color,
   }));
 }
