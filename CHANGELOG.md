@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.11
+
+### Patch Changes
+
+- Update the footer address and contact lines, and wrap the newsletter notice onto two lines.
+
 ## 0.3.10
 
 ### Patch Changes
