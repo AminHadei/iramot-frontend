@@ -14,7 +14,7 @@ interface CardPerson {
   name: string;
   role: string;
   image: string;
-  links: { href: string; label: string }[];
+  links: { href: string; label: string; type: string }[];
 }
 
 interface ContactBlock {
@@ -94,8 +94,15 @@ interface AboutDocument {
         options?: string[];
       }[];
       submit: string;
+      messages: {
+        invalid: string;
+        email: string;
+        success: string;
+        error: string;
+      };
     };
     map: { title: string; src: string };
+    social: { type: string; href: string }[];
   };
 }
 
@@ -174,7 +181,7 @@ function cardLinks(links: AboutLink[] | undefined) {
   // TODO: links set to "#" and source_links_suspect (duplicate social accounts) are omitted.
   return (links ?? [])
     .filter((link) => link.href && link.href !== "#")
-    .map((link) => ({ href: link.href, label: labelFor(link.type) }));
+    .map((link) => ({ href: link.href, label: labelFor(link.type), type: link.type }));
 }
 
 const pitchSlide = page.hero.slides[0];
@@ -202,29 +209,72 @@ const founderColumns = splitInTwo(page.founders.rows);
 const committeeColumns = splitInTwo(page.committees.groups);
 
 const brokenPhone = "http://02188621518";
-const contactNotes: { label: string; text: string }[] = [];
-const contactPhones: { text: string; href: string }[] = [];
-const contactEmails: { text: string; href: string }[] = [];
 
+interface ContactRow {
+  key: string;
+  label: string;
+  text: string;
+  href?: string;
+}
+
+const contactRows: ContactRow[] = [];
 for (const item of page.contact.items) {
   // TODO: http://02188621518 is not a telephone link and is omitted.
-  const blocks = item.content.filter(
-    (block) => !(block.links ?? []).some((link) => link.href === brokenPhone),
-  );
-  const links = blocks.flatMap((block) => block.links ?? []);
-  const phones = links.filter((link) => link.href.startsWith("tel:"));
-  const emails = links.filter((link) => link.href.startsWith("mailto:"));
-  if (phones.length) {
-    contactPhones.push(...phones);
-    continue;
+  for (const block of item.content) {
+    if ((block.links ?? []).some((entry) => entry.href === brokenPhone)) continue;
+    const link = block.links?.[0];
+    const text = link?.text ?? block.p;
+    if (!text) continue;
+    contactRows.push({
+      key: `${item.label}-${link?.href ?? text}`,
+      label: item.label,
+      text,
+      href: link?.href,
+    });
   }
-  if (emails.length) {
-    contactEmails.push(...emails);
-    continue;
+}
+
+const contactFieldOrder = [
+  "form_fields[name]",
+  "form_fields[email]",
+  "form_fields[field_31ee070]",
+  "form_fields[message]",
+  "form_fields[field_54a2942]",
+];
+const contactFields = [...page.contact.form.fields].sort(
+  (a, b) => contactFieldOrder.indexOf(a.name) - contactFieldOrder.indexOf(b.name),
+);
+const formValues = reactive<Record<string, string>>({});
+const formErrors = reactive<Record<string, string>>({});
+for (const field of contactFields) {
+  formValues[field.name] = field.type === "select" ? (field.options?.[0] ?? "") : "";
+}
+const formStatus = ref<"" | "success" | "error">("");
+const formPending = ref(false);
+
+function socialLabel(type: string) {
+  return site.social.find((item) => item.name === type)?.label ?? labelFor(type);
+}
+
+function submitContact() {
+  // TODO: contact form has no endpoint yet.
+  formStatus.value = "";
+  for (const key of Object.keys(formErrors)) formErrors[key] = "";
+  let invalid = false;
+  for (const field of contactFields) {
+    const value = String(formValues[field.name] ?? "").trim();
+    if (field.required && !value) {
+      formErrors[field.name] = page.contact.form.messages.invalid;
+      invalid = true;
+      continue;
+    }
+    if (field.type === "email" && value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+      formErrors[field.name] = page.contact.form.messages.email;
+      invalid = true;
+    }
   }
-  for (const block of blocks) {
-    if (block.p) contactNotes.push({ label: item.label, text: block.p });
-  }
+  if (invalid) return;
+  formStatus.value = "error";
 }
 
 const slideIndex = ref(0);
@@ -552,88 +602,126 @@ onBeforeUnmount(() => {
     <div id="contact">
       <div class="contact-hero">
         <div class="contact-hero__title">{{ page.contact.intro }}</div>
-        <div class="contact-hero__address">
-          <p v-for="note in contactNotes" :key="note.label">
-            {{ note.label }} {{ note.text }}
-          </p>
-        </div>
-        <div class="contact-hero__links">
-          <div
-            v-for="phone in contactPhones"
-            :key="phone.href"
-            class="contact-hero__telephone"
-          >
-            <a :href="phone.href">{{ phone.text }}</a>
-          </div>
-          <div
-            v-for="email in contactEmails"
-            :key="email.href"
-            class="contact-hero__email"
-          >
-            <a :href="email.href">{{ email.text }}</a>
-          </div>
-        </div>
       </div>
-      <div class="opportunities">
-        <div class="pitch">
-          <div class="pitch__image">
-            <iframe
-              :src="page.contact.map.src"
-              :title="page.contact.map.title"
-              width="600"
-              height="450"
-            />
-          </div>
-          <div class="pitch__text">
-            <form class="tghpform" @submit.prevent>
-              <div
-                v-for="field in page.contact.form.fields"
-                :key="field.name"
-                class="rwmb-field"
+      <div class="contact-split">
+        <div class="contact-methods opportunities-posts">
+          <div class="opportunities-posts__list">
+            <div
+              v-for="row in contactRows"
+              :key="row.key"
+              class="opportunities-posts__list-item"
+            >
+              <div class="opportunities-posts__list-item-title">{{ row.label }}</div>
+              <a
+                v-if="row.href"
+                class="opportunities-posts__list-item-cta"
+                :href="row.href"
               >
-                <div class="rwmb-label">
-                  <label :for="fieldDomId(field.name)">{{ field.label }}</label>
-                </div>
-                <div class="rwmb-input">
-                  <select
-                    v-if="field.type === 'select'"
-                    :id="fieldDomId(field.name)"
-                    :name="field.name"
-                    :required="field.required"
-                  >
-                    <option
-                      v-for="option in field.options"
-                      :key="option"
-                      :value="option"
-                    >
-                      {{ option }}
-                    </option>
-                  </select>
-                  <textarea
-                    v-else-if="field.type === 'textarea'"
-                    :id="fieldDomId(field.name)"
-                    :name="field.name"
-                    :required="field.required"
-                    rows="6"
-                  />
-                  <input
-                    v-else
-                    :id="fieldDomId(field.name)"
-                    :name="field.name"
-                    :type="field.type"
-                    :required="field.required"
-                  />
-                </div>
+                {{ row.text }}
+              </a>
+              <div v-else class="opportunities-posts__list-item-cta">
+                {{ row.text }}
               </div>
-              <div class="rwmb-field rwmb-form-submit">
-                <!-- TODO: contact form has no endpoint yet. -->
-                <button class="rwmb-button" type="submit" disabled>
-                  {{ page.contact.form.submit }}
-                </button>
+            </div>
+            <div
+              v-if="page.contact.social.length"
+              class="opportunities-posts__list-item"
+            >
+              <div class="opportunities-posts__list-item-cta contact-methods__links">
+                <a
+                  v-for="item in page.contact.social"
+                  :key="item.href"
+                  :href="item.href"
+                  :aria-label="socialLabel(item.type)"
+                  :title="socialLabel(item.type)"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <SocialIcon :type="item.type" />
+                </a>
               </div>
-            </form>
+            </div>
           </div>
         </div>
+        <form class="contact-card tghpform" @submit.prevent="submitContact">
+          <div
+            v-for="field in contactFields"
+            :key="field.name"
+            class="rwmb-field"
+            :class="{ 'rwmb-field--wide': field.type === 'textarea' }"
+          >
+            <div class="rwmb-label">
+              <label :for="fieldDomId(field.name)">
+                {{ field.label }}
+                <span v-if="field.required" class="rwmb-required" aria-hidden="true"
+                  >*</span
+                >
+              </label>
+            </div>
+            <div class="rwmb-input">
+              <select
+                v-if="field.type === 'select'"
+                :id="fieldDomId(field.name)"
+                v-model="formValues[field.name]"
+                :name="field.name"
+                :aria-invalid="formErrors[field.name] ? true : undefined"
+              >
+                <option v-for="option in field.options" :key="option" :value="option">
+                  {{ option }}
+                </option>
+              </select>
+              <textarea
+                v-else-if="field.type === 'textarea'"
+                :id="fieldDomId(field.name)"
+                v-model="formValues[field.name]"
+                :name="field.name"
+                rows="6"
+                :aria-invalid="formErrors[field.name] ? true : undefined"
+              />
+              <input
+                v-else
+                :id="fieldDomId(field.name)"
+                v-model="formValues[field.name]"
+                :name="field.name"
+                :type="field.type"
+                :aria-invalid="formErrors[field.name] ? true : undefined"
+              />
+            </div>
+            <p v-if="formErrors[field.name]" class="rwmb-error">
+              {{ formErrors[field.name] }}
+            </p>
+          </div>
+          <div class="rwmb-field rwmb-form-submit">
+            <button class="rwmb-button" type="submit" :disabled="formPending">
+              {{ page.contact.form.submit }}
+            </button>
+          </div>
+          <p
+            class="contact-card__status"
+            :class="{
+              'contact-card__status--success': formStatus === 'success',
+              'contact-card__status--error': formStatus === 'error',
+            }"
+            role="status"
+            aria-live="polite"
+          >
+            {{
+              formStatus === "success"
+                ? page.contact.form.messages.success
+                : formStatus === "error"
+                  ? page.contact.form.messages.error
+                  : ""
+            }}
+          </p>
+        </form>
+      </div>
+      <div class="contact-map">
+        <iframe
+          :src="page.contact.map.src"
+          :title="page.contact.map.title"
+          width="600"
+          height="450"
+        />
       </div>
     </div>
   </div>

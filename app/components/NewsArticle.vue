@@ -39,25 +39,22 @@ const groups = computed(() => {
       :class="{ 'single-article--no-toc': !groups.length }"
       :style="articleStyle"
     >
-      <header class="single-article__header">
-        <nav class="news-breadcrumb" :aria-label="site.ui.navigation">
-          <NuxtLink to="/news">{{ site.listings.research.title }}</NuxtLink>
-          <template v-if="category && category.slug !== 'news'">
-            <span aria-hidden="true"> / </span>
-            <NuxtLink :to="categoryTo">{{ category.name }}</NuxtLink>
-          </template>
+      <nav class="news-breadcrumb" :aria-label="site.ui.navigation">
+        <NuxtLink to="/news">{{ site.listings.research.title }}</NuxtLink>
+        <template v-if="category && category.slug !== 'news'">
           <span aria-hidden="true"> / </span>
-          <span>{{ post.title }}</span>
-        </nav>
+          <NuxtLink :to="categoryTo">{{ category.name }}</NuxtLink>
+        </template>
+        <span aria-hidden="true"> / </span>
+        <span>{{ post.title }}</span>
+      </nav>
+      <header class="single-article__header">
         <div v-if="category || post.date" class="single-article__header-category">
           <NuxtLink
             v-if="category"
             class="single-article__header-category-container"
             :to="categoryTo"
           >
-            <div class="single-article__header-category-icon">
-              <SiteMark />
-            </div>
             <div class="single-article__header-category-name">{{ category.name }}</div>
           </NuxtLink>
           <div

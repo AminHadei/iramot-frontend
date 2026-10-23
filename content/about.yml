@@ -860,6 +860,11 @@ contact:
         name: form_fields[field_54a2942]
         type: textarea
         required: true
+    messages:
+      invalid: این فیلد را کامل کنید.
+      email: نشانی ایمیل درست نیست.
+      success: پیام شما ثبت شد.
+      error: ارسال پیام ممکن نشد.
     submit: ثبت
   map:
     title: موسسه تحقیقات سیاست علمی کشور

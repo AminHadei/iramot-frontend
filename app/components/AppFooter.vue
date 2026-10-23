@@ -19,15 +19,6 @@ const page = computed(() => home.value as HomeContent | null);
     :to="page.newsletter.to"
   />
   <footer class="site-footer">
-    <div class="site-footer__logo">
-      <NuxtImg
-        src="/brand/logo-two-line.webp"
-        :alt="site.name"
-        width="600"
-        height="424"
-        provider="none"
-      />
-    </div>
     <address class="site-footer__address">
       <template v-for="(line, index) in site.address" :key="line">
         {{ line }}<br v-if="index < site.address.length - 1" />

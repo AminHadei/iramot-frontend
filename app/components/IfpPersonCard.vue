@@ -4,7 +4,7 @@ defineProps<{
     name: string;
     role: string;
     image: string;
-    links: { href: string; label: string }[];
+    links: { href: string; label: string; type: string }[];
   };
 }>();
 </script>
@@ -25,12 +25,14 @@ defineProps<{
     <div v-if="person.links.length" class="person-card__contacts">
       <a
         v-for="link in person.links"
-        :key="`${link.label}-${link.href}`"
+        :key="`${link.type}-${link.href}`"
         :href="link.href"
+        :aria-label="link.label"
+        :title="link.label"
         target="_blank"
         rel="noopener noreferrer"
       >
-        {{ link.label }}
+        <SocialIcon :type="link.type" />
       </a>
     </div>
   </div>

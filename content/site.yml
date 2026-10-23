@@ -101,18 +101,8 @@ footerColumns:
         to: /quarterlies
       - label: همراهان
         to: /partners
-      - label: درباره انجمن
-        to: /about#about
-      - label: مأموریت‌ها
-        to: /about#missions
-      - label: تاریخچه
-        to: /about#history
-      - label: اعضا
-        to: /about#board
-      - label: کارگروه‌ها
-        to: /about#committees
-      - label: اساسنامه
-        to: /about#statute
+      - label: درباره ما
+        to: /about
       - label: تماس با ما
         to: /about#contact
   - title: عضویت

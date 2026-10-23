@@ -7,7 +7,15 @@ export function useAccordionPanel(initiallyOpen = false) {
   function applyHeight() {
     const el = reveal.value;
     if (!el) return;
-    const next = isOpen.value ? `${el.scrollHeight}px` : "0px";
+    if (!isOpen.value) {
+      if (maxHeight.value !== "0px") maxHeight.value = "0px";
+      return;
+    }
+    const styles = getComputedStyle(el);
+    const border =
+      (Number.parseFloat(styles.borderTopWidth) || 0) +
+      (Number.parseFloat(styles.borderBottomWidth) || 0);
+    const next = `${Math.ceil(el.scrollHeight + border)}px`;
     if (maxHeight.value !== next) maxHeight.value = next;
   }
 
