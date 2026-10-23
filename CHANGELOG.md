@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.21
+
+### Patch Changes
+
+- Fix the about page images and header, and keep the news featured story with the active sort.
+
 ## 0.3.20
 
 ### Patch Changes
