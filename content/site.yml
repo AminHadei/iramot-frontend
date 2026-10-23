@@ -3,8 +3,8 @@ shortName: انجمن
 description: پژوهش، آموزش و گفت‌وگوی سیاستی دربارهٔ مدیریت فناوری و نوآوری. متن این نسخه موقتی است.
 placeholder: true
 nav:
-  - label: انتشارات
-    to: /research
+  - label: اخبار
+    to: /news
   - label: رویدادها
     to: /events
     children:
@@ -71,10 +71,10 @@ miniMenu:
   - label: حریم خصوصی
     to: /privacy
 footerColumns:
-  - title: انتشارات
+  - title: اخبار
     links:
-      - label: انتشارات
-        to: /research
+      - label: اخبار
+        to: /news
   - title: رویدادها
     links:
       - label: رویدادها
@@ -129,7 +129,7 @@ footerColumns:
         to: /about#contact
 listings:
   research:
-    title: انتشارات
+    title: اخبار
     description: مقالات و اخبار منتشرشدهٔ انجمن.
   projects:
     title: پروژه‌ها
@@ -253,6 +253,16 @@ ui:
   dateDescending: تاریخ، نزولی
   dateAscending: تاریخ، صعودی
   author: نویسنده
+  newsAll: همه اخبار
+  newsEmpty: خبری برای نمایش نیست
+  newsPage: صفحه {current} از {total}
+  newsNewest: جدیدترین
+  newsOldest: قدیمی‌ترین
+  newsAuthor: "نویسنده:"
+  newsRelated: اخبار مرتبط
+  newsRead: مطالعه کامل
+  newsCategory: دسته
+  newsContents: محتوا
   emptyPartners: فهرستی از همراهان در آرشیو نیست.
 styleguide:
   title: راهنمای اجزا

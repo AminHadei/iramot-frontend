@@ -99,6 +99,16 @@ export interface SiteContent {
     dateDescending: string;
     dateAscending: string;
     author: string;
+    newsAll: string;
+    newsEmpty: string;
+    newsPage: string;
+    newsNewest: string;
+    newsOldest: string;
+    newsAuthor: string;
+    newsRelated: string;
+    newsRead: string;
+    newsCategory: string;
+    newsContents: string;
   };
   styleguide: {
     title: string;

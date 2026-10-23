@@ -10,11 +10,11 @@ links:
 spotlightTitle: کارگروه‌ها
 projectsTitle: برنامه‌های انجمن
 projectsLinkLabel: همهٔ پروژه‌ها
-recentTitle: تازه‌ترین انتشارات
-recentLinkLabel: همهٔ انتشارات
+recentTitle: تازه‌ترین اخبار
+recentLinkLabel: همهٔ اخبار
 readLabel: مطالعه کامل
 viewLabel: مشاهده
-publicationsLink: همهٔ انتشارات
+publicationsLink: همهٔ اخبار
 spotlight:
   heading: کارگروه‌ها
   intro: انجمن مدیریت فناوری و نوآوری ایران سعى دارد تا در راستاى ارتقاء سطح علم و فناوری کشور، به تبیین جایگاه مدیریت فناوری در ایران اقدام نموده و با حمایت از ایجاد و توسعه شبکه متخصصان و تلاش گران عرصه فناوری، به ارتقا و بهبود تصمیم‌گیرى‌هاى مرتبط با این حوزه در سطوح ملى و بنگاه کمک نماید.
@@ -101,7 +101,7 @@ strip:
   conference: کنفرانس
   membership: عضویت
 sections:
-  publications: تازه‌ترین انتشارات
+  publications: تازه‌ترین اخبار
   workgroups: کارگروه‌ها
   events: رویدادها
   terms: جستجوی واژه
