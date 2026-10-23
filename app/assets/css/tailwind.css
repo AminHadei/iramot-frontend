@@ -531,8 +531,54 @@ body.page-template-template-about .site-header__nav a,
   opacity: 0.38;
 }
 
-.award-hero .hero-intro__title {
+.award-hero .hero-intro__title,
+.conference-banner .hero-intro__title {
   grid-column: 1 / -1;
+}
+
+.award-hero.hero-intro,
+.conference-banner .hero-intro {
+  min-height: 0;
+  padding-top: 91px;
+  padding-bottom: 32px;
+}
+
+@media (max-width: 41.24em) {
+  .award-hero.hero-intro,
+  .conference-banner .hero-intro {
+    padding-top: 246px;
+  }
+}
+
+@media (min-width: 45em) {
+  .award-hero.hero-intro,
+  .conference-banner .hero-intro {
+    min-height: 440px;
+    padding-bottom: 42px;
+  }
+}
+
+.conference-banner .hero-intro--image::before {
+  background-color: #2d317a;
+  background-image:
+    linear-gradient(rgb(45 49 122 / 42%), rgb(45 49 122 / 42%)), var(--hero-image, none);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 1;
+}
+
+@media (max-width: 44.99em) {
+  .conference-banner .hero-intro--image::before {
+    background-position: 0% center;
+  }
+}
+
+.conference-banner .hero-intro--image::after {
+  background-image: var(--hero-blend, none);
+  background-size: cover;
+  background-position: 50% 100%;
+  opacity: 0.32;
 }
 
 .award-hero__line {
@@ -3109,6 +3155,42 @@ body.page-template-template-about .newsletter-pre-footer {
 
 .award-news {
   margin-top: 48px;
+}
+
+.award-news .news-related__title,
+.conference-news .news-related__title {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+}
+
+@media (max-width: 44.99em) {
+  .award-news .news-related__title,
+  .conference-news .news-related__title {
+    padding-inline-start: 12px;
+  }
+}
+
+@media (min-width: 45em) and (max-width: 61.24em) {
+  .award-news .news-related__title,
+  .conference-news .news-related__title {
+    padding-inline-start: 37px;
+  }
+}
+
+@media (min-width: 61.25em) and (max-width: 63.99em) {
+  .award-news .news-related__title,
+  .conference-news .news-related__title {
+    padding-inline-start: 55px;
+  }
+}
+
+@media (min-width: 64em) {
+  .award-news .news-related__title,
+  .conference-news .news-related__title {
+    padding-inline-start: 91px;
+  }
 }
 
 .cover-placeholder {

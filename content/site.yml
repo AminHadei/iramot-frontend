@@ -281,15 +281,15 @@ ui:
 conference:
   intro: null
   banner:
-    title: null
+    title: کنفرانس
     startDate: null
     endDate: null
     dateText: null
     place: null
-    image: null
-    imageAlt: null
+    image: /media/conference/banner-1404.webp
+    imageAlt: بنر نوزدهمین کنفرانس ملی و پانزدهمین کنفرانس بین‌المللی مدیریت فناوری و نوآوری، ۱۹ و ۲۰ آذر ۱۴۰۴، تهران، پژوهشگاه نیرو
     ctaLabel: null
-    ctaUrl: null
+    ctaUrl: /
 styleguide:
   title: راهنمای اجزا
   description: اجزای چیدمان با دادهٔ آرشیو انجمن. این صفحه موقتی است.
