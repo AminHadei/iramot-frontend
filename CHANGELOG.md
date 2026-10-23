@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.20
+
+### Patch Changes
+
+- Move publications to a news archive backed by a replaceable data source.
+
 ## 0.3.19
 
 ### Patch Changes
