@@ -841,6 +841,10 @@ body.single-post .site-header--search-has-value {
   }
 }
 
+.event-related {
+  margin-top: 56px;
+}
+
 .news-related__title {
   margin: 0 0 24px;
   font-family: IRANYekan, Tahoma, sans-serif;

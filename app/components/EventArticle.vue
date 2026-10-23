@@ -172,7 +172,7 @@ const hasDetails = computed(
     </article>
     <div
       v-if="event.related.length"
-      class="post-listing-list post-listing-list--no-qty-columns"
+      class="post-listing-list post-listing-list--no-qty-columns event-related"
     >
       <h2 class="news-related__title">{{ site.ui.eventRelated }}</h2>
       <div class="post-listing-list__list event-grid">
