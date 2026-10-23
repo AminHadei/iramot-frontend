@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.18
+
+### Patch Changes
+
+- Set the site type in IRANYekan.
+
 ## 0.3.17
 
 ### Patch Changes
