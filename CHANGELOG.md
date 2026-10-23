@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.29
+
+### Patch Changes
+
+- Give event photos a taller cover crop, and keep the program label on the logo placeholder.
+
 ## 0.3.28
 
 ### Patch Changes
