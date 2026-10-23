@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.17
+
+### Patch Changes
+
+- Show quarterly covers whole inside the project image frame.
+
 ## 0.3.16
 
 ### Patch Changes
