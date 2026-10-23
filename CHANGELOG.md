@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.32
+
+### Patch Changes
+
+- Tighten the about-page accordions, keep committee cards open, and use a paper mobile menu.
+
 ## 0.3.31
 
 ### Patch Changes
