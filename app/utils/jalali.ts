@@ -1,3 +1,5 @@
+import { persianDigits } from "~/utils/persianDate";
+
 function div(value: number, by: number) {
   return Math.trunc(value / by);
 }
@@ -103,6 +105,25 @@ export function jalaliMonthLength(year: number, month: number): number {
   const last = jalaliToIso(year, 12, 30);
   const next = jalaliToIso(year + 1, 1, 1);
   return last && last !== next ? 30 : 29;
+}
+
+export function formatJalaliField(
+  iso: string,
+  mode: "date" | "datetime" = "date",
+): string {
+  const parts = isoToJalali(iso);
+  if (!parts) return "";
+  const date = [
+    parts.year,
+    String(parts.month).padStart(2, "0"),
+    String(parts.day).padStart(2, "0"),
+  ]
+    .map((value) => persianDigits(value))
+    .join("/");
+  if (mode !== "datetime") return date;
+  const match = /T(\d{2}):(\d{2})/.exec(iso);
+  if (!match) return date;
+  return `${date} ${persianDigits(match[1] ?? "00")}:${persianDigits(match[2] ?? "00")}`;
 }
 
 export function composeIsoDateTime(date: string, hour: number, minute: number): string {

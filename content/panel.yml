@@ -298,6 +298,10 @@ fields:
   nextMonth: ماه بعد
   hour: ساعت
   minute: دقیقه
+  year: سال
+  calendar: تقویم
+  today: امروز
+  clearDate: پاک کردن
 hints:
   mobile: رقم‌های فارسی پذیرفته می‌شوند.
   birthDate: "نمونه: ۱۳۷۰/۰۱/۱۵"

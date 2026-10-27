@@ -327,6 +327,10 @@ export type PanelFields = Bag<
   | "nextMonth"
   | "hour"
   | "minute"
+  | "year"
+  | "calendar"
+  | "today"
+  | "clearDate"
 >;
 
 export type PanelHints = Bag<"mobile" | "birthDate" | "password">;

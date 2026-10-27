@@ -10,6 +10,7 @@ import { readUser } from "../app/utils/authUser";
 import { sectionApiBase, sectionMode } from "../app/utils/contentSource";
 import {
   composeIsoDateTime,
+  formatJalaliField,
   isoToJalali,
   jalaliToIso,
   parseMemberDate,
@@ -210,6 +211,14 @@ assert.equal(safeNextPath("/panel/card"), "/panel/card");
 assert.equal(safeNextPath("https://evil.test"), "/panel");
 assert.equal(safeNextPath("//evil.test"), "/panel");
 
+assert.equal(formatJalaliField(jalaliToIso(1403, 1, 15) ?? ""), "۱۴۰۳/۰۱/۱۵");
+assert.equal(
+  formatJalaliField(
+    composeIsoDateTime(jalaliToIso(1403, 1, 15) ?? "", 8, 5),
+    "datetime",
+  ),
+  "۱۴۰۳/۰۱/۱۵ ۰۸:۰۵",
+);
 assert.equal(jalaliToIso(1404, 1, 1), "2025-03-21");
 assert.deepEqual(isoToJalali("2025-03-21"), { year: 1404, month: 1, day: 1 });
 assert.equal(composeIsoDateTime("2025-03-21", 8, 5), "2025-03-21T08:05:00.000Z");
