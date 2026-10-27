@@ -15,7 +15,7 @@ const error = ref("");
 
 async function load() {
   try {
-    const body = await auth.api().request<unknown>("/admin/payments", {
+    const body = await auth.api().request<unknown>("/admin/membership/payments", {
       query: { status: status.value },
     });
     const items = Array.isArray(body)
@@ -23,8 +23,8 @@ async function load() {
       : asPage<PaymentRecord>(body).items;
     rows.value = items.map((item) => ({
       id: recordId(item),
-      reference: item.reference || recordId(item),
-      amount: `${formatAmount(item.amount)} ${copy.fields.rial}`,
+      reference: item.refId || item.authority || recordId(item),
+      amount: `${formatAmount(item.finalAmount ?? item.amount)} ${copy.fields.toman}`,
       status: copy.status[item.status] ?? item.status,
     }));
   } catch {
@@ -54,6 +54,7 @@ onMounted(load);
           { value: 'success', label: copy.status.success },
           { value: 'failed', label: copy.status.failed },
           { value: 'pending', label: copy.status.pending },
+          { value: 'cancelled', label: copy.status.cancelled },
         ]"
       />
       <button class="button" type="submit">{{ copy.actions.filter }}</button>

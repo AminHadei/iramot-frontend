@@ -35,7 +35,7 @@ export function createApiSiteRepository(
   return {
     async get() {
       if (!root) return null;
-      const site = await fetchJsonOrNull<SiteContent>(`${root}/settings`);
+      const site = await fetchJsonOrNull<SiteContent>(`${root}/site`);
       return site ? rewriteMediaTree(site, media) : null;
     },
   };

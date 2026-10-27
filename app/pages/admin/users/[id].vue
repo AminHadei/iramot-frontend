@@ -18,9 +18,10 @@ onMounted(async () => {
   try {
     user.value = await auth
       .api()
-      .request<AdminUser>(`/admin/users/${encodeURIComponent(id.value)}`);
+      .request<AdminUser>(`/users/${encodeURIComponent(id.value)}`);
     role.value = user.value.role || "user";
-    active.value = user.value.active === false ? "false" : "true";
+    active.value =
+      user.value.isActive === false || user.value.active === false ? "false" : "true";
   } catch {
     error.value = copy.validation.request;
   }
@@ -29,12 +30,15 @@ onMounted(async () => {
 async function save() {
   error.value = "";
   try {
-    user.value = await auth
-      .api()
-      .request<AdminUser>(`/admin/users/${encodeURIComponent(id.value)}`, {
-        method: "PATCH",
-        body: { role: role.value, active: active.value === "true" },
-      });
+    const userId = encodeURIComponent(id.value);
+    await auth.api().request(`/users/${userId}/role`, {
+      method: "PATCH",
+      body: { role: role.value },
+    });
+    user.value = await auth.api().request<AdminUser>(`/users/${userId}/status`, {
+      method: "PATCH",
+      body: { isActive: active.value === "true" },
+    });
     message.value = copy.actions.save;
   } catch (reason) {
     error.value = isApiError(reason)

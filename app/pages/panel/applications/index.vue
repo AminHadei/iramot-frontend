@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import type { MembershipApplication } from "~/types/membership";
 import { asPage } from "~/utils/pageResult";
-import { formatAmount, recordId } from "~/utils/money";
+import { recordId } from "~/utils/money";
+import { loadPlans, planTitle } from "~/utils/membershipRead";
 
 definePageMeta({ layout: "panel", middleware: "auth" });
 
@@ -12,15 +13,17 @@ const error = ref("");
 
 onMounted(async () => {
   try {
-    const body = await auth.api().request<unknown>("/membership/applications");
+    const [body, plans] = await Promise.all([
+      auth.api().request<unknown>("/membership-applications/my"),
+      loadPlans(auth.api()).catch(() => []),
+    ]);
     const items = Array.isArray(body)
       ? (body as MembershipApplication[])
       : asPage<MembershipApplication>(body).items;
     rows.value = items.map((item) => ({
       id: recordId(item),
-      plan: item.planTitle || item.planId,
+      plan: planTitle(plans, item.planId, item.planTitle),
       status: copy.status[item.status] ?? item.status,
-      price: formatAmount(item.finalPrice ?? item.price),
       href: `/panel/applications/${recordId(item)}`,
     }));
   } catch {
@@ -39,7 +42,6 @@ onMounted(async () => {
       :columns="[
         { key: 'plan', label: copy.fields.plan },
         { key: 'status', label: copy.fields.status },
-        { key: 'price', label: copy.fields.price },
         { key: 'open', label: copy.actions.edit },
       ]"
       :rows="rows"

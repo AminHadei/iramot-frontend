@@ -10,11 +10,14 @@ const creating = computed(() => props.codeId === "new");
 const form = reactive({
   code: "",
   type: "percent",
-  amount: "",
+  value: "",
+  maxDiscount: "",
   active: "true",
-  expiresAt: "",
-  maxUses: "",
-  planIds: "",
+  validFrom: "",
+  validUntil: "",
+  totalUsageLimit: "",
+  perUserLimit: "",
+  allowedPlans: "",
 });
 const error = ref("");
 const message = ref("");
@@ -23,25 +26,32 @@ onMounted(async () => {
   if (creating.value) return;
   const item = await auth
     .api()
-    .request<DiscountCode>(`/admin/discount-codes/${encodeURIComponent(props.codeId)}`);
+    .request<DiscountCode>(`/discount-codes/${encodeURIComponent(props.codeId)}`);
   form.code = item.code;
   form.type = item.type || "percent";
-  form.amount = String(item.amount ?? "");
-  form.active = item.active ? "true" : "false";
-  form.expiresAt = item.expiresAt ?? "";
-  form.maxUses = item.maxUses == null ? "" : String(item.maxUses);
-  form.planIds = (item.planIds ?? []).join(",");
+  form.value = String(item.value ?? "");
+  form.maxDiscount = item.maxDiscount == null ? "" : String(item.maxDiscount);
+  form.active = item.isActive ? "true" : "false";
+  form.validFrom = item.validFrom ? String(item.validFrom).slice(0, 10) : "";
+  form.validUntil = item.validUntil ? String(item.validUntil).slice(0, 10) : "";
+  form.totalUsageLimit =
+    item.totalUsageLimit == null ? "" : String(item.totalUsageLimit);
+  form.perUserLimit = item.perUserLimit == null ? "" : String(item.perUserLimit);
+  form.allowedPlans = (item.allowedPlans ?? []).join(",");
 });
 
 function payload() {
   return {
     code: form.code.trim(),
     type: form.type,
-    amount: Number(form.amount),
-    active: form.active === "true",
-    expiresAt: form.expiresAt || null,
-    maxUses: form.maxUses ? Number(form.maxUses) : null,
-    planIds: form.planIds
+    value: Number(form.value),
+    maxDiscount: form.maxDiscount ? Number(form.maxDiscount) : undefined,
+    isActive: form.active === "true",
+    validFrom: form.validFrom || undefined,
+    validUntil: form.validUntil || undefined,
+    totalUsageLimit: form.totalUsageLimit ? Number(form.totalUsageLimit) : undefined,
+    perUserLimit: form.perUserLimit ? Number(form.perUserLimit) : undefined,
+    allowedPlans: form.allowedPlans
       .split(",")
       .map((item) => item.trim())
       .filter(Boolean),
@@ -52,18 +62,16 @@ async function save() {
   error.value = "";
   try {
     if (creating.value) {
-      const created = await auth.api().request<DiscountCode>("/admin/discount-codes", {
+      const created = await auth.api().request<DiscountCode>("/discount-codes", {
         method: "POST",
         body: payload(),
       });
       await navigateTo(`/admin/discounts/${recordId(created)}`);
     } else {
-      await auth
-        .api()
-        .request(`/admin/discount-codes/${encodeURIComponent(props.codeId)}`, {
-          method: "PATCH",
-          body: payload(),
-        });
+      await auth.api().request(`/discount-codes/${encodeURIComponent(props.codeId)}`, {
+        method: "PUT",
+        body: payload(),
+      });
       message.value = copy.actions.save;
     }
   } catch (reason) {
@@ -75,11 +83,9 @@ async function save() {
 
 async function remove() {
   if (!window.confirm(copy.fields.deleteConfirm)) return;
-  await auth
-    .api()
-    .request(`/admin/discount-codes/${encodeURIComponent(props.codeId)}`, {
-      method: "DELETE",
-    });
+  await auth.api().request(`/discount-codes/${encodeURIComponent(props.codeId)}`, {
+    method: "DELETE",
+  });
   await navigateTo("/admin/discounts");
 }
 </script>
@@ -98,14 +104,28 @@ async function remove() {
         { value: 'fixed', label: copy.fields.fixed },
       ]"
     />
-    <AccountField v-model="form.amount" :label="copy.fields.amount" required />
     <AccountField
-      v-model="form.expiresAt"
-      :label="copy.fields.expiresAt"
-      :hint="copy.hints.birthDate"
+      v-model="form.value"
+      :label="
+        form.type === 'fixed'
+          ? `${copy.fields.amount} (${copy.fields.toman})`
+          : copy.fields.amount
+      "
+      required
     />
-    <AccountField v-model="form.maxUses" :label="copy.fields.maxUses" />
-    <AccountField v-model="form.planIds" :label="copy.fields.plan" />
+    <AccountField
+      v-model="form.maxDiscount"
+      :label="`${copy.fields.maxDiscount} (${copy.fields.toman})`"
+    />
+    <AccountField v-model="form.validFrom" :label="copy.fields.validFrom" type="date" />
+    <AccountField
+      v-model="form.validUntil"
+      :label="copy.fields.validUntil"
+      type="date"
+    />
+    <AccountField v-model="form.totalUsageLimit" :label="copy.fields.usageLimit" />
+    <AccountField v-model="form.perUserLimit" :label="copy.fields.perUserLimit" />
+    <AccountField v-model="form.allowedPlans" :label="copy.fields.plan" />
     <AccountSelect
       v-model="form.active"
       :label="copy.fields.active"

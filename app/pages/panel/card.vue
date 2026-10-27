@@ -1,5 +1,7 @@
 <script setup lang="ts">
+import type { MembershipApplication } from "~/types/membership";
 import { isApiError } from "~/utils/apiError";
+import { recordId } from "~/utils/money";
 
 definePageMeta({ layout: "panel", middleware: "auth" });
 
@@ -12,11 +14,25 @@ async function download() {
   error.value = "";
   pending.value = true;
   try {
-    const blob = await auth.api().request<Blob>("/membership/card", { raw: true });
+    const membership = await auth
+      .api()
+      .request<MembershipApplication | null>(
+        "/membership-applications/my/active-membership",
+      );
+    const id = membership ? recordId(membership) : "";
+    if (!id || membership?.status !== "approved") {
+      error.value = copy.fields.noMembership;
+      return;
+    }
+    const blob = await auth
+      .api()
+      .request<Blob>(`/membership-card/${encodeURIComponent(id)}`, {
+        raw: true,
+      });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.download = "membership-card.png";
+    link.download = `membership-card-${membership?.membershipNumber || id}.png`;
     link.click();
     URL.revokeObjectURL(url);
   } catch (reason) {

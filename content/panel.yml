@@ -114,6 +114,8 @@ validation:
 status:
   draft: پیش‌نویس
   pending: در انتظار بررسی
+  pending_payment: در انتظار پرداخت
+  pending_review: در انتظار بررسی
   approved: تأییدشده
   rejected: ردشده
   paid: پرداخت‌شده
@@ -122,6 +124,7 @@ status:
   inactive: غیرفعال
   success: موفق
   failed: ناموفق
+  cancelled: لغوشده
   published: منتشرشده
   unknown: نامشخص
 auth:
@@ -155,6 +158,7 @@ fields:
   name: نام
   price: مبلغ
   durationDays: مدت به روز
+  durationMonths: مدت به ماه
   benefits: مزایا
   requiredDocuments: مدارک لازم
   active: فعال
@@ -201,8 +205,10 @@ fields:
   finalPrice: مبلغ قابل پرداخت
   benefitsLabel: مزایا
   documents: مدارک
-  rial: ریال
+  rial: تومان
+  toman: تومان
   day: روز
+  month: ماه
   percent: درصد
   fixed: مبلغ ثابت
   user: کاربر
@@ -226,7 +232,7 @@ fields:
   choosePlan: یک طرح را انتخاب کنید.
   preview: پیش‌نمایش
   fileName: نام پرونده
-  maxSize: حداکثر حجم هر پرونده ۸ مگابایت است.
+  maxSize: حداکثر حجم هر پرونده ۱۰ مگابایت است.
   returnSuccess: پرداخت ثبت شد. درخواست شما در صف بررسی است.
   returnFailed: پرداخت انجام نشد. می‌توانید دوباره تلاش کنید.
   returnUnknown: وضعیت پرداخت هنوز مشخص نیست.
@@ -246,58 +252,94 @@ fields:
   createdAt: تاریخ
   amountLabel: مبلغ
   none: —
+  educationStatus: وضعیت تحصیلی
+  companyName: نام شرکت
+  fieldOfActivity: زمینهٔ فعالیت
+  companyPhone: تلفن شرکت
+  ceoFullName: نام مدیرعامل
+  representativeName: نام نماینده
+  representativePosition: سمت نماینده
+  representativePhone: تلفن نماینده
+  category: دسته
+  sortOrder: ترتیب
+  maxDiscount: سقف تخفیف
+  validFrom: شروع اعتبار
+  validUntil: پایان اعتبار
+  usageLimit: سقف استفاده
+  perUserLimit: سقف هر کاربر
+  discountAmount: مقدار تخفیف
+  membershipNumber: شمارهٔ عضویت
+  revenue: درآمد
+  successfulPayments: پرداخت‌های موفق
+  rebuildDisabled: ساخت سایت پیکربندی نشده است.
+  mastersGraduate: دانش‌آموختهٔ کارشناسی ارشد
+  phdStudent: دانشجوی دکتری
+  phdGraduate: دانش‌آموختهٔ دکتری
+  studyTechnology: مدیریت فناوری
+  studyPolicy: سیاست‌گذاری علم و فناوری
+  studyEntrepreneurship: کارآفرینی
+  studyFutures: آینده‌پژوهی
+  studyOther: سایر رشته‌های مرتبط
+  categoryRegular: پیوسته
+  categoryAssociate: وابسته
+  categoryStudent: دانشجویی
+  categoryLegal: حقوقی
+  categoryHonorary: افتخاری
+  seoTitle: عنوان سئو
+  seoDescription: توضیح سئو
+  seoImage: تصویر سئو
+  publishedAt: تاریخ انتشار
 hints:
   mobile: رقم‌های فارسی پذیرفته می‌شوند.
   birthDate: "نمونه: ۱۳۷۰/۰۱/۱۵"
   password: دست‌کم ۸ نویسه، با حرف و عدد.
 documents:
   natural:
-    - key: photo
+    - key: personnel_photo
       label: تصویر پرسنلی
       accept: image/jpeg,image/png,image/webp
       required: true
-    - key: nationalCard
-      label: تصویر کارت ملی
+    - key: latest_degree
+      label: آخرین مدرک تحصیلی
       accept: image/jpeg,image/png,image/webp,application/pdf
       required: true
-    - key: degree
-      label: مدرک تحصیلی
-      accept: image/jpeg,image/png,image/webp,application/pdf
+    - key: student_card
+      label: کارت دانشجویی
+      accept: image/jpeg,image/png,image/webp
       required: false
     - key: resume
       label: رزومه
-      accept: application/pdf
+      accept: application/pdf,image/jpeg,image/png,image/webp
       required: false
   legal:
-    - key: logo
+    - key: company_logo
       label: نشان سازمان
-      accept: image/jpeg,image/png,image/webp,image/svg+xml
+      accept: image/jpeg,image/png,image/webp
       required: false
-    - key: registration
-      label: آگهی تأسیس
-      accept: application/pdf,image/jpeg,image/png
+    - key: personnel_photo
+      label: تصویر پرسنلی نماینده
+      accept: image/jpeg,image/png,image/webp
       required: true
-    - key: newspaper
-      label: روزنامهٔ رسمی
-      accept: application/pdf
-      required: true
-    - key: introduction
-      label: معرفی‌نامهٔ نماینده
-      accept: application/pdf,image/jpeg,image/png
-      required: true
+    - key: resume
+      label: رزومه
+      accept: application/pdf,image/jpeg,image/png,image/webp
+      required: false
 contentTypes:
   news: اخبار
-  events: رویدادها
-  opportunities: فرصت‌ها
-  partners: همراهان
-  quarterlies: فصلنامه‌ها
-  terms: واژه‌ها
-  workgroups: کارگروه‌ها
-  projects: پروژه‌ها
-  areas: حوزه‌ها
+  news-category: دسته‌های خبر
+  news-tag: برچسب‌های خبر
+  event: رویدادها
+  opportunity: فرصت‌ها
+  quarterly: فصلنامه‌ها
+  partner: همراهان
+  workgroup: کارگروه‌ها
+  term: واژه‌ها
+  term-source: منابع واژه‌ها
+  project: پروژه‌ها
+  area: حوزه‌ها
   research: پژوهش
-  guides: راهنماها
-  pages: برگه‌ها
+  guide: راهنماها
+  page: برگه‌ها
   settings: تنظیمات سایت
   home: خانه
   about: درباره

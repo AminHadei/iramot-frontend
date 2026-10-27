@@ -12,15 +12,15 @@ const error = ref("");
 
 onMounted(async () => {
   try {
-    const body = await auth.api().request<unknown>("/membership/payments");
+    const body = await auth.api().request<unknown>("/payments/my");
     const items = Array.isArray(body)
       ? (body as PaymentRecord[])
       : asPage<PaymentRecord>(body).items;
     rows.value = items.map((item) => ({
       id: recordId(item),
-      amount: `${formatAmount(item.amount)} ${copy.fields.rial}`,
+      amount: `${formatAmount(item.finalAmount ?? item.amount)} ${copy.fields.toman}`,
       status: copy.status[item.status] ?? item.status,
-      reference: item.reference || recordId(item),
+      reference: item.refId || item.authority || recordId(item),
     }));
   } catch {
     error.value = copy.validation.request;

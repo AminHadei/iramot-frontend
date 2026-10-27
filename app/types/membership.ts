@@ -1,4 +1,4 @@
-export type UserRole = "user" | "admin" | "member";
+export type UserRole = "user" | "admin";
 
 export interface AuthUser {
   id: string;
@@ -6,8 +6,10 @@ export interface AuthUser {
   lastName: string;
   mobile: string;
   email?: string | null;
+  nationalCode?: string | null;
   role: UserRole | string;
   active?: boolean;
+  isActive?: boolean;
 }
 
 export interface LoginInput {
@@ -22,16 +24,23 @@ export interface RegisterInput {
   password: string;
 }
 
+export type MembershipCategory =
+  "regular" | "associate" | "student" | "legal_entity" | "honorary";
+
+export type PersonType = "natural" | "legal";
+
 export interface MembershipPlan {
   id: string;
   title: string;
+  category: MembershipCategory | string;
+  personType: PersonType | string;
+  durationMonths: number;
   price: number;
-  durationDays: number;
   benefits: string[];
-  requiredDocuments: DocumentRequirement[];
-  active: boolean;
-  order: number;
   description?: string;
+  requiredDocuments: string[];
+  isActive: boolean;
+  sortOrder: number;
 }
 
 export interface DocumentRequirement {
@@ -39,143 +48,140 @@ export interface DocumentRequirement {
   label: string;
   accept?: string;
   required?: boolean;
-  maxMb?: number;
 }
 
-export type PersonType = "natural" | "legal";
+export type EducationStatus =
+  "masters_graduate" | "phd_student" | "phd_graduate" | "other";
 
-export interface NaturalApplication {
-  firstName: string;
-  lastName: string;
-  fatherName: string;
-  nationalCode: string;
-  birthDate: string;
-  gender: string;
-  mobile: string;
-  email: string;
-  phone: string;
-  educationLevel: string;
-  fieldOfStudy: string;
-  university: string;
-  jobTitle: string;
-  organization: string;
-  province: string;
-  city: string;
-  address: string;
-  postalCode: string;
+export type FieldOfStudy =
+  | "technology_management"
+  | "science_technology_policy"
+  | "entrepreneurship"
+  | "futures_studies"
+  | "other_related";
+
+export type DocumentType =
+  "personnel_photo" | "latest_degree" | "student_card" | "resume" | "company_logo";
+
+export interface ApplicationFields {
+  educationStatus?: EducationStatus | string;
+  fieldOfStudy?: FieldOfStudy | string;
+  firstName?: string;
+  lastName?: string;
+  phone?: string;
+  nationalCode?: string;
+  fatherName?: string;
+  birthDate?: string;
+  email?: string;
+  university?: string;
+  address?: string;
+  postalCode?: string;
+  companyName?: string;
+  fieldOfActivity?: string;
+  companyPhone?: string;
+  nationalId?: string;
+  ceoFullName?: string;
+  representativeName?: string;
+  representativePosition?: string;
+  representativePhone?: string;
 }
 
-export interface LegalApplication {
-  organizationName: string;
-  organizationType: string;
-  nationalId: string;
-  registrationNumber: string;
-  economicCode: string;
-  establishedAt: string;
-  ceoName: string;
-  representativeFirstName: string;
-  representativeLastName: string;
-  representativeNationalCode: string;
-  representativeRole: string;
-  representativeMobile: string;
-  email: string;
-  phone: string;
-  website: string;
-  activity: string;
-  province: string;
-  city: string;
-  address: string;
-  postalCode: string;
-}
-
-export interface MembershipDocument {
-  id?: string;
-  key: string;
-  name: string;
-  url: string;
-  contentType?: string;
+export interface ApplicationDocument {
+  fileId: string;
+  uploadedAt?: string;
 }
 
 export type ApplicationStatus =
-  "draft" | "pending" | "approved" | "rejected" | "paid" | "expired";
+  "draft" | "pending_payment" | "pending_review" | "approved" | "rejected";
 
-export interface MembershipApplication {
+export interface MembershipApplication extends ApplicationFields {
   id: string;
+  userId?: string;
   planId: string;
   planTitle?: string;
-  personType: PersonType;
   status: ApplicationStatus | string;
-  price?: number;
-  discountCode?: string | null;
-  finalPrice?: number;
+  membershipState?: "active" | "expired";
+  documents?: Record<string, ApplicationDocument>;
+  membershipNumber?: string;
+  approvedAt?: string;
+  expiresAt?: string;
   rejectionReason?: string | null;
-  natural?: Partial<NaturalApplication> | null;
-  legal?: Partial<LegalApplication> | null;
-  documents?: MembershipDocument[];
   createdAt?: string;
   updatedAt?: string;
 }
 
 export interface DiscountQuote {
   valid: boolean;
-  code?: string;
-  amount?: number;
+  discountCodeId?: string;
+  discountAmount?: number;
   finalPrice?: number;
   message?: string;
 }
 
+export type PaymentStatus = "pending" | "success" | "failed" | "cancelled";
+
 export interface PaymentRecord {
   id: string;
+  userId?: string;
   applicationId?: string;
   amount: number;
-  status: string;
+  discountAmount?: number;
+  finalAmount?: number;
+  status: PaymentStatus | string;
+  authority?: string;
+  refId?: string;
+  verifiedAt?: string;
   createdAt?: string;
-  reference?: string;
 }
 
-export interface MembershipCardInfo {
-  status: string;
-  expiresAt?: string | null;
-  planTitle?: string | null;
-  memberCode?: string | null;
+export interface PaymentStart {
+  paymentId: string;
+  redirectUrl: string;
+  authority: string;
 }
 
 export interface AdminStats {
-  users?: number;
-  applications?: number;
-  pendingApplications?: number;
-  memberships?: number;
-  payments?: number;
+  applicationsByStatus?: Record<string, number>;
   revenue?: number;
+  successfulPayments?: number;
 }
+
+export type DiscountType = "percent" | "fixed";
 
 export interface DiscountCode {
   id: string;
   code: string;
-  type: "percent" | "fixed" | string;
-  amount: number;
-  active: boolean;
-  expiresAt?: string | null;
-  maxUses?: number | null;
-  usedCount?: number;
-  planIds?: string[];
+  type: DiscountType | string;
+  value: number;
+  maxDiscount?: number;
+  validFrom?: string | null;
+  validUntil?: string | null;
+  totalUsageLimit?: number | null;
+  usageCount?: number;
+  perUserLimit?: number | null;
+  allowedPlans?: string[];
+  isActive: boolean;
 }
 
 export interface AdminUser extends AuthUser {
   createdAt?: string;
 }
 
+export interface ContentSeo {
+  title?: string;
+  description?: string;
+  image?: string;
+}
+
 export interface ContentRecord {
   id?: string;
-  title?: string;
   slug?: string;
-  excerpt?: string;
-  body?: string;
-  contentHtml?: string;
-  bodyHtml?: string;
-  date?: string;
+  publicId?: string;
   status?: string;
-  order?: number;
-  image?: string;
+  publishedAt?: string;
+  sortOrder?: number;
+  seo?: ContentSeo;
+  payload?: Record<string, unknown>;
+  title?: string;
   [key: string]: unknown;
 }

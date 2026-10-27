@@ -5,6 +5,7 @@ import {
   readTokens,
 } from "../app/utils/apiClient";
 import { createAuthController } from "../app/utils/authController";
+import { readUser } from "../app/utils/authUser";
 import { sectionApiBase, sectionMode } from "../app/utils/contentSource";
 import { jalaliToIso, parseMemberDate } from "../app/utils/jalali";
 import { resolveContentFile } from "../app/utils/mediaUrl";
@@ -105,6 +106,7 @@ await assert.rejects(() =>
 );
 assert.equal(login.hits.get("/auth/refresh"), undefined);
 
+let logoutInit: RequestInit | undefined;
 const session = install((url, init) => {
   const path = new URL(url).pathname;
   if (path === "/auth/login") {
@@ -119,6 +121,16 @@ const session = install((url, init) => {
       },
     });
   }
+  if (path === "/users/me" && (init?.method ?? "GET") === "PUT") {
+    return json(200, {
+      id: "u1",
+      mobile: "09120000000",
+      role: "admin",
+      firstName: "C",
+      lastName: "B",
+      isActive: true,
+    });
+  }
   if (path === "/users/me") {
     return json(200, {
       id: "u1",
@@ -128,7 +140,10 @@ const session = install((url, init) => {
       lastName: "B",
     });
   }
-  if (path === "/auth/logout") return json(204, null);
+  if (path === "/auth/logout") {
+    logoutInit = init;
+    return json(204, null);
+  }
   if (path === "/auth/refresh")
     return json(200, { accessToken: "access-3", refreshToken: "refresh-3" });
   return json(200, { path, method: init?.method ?? "GET" });
@@ -137,9 +152,14 @@ const auth = createAuthController(session.client);
 const user = await auth.login({ mobile: "09120000000", password: "secret1" });
 assert.equal(user.role, "admin");
 assert.equal(session.store.getAccess(), "access-1");
+const updated = await auth.updateProfile({ firstName: "C" });
+assert.equal(updated.firstName, "C");
 await auth.logout();
 assert.equal(session.store.getRefresh(), null);
 assert.equal(auth.user(), null);
+const logoutHeaders = new Headers(logoutInit?.headers);
+assert.equal(logoutHeaders.get("authorization"), "Bearer access-1");
+assert.equal(JSON.parse(String(logoutInit?.body)).refreshToken, "refresh-1");
 
 const restored = install((url) => {
   const path = new URL(url).pathname;
@@ -202,6 +222,24 @@ assert.equal(
     siteBase: "/irmot/",
   }),
   "/irmot/media/news/a.webp",
+);
+assert.equal(
+  resolveContentFile("/media/files/card.png", {
+    apiBase: "https://api.example.test/api",
+    siteBase: "/irmot/",
+  }),
+  "https://api.example.test/media/files/card.png",
+);
+assert.equal(
+  readUser({
+    id: "u3",
+    mobile: "09120000000",
+    firstName: "A",
+    lastName: "B",
+    role: "user",
+    isActive: false,
+  })?.active,
+  false,
 );
 
 assert.equal(sectionMode({}, "news"), "json");

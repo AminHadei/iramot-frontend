@@ -27,10 +27,8 @@ async function submit() {
       method: "POST",
       body: { currentPassword: form.currentPassword, newPassword: form.newPassword },
     });
-    message.value = copy.auth.resetDone;
-    form.currentPassword = "";
-    form.newPassword = "";
-    form.confirm = "";
+    await auth.logout();
+    await navigateTo("/auth/login");
   } catch (error) {
     formError.value = isApiError(error)
       ? messageOf(error.payload) || copy.validation.request

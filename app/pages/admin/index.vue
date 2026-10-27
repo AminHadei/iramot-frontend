@@ -14,7 +14,7 @@ const pending = ref(false);
 
 onMounted(async () => {
   try {
-    stats.value = await auth.api().request<AdminStats>("/admin/stats");
+    stats.value = await auth.api().request<AdminStats>("/admin/membership/stats");
   } catch {
     error.value = copy.validation.request;
   }
@@ -24,8 +24,16 @@ async function publish() {
   pending.value = true;
   rebuild.value = copy.fields.rebuildPending;
   try {
-    await auth.api().request("/admin/rebuild", { method: "POST", body: {} });
-    rebuild.value = copy.fields.rebuildOk;
+    const result = await auth
+      .api()
+      .request<{ enabled?: boolean; triggered?: boolean }>("/admin/rebuild", {
+        method: "POST",
+        body: {},
+      });
+    rebuild.value =
+      result.enabled === false || result.triggered === false
+        ? copy.fields.rebuildDisabled
+        : copy.fields.rebuildOk;
   } catch (reason) {
     rebuild.value = isApiError(reason)
       ? messageOf(reason.payload) || copy.fields.rebuildError
@@ -35,12 +43,16 @@ async function publish() {
   }
 }
 
+const byStatus = computed(() => stats.value?.applicationsByStatus ?? {});
+const applicationTotal = computed(() =>
+  Object.values(byStatus.value).reduce((sum, count) => sum + Number(count || 0), 0),
+);
+
 const cards = computed(() => [
-  [copy.adminNav.users, stats.value?.users],
-  [copy.adminNav.queue, stats.value?.pendingApplications],
-  [copy.fields.applications ?? copy.adminNav.applications, stats.value?.applications],
-  [copy.adminNav.memberships, stats.value?.memberships],
-  [copy.adminNav.payments, stats.value?.payments],
+  [copy.status.pending_review, byStatus.value.pending_review],
+  [copy.status.approved, byStatus.value.approved],
+  [copy.adminNav.applications, applicationTotal.value],
+  [copy.fields.successfulPayments, stats.value?.successfulPayments],
 ]);
 </script>
 
@@ -57,8 +69,8 @@ const cards = computed(() => [
       </li>
     </ul>
     <p v-if="stats?.revenue !== undefined" class="mt-4">
-      {{ copy.fields.amountLabel }}: {{ formatAmount(stats.revenue) }}
-      {{ copy.fields.rial }}
+      {{ copy.fields.revenue }}: {{ formatAmount(stats.revenue) }}
+      {{ copy.fields.toman }}
     </p>
     <button
       type="button"

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { MembershipPlan } from "~/types/membership";
-import { asPage } from "~/utils/pageResult";
 import { formatAmount } from "~/utils/money";
+import { loadPlans } from "~/utils/membershipRead";
 
 definePageMeta({ layout: "panel", middleware: "auth" });
 
@@ -17,13 +17,8 @@ function toneOf(index: number): 0 | 1 | 2 {
 
 onMounted(async () => {
   try {
-    const body = await auth.api().request<unknown>("/membership/plans");
-    const items = Array.isArray(body)
-      ? (body as MembershipPlan[])
-      : asPage<MembershipPlan>(body).items;
-    plans.value = items
-      .filter((plan) => plan.active !== false)
-      .sort((left, right) => (left.order ?? 0) - (right.order ?? 0));
+    const items = await loadPlans(auth.api(), true);
+    plans.value = items.filter((plan) => plan.isActive !== false);
   } catch {
     error.value = copy.validation.request;
   }
@@ -42,12 +37,12 @@ onMounted(async () => {
         :name="plan.title"
         :description="(plan.benefits || []).join(' · ')"
         :tone="toneOf(index)"
-        :external-label="copy.fields.rial"
+        :external-label="copy.fields.toman"
       >
         <template #meta>
           <p>
-            {{ formatAmount(plan.price) }} {{ copy.fields.rial }} ·
-            {{ formatAmount(plan.durationDays) }} {{ copy.fields.day }}
+            {{ formatAmount(plan.price) }} {{ copy.fields.toman }} ·
+            {{ formatAmount(plan.durationMonths) }} {{ copy.fields.month }}
           </p>
         </template>
         <template #foot>

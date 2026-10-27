@@ -12,7 +12,7 @@ const error = ref("");
 
 onMounted(async () => {
   try {
-    const body = await auth.api().request<unknown>("/admin/discount-codes");
+    const body = await auth.api().request<unknown>("/discount-codes");
     const items = Array.isArray(body)
       ? (body as DiscountCode[])
       : asPage<DiscountCode>(body).items;
@@ -20,8 +20,11 @@ onMounted(async () => {
       id: recordId(item),
       code: item.code,
       type: item.type === "percent" ? copy.fields.percent : copy.fields.fixed,
-      amount: formatAmount(item.amount),
-      active: item.active ? copy.fields.yes : copy.fields.no,
+      amount:
+        item.type === "percent"
+          ? formatAmount(item.value)
+          : `${formatAmount(item.value)} ${copy.fields.toman}`,
+      active: item.isActive ? copy.fields.yes : copy.fields.no,
       href: `/admin/discounts/${recordId(item)}`,
     }));
   } catch {

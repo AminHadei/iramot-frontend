@@ -67,7 +67,7 @@ async function reset() {
       body: {
         mobile: normalizeIranMobile(mobile.value),
         otp: englishDigits(otp.value).trim(),
-        password: password.value,
+        newPassword: password.value,
       },
     });
     step.value = "done";

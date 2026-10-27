@@ -20,18 +20,26 @@ async function loadList() {
   const current = config.value;
   if (!current || current.singleton) return;
   const body = await auth.api().request<unknown>(current.path, {
-    query: { status: status.value, q: q.value },
+    query: { status: status.value, search: q.value },
   });
   const items = Array.isArray(body)
     ? (body as ContentRecord[])
     : asPage<ContentRecord>(body).items;
-  rows.value = items.map((item) => ({
-    id: recordId(item),
-    title: String(item.title ?? item.slug ?? recordId(item)),
-    status: copy.status[String(item.status ?? "")] ?? String(item.status ?? ""),
-    order: String(item.order ?? ""),
-    href: `/admin/content/${type.value}/${recordId(item) || "edit"}`,
-  }));
+  rows.value = items.map((item) => {
+    const payload =
+      item.payload && typeof item.payload === "object"
+        ? (item.payload as Record<string, unknown>)
+        : {};
+    return {
+      id: recordId(item),
+      title: String(
+        payload.title ?? payload.name ?? item.title ?? item.slug ?? recordId(item),
+      ),
+      status: copy.status[String(item.status ?? "")] ?? String(item.status ?? ""),
+      order: String(item.sortOrder ?? ""),
+      href: `/admin/content/${type.value}/${recordId(item) || "edit"}`,
+    };
+  });
 }
 
 onMounted(async () => {

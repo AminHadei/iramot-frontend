@@ -15,7 +15,7 @@ export function createApiPageRepository(
   return {
     async get(id: number) {
       if (!root) return null;
-      const record = await fetchJsonOrNull<ArchiveItem>(`${root}/pages/${id}`);
+      const record = await fetchJsonOrNull<ArchiveItem>(`${root}/pages/by-id/${id}`);
       if (!record) return null;
       return {
         ...record,

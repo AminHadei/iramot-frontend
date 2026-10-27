@@ -21,8 +21,20 @@ export function readUser(body: unknown): AuthUser | null {
     lastName: text(source.lastName ?? source.last_name),
     mobile,
     email: text(source.email) || null,
+    nationalCode: text(source.nationalCode) || null,
     role,
-    active: source.active === undefined ? true : Boolean(source.active),
+    isActive:
+      source.isActive === undefined
+        ? source.active === undefined
+          ? true
+          : Boolean(source.active)
+        : Boolean(source.isActive),
+    active:
+      source.isActive === undefined
+        ? source.active === undefined
+          ? true
+          : Boolean(source.active)
+        : Boolean(source.isActive),
   };
 }
 

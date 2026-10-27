@@ -27,29 +27,52 @@ function textValue(value: unknown): string {
   return JSON.stringify(value, null, 2);
 }
 
+function recordOf(value: unknown): Record<string, unknown> {
+  return value && typeof value === "object" ? (value as Record<string, unknown>) : {};
+}
+
 function fill(record: ContentRecord) {
   const current = config.value;
   if (!current) return;
-  const body = record.body ?? record.contentHtml ?? record.bodyHtml ?? "";
+  const payload = recordOf(record.payload);
+  const source = Object.keys(payload).length ? payload : recordOf(record);
+  const seo = recordOf(record.seo);
   for (const field of current.fields) {
-    if (field.key === "body") values[field.key] = textValue(body);
-    else if (field.key === "document") values[field.key] = "";
-    else values[field.key] = textValue(record[field.key]);
+    if (field.key === "document") continue;
+    if (field.key === "body") {
+      values.body = textValue(
+        source.contentHtml ?? source.bodyHtml ?? source.body ?? "",
+      );
+      continue;
+    }
+    if (field.key === "image" && source.image && typeof source.image === "object") {
+      const image = source.image as { url?: unknown };
+      values.image = typeof image.url === "string" ? image.url : "";
+      continue;
+    }
+    if (field.scope === "meta") {
+      values[field.key] = textValue(record[field.key]);
+      continue;
+    }
+    if (field.scope === "seo") {
+      const seoKey =
+        field.key === "seoTitle"
+          ? "title"
+          : field.key === "seoDescription"
+            ? "description"
+            : "image";
+      values[field.key] = textValue(seo[seoKey]);
+      continue;
+    }
+    values[field.key] = textValue(source[field.key]);
   }
   if (known.value.has("document")) {
     const extra: Record<string, unknown> = {};
-    for (const [key, value] of Object.entries(record)) {
-      if (
-        !known.value.has(key) &&
-        key !== "id" &&
-        key !== "_id" &&
-        key !== "contentHtml" &&
-        key !== "bodyHtml"
-      ) {
-        extra[key] = value;
-      }
+    for (const [key, value] of Object.entries(source)) {
+      if (key === "contentHtml" || key === "bodyHtml" || key === "body") continue;
+      if (!known.value.has(key)) extra[key] = value;
     }
-    values.document = JSON.stringify(extra, null, 2);
+    values.document = Object.keys(extra).length ? JSON.stringify(extra, null, 2) : "";
   }
 }
 
@@ -57,8 +80,9 @@ onMounted(async () => {
   const current = config.value;
   if (!current) return;
   if (props.itemId === "new") {
-    for (const field of current.fields)
+    for (const field of current.fields) {
       values[field.key] = field.kind === "status" ? "draft" : "";
+    }
     return;
   }
   try {
@@ -71,24 +95,59 @@ onMounted(async () => {
   }
 });
 
-function payload() {
+function payloadBody() {
   const current = config.value;
-  const result: Record<string, unknown> = {};
-  if (values.document) {
-    Object.assign(result, JSON.parse(values.document) as Record<string, unknown>);
+  const payload: Record<string, unknown> = {};
+  if (props.type === "news") {
+    payload.categories = [];
+    payload.tags = [];
+    payload.feed = false;
   }
+  if (values.document) {
+    Object.assign(payload, JSON.parse(values.document) as Record<string, unknown>);
+  }
+  const seo: Record<string, string> = {};
+  const meta: Record<string, unknown> = {};
   for (const field of current?.fields ?? []) {
     if (field.key === "document") continue;
     const raw = values[field.key] ?? "";
-    if (field.kind === "number") result[field.key] = raw === "" ? null : Number(raw);
-    else if (field.kind === "boolean") result[field.key] = raw === "true";
-    else result[field.key] = raw;
+    if (field.scope === "meta") {
+      if (field.kind === "number")
+        meta[field.key] = raw === "" ? undefined : Number(raw);
+      else if (raw) meta[field.key] = raw;
+      continue;
+    }
+    if (field.scope === "seo") {
+      if (!raw) continue;
+      const seoKey =
+        field.key === "seoTitle"
+          ? "title"
+          : field.key === "seoDescription"
+            ? "description"
+            : "image";
+      seo[seoKey] = raw;
+      continue;
+    }
+    if (field.key === "body") {
+      payload.contentHtml = raw;
+      continue;
+    }
+    if (field.key === "image" && raw && props.type === "news") {
+      payload.image = { url: raw, width: 0, height: 0, alt: "" };
+      continue;
+    }
+    if (field.kind === "number") payload[field.key] = raw === "" ? null : Number(raw);
+    else if (field.kind === "boolean") payload[field.key] = raw === "true";
+    else if (raw !== "") payload[field.key] = raw;
   }
-  if (typeof result.body === "string") {
-    result.contentHtml = result.body;
-    result.bodyHtml = result.body;
+  if (current?.singleton) {
+    return { status: meta.status ?? values.status ?? "draft", payload };
   }
-  return result;
+  return {
+    ...meta,
+    seo: Object.keys(seo).length ? seo : undefined,
+    payload,
+  };
 }
 
 async function upload(key: string, file: File) {
@@ -122,7 +181,7 @@ async function save() {
     return;
   }
   try {
-    const body = payload();
+    const body = payloadBody();
     if (current.singleton) {
       await auth.api().request(current.path, { method: "PUT", body });
     } else if (!props.itemId || props.itemId === "new") {
@@ -133,7 +192,7 @@ async function save() {
       return;
     } else {
       await auth.api().request(`${current.path}/${encodeURIComponent(props.itemId)}`, {
-        method: "PATCH",
+        method: "PUT",
         body,
       });
     }

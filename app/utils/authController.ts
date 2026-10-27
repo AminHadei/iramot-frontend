@@ -67,7 +67,6 @@ export function createAuthController(client: ApiClient): AuthController {
         if (refreshToken) {
           await client.request("/auth/logout", {
             method: "POST",
-            auth: false,
             body: { refreshToken },
           });
         }
@@ -101,7 +100,7 @@ export function createAuthController(client: ApiClient): AuthController {
     },
     async updateProfile(patch) {
       const body = await client.request<unknown>("/users/me", {
-        method: "PATCH",
+        method: "PUT",
         body: patch,
       });
       current = readUser(body) ?? { ...(current as AuthUser), ...patch };

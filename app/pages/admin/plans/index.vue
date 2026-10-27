@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import type { MembershipPlan } from "~/types/membership";
-import { asPage } from "~/utils/pageResult";
 import { formatAmount, recordId } from "~/utils/money";
+import { loadPlans } from "~/utils/membershipRead";
 
 definePageMeta({ layout: "panel", middleware: "admin" });
 
@@ -12,20 +11,15 @@ const error = ref("");
 
 onMounted(async () => {
   try {
-    const body = await auth.api().request<unknown>("/admin/membership-plans");
-    const items = Array.isArray(body)
-      ? (body as MembershipPlan[])
-      : asPage<MembershipPlan>(body).items;
-    rows.value = items
-      .sort((left, right) => (left.order ?? 0) - (right.order ?? 0))
-      .map((item) => ({
-        id: recordId(item),
-        title: item.title,
-        price: `${formatAmount(item.price)} ${copy.fields.rial}`,
-        duration: `${formatAmount(item.durationDays)} ${copy.fields.day}`,
-        active: item.active ? copy.fields.yes : copy.fields.no,
-        href: `/admin/plans/${recordId(item)}`,
-      }));
+    const items = await loadPlans(auth.api());
+    rows.value = items.map((item) => ({
+      id: recordId(item),
+      title: item.title,
+      price: `${formatAmount(item.price)} ${copy.fields.toman}`,
+      duration: `${formatAmount(item.durationMonths)} ${copy.fields.month}`,
+      active: item.isActive ? copy.fields.yes : copy.fields.no,
+      href: `/admin/plans/${recordId(item)}`,
+    }));
   } catch {
     error.value = copy.validation.request;
   }
@@ -47,7 +41,7 @@ onMounted(async () => {
       :columns="[
         { key: 'title', label: copy.fields.title },
         { key: 'price', label: copy.fields.price },
-        { key: 'duration', label: copy.fields.durationDays },
+        { key: 'duration', label: copy.fields.durationMonths },
         { key: 'active', label: copy.fields.active },
         { key: 'open', label: copy.actions.edit },
       ]"

@@ -15,7 +15,7 @@ async function load() {
   try {
     const body = await auth
       .api()
-      .request<unknown>("/admin/users", { query: { q: q.value } });
+      .request<unknown>("/users", { query: { search: q.value } });
     const items = Array.isArray(body)
       ? (body as AdminUser[])
       : asPage<AdminUser>(body).items;
@@ -24,7 +24,10 @@ async function load() {
       name: `${item.firstName} ${item.lastName}`.trim(),
       mobile: item.mobile,
       role: item.role === "admin" ? copy.fields.adminRole : copy.fields.user,
-      active: item.active === false ? copy.status.inactive : copy.status.active,
+      active:
+        item.isActive === false || item.active === false
+          ? copy.status.inactive
+          : copy.status.active,
       href: `/admin/users/${recordId(item)}`,
     }));
   } catch {

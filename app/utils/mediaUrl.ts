@@ -1,6 +1,6 @@
 import { withBase } from "~/utils/withBase";
 
-const storagePath = /^\/(?:uploads|storage|files)(?:\/|$)/;
+const storagePath = /^\/(?:uploads|storage|files|media\/files)(?:\/|$)/;
 const filePath = /\.(?:png|jpe?g|webp|gif|svg|avif|pdf)(?:[?#].*)?$/i;
 const mediaKeys = new Set([
   "image",
@@ -71,7 +71,7 @@ export function rewriteStorageHtml(html: string, apiBase: string): string {
   if (!html || !apiBase) return html;
   const origin = apiOrigin(apiBase);
   return html.replace(
-    /(src|href)=(["'])(\/(?:uploads|storage|files)\/[^"']*)\2/gi,
+    /(src|href)=(["'])(\/(?:uploads|storage|files|media\/files)\/[^"']*)\2/gi,
     (_match, attr: string, quote: string, path: string) =>
       `${attr}=${quote}${origin}${path}${quote}`,
   );

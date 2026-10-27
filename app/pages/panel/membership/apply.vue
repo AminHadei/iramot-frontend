@@ -1,25 +1,22 @@
 <script setup lang="ts">
 import type {
+  ApplicationFields,
   DiscountQuote,
   DocumentRequirement,
-  LegalApplication,
   MembershipApplication,
   MembershipPlan,
-  NaturalApplication,
-  PersonType,
+  PaymentStart,
 } from "~/types/membership";
 import type { PanelDocumentSlot } from "~/types/panel";
 import { isApiError, messageOf } from "~/utils/apiError";
 import { parseMemberDate } from "~/utils/jalali";
 import { formatAmount, recordId } from "~/utils/money";
-import { withBase } from "~/utils/withBase";
+import { loadPlans, pendingPaymentKey } from "~/utils/membershipRead";
 import {
   emailCode,
   englishDigits,
   isCompanyNationalId,
-  isIranMobile,
   isNationalCode,
-  normalizeIranMobile,
   requiredCode,
 } from "~/utils/validators";
 
@@ -28,88 +25,93 @@ definePageMeta({ layout: "panel", middleware: "auth" });
 const copy = await useAccountPage("applyTitle", "applyDescription");
 const auth = useAuth();
 const route = useRoute();
-const config = useRuntimeConfig();
 const plan = ref<MembershipPlan | null>(null);
-const personType = ref<PersonType>("natural");
+const applicationId = ref("");
 const discountCode = ref("");
 const quote = ref<DiscountQuote | null>(null);
 const errors = reactive<Record<string, string>>({});
 const formError = ref("");
 const pending = ref(false);
 const files = reactive<Record<string, { file: File; preview: string }>>({});
+const maxBytes = 10 * 1024 * 1024;
 
-const natural = reactive<NaturalApplication>({
+const form = reactive({
+  educationStatus: "masters_graduate",
+  fieldOfStudy: "technology_management",
   firstName: auth.user.value?.firstName ?? "",
   lastName: auth.user.value?.lastName ?? "",
-  fatherName: "",
-  nationalCode: "",
-  birthDate: "",
-  gender: "female",
-  mobile: auth.user.value?.mobile ?? "",
-  email: auth.user.value?.email ?? "",
   phone: "",
-  educationLevel: "",
-  fieldOfStudy: "",
+  nationalCode: "",
+  fatherName: "",
+  birthDate: "",
+  email: auth.user.value?.email ?? "",
   university: "",
-  jobTitle: "",
-  organization: "",
-  province: "",
-  city: "",
   address: "",
   postalCode: "",
+  companyName: "",
+  fieldOfActivity: "",
+  companyPhone: "",
+  nationalId: "",
+  ceoFullName: "",
+  representativeName: "",
+  representativePosition: "",
+  representativePhone: "",
 });
 
-const legal = reactive<LegalApplication>({
-  organizationName: "",
-  organizationType: "private",
-  nationalId: "",
-  registrationNumber: "",
-  economicCode: "",
-  establishedAt: "",
-  ceoName: "",
-  representativeFirstName: "",
-  representativeLastName: "",
-  representativeNationalCode: "",
-  representativeRole: "",
-  representativeMobile: "",
-  email: "",
-  phone: "",
-  website: "",
-  activity: "",
-  province: "",
-  city: "",
-  address: "",
-  postalCode: "",
-});
+const legal = computed(() => plan.value?.personType === "legal");
 
 const slots = computed<DocumentRequirement[]>(() => {
-  const fromPlan = plan.value?.requiredDocuments ?? [];
-  if (fromPlan.length) return fromPlan;
-  const fallback =
-    personType.value === "legal" ? copy.documents.legal : copy.documents.natural;
-  return fallback.map((slot: PanelDocumentSlot) => ({
-    key: slot.key,
-    label: slot.label,
-    accept: slot.accept,
-    required: slot.required,
-  }));
+  const catalog = new Map<string, PanelDocumentSlot>();
+  for (const slot of [...copy.documents.natural, ...copy.documents.legal]) {
+    catalog.set(slot.key, slot);
+  }
+  const keys = plan.value?.requiredDocuments?.length
+    ? plan.value.requiredDocuments
+    : (legal.value ? copy.documents.legal : copy.documents.natural).map(
+        (slot) => slot.key,
+      );
+  return keys.map((key) => {
+    const slot = catalog.get(key);
+    return {
+      key,
+      label: slot?.label || key,
+      accept: slot?.accept,
+      required: slot?.required ?? true,
+    };
+  });
 });
 
 const priceLabel = computed(() => {
   const base = plan.value?.price ?? 0;
   const finalPrice = quote.value?.valid ? (quote.value.finalPrice ?? base) : base;
-  return `${formatAmount(finalPrice)} ${copy.fields.rial}`;
+  return `${formatAmount(finalPrice)} ${copy.fields.toman}`;
 });
 
+function assignApplication(item: MembershipApplication) {
+  applicationId.value = recordId(item);
+  const fields = form as Record<string, string | undefined>;
+  for (const key of Object.keys(fields)) {
+    const value = item[key as keyof MembershipApplication];
+    if (typeof value === "string") fields[key] = value;
+  }
+}
+
 onMounted(async () => {
+  const requested = String(route.query.application ?? "");
   const planId = String(route.query.plan ?? "");
-  if (!planId) return;
   try {
-    const body = await auth
-      .api()
-      .request<MembershipPlan[] | { items: MembershipPlan[] }>("/membership/plans");
-    const items = Array.isArray(body) ? body : body.items;
-    plan.value = items.find((item) => String(item.id) === planId) ?? null;
+    const plans = await loadPlans(auth.api());
+    if (requested) {
+      const item = await auth
+        .api()
+        .request<MembershipApplication>(
+          `/membership-applications/${encodeURIComponent(requested)}`,
+        );
+      assignApplication(item);
+      plan.value = plans.find((entry) => entry.id === item.planId) ?? null;
+      return;
+    }
+    plan.value = plans.find((entry) => entry.id === planId) ?? null;
   } catch {
     formError.value = copy.validation.request;
   }
@@ -120,59 +122,41 @@ function setError(key: string, invalid: boolean, code: string) {
 }
 
 function validate() {
-  if (personType.value === "natural") {
-    setError("firstName", Boolean(requiredCode(natural.firstName)), "required");
-    setError("lastName", Boolean(requiredCode(natural.lastName)), "required");
-    setError("fatherName", Boolean(requiredCode(natural.fatherName)), "required");
+  if (legal.value) {
+    setError("companyName", Boolean(requiredCode(form.companyName ?? "")), "required");
+    setError(
+      "nationalId",
+      !isCompanyNationalId(form.nationalId ?? ""),
+      form.nationalId ? "companyId" : "required",
+    );
+    setError("ceoFullName", Boolean(requiredCode(form.ceoFullName ?? "")), "required");
+    setError(
+      "representativeName",
+      Boolean(requiredCode(form.representativeName ?? "")),
+      "required",
+    );
+    setError(
+      "fieldOfActivity",
+      Boolean(requiredCode(form.fieldOfActivity ?? "")),
+      "required",
+    );
+    setError("email", Boolean(emailCode(form.email ?? "")), "email");
+  } else {
+    setError("firstName", Boolean(requiredCode(form.firstName ?? "")), "required");
+    setError("lastName", Boolean(requiredCode(form.lastName ?? "")), "required");
+    setError("fatherName", Boolean(requiredCode(form.fatherName ?? "")), "required");
     setError(
       "nationalCode",
-      !isNationalCode(natural.nationalCode),
-      natural.nationalCode ? "nationalCode" : "required",
+      !isNationalCode(form.nationalCode ?? ""),
+      form.nationalCode ? "nationalCode" : "required",
     );
     setError(
       "birthDate",
-      !parseMemberDate(natural.birthDate),
-      natural.birthDate ? "date" : "required",
+      !parseMemberDate(form.birthDate ?? ""),
+      form.birthDate ? "date" : "required",
     );
-    setError(
-      "mobile",
-      !isIranMobile(natural.mobile),
-      natural.mobile ? "mobile" : "required",
-    );
-    setError("email", Boolean(emailCode(natural.email)), "email");
-    setError("address", Boolean(requiredCode(natural.address)), "required");
-  } else {
-    setError(
-      "organizationName",
-      Boolean(requiredCode(legal.organizationName)),
-      "required",
-    );
-    setError(
-      "nationalId",
-      !isCompanyNationalId(legal.nationalId),
-      legal.nationalId ? "companyId" : "required",
-    );
-    setError(
-      "representativeFirstName",
-      Boolean(requiredCode(legal.representativeFirstName)),
-      "required",
-    );
-    setError(
-      "representativeLastName",
-      Boolean(requiredCode(legal.representativeLastName)),
-      "required",
-    );
-    setError(
-      "representativeNationalCode",
-      !isNationalCode(legal.representativeNationalCode),
-      legal.representativeNationalCode ? "nationalCode" : "required",
-    );
-    setError(
-      "representativeMobile",
-      !isIranMobile(legal.representativeMobile),
-      legal.representativeMobile ? "mobile" : "required",
-    );
-    setError("address", Boolean(requiredCode(legal.address)), "required");
+    setError("email", Boolean(emailCode(form.email ?? "")), "email");
+    setError("address", Boolean(requiredCode(form.address ?? "")), "required");
   }
   for (const slot of slots.value) {
     if (slot.required && !files[slot.key])
@@ -184,7 +168,7 @@ function validate() {
 
 function onFile(key: string, accept: string, file: File | null) {
   if (!file) return;
-  if (file.size > 8 * 1024 * 1024) {
+  if (file.size > maxBytes) {
     errors[`file-${key}`] = copy.validation.fileSize;
     return;
   }
@@ -208,18 +192,51 @@ async function applyDiscount() {
   if (!plan.value) return;
   quote.value = null;
   try {
-    const body = await auth
-      .api()
-      .request<DiscountQuote>("/membership/discount-codes/validate", {
-        method: "POST",
-        body: { code: discountCode.value.trim(), planId: plan.value.id },
-      });
+    const body = await auth.api().request<DiscountQuote>("/discount-codes/validate", {
+      method: "POST",
+      body: {
+        code: discountCode.value.trim(),
+        planId: plan.value.id,
+        originalPrice: plan.value.price,
+      },
+    });
     quote.value = body;
-    if (!body.valid) errors.discount = body.message || copy.validation.discount;
-    else errors.discount = "";
+    errors.discount = body.valid ? "" : body.message || copy.validation.discount;
   } catch {
     errors.discount = copy.validation.discount;
   }
+}
+
+function updateBody(): ApplicationFields {
+  if (legal.value) {
+    return {
+      companyName: form.companyName?.trim(),
+      fieldOfActivity: form.fieldOfActivity?.trim(),
+      companyPhone: form.companyPhone?.trim(),
+      nationalId: englishDigits(form.nationalId ?? ""),
+      ceoFullName: form.ceoFullName?.trim(),
+      representativeName: form.representativeName?.trim(),
+      representativePosition: form.representativePosition?.trim(),
+      representativePhone: form.representativePhone?.trim(),
+      email: form.email?.trim(),
+      address: form.address?.trim(),
+      postalCode: englishDigits(form.postalCode ?? ""),
+    };
+  }
+  return {
+    educationStatus: form.educationStatus,
+    fieldOfStudy: form.fieldOfStudy,
+    firstName: form.firstName?.trim(),
+    lastName: form.lastName?.trim(),
+    phone: form.phone?.trim(),
+    nationalCode: englishDigits(form.nationalCode ?? ""),
+    fatherName: form.fatherName?.trim(),
+    birthDate: parseMemberDate(form.birthDate ?? "") ?? undefined,
+    email: form.email?.trim(),
+    university: form.university?.trim(),
+    address: form.address?.trim(),
+    postalCode: englishDigits(form.postalCode ?? ""),
+  };
 }
 
 async function submit() {
@@ -234,56 +251,46 @@ async function submit() {
   }
   pending.value = true;
   try {
-    const naturalBody = {
-      ...natural,
-      mobile: normalizeIranMobile(natural.mobile),
-      nationalCode: englishDigits(natural.nationalCode),
-      birthDate: parseMemberDate(natural.birthDate),
-    };
-    const legalBody = {
-      ...legal,
-      nationalId: englishDigits(legal.nationalId),
-      representativeNationalCode: englishDigits(legal.representativeNationalCode),
-      representativeMobile: normalizeIranMobile(legal.representativeMobile),
-      establishedAt: legal.establishedAt ? parseMemberDate(legal.establishedAt) : "",
-    };
-    const created = await auth
-      .api()
-      .request<MembershipApplication>("/membership/applications", {
-        method: "POST",
-        body: {
-          planId: plan.value.id,
-          personType: personType.value,
-          discountCode: quote.value?.valid ? discountCode.value.trim() : undefined,
-          natural: personType.value === "natural" ? naturalBody : undefined,
-          legal: personType.value === "legal" ? legalBody : undefined,
-        },
-      });
-    const id = recordId(created);
+    let id = applicationId.value;
+    if (!id) {
+      const created = await auth
+        .api()
+        .request<MembershipApplication>("/membership-applications", {
+          method: "POST",
+          body: { planId: plan.value.id },
+        });
+      id = recordId(created);
+      applicationId.value = id;
+    }
+    await auth.api().request(`/membership-applications/${id}`, {
+      method: "PUT",
+      body: updateBody(),
+    });
     for (const [key, entry] of Object.entries(files)) {
-      const form = new FormData();
-      form.set("file", entry.file);
-      form.set("key", key);
-      await auth.api().request(`/membership/applications/${id}/documents`, {
+      const data = new FormData();
+      data.set("file", entry.file);
+      await auth.api().request(`/membership-applications/${id}/upload/${key}`, {
         method: "POST",
-        body: form,
+        body: data,
       });
     }
-    const returnUrl = new URL(
-      withBase(config.app.baseURL, "/panel/membership/return"),
-      window.location.origin,
-    ).href;
-    const payment = await auth
-      .api()
-      .request<{ redirectUrl?: string }>(`/membership/applications/${id}/pay`, {
-        method: "POST",
-        body: { returnUrl },
-      });
+    await auth.api().request(`/membership-applications/${id}/submit`, {
+      method: "POST",
+      body: {},
+    });
+    const payment = await auth.api().request<PaymentStart>("/payments", {
+      method: "POST",
+      body: {
+        applicationId: id,
+        discountCode: quote.value?.valid ? discountCode.value.trim() : undefined,
+      },
+    });
+    sessionStorage.setItem(pendingPaymentKey, payment.paymentId);
     if (payment.redirectUrl) {
       window.location.assign(payment.redirectUrl);
       return;
     }
-    await navigateTo(`/panel/applications/${id}`);
+    await navigateTo("/panel/membership/return");
   } catch (error) {
     formError.value = isApiError(error)
       ? messageOf(error.payload) || copy.validation.request
@@ -309,170 +316,127 @@ onBeforeUnmount(() => {
     </p>
     <form v-else class="mt-8 grid max-w-3xl gap-5" @submit.prevent="submit">
       <p class="text-lg">{{ plan.title }} — {{ priceLabel }}</p>
+      <p class="text-sm text-secondary">
+        {{ legal ? copy.fields.legal : copy.fields.natural }}
+      </p>
       <p v-if="formError" class="text-accent" role="alert">{{ formError }}</p>
-      <AccountSelect
-        v-model="personType"
-        :label="copy.fields.personType"
-        :options="[
-          { value: 'natural', label: copy.fields.natural },
-          { value: 'legal', label: copy.fields.legal },
-        ]"
-      />
-      <template v-if="personType === 'natural'">
+      <template v-if="!legal">
+        <AccountSelect
+          v-model="form.educationStatus"
+          :label="copy.fields.educationStatus"
+          :options="[
+            { value: 'masters_graduate', label: copy.fields.mastersGraduate },
+            { value: 'phd_student', label: copy.fields.phdStudent },
+            { value: 'phd_graduate', label: copy.fields.phdGraduate },
+            { value: 'other', label: copy.fields.other },
+          ]"
+        />
+        <AccountSelect
+          v-model="form.fieldOfStudy"
+          :label="copy.fields.fieldOfStudy"
+          :options="[
+            { value: 'technology_management', label: copy.fields.studyTechnology },
+            { value: 'science_technology_policy', label: copy.fields.studyPolicy },
+            { value: 'entrepreneurship', label: copy.fields.studyEntrepreneurship },
+            { value: 'futures_studies', label: copy.fields.studyFutures },
+            { value: 'other_related', label: copy.fields.studyOther },
+          ]"
+        />
         <AccountField
-          v-model="natural.firstName"
+          v-model="form.firstName"
           :label="copy.auth.firstName"
           :error="errors.firstName"
           required
         />
         <AccountField
-          v-model="natural.lastName"
+          v-model="form.lastName"
           :label="copy.auth.lastName"
           :error="errors.lastName"
           required
         />
         <AccountField
-          v-model="natural.fatherName"
+          v-model="form.fatherName"
           :label="copy.fields.fatherName"
           :error="errors.fatherName"
           required
         />
         <AccountField
-          v-model="natural.nationalCode"
+          v-model="form.nationalCode"
           :label="copy.fields.nationalCode"
           :error="errors.nationalCode"
           required
         />
         <AccountField
-          v-model="natural.birthDate"
+          v-model="form.birthDate"
           :label="copy.fields.birthDate"
           :error="errors.birthDate"
           :hint="copy.hints.birthDate"
           required
         />
-        <AccountSelect
-          v-model="natural.gender"
-          :label="copy.fields.gender"
-          :options="[
-            { value: 'female', label: copy.fields.female },
-            { value: 'male', label: copy.fields.male },
-            { value: 'other', label: copy.fields.other },
-          ]"
-        />
         <AccountField
-          v-model="natural.mobile"
-          :label="copy.auth.mobile"
-          :error="errors.mobile"
-          :hint="copy.hints.mobile"
-          required
-        />
-        <AccountField
-          v-model="natural.email"
+          v-model="form.email"
           :label="copy.auth.email"
           :error="errors.email"
           type="email"
         />
-        <AccountField v-model="natural.phone" :label="copy.fields.phone" />
+        <AccountField v-model="form.phone" :label="copy.fields.phone" />
+        <AccountField v-model="form.university" :label="copy.fields.university" />
         <AccountField
-          v-model="natural.educationLevel"
-          :label="copy.fields.educationLevel"
-        />
-        <AccountField
-          v-model="natural.fieldOfStudy"
-          :label="copy.fields.fieldOfStudy"
-        />
-        <AccountField v-model="natural.university" :label="copy.fields.university" />
-        <AccountField v-model="natural.jobTitle" :label="copy.fields.jobTitle" />
-        <AccountField
-          v-model="natural.organization"
-          :label="copy.fields.organization"
-        />
-        <AccountField v-model="natural.province" :label="copy.fields.province" />
-        <AccountField v-model="natural.city" :label="copy.fields.city" />
-        <AccountField
-          v-model="natural.address"
+          v-model="form.address"
           :label="copy.fields.address"
           :error="errors.address"
           required
         />
-        <AccountField v-model="natural.postalCode" :label="copy.fields.postalCode" />
+        <AccountField v-model="form.postalCode" :label="copy.fields.postalCode" />
       </template>
       <template v-else>
         <AccountField
-          v-model="legal.organizationName"
-          :label="copy.fields.organizationName"
-          :error="errors.organizationName"
+          v-model="form.companyName"
+          :label="copy.fields.companyName"
+          :error="errors.companyName"
           required
         />
-        <AccountSelect
-          v-model="legal.organizationType"
-          :label="copy.fields.organizationType"
-          :options="[
-            { value: 'governmental', label: copy.fields.governmental },
-            { value: 'private', label: copy.fields.private },
-            { value: 'cooperative', label: copy.fields.cooperative },
-            { value: 'public', label: copy.fields.public },
-            { value: 'other', label: copy.fields.other },
-          ]"
-        />
         <AccountField
-          v-model="legal.nationalId"
+          v-model="form.nationalId"
           :label="copy.fields.nationalId"
           :error="errors.nationalId"
           required
         />
         <AccountField
-          v-model="legal.registrationNumber"
-          :label="copy.fields.registrationNumber"
+          v-model="form.fieldOfActivity"
+          :label="copy.fields.fieldOfActivity"
+          :error="errors.fieldOfActivity"
+          required
         />
-        <AccountField v-model="legal.economicCode" :label="copy.fields.economicCode" />
+        <AccountField v-model="form.companyPhone" :label="copy.fields.companyPhone" />
         <AccountField
-          v-model="legal.establishedAt"
-          :label="copy.fields.establishedAt"
-          :hint="copy.hints.birthDate"
-        />
-        <AccountField v-model="legal.ceoName" :label="copy.fields.ceoName" />
-        <AccountField
-          v-model="legal.representativeFirstName"
-          :label="copy.fields.representativeFirstName"
-          :error="errors.representativeFirstName"
+          v-model="form.ceoFullName"
+          :label="copy.fields.ceoFullName"
+          :error="errors.ceoFullName"
           required
         />
         <AccountField
-          v-model="legal.representativeLastName"
-          :label="copy.fields.representativeLastName"
-          :error="errors.representativeLastName"
+          v-model="form.representativeName"
+          :label="copy.fields.representativeName"
+          :error="errors.representativeName"
           required
         />
         <AccountField
-          v-model="legal.representativeNationalCode"
-          :label="copy.fields.representativeNationalCode"
-          :error="errors.representativeNationalCode"
-          required
+          v-model="form.representativePosition"
+          :label="copy.fields.representativePosition"
         />
         <AccountField
-          v-model="legal.representativeRole"
-          :label="copy.fields.representativeRole"
+          v-model="form.representativePhone"
+          :label="copy.fields.representativePhone"
         />
         <AccountField
-          v-model="legal.representativeMobile"
-          :label="copy.fields.representativeMobile"
-          :error="errors.representativeMobile"
-          required
+          v-model="form.email"
+          :label="copy.auth.email"
+          :error="errors.email"
+          type="email"
         />
-        <AccountField v-model="legal.email" :label="copy.auth.email" type="email" />
-        <AccountField v-model="legal.phone" :label="copy.fields.phone" />
-        <AccountField v-model="legal.website" :label="copy.fields.website" />
-        <AccountField v-model="legal.activity" :label="copy.fields.activity" />
-        <AccountField v-model="legal.province" :label="copy.fields.province" />
-        <AccountField v-model="legal.city" :label="copy.fields.city" />
-        <AccountField
-          v-model="legal.address"
-          :label="copy.fields.address"
-          :error="errors.address"
-          required
-        />
-        <AccountField v-model="legal.postalCode" :label="copy.fields.postalCode" />
+        <AccountField v-model="form.address" :label="copy.fields.address" />
+        <AccountField v-model="form.postalCode" :label="copy.fields.postalCode" />
       </template>
       <div class="grid gap-3">
         <h2 class="text-xl text-primary">{{ copy.fields.documents }}</h2>
@@ -490,7 +454,7 @@ onBeforeUnmount(() => {
           @select="onFile(slot.key, slot.accept || '', $event)"
         />
       </div>
-      <div class="grid gap-3 border border-line p-4">
+      <div class="grid gap-3">
         <AccountField
           v-model="discountCode"
           :label="copy.fields.discount"
@@ -499,6 +463,10 @@ onBeforeUnmount(() => {
         <button type="button" class="button" @click="applyDiscount">
           {{ copy.actions.applyDiscount }}
         </button>
+        <p v-if="quote?.valid">
+          {{ copy.fields.discountAmount }}: {{ formatAmount(quote.discountAmount) }}
+          {{ copy.fields.toman }}
+        </p>
         <p>{{ copy.fields.finalPrice }}: {{ priceLabel }}</p>
       </div>
       <button

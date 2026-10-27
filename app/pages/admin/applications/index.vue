@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import type { MembershipApplication } from "~/types/membership";
+import type { MembershipApplication, MembershipPlan } from "~/types/membership";
 import { asPage } from "~/utils/pageResult";
 import { recordId } from "~/utils/money";
+import { loadPlans, planTitle } from "~/utils/membershipRead";
 
 definePageMeta({ layout: "panel", middleware: "admin" });
 
@@ -9,34 +10,43 @@ const copy = await useAccountPage("queueTitle", "queueDescription");
 const auth = useAuth();
 const route = useRoute();
 const router = useRouter();
-const status = ref(String(route.query.status ?? "pending"));
-const q = ref(String(route.query.q ?? ""));
+const status = ref(String(route.query.status ?? "pending_review"));
 const rows = ref<Array<Record<string, string>>>([]);
 const error = ref("");
 
 async function load() {
   error.value = "";
   try {
-    const body = await auth.api().request<unknown>("/admin/applications", {
-      query: { status: status.value, q: q.value },
-    });
+    const queued = !status.value || status.value === "pending_review";
+    const [body, plans] = await Promise.all([
+      auth
+        .api()
+        .request<unknown>(
+          queued ? "/admin/membership/queue" : "/admin/membership/applications",
+          { query: queued ? undefined : { status: status.value } },
+        ),
+      loadPlans(auth.api()).catch(() => [] as MembershipPlan[]),
+    ]);
     const items = Array.isArray(body)
       ? (body as MembershipApplication[])
       : asPage<MembershipApplication>(body).items;
-    rows.value = items.map((item) => ({
-      id: recordId(item),
-      title: item.planTitle || item.planId,
-      person: item.personType === "legal" ? copy.fields.legal : copy.fields.natural,
-      status: copy.status[item.status] ?? item.status,
-      href: `/admin/applications/${recordId(item)}`,
-    }));
+    rows.value = items.map((item) => {
+      const plan = plans.find((entry) => entry.id === item.planId);
+      return {
+        id: recordId(item),
+        title: planTitle(plans, item.planId, item.planTitle),
+        person: plan?.personType === "legal" ? copy.fields.legal : copy.fields.natural,
+        status: copy.status[item.status] ?? item.status,
+        href: `/admin/applications/${recordId(item)}`,
+      };
+    });
   } catch {
     error.value = copy.validation.request;
   }
 }
 
 async function filter() {
-  await router.replace({ query: { status: status.value, q: q.value } });
+  await router.replace({ query: { status: status.value } });
   await load();
 }
 
@@ -46,26 +56,20 @@ onMounted(load);
 <template>
   <div>
     <h1 class="font-heading text-4xl text-primary">{{ copy.seo.queueTitle }}</h1>
-    <form
-      class="mt-6 grid gap-4 md:grid-cols-[12rem_1fr_auto]"
-      @submit.prevent="filter"
-    >
+    <form class="mt-6 grid max-w-sm gap-4" @submit.prevent="filter">
       <AccountSelect
         v-model="status"
         :label="copy.fields.status"
         :options="[
-          { value: '', label: copy.fields.allStatuses },
-          { value: 'pending', label: copy.status.pending },
+          { value: 'pending_review', label: copy.status.pending_review },
+          { value: 'pending_payment', label: copy.status.pending_payment },
           { value: 'approved', label: copy.status.approved },
           { value: 'rejected', label: copy.status.rejected },
+          { value: 'draft', label: copy.status.draft },
+          { value: 'expired', label: copy.status.expired },
         ]"
       />
-      <AccountField
-        v-model="q"
-        :label="copy.actions.search"
-        :hint="copy.fields.searchPlaceholder"
-      />
-      <button class="button self-end" type="submit">{{ copy.actions.filter }}</button>
+      <button class="button" type="submit">{{ copy.actions.filter }}</button>
     </form>
     <p v-if="error" class="mt-4 text-accent" role="alert">{{ error }}</p>
     <AccountTable
