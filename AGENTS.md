@@ -20,6 +20,8 @@ Claude Code: `CLAUDE.md` → `@AGENTS.md`. Cursor / Codex / others: read this fi
 
 **Hard constraint:** production is a static host. Prerender every route. Do not add runtime `server/api` for content that belongs in `content/`.
 
+Membership, admin, and auth routes are client-rendered (`ssr: false`) and call `NUXT_PUBLIC_API_BASE` when it is set. Empty `apiBase` keeps JSON content and hides account links. Contract and routes: [`docs/membership.md`](docs/membership.md).
+
 ## Design
 
 هدف، کپی ۱:۱ مارکاپ و CSS سایت ifp.org است، آینه‌شده برای RTL. فقط متن، تصاویر، لوگو و فونت عوض می‌شوند. هیچ کامپوننتی از روی توضیح متنی بازسازی نمی‌شود؛ منبع حقیقت فایل‌های ref/ifp/ است. کلاس‌های اصلی IFP (site-header، home-splash، home-spotlight-intro، post-listing__*، project-list--layout-3-col، newsletter-pre-footer، site-footer و...) دقیقاً حفظ شوند.
