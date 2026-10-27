@@ -32,7 +32,7 @@ const described = computed(() =>
       :value="modelValue"
       :aria-invalid="error ? 'true' : undefined"
       :aria-describedby="described"
-      class="border-b border-line bg-transparent focus:border-primary focus-visible:outline-none"
+      class="border-b border-line bg-transparent focus:border-primary focus-visible:outline-0"
       @input="emit('update:modelValue', ($event.target as HTMLInputElement).value)"
     />
     <p v-if="hint && !error" :id="`${id}-help`" class="text-sm text-secondary">

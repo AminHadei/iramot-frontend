@@ -62,9 +62,9 @@ const legal = computed(() => plan.value?.personType === "legal");
 
 const slots = computed<DocumentRequirement[]>(() => {
   const catalog = new Map<string, PanelDocumentSlot>();
-  for (const slot of [...copy.documents.natural, ...copy.documents.legal]) {
-    catalog.set(slot.key, slot);
-  }
+  const primary = legal.value ? copy.documents.legal : copy.documents.natural;
+  const secondary = legal.value ? copy.documents.natural : copy.documents.legal;
+  for (const slot of [...secondary, ...primary]) catalog.set(slot.key, slot);
   const keys = plan.value?.requiredDocuments?.length
     ? plan.value.requiredDocuments
     : (legal.value ? copy.documents.legal : copy.documents.natural).map(

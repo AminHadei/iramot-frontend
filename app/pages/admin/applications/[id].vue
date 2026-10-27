@@ -50,6 +50,24 @@ const details = computed(() => {
 });
 
 const documents = computed(() => Object.keys(item.value?.documents ?? {}));
+const valueLabel: Record<string, string> = {
+  masters_graduate: copy.fields.mastersGraduate,
+  phd_student: copy.fields.phdStudent,
+  phd_graduate: copy.fields.phdGraduate,
+  other: copy.fields.other,
+  technology_management: copy.fields.studyTechnology,
+  science_technology_policy: copy.fields.studyPolicy,
+  entrepreneurship: copy.fields.studyEntrepreneurship,
+  futures_studies: copy.fields.studyFutures,
+  other_related: copy.fields.studyOther,
+};
+
+function documentLabel(key: string) {
+  const slot = [...copy.documents.natural, ...copy.documents.legal].find(
+    (item) => item.key === key,
+  );
+  return slot?.label || key;
+}
 const title = computed(() =>
   item.value ? planTitle(plans.value, item.value.planId, item.value.planTitle) : "",
 );
@@ -135,14 +153,17 @@ async function decide(kind: "approve" | "reject") {
           <dt class="text-sm text-secondary">
             {{ copy.fields[key] || copy.auth[key] || key }}
           </dt>
-          <dd>{{ value }}</dd>
+          <dd>
+            <PersianDate v-if="key === 'birthDate'" :date="value" />
+            <template v-else>{{ valueLabel[value] || value }}</template>
+          </dd>
         </div>
       </dl>
       <h2 class="text-xl text-primary">{{ copy.fields.documents }}</h2>
       <ul class="m-0 grid list-none gap-3 p-0">
         <li v-for="documentType in documents" :key="documentType">
           <button type="button" class="button" @click="download(documentType)">
-            {{ documentType }}
+            {{ documentLabel(documentType) }}
           </button>
         </li>
       </ul>
