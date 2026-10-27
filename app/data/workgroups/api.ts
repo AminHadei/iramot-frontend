@@ -8,7 +8,7 @@ import { fetchJsonOrNull } from "~/data/fetchJson";
 import {
   articleFromWorkgroupFile,
   listFromWorkgroupFile,
-} from "~/data/workgroups/json";
+} from "~/data/workgroups/present";
 import { rewriteMediaTree, type MediaContext } from "~/utils/mediaUrl";
 
 function isFile(value: unknown): value is WorkgroupFile {

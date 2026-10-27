@@ -2,7 +2,6 @@ import type { NuxtApp } from "#app";
 import type { NewsList, NewsSummary } from "~/data/news/types";
 import { createApiConferenceRepository } from "~/data/singletons/api";
 import type { SiteContent } from "~/types/content";
-import { sectionApiBase, sectionMode, withJsonFallback } from "~/utils/contentSource";
 
 function cached<T>(key: string, nuxtApp: NuxtApp): T | undefined {
   if (!nuxtApp.isHydrating) return undefined;
@@ -63,15 +62,10 @@ export async function useConferencePage() {
 
   list.value = data.value;
   featured.value = featuredData.data.value?.items[0] ?? null;
-  const remote = await withJsonFallback(
-    sectionMode(config.public, "conference"),
-    () =>
-      createApiConferenceRepository(
-        sectionApiBase(config.public, "conference"),
-        config.app.baseURL,
-      ).get(),
-    async () => null,
-  );
+  const remote = await createApiConferenceRepository(
+    useContentApiBase(),
+    config.app.baseURL,
+  ).get();
 
   return reactive({
     site,

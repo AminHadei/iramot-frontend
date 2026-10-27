@@ -8,7 +8,7 @@ export async function fetchJsonOrNull<T>(
     const body = await $fetch<T | null>(url, {
       query: query as Record<string, unknown> | undefined,
     });
-    return body ?? null;
+    return (body ?? null) as T | null;
   } catch (error) {
     if (isNotFoundError(error)) return null;
     throw error;

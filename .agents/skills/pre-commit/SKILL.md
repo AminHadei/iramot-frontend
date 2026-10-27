@@ -1,6 +1,6 @@
 ---
 name: pre-commit
-description: Use before declaring work done, or when a Husky hook fails. Runs the check pipeline and generate when the site changed.
+description: Use before declaring work done, or when a Husky hook fails. Runs the check pipeline and the server build when the site changed.
 ---
 
 # Pre-commit — irmot
@@ -17,7 +17,7 @@ If lint or format failed on something auto-fixable:
 pnpm check:fix
 ```
 
-Also run `pnpm generate` when the change touches `app/`, `content/`, `content.config.ts`, `nuxt.config.ts`, or `.github/workflows/`.
+Also run `pnpm build` when the change touches `app/`, `nuxt.config.ts`, or `.github/workflows/`.
 
 ## Report
 
@@ -26,5 +26,5 @@ List each step as pass or fail with the error snippet. Do not commit unless the 
 ## Don't
 
 - Don't use `--no-verify`.
-- Don't skip `generate` for route, content, or config changes.
+- Don't skip `build` for route or config changes.
 - Don't hand-edit `CHANGELOG.md`. Add a changeset for user-visible work (`changesets` skill).

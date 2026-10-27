@@ -1,0 +1,12 @@
+services:
+  site:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      HOST: 0.0.0.0
+      PORT: 3000
+      NUXT_TELEMETRY_DISABLED: "1"
+      NUXT_PUBLIC_API_BASE: ${NUXT_PUBLIC_API_BASE}
+      NUXT_API_BASE_INTERNAL: ${NUXT_API_BASE_INTERNAL:-}
+    restart: unless-stopped

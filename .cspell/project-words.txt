@@ -82,3 +82,8 @@ evand
 evnd
 tetris
 zwnj
+healthz
+certbot
+letsencrypt
+fullchain
+privkey

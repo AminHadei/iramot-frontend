@@ -4,20 +4,20 @@ Severity calibration for code review. Used by the `code-review` skill.
 
 ## Blocker
 
-- `pnpm generate` fails, or a linked route is missing from `.output/public`.
-- A new runtime dependency on a Node server (`server/api/*`) for content that can live in `content/`.
+- `pnpm build` fails.
+- A new `server/api` route for content that belongs in the content API.
 - RTL regressions: physical `left`/`right` / `ml` / `mr` / `pl` / `pr` where logical properties are required.
 - Directional icons (arrow, chevron) shipped without `rtl:-scale-x-100`.
-- Copy or interface text hardcoded in a component instead of `content/`.
+- Copy or interface text hardcoded in a component instead of the API or `app/copy/panel.json`.
 - `html` `lang` or `dir` no longer `fa` / `rtl`.
 
 ## Major
 
-- Design drift from the IFP-derived structure, or IFP fonts/logo copied in.
+- Design drift from the class names in `app/assets/css/ifp.rtl.css`, or a font other than IRANYekan.
 - Colours or fonts outside `paper`, `ink`, `primary`, `secondary`, `secondary-soft`, `accent`, `line`, `font-heading`, `font-sans`.
 - A page without `usePageSeo`.
 - Dates shown in Gregorian form or with Latin digits.
-- Placeholder copy added without `placeholder: true`.
+- Temporary account copy in `app/copy/panel.json` without `placeholder: true`.
 - `CHANGELOG.md` or `package.json` `version` edited by hand.
 
 ## Minor

@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import type { HomeContent, SiteContent } from "~/types/content";
 import type { NewsSummary } from "~/data/news/types";
+import { createApiPageRepository } from "~/data/pages/api";
 import {
   createApiAboutRepository,
   createApiHomeRepository,
 } from "~/data/singletons/api";
 import type { ListingCard } from "~/utils/archive";
-import { sectionApiBase, sectionMode, withJsonFallback } from "~/utils/contentSource";
 
 interface AboutFields {
   description?: string;
@@ -69,35 +69,19 @@ function withColor(cards: ListingCard[]): HomeCard[] {
 }
 
 const { data: home } = await useAsyncData("home-page", async () => {
-  const homeRequest = withJsonFallback(
-    sectionMode(config.public, "home"),
-    () =>
-      createApiHomeRepository(
-        sectionApiBase(config.public, "home"),
-        config.app.baseURL,
-      ).get(),
-    () => queryCollection("home").first(),
-  );
-  const aboutRequest = withJsonFallback(
-    sectionMode(config.public, "about"),
-    () =>
-      createApiAboutRepository(
-        sectionApiBase(config.public, "about"),
-        config.app.baseURL,
-      ).get(),
-    () => queryCollection("pages").path("/about").first(),
-  );
-  const [pageFile, aboutFile, pagesFile, newsList, eventList] = await Promise.all([
+  const apiBase = useContentApiBase();
+  const homeRequest = createApiHomeRepository(apiBase, config.app.baseURL).get();
+  const aboutRequest = createApiAboutRepository(apiBase, config.app.baseURL).get();
+  const [pageFile, aboutFile, newsList, eventList] = await Promise.all([
     homeRequest,
     aboutRequest,
-    queryCollection("archivePages").first(),
     newsRepo.list({ page: 1, perPage: 12, order: "desc" }),
     eventRepo.list({ page: 1, perPage: 12, order: "desc" }),
   ]);
   if (!pageFile || !aboutFile) return null;
   const page = pageFile as HomeContent;
   const about = aboutFile as AboutFields;
-  const pages = archiveItems(pagesFile);
+  const pages = createApiPageRepository(apiBase, config.app.baseURL);
   const publicationCards: HomeCard[] = newsList.items.map((item: NewsSummary) => {
     const category = primaryNewsCategory(item.categories);
     return {
@@ -141,8 +125,11 @@ const { data: home } = await useAsyncData("home-page", async () => {
       };
     }),
   );
-  const programs: ProgramCard[] = page.programs.map((program) => {
-    const record = pages.find((item) => item.id === program.page);
+  const programRecords = await Promise.all(
+    page.programs.map((program) => pages.get(program.page)),
+  );
+  const programs: ProgramCard[] = page.programs.map((program, index) => {
+    const record = programRecords[index];
     const description =
       program.to === "/terminology"
         ? site.listings.terminology.description

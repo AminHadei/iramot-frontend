@@ -1,0 +1,14 @@
+node_modules
+.output
+.nuxt
+.git
+.github
+.cursor
+.agents
+.claude
+.changeset
+ref
+docs
+tests
+*.md
+public/media

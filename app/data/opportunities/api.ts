@@ -11,7 +11,6 @@ const emptyList: OpportunityList = { items: [] };
 export function createApiOpportunityRepository(
   apiBase: string,
   siteBase = "/",
-  includeSamples = true,
 ): OpportunityRepository {
   const root = apiBase.replace(/\/$/, "");
   const media: MediaContext = { apiBase: root, siteBase };
@@ -21,14 +20,9 @@ export function createApiOpportunityRepository(
       if (!root) return emptyList;
       const body = await $fetch<OpportunityList | Opportunity[]>(
         `${root}/opportunities`,
-        {
-          query: { samples: includeSamples ? "1" : "0" },
-        },
       );
       const items = Array.isArray(body) ? body : asPage<Opportunity>(body).items;
-      const visible = includeSamples
-        ? items
-        : items.filter((item) => item.sample !== true);
+      const visible = items.filter((item) => item.sample !== true);
       return {
         items: visible.map((item, index) => ({
           ...rewriteMediaTree(item, media),

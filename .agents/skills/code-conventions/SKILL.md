@@ -10,7 +10,6 @@ Read the topic skill before coding:
 1. [`nuxt-app`](../nuxt-app/SKILL.md)
 2. [`design-system`](../design-system/SKILL.md)
 3. [`content-fa`](../content-fa/SKILL.md)
-4. [`static-deploy`](../static-deploy/SKILL.md)
 
 ## Tooling
 

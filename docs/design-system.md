@@ -1,20 +1,16 @@
-# IFP design system
+# Design system
 
-هدف، کپی ۱:۱ مارکاپ و CSS سایت ifp.org است، آینه‌شده برای RTL. فقط متن، تصاویر، لوگو و فونت عوض می‌شوند. هیچ کامپوننتی از روی توضیح متنی بازسازی نمی‌شود؛ منبع حقیقت فایل‌های ref/ifp/ است. کلاس‌های اصلی IFP (site-header، home-splash، home-spotlight-intro، post-listing__*، project-list--layout-3-col، newsletter-pre-footer، site-footer و...) دقیقاً حفظ شوند.
+The living stylesheet is `app/assets/css/ifp.rtl.css`. Keep its class names (`site-header`, `home-splash`, `home-spotlight-intro`, `post-listing__*`, `project-list--layout-3-col`, `newsletter-pre-footer`, `site-footer`, and the rest). Match that sheet and the current templates when changing layout. Both Söhne and Tiempos Text map to `IRANYekan, Tahoma, sans-serif`.
 
-Measured from the files in `ref/ifp/`. Nothing here is inferred. The site loads the rtlcss copy at `app/assets/css/ifp.rtl.css`. That copy keeps the IFP selectors and replaces the IFP palette with custom properties on `:root`: paper `#FFFDF5`, ink `#2B2B33`, hero `#2D317A`, emphasis `#6866AD` for text, links, icons, and hairlines, emphasis fill `#6A64AB` for solid surfaces, dark bands `#06011E`, meta `#999`, panels `#FAF9F7`. Topic colours cycle `#2D317A`, `#6967AC`, `#9A96CA`, `#3F50A0`. Label text on `#9A96CA` is `#06011E`. Text on `#6866AD` and `#6A64AB` is `#FFFDF5`.
+Colours in that sheet are custom properties on `:root`: paper `#FFFDF5`, ink `#2B2B33`, hero `#2D317A`, emphasis `#6866AD` for text, links, icons, and hairlines, emphasis fill `#6A64AB` for solid surfaces, dark bands `#06011E`, meta `#999`, panels `#FAF9F7`. Topic colours cycle `#2D317A`, `#6967AC`, `#9A96CA`, `#3F50A0`. Label text on `#9A96CA` is `#06011E`. Text on `#6866AD` and `#6A64AB` is `#FFFDF5`.
 
-Sources:
+The tables below record measurements taken while the stylesheet was assembled. The stylesheet is the source of truth when a table and the sheet disagree.
 
-- Critical `<style>` in `ref/ifp/html/home.html`, unless a rule is marked otherwise.
-- `ref/ifp/css/main.css`, from the URL in `ref/ifp/css/SOURCE.txt`.
-- Inline `style` attributes in the saved HTML, named by file.
-
-WordPress `--wp--preset--*` custom properties are declared in the home critical CSS. They are the bundled WordPress presets, not selectors on the IFP components below, so they are not copied into these tables.
+WordPress `--wp--preset--*` custom properties in `ifp.rtl.css` are not selectors on the components below, so they are not copied into these tables.
 
 ## Colour
 
-Declared on `:root` in the home critical CSS:
+Declared on `:root` in `ifp.rtl.css`:
 
 | Property                  | Value     | Where                                                 |
 | ------------------------- | --------- | ----------------------------------------------------- |
@@ -23,11 +19,11 @@ Declared on `:root` in the home critical CSS:
 
 The `body` rule uses `background: var(--color-body-background, #FFFEF2)` and `color: #373737`. `#FFFEF2` is the fallback in that declaration. It is not assigned to `--color-body-background` outside the contrast query.
 
-Other colours that appear on the components below: `#FFFEF2` (splash and footer text, also written `#fffef2`), `#999` (post meta, project subtitle), `#ff9762` (project links; spotlight title band and posts title in `main.css`), `#b17ada` (inline on the home splash, and `.person-card__image` background in `main.css`).
+Other colours that appear on the components below: `#FFFEF2` (splash and footer text, also written `#fffef2`), `#999` (post meta, project subtitle), `#ff9762` (project links; spotlight title band and posts title), and `#b17ada` (`.person-card__image` background).
 
 ## Spacing
 
-Declared on `:root` in the home critical CSS, after the breakpoint variables:
+Declared on `:root` in `ifp.rtl.css`, after the breakpoint variables:
 
 | Property            | Value  |
 | ------------------- | ------ |
@@ -39,13 +35,13 @@ Declared on `:root` in the home critical CSS, after the breakpoint variables:
 | `--large-spacing`   | `56px` |
 | `--footer-margin`   | `50px` |
 
-`main.css` sets `--footer-margin` again on `.newsletter-pre-footer`, not on `:root`: `var(--section-spacing)` for `body.home` at `min-width: 45em`; `var(--default-spacing)` for `body.single-post` under `max-width: 44.99em`; `var(--default-spacing)` and, in a later rule, `40px` for `body.category` and `body.page-template-template-post-archive`; `100px` for `body.page-template-template-newsletters` at `min-width: 61.25em`.
+`ifp.rtl.css` sets `--footer-margin` again on `.newsletter-pre-footer`, not on `:root`: `var(--section-spacing)` for `body.home` at `min-width: 45em`; `var(--default-spacing)` for `body.single-post` under `max-width: 44.99em`; `var(--default-spacing)` and, in a later rule, `40px` for `body.category` and `body.page-template-template-post-archive`; `100px` for `body.page-template-template-newsletters` at `min-width: 61.25em`.
 
 Page inset used by the splash, footer, and article header: `24px` at `max-width: 61.24em`, `36px` from `61.25em` to `63.99em`, `60px` from `64em`.
 
 ## Breakpoints
 
-Named lengths on `:root` in the home critical CSS:
+Named lengths on `:root` in `ifp.rtl.css`:
 
 | Token         | From     | Until    |
 | ------------- | -------- | -------- |
@@ -58,7 +54,7 @@ Named lengths on `:root` in the home critical CSS:
 | `xxl` / `max` | `1440px` | `1439px` |
 | `xxxl`        | `1800px` | `1799px` |
 
-`@media` widths that appear in the home critical CSS or `main.css`. Each value is listed once. Both `min-width` and `max-width` are marked when both occur.
+`@media` widths in `ifp.rtl.css`. Each value is listed once. Both `min-width` and `max-width` are marked when both occur.
 
 | Value       | Written as  |
 | ----------- | ----------- |
@@ -79,66 +75,61 @@ Named lengths on `:root` in the home critical CSS:
 
 ## Type
 
-The built sheet maps both Söhne and Tiempos Text to `IRANYekan, Tahoma, sans-serif`. Weights 100, 300, 400, 500, 700, 800, and 900 are self-hosted from `public/fonts/iranyekan/` (`app/assets/css/fonts.css`). IFP sizes and weights below stay as measured. `font-sans`, `font-serif`, and `font-heading` all use that IRANYekan stack.
+The built sheet maps both Söhne and Tiempos Text to `IRANYekan, Tahoma, sans-serif`. Weights 100, 300, 400, 500, 700, 800, and 900 are self-hosted from `public/fonts/iranyekan/` (`app/assets/css/fonts.css`). Sizes and weights below stay as measured. `font-sans`, `font-serif`, and `font-heading` all use that IRANYekan stack.
 
-`body` in the home critical CSS: `font-size: 1rem`, `line-height: 1.375`, `font-family: Söhne, "sans-serif"`, `font-weight: 300`.
+`body` in `ifp.rtl.css`: `font-size: 1rem`, `line-height: 1.375`, `font-family: Söhne, "sans-serif"`, `font-weight: 300`.
 
 Element headings in that same style block: `h1, h2` are `1.5625rem` under `max-width: 44.99em` and `1.875rem` under `min-width: 45em`. `h3` is `1.4em`, `h4` is `1em`, `h5` is `.83em`, `h6` is `.67em`.
 
-Component sizes are in the component sections. `border-radius` on the listed components is not present. The only `border-radius` declarations in `main.css` outside WordPress blocks are `.toc__item-sub-items:before` (`3px`) and `.filter-toolbar .toolbar-select__item-checkbox` (`50%`). The only `box-shadow` outside those presets is `.toc:after` (`0 0 1px 0 var(--color-category)`).
+Component sizes are in the component sections. `border-radius` on the listed components is not present. The only `border-radius` declarations in `ifp.rtl.css` outside the bundled preset blocks are `.toc__item-sub-items:before` (`3px`) and `.filter-toolbar .toolbar-select__item-checkbox` (`50%`). The only `box-shadow` outside those presets is `.toc:after` (`0 0 1px 0 var(--color-category)`).
 
 ## Grid
 
-| Rule                                                           | Declaration                                                                 | Source                                    |
-| -------------------------------------------------------------- | --------------------------------------------------------------------------- | ----------------------------------------- |
-| `.page-template-template-home .home-contain`                   | `max-width: 1440px`                                                         | home critical CSS                         |
-| same, at `min-width: 61.25em`, except `.home-contain--no-grid` | `display: grid; grid-template-columns: repeat(2, 1fr)`                      | home critical CSS                         |
-| `.project-list`                                                | `display: grid`; column gap `--default-spacing`; row gap `--medium-spacing` | home critical CSS                         |
-| `.project-list` at `min-width: 35em` and `max-width: 61.24em`  | `grid-template-columns: repeat(2, 1fr)`                                     | home critical CSS                         |
-| `.project-list--layout-1-col`                                  | `1fr`                                                                       | home critical CSS                         |
-| `.project-list--layout-2-col` at `min-width: 61.25em`          | `repeat(2, 1fr)`                                                            | home critical CSS                         |
-| `.project-list--layout-3-col` at `min-width: 61.25em`          | `repeat(3, 1fr)`                                                            | home critical CSS                         |
-| `.page-template-template-home .home-latest`                    | `max-width: 1440px`; `display: grid`; `column-gap: 20px`                    | `main.css`                                |
-| `.single-article`                                              | `max-width: 1440px`                                                         | `main.css`                                |
-| `.hero-intro`                                                  | `max-width: 1440px`                                                         | critical CSS in `ref/ifp/html/about.html` |
+| Rule                                                           | Declaration                                                                 | Source        |
+| -------------------------------------------------------------- | --------------------------------------------------------------------------- | ------------- |
+| `.page-template-template-home .home-contain`                   | `max-width: 1440px`                                                         | `ifp.rtl.css` |
+| same, at `min-width: 61.25em`, except `.home-contain--no-grid` | `display: grid; grid-template-columns: repeat(2, 1fr)`                      | `ifp.rtl.css` |
+| `.project-list`                                                | `display: grid`; column gap `--default-spacing`; row gap `--medium-spacing` | `ifp.rtl.css` |
+| `.project-list` at `min-width: 35em` and `max-width: 61.24em`  | `grid-template-columns: repeat(2, 1fr)`                                     | `ifp.rtl.css` |
+| `.project-list--layout-1-col`                                  | `1fr`                                                                       | `ifp.rtl.css` |
+| `.project-list--layout-2-col` at `min-width: 61.25em`          | `repeat(2, 1fr)`                                                            | `ifp.rtl.css` |
+| `.project-list--layout-3-col` at `min-width: 61.25em`          | `repeat(3, 1fr)`                                                            | `ifp.rtl.css` |
+| `.page-template-template-home .home-latest`                    | `max-width: 1440px`; `display: grid`; `column-gap: 20px`                    | `ifp.rtl.css` |
+| `.single-article`                                              | `max-width: 1440px`                                                         | `ifp.rtl.css` |
+| `.hero-intro`                                                  | `max-width: 1440px`                                                         | `ifp.rtl.css` |
 
 ## Category colour
 
-`--color-category` is not given a palette in `main.css`. The only assignment there is `@media (prefers-contrast: more) { .post-listing { --color-category: #373737 !important } }`. Components otherwise use `var(--color-category, #373737)`.
+`:root` in `ifp.rtl.css` declares the topic palette. `categoryColor` in `app/utils/categoryColor.ts` cycles them. Label text on slot 3 is the dark band; the others use paper.
 
-On `ref/ifp/html/home.html`, each `.spotlight-category` sets the variable inline:
+| Token                | Value     |
+| -------------------- | --------- |
+| `--color-category-1` | `#2D317A` |
+| `--color-category-2` | `#6967AC` |
+| `--color-category-3` | `#9A96CA` |
+| `--color-category-4` | `#3F50A0` |
 
-| Inline value         | `.spotlight-category__title` text |
-| -------------------- | --------------------------------- |
-| `#ff6565`            | Metascience                       |
-| `rgba(51,104,206,1)` | High-Skilled Immigration          |
-| `#39d794`            | Biotechnology                     |
-| `#bd4578`            | Infrastructure                    |
-| `#41c4fc`            | Emerging Technology               |
+`@media (prefers-contrast: more)` sets `.post-listing { --color-category: #373737 !important }`. Other rules use `var(--color-category, #373737)`.
 
-The same hex values are repeated on `post-listing` inline styles in `home.html`, `latest-publications.html`, `category-metascience.html`, `the-launch-sequence.html`, and `transit-abundance-playbook.html`. `#ff6565` also appears in unrelated rules (an image-dialog stroke in the home critical CSS, and a filter-toolbar border in `main.css`). Those rules are not the category variable.
-
-`ref/ifp/html/article-how-the-permitting-deal-works.html` sets `--color-category: #bd4578` and `--color-category-rgb: 189, 69, 120` on `.single-article`.
-
-The home splash sets `--color-hero-background:#b17ada` inline. The splash `:before` uses `background-color: var(--color-hero-background, #B17ADA)`.
+`:root` sets `--color-hero-background` to `var(--color-hero)`. The splash `:before` uses `background-color: var(--color-hero-background, var(--color-hero))`.
 
 ## Components
 
 ### `post-listing`
 
-Home critical CSS: `.post-listing` is `display: grid` with `border: 1px solid #373737`.
+In `ifp.rtl.css`, `.post-listing` is `display: grid` with `border: 1px solid #373737`.
 
 `.post-listing__category` background is `var(--color-category, #373737)` and its text colour is `var(--color-body-background, #FFFEF2)`. `.post-listing__category-name` is Söhne, `.875rem`, `line-height: 1.3`, `font-weight: 900`, `text-transform: uppercase`. Letter-spacing is `.84px` under `max-width: 44.99em` and `.56px` under `min-width: 45em`.
 
 `.post-listing__title` is Tiempos Text, weight 400. Title size is `1.25rem` under `max-width: 44.99em` and `1.375rem` under `min-width: 45em`. Excerpt is Söhne, weight 300, `.8125rem` under `max-width: 44.99em` and `.9375rem` under `min-width: 45em`. Meta colour is `#999`.
 
-`main.css`: `.post-listing:not(.post-listing--featured)` repeats `border: 1px solid #373737`, uses areas `"image" "content"`, and gives `.post-listing__content` `padding: 20px` and `border-top: 1px solid #373737`. No `border-radius` and no `box-shadow` on this component.
+`ifp.rtl.css`: `.post-listing:not(.post-listing--featured)` repeats `border: 1px solid #373737`, uses areas `"image" "content"`, and gives `.post-listing__content` `padding: 20px` and `border-top: 1px solid #373737`. No `border-radius` and no `box-shadow` on this component.
 
 ### `home-splash`
 
-In `ref/ifp/html/home.html` the element is `<div class="home-splash" style='--color-hero-background:#b17ada'>`, inside `.home-contain.home-contain--splash`.
+`HomeSplash.vue` renders `.home-splash` inside `.home-contain.home-contain--splash`.
 
-Home critical CSS: `.home-splash` is a grid with areas `"title"` and `"links"`, `row-gap: 20px`, `color: #fffef2`, `position: relative`. The `:before` is a full-viewport band (`width: 100vw`) using the hero background variable. `.home-splash__video-wrap` covers the grid (`grid-row: 1 / -1`, `grid-column: 1 / -1`) and the video is `position: absolute`.
+In `ifp.rtl.css`, `.home-splash` is a grid with areas `"title"` and `"links"`, `row-gap: 20px`, `color: #fffef2`, `position: relative`. The `:before` is a full-viewport band (`width: 100vw`) using the hero background variable. `.home-splash__video-wrap` covers the grid (`grid-row: 1 / -1`, `grid-column: 1 / -1`) and the video is `position: absolute`.
 
 `.home-splash__title` is Söhne, weight 900, `text-transform: uppercase`, `max-width: 915px`. Font size in source order:
 
@@ -150,29 +141,29 @@ Horizontal padding on `.home-splash` is the 24 / 36 / 60px inset above. Bottom p
 
 ### Spotlight
 
-Markup classes in `home.html`: `.home-contain.home-contain--spotlight`, `.home-spotlight.home-spotlight-intro`, `.home-spotlight.home-spotlight-posts`.
+`Spotlight.vue` uses `.home-contain.home-contain--spotlight`, `.home-spotlight.home-spotlight-intro`, and `.home-spotlight.home-spotlight-posts`.
 
-Sticky is present. `main.css`: `.page-template-template-home .home-spotlight-intro { top: 70px; align-self: start; position: sticky }`.
+Sticky is present. `ifp.rtl.css`: `.page-template-template-home .home-spotlight-intro { top: 70px; align-self: start; position: sticky }`.
 
-The two-column frame is the home contain rule: at `min-width: 61.25em`, `.home-contain` is `repeat(2, 1fr)`. Under `max-width: 61.24em`, the home critical CSS sets `.home-contain--spotlight` to `display: flex; flex-direction: column`. At `min-width: 61.25em`, `main.css` adds `border-bottom: 1px solid #373737` on `.home-contain--spotlight`.
+The two-column frame is the home contain rule: at `min-width: 61.25em`, `.home-contain` is `repeat(2, 1fr)`. Under `max-width: 61.24em`, `ifp.rtl.css` sets `.home-contain--spotlight` to `display: flex; flex-direction: column`. At `min-width: 61.25em`, `ifp.rtl.css` adds `border-bottom: 1px solid #373737` on `.home-contain--spotlight`.
 
-`.home-spotlight-intro__title` is `color: #fffef2` with `padding-top: 72px`. Its `:before` is a full-viewport band, `background-color: #ff9762` (`main.css`). `.home-spotlight-posts__title` is `color: #ff9762`.
+`.home-spotlight-intro__title` is `color: #fffef2` with `padding-top: 72px`. Its `:before` is a full-viewport band, `background-color: #ff9762` (`ifp.rtl.css`). `.home-spotlight-posts__title` is `color: #ff9762`.
 
-Each `.spotlight-category` is a grid: `72px 1fr`, areas `"icon title" "icon body"`, `column-gap: 14px`, `row-gap: 4px`. The list has `border-top: 1px solid #FF9762`. The title is Söhne, `.875rem`, weight 900, uppercase. The icon is `.spotlight-category__icon` and, in `home.html`, an inline `<svg>`.
+Each `.spotlight-category` is a grid: `72px 1fr`, areas `"icon title" "icon body"`, `column-gap: 14px`, `row-gap: 4px`. The list has `border-top: 1px solid #FF9762`. The title is Söhne, `.875rem`, weight 900, uppercase. The icon is `.spotlight-category__icon`. `GroupLines.vue` draws it.
 
 ### `project`
 
-Home critical CSS: `.project` sets `--color-accent: #373737` and `border: 1px solid #373737`. `.project__image` background is `var(--color-accent, #373737)`. `.project:hover .project__image` sets `background-color: var(--color-accent)`.
+In `ifp.rtl.css`, `.project` sets `--color-accent: #373737` and `border: 1px solid #373737`. `.project__image` background is `var(--color-accent, #373737)`. `.project:hover .project__image` sets `background-color: var(--color-accent)`.
 
-`home.html` uses `class="project project--column"` and `project__image project__image--type-icon` with an inline `<svg>` inside the image slot. `.project__image--type-icon` is `position: relative`; its `:before` is `padding-top: 55.4761904762%`; the `img, svg` are `position: absolute; top: 50%; max-width: 78%`. `.project--column .project__image` has `border-bottom: 1px solid #373737`.
+`ProjectCard.vue` uses `project project--column`. `.project__image--type-icon` is `position: relative`; its `:before` is `padding-top: 55.4761904762%`; the `img, svg` are `position: absolute; top: 50%; max-width: 78%`. `.project--column .project__image` has `border-bottom: 1px solid #373737`.
 
 `.project__body` padding is `--small-spacing`. Title is Tiempos Text, weight 400, `1.25rem` under `max-width: 44.99em` and `1.375rem` under `min-width: 45em`. Description is Söhne, weight 300. Links are Söhne, `color: #ff9762`.
 
-There is no `border-radius` on `.project`. The icon is the inline SVG in the saved HTML, not a CSS shape.
+There is no `border-radius` on `.project`. The icon is the SVG in the card, not a CSS shape.
 
 ### `simple-swiper`
 
-`main.css`:
+`ifp.rtl.css`:
 
 - `.simple-swiper__items { display: flex }`
 - `.simple-swiper__item { flex-grow: 0; flex-shrink: 0 }`
@@ -186,7 +177,7 @@ Latest-list cards at `min-width: 45em` have `margin-right: var(--default-spacing
 
 ### `site-footer`
 
-`main.css`. Colour `#fffef2`. Söhne, weight 300. `display: grid`. `margin-top: 30px`, unless it follows `.newsletter-pre-footer` (`margin-top: 0`). The `:before` is a full-viewport band, `background-color: #373737`.
+`ifp.rtl.css`. Colour `#fffef2`. Söhne, weight 300. `display: grid`. `margin-top: 30px`, unless it follows `.newsletter-pre-footer` (`margin-top: 0`). The `:before` is a full-viewport band, `background-color: #373737`.
 
 At `min-width: 61.25em`: columns `auto 1fr 177px`, areas `"logo main-menu social" "address main-menu copyright" "address main-menu mini-menu"`, `column-gap: 40px`, `row-gap: 8px`, padding `40px` vertical. Logo width `38px`.
 
@@ -198,25 +189,23 @@ Horizontal padding uses the 24 / 36 / 60px inset.
 
 ### `hero-intro`
 
-From the critical CSS in `ref/ifp/html/about.html`, also present for the projects page. `.hero-intro` is `max-width: 1440px`, `display: grid`, `align-content: end`, `column-gap: 60px`, `color: #fffef2`, `padding-top: 130px`, `padding-bottom: 40px`, `margin-bottom: 30px`. Title is Tiempos Text: `2.5rem` / `line-height: 1.15` under `max-width: 44.99em`, and `3.75rem` / `line-height: 1.2` under `min-width: 45em`.
+In `ifp.rtl.css`, `.hero-intro` is `max-width: 1440px`, `display: grid`, `align-content: end`, `column-gap: 60px`, `color: #fffef2`, `padding-top: 130px`, `padding-bottom: 40px`, `margin-bottom: 30px`. Title is Tiempos Text: `2.5rem` / `line-height: 1.15` under `max-width: 44.99em`, and `3.75rem` / `line-height: 1.2` under `min-width: 45em`. About, projects, and other landings use this block.
 
-`main.css` `.hero-intro:after` is a full-viewport blend image, `opacity: .25`, `background-image: url(../images/hero-intro-blend-1.webp)`. On `.page-template-template-newsletters .hero-intro:before`, background is `var(--color-accent, #373737)`. `ref/ifp/html/projects.html` has body class `page-template-template-newsletters`.
+`.hero-intro:after` is a full-viewport blend image, `opacity: .25`, `background-image: url(../images/hero-intro-blend-1.webp)`. On `.page-template-template-newsletters .hero-intro:before`, background is `var(--color-accent, #373737)`.
 
 ### `person-card`
 
-`main.css`. `.person-card` grid is `50fr 32fr 18fr` with areas `"image link contacts" "name name name" "title title title"`. Inside `.people-group-list .people-group__list`, `:after` draws `border: 1px solid #373737`, and the image has the same border. Image background on `.person-card__image` is `#b17ada`, with a square `:before` (`padding-top: 100%`). Name is Tiempos Text, weight 400. Title is Söhne, weight 300.
+`ifp.rtl.css`. `.person-card` grid is `50fr 32fr 18fr` with areas `"image link contacts" "name name name" "title title title"`. Inside `.people-group-list .people-group__list`, `:after` draws `border: 1px solid #373737`, and the image has the same border. Image background on `.person-card__image` is `#b17ada`, with a square `:before` (`padding-top: 100%`). Name is Tiempos Text, weight 400. Title is Söhne, weight 300.
 
-`ref/ifp/html/about.html` contains `.person-card`. Team is not a separate URL; the saved about page is the template that holds these cards.
+The team cards live on `/about`. They are not a separate URL.
 
 ### `single-article`
 
-`main.css`, and the critical CSS in `ref/ifp/html/article-how-the-permitting-deal-works.html`.
-
-`.single-article` is `max-width: 1440px`. Header colour is `#fffef2`. `.single-article__header-title` is `max-width: 880px`. `.single-article__header-title-primary` is Tiempos Text, weight 400. Body copy (`.article__content`) is Tiempos Text, weight 400. `h1` and `h2` inside the content use `color: var(--color-category)` and weight 500.
+In `ifp.rtl.css`, `.single-article` is `max-width: 1440px`. Header colour is `#fffef2`. `.single-article__header-title` is `max-width: 880px`. `.single-article__header-title-primary` is Tiempos Text, weight 400. Body copy (`.article__content`) is Tiempos Text, weight 400. `h1` and `h2` inside the content use `color: var(--color-category)` and weight 500.
 
 At `min-width: 61.25em`, `.single-article .article__toc .toc__list` is `position: sticky` with `top: 70px`.
 
-The saved article sets the category variable inline, as listed above. No `border-radius` on `.single-article`.
+News articles set `--color-category` from `newsCategoryColor`. No `border-radius` on `.single-article`.
 
 ### Terminology search
 
@@ -228,4 +217,4 @@ The home bar is a `1px solid` `border-line` grid with no radius. A cell may be a
 
 ### Contact
 
-`/contact` uses `hero-intro`. The stored address lines sit under it, in the page inset. The IFP contact hero also shows an email and a telephone. The archive page is empty and stores neither, so they are not shown.
+`/contact` redirects to `/about#contact`. The address lines sit in that section.
