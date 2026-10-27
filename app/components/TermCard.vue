@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { splitByRanges } from "~/utils/persianSearch";
 import type { Range } from "~/utils/persianSearch";
+import { looksLikeHtml } from "~/utils/richText";
+import { sanitizePublicHtml } from "~/utils/sanitizeHtml";
 
 const props = defineProps<{
   id: number;
@@ -40,6 +42,8 @@ const titleParts = computed(() =>
 );
 const enParts = computed(() => pieces(props.en, props.ranges?.en));
 const textParts = computed(() => pieces(props.text, props.ranges?.text));
+const richText = computed(() => looksLikeHtml(props.text));
+const safeText = computed(() => sanitizePublicHtml(props.text));
 </script>
 
 <template>
@@ -62,7 +66,7 @@ const textParts = computed(() => pieces(props.text, props.ranges?.text));
         </template>
       </div>
       <p
-        v-if="text"
+        v-if="text && !richText"
         :id="textId"
         class="post-listing__excerpt term-card__text"
         :class="{ 'is-clamped': clamped }"
@@ -72,6 +76,15 @@ const textParts = computed(() => pieces(props.text, props.ranges?.text));
           <template v-else>{{ part.text }}</template>
         </template>
       </p>
+      <!-- eslint-disable vue/no-v-html -->
+      <div
+        v-else-if="text"
+        :id="textId"
+        class="post-listing__excerpt term-card__text"
+        :class="{ 'is-clamped': clamped }"
+        v-html="safeText"
+      />
+      <!-- eslint-enable vue/no-v-html -->
       <button
         v-if="canClamp"
         type="button"

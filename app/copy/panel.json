@@ -159,6 +159,7 @@
     "status": "وضعیت",
     "order": "ترتیب",
     "image": "تصویر",
+    "imageUrl": "نشانی تصویر",
     "question": "پرسش",
     "to": "پیوند",
     "description": "توضیح",

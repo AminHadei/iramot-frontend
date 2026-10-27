@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { looksLikeHtml } from "~/utils/richText";
+import { sanitizePublicHtml } from "~/utils/sanitizeHtml";
 const props = withDefaults(
   defineProps<{
     name: string;
@@ -18,6 +20,8 @@ const props = withDefaults(
 );
 
 const links = computed(() => props.links ?? []);
+const richDescription = computed(() => looksLikeHtml(props.description ?? ""));
+const safeDescription = computed(() => sanitizePublicHtml(props.description ?? ""));
 const stretched = computed(() => links.value.length === 1);
 const rel = computed(() => (props.noreferrer ? "noopener noreferrer" : "noopener"));
 
@@ -64,7 +68,11 @@ const initials = computed(() => {
     <div class="list-card__body">
       <slot name="meta" />
       <h2 class="list-card__title">{{ name }}</h2>
-      <p v-if="description" class="list-card__text">{{ description }}</p>
+      <p v-if="description && !richDescription" class="list-card__text">
+        {{ description }}
+      </p>
+      <!-- eslint-disable-next-line vue/no-v-html -->
+      <div v-else-if="description" class="list-card__text" v-html="safeDescription" />
       <slot name="foot" />
       <div v-if="links.length" class="list-card__links">
         <a

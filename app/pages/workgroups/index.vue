@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { workgroupTone } from "~/data/workgroups/tone";
 import type { SiteContent } from "~/types/content";
+import { plainText } from "~/utils/plainText";
+import { looksLikeHtml } from "~/utils/richText";
+import { sanitizePublicHtml } from "~/utils/sanitizeHtml";
 
 const siteState = useSite();
 const listState = useWorkgroupList();
@@ -15,7 +18,7 @@ if (!site || !list) {
 
 usePageSeo({
   title: list.title,
-  description: list.description,
+  description: plainText(list.description),
 });
 </script>
 
@@ -24,7 +27,13 @@ usePageSeo({
     <div class="hero-intro hero-intro--compact">
       <h1 class="hero-intro__title">{{ list.title }}</h1>
       <div class="hero-intro__body">
-        <p>{{ list.description }}</p>
+        <!-- eslint-disable vue/no-v-html -->
+        <div
+          v-if="looksLikeHtml(list.description)"
+          v-html="sanitizePublicHtml(list.description)"
+        />
+        <!-- eslint-enable vue/no-v-html -->
+        <p v-else>{{ list.description }}</p>
       </div>
     </div>
     <div class="post-listing-list wg-list">

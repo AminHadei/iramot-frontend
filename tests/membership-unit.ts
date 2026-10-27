@@ -16,6 +16,13 @@ import {
   parseMemberDate,
 } from "../app/utils/jalali";
 import { resolveContentFile, rewriteStorageHtml } from "../app/utils/mediaUrl";
+import {
+  blocksFromHtml,
+  htmlFromBlocks,
+  htmlFromPlain,
+  htmlStorageKey,
+  plainFromSimpleHtml,
+} from "../app/utils/richText";
 import { asPage } from "../app/utils/pageResult";
 import {
   englishDigits,
@@ -349,5 +356,29 @@ assert.equal(
   "",
 );
 assert.equal(readTokens({ access_token: "a", refresh_token: "b" })?.accessToken, "a");
+
+assert.equal(htmlFromPlain("سلام"), "<p>سلام</p>");
+assert.equal(htmlFromPlain("<p>سلام</p>"), "<p>سلام</p>");
+assert.equal(plainFromSimpleHtml("<p>سلام</p>"), "سلام");
+assert.equal(
+  plainFromSimpleHtml("<p><strong>سلام</strong></p>"),
+  "<p><strong>سلام</strong></p>",
+);
+assert.deepEqual(blocksFromHtml("<p>یک</p><p>دو</p>"), ["یک", "دو"]);
+assert.deepEqual(blocksFromHtml("<p><strong>دو</strong></p>"), [
+  "<p><strong>دو</strong></p>",
+]);
+assert.equal(
+  htmlFromBlocks(["یک", "<p><strong>دو</strong></p>"]),
+  "<p>یک</p><p><strong>دو</strong></p>",
+);
+assert.equal(htmlStorageKey("news", {}), "contentHtml");
+assert.equal(htmlStorageKey("page", {}), "contentHtml");
+assert.equal(htmlStorageKey("event", {}), "bodyHtml");
+assert.equal(htmlStorageKey("project", {}), "bodyHtml");
+assert.equal(htmlStorageKey("award", {}), "bodyHtml");
+assert.equal(htmlStorageKey("term", {}), "text");
+assert.equal(htmlStorageKey("workgroup", {}), "body");
+assert.equal(htmlStorageKey("opportunity", {}), "description");
 
 console.log("membership unit tests passed");

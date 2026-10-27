@@ -1,5 +1,6 @@
 import { isUploadPath, resolveContentFile } from "~/utils/mediaUrl";
 import { plainText } from "~/utils/plainText";
+import { sanitizePublicHtml } from "~/utils/sanitizeHtml";
 import { withBase } from "~/utils/withBase";
 
 export interface ArticleHeading {
@@ -127,5 +128,5 @@ export function articleHtml(
     },
   );
 
-  return { html, toc };
+  return { html: sanitizePublicHtml(html), toc };
 }

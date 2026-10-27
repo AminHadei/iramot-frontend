@@ -121,8 +121,7 @@ export const contentTypeConfigs: ContentTypeConfig[] = [
   singleton("award", "/admin/award", documentFields),
   singleton("workgroup-section", "/admin/workgroups/section", [
     { key: "title", kind: "text", required: true },
-    { key: "description", kind: "textarea" },
-    { key: "body", kind: "html" },
+    { key: "description", kind: "html" },
   ]),
 ];
 

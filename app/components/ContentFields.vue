@@ -63,10 +63,34 @@ function mediaPreview(value: string | undefined) {
         ]"
         @update:model-value="set(field.key, $event)"
       />
+      <div v-else-if="field.kind === 'html'" class="grid gap-1">
+        <label :for="field.key" class="text-sm text-secondary">{{
+          label(field.key)
+        }}</label>
+        <ClientOnly>
+          <AdminRichText
+            :id="field.key"
+            :model-value="modelValue[field.key] || ''"
+            :invalid="Boolean(errors[field.key])"
+            :url-prompt="copy.fields.imageUrl || copy.fields.image"
+            @update:model-value="set(field.key, $event)"
+          />
+          <template #fallback>
+            <textarea
+              :id="field.key"
+              :value="modelValue[field.key] || ''"
+              rows="8"
+              class="account-textarea min-h-40"
+              readonly
+            />
+          </template>
+        </ClientOnly>
+        <p v-if="errors[field.key]" class="text-sm text-accent" role="alert">
+          {{ errors[field.key] }}
+        </p>
+      </div>
       <div
-        v-else-if="
-          field.kind === 'html' || field.kind === 'json' || field.kind === 'textarea'
-        "
+        v-else-if="field.kind === 'json' || field.kind === 'textarea'"
         class="grid gap-1"
       >
         <label :for="field.key" class="text-sm text-secondary">{{

@@ -3,6 +3,13 @@ import { contentTypeConfig, type ContentField } from "~/data/admin/contentTypes"
 import type { ContentRecord } from "~/types/membership";
 import { applyFieldErrors, isApiError } from "~/utils/apiError";
 import { recordId } from "~/utils/money";
+import {
+  blocksFromHtml,
+  htmlFromBlocks,
+  htmlFromPlain,
+  htmlStorageKey,
+  plainFromSimpleHtml,
+} from "~/utils/richText";
 
 const props = defineProps<{
   type: string;
@@ -40,28 +47,25 @@ function fill(record: ContentRecord) {
   for (const field of current.fields) {
     if (field.key === "document") continue;
     if (field.key === "body") {
-      if (
-        typeof source.bodyHtml === "string" &&
-        typeof source.contentHtml !== "string"
+      htmlKey.value = htmlStorageKey(props.type, source);
+      if (props.type === "workgroup") values.body = htmlFromBlocks(source.body);
+      else if (props.type === "term")
+        values.body = htmlFromPlain(textValue(source.text));
+      else if (
+        props.type === "opportunity" ||
+        props.type === "partner" ||
+        props.type === "quarterly"
       ) {
-        htmlKey.value = "bodyHtml";
-      } else if (
-        typeof source.body === "string" &&
-        typeof source.contentHtml !== "string"
-      ) {
-        htmlKey.value = "body";
-      } else if (props.type === "event") {
-        htmlKey.value = "bodyHtml";
+        values.body = htmlFromPlain(textValue(source.description));
       } else {
-        htmlKey.value = "contentHtml";
+        values.body = textValue(
+          source[htmlKey.value] ??
+            source.contentHtml ??
+            source.bodyHtml ??
+            source.body ??
+            "",
+        );
       }
-      values.body = textValue(
-        source[htmlKey.value] ??
-          source.contentHtml ??
-          source.bodyHtml ??
-          source.body ??
-          "",
-      );
       continue;
     }
     if (field.key === "image" && source.image && typeof source.image === "object") {
@@ -92,7 +96,7 @@ onMounted(async () => {
   const current = config.value;
   if (!current) return;
   if (props.itemId === "new") {
-    if (props.type === "event") htmlKey.value = "bodyHtml";
+    htmlKey.value = htmlStorageKey(props.type, {});
     for (const field of current.fields) {
       values[field.key] = field.kind === "status" ? "draft" : "";
     }
@@ -140,7 +144,15 @@ function payloadBody() {
       continue;
     }
     if (field.key === "body") {
-      payload[htmlKey.value] = raw;
+      if (props.type === "workgroup") payload.body = blocksFromHtml(raw);
+      else if (props.type === "term") payload.text = plainFromSimpleHtml(raw);
+      else if (
+        props.type === "opportunity" ||
+        props.type === "partner" ||
+        props.type === "quarterly"
+      ) {
+        payload.description = plainFromSimpleHtml(raw);
+      } else payload[htmlKey.value] = raw;
       continue;
     }
     if (field.key === "image" && raw && props.type === "news") {

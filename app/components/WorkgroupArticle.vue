@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { looksLikeHtml } from "~/utils/richText";
+import { sanitizePublicHtml } from "~/utils/sanitizeHtml";
 import { workgroupTone } from "~/data/workgroups/tone";
 import type { WorkgroupArticle, WorkgroupPerson } from "~/data/workgroups/types";
 import type { SiteContent } from "~/types/content";
@@ -78,9 +80,15 @@ const managerCards = computed(() => {
             <section v-if="hasAbout">
               <h2 class="people-group__title">{{ site.ui.workgroupAbout }}</h2>
               <div class="wg-prose">
-                <p v-for="(paragraph, index) in group.body" :key="index">
-                  {{ paragraph }}
-                </p>
+                <template v-for="(paragraph, index) in group.body" :key="index">
+                  <!-- eslint-disable vue/no-v-html -->
+                  <div
+                    v-if="looksLikeHtml(paragraph)"
+                    v-html="sanitizePublicHtml(paragraph)"
+                  />
+                  <!-- eslint-enable vue/no-v-html -->
+                  <p v-else>{{ paragraph }}</p>
+                </template>
               </div>
             </section>
             <div
