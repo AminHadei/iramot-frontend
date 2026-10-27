@@ -1,3 +1,4 @@
+import { useMediaRewriteBase } from "~/composables/useContentApiBase";
 import { fetchJsonOrNull } from "~/data/fetchJson";
 import { asPage } from "~/utils/pageResult";
 import {
@@ -26,7 +27,8 @@ export function createApiProjectRepository(
   siteBase = "/",
 ): ProjectRepository {
   const root = apiBase.replace(/\/$/, "");
-  const media: MediaContext = { apiBase: root, siteBase };
+  const mediaRoot = useMediaRewriteBase(root);
+  const media: MediaContext = { apiBase: mediaRoot, siteBase };
 
   function present(item: ProjectRecord): ProjectRecord {
     const next = rewriteMediaTree(item, media);
@@ -34,7 +36,9 @@ export function createApiProjectRepository(
       ...next,
       path: next.path || `/projects/${next.slug}`,
       authors: next.authors ?? [],
-      bodyHtml: next.bodyHtml ? rewriteStorageHtml(next.bodyHtml, root) : next.bodyHtml,
+      bodyHtml: next.bodyHtml
+        ? rewriteStorageHtml(next.bodyHtml, mediaRoot)
+        : next.bodyHtml,
     };
   }
 

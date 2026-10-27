@@ -1,3 +1,4 @@
+import { useMediaRewriteBase } from "~/composables/useContentApiBase";
 import { fetchJsonOrNull } from "~/data/fetchJson";
 import { asPage } from "~/utils/pageResult";
 import {
@@ -28,7 +29,8 @@ export function createApiResearchRepository(
   siteBase = "/",
 ): ResearchRepository {
   const root = apiBase.replace(/\/$/, "");
-  const media: MediaContext = { apiBase: root, siteBase };
+  const mediaRoot = useMediaRewriteBase(root);
+  const media: MediaContext = { apiBase: mediaRoot, siteBase };
 
   function present(item: ResearchRecord): ResearchRecord {
     const next = rewriteMediaTree(item, media);
@@ -36,7 +38,9 @@ export function createApiResearchRepository(
       ...next,
       path: next.path || `/news/${next.slug}`,
       authors: next.authors ?? [],
-      bodyHtml: next.bodyHtml ? rewriteStorageHtml(next.bodyHtml, root) : next.bodyHtml,
+      bodyHtml: next.bodyHtml
+        ? rewriteStorageHtml(next.bodyHtml, mediaRoot)
+        : next.bodyHtml,
     };
   }
 

@@ -34,7 +34,7 @@ docker compose up --build -d
 
 `docker-compose.yml` runs only this site. Point `NUXT_PUBLIC_API_BASE` and `NUXT_API_BASE_INTERNAL` at the API process.
 
-Legacy files under `/media/...` are not copied into the image. The `main` branch still has `public/media/`. Mount that directory at `.output/public/media` when imported payloads still use those paths and the API has not stored the bytes itself.
+Images are served by the backend. This site does not ship `public/media/`. Relative upload paths in API payloads, including `/media/files/...`, are joined to the origin of `NUXT_PUBLIC_API_BASE` so the browser can load them.
 
 ## pm2 and Nginx
 
@@ -86,10 +86,10 @@ sudo nginx -t && sudo systemctl reload nginx
 
 ## Importing the old archive
 
-`main` in this repository still has the former `content/` tree. On the backend host, check out that branch and import once:
+`main` in this repository still has the former `content/` tree and `public/media/`. On the backend host, check out that branch and import once, before this cleanup is merged, or from any folder that still contains `public/media`:
 
 ```bash
 pnpm import:content /path/to/iramot-frontend
 ```
 
-Run that command from the backend repository. The path is a checkout of this repo's `main` branch. Repeat the import only when you intend to replace the MongoDB documents.
+Run that command from the backend repository. The path is a checkout of this repo's `main` branch. The import copies `public/media/` into backend upload storage and rewrites `/media/...` references to the same upload URLs admin uploads return. Repeat the import only when you intend to replace the MongoDB documents.

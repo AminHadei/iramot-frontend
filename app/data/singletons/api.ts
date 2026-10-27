@@ -1,4 +1,5 @@
 import type { HomeContent, SiteContent, ConferenceContent } from "~/types/content";
+import { useMediaRewriteBase } from "~/composables/useContentApiBase";
 import { fetchJsonOrNull } from "~/data/fetchJson";
 import { rewriteMediaTree, type MediaContext } from "~/utils/mediaUrl";
 
@@ -23,7 +24,7 @@ export interface AwardRepository {
 }
 
 function context(apiBase: string, siteBase: string): MediaContext {
-  return { apiBase: apiBase.replace(/\/$/, ""), siteBase };
+  return { apiBase: useMediaRewriteBase(apiBase), siteBase };
 }
 
 export function createApiSiteRepository(

@@ -4,6 +4,7 @@ import type {
   WorkgroupList,
   WorkgroupRepository,
 } from "~/data/workgroups/types";
+import { useMediaRewriteBase } from "~/composables/useContentApiBase";
 import { fetchJsonOrNull } from "~/data/fetchJson";
 import {
   articleFromWorkgroupFile,
@@ -22,7 +23,7 @@ export function createApiWorkgroupRepository(
   siteBase = "/",
 ): WorkgroupRepository {
   const root = apiBase.replace(/\/$/, "");
-  const media: MediaContext = { apiBase: root, siteBase };
+  const media: MediaContext = { apiBase: useMediaRewriteBase(root), siteBase };
 
   return {
     async list(): Promise<WorkgroupList> {
@@ -32,7 +33,11 @@ export function createApiWorkgroupRepository(
       );
       if (!body) return { title: "", description: "", groups: [] };
       if (isFile(body))
-        return listFromWorkgroupFile(rewriteMediaTree(body, media), siteBase);
+        return listFromWorkgroupFile(
+          rewriteMediaTree(body, media),
+          siteBase,
+          media.apiBase ?? "",
+        );
       return rewriteMediaTree(body, media);
     },
     async get(slug: string): Promise<WorkgroupArticle | null> {
@@ -46,6 +51,7 @@ export function createApiWorkgroupRepository(
           rewriteMediaTree(direct, media),
           slug,
           siteBase,
+          media.apiBase ?? "",
         );
       }
       if ("groups" in direct && Array.isArray(direct.groups)) {
@@ -53,6 +59,7 @@ export function createApiWorkgroupRepository(
           direct as unknown as WorkgroupFile,
           slug,
           siteBase,
+          media.apiBase ?? "",
         );
       }
       return rewriteMediaTree(direct, media);

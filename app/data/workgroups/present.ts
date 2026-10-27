@@ -11,7 +11,7 @@ import type {
   WorkgroupRecord,
   WorkgroupSummary,
 } from "~/data/workgroups/types";
-import { withBase } from "~/utils/withBase";
+import { resolveContentFile } from "~/utils/mediaUrl";
 
 function blocked(text: string) {
   return text.includes("لورم") || text.includes("شرایط فعلی تکنولوژی مورد نیاز");
@@ -31,38 +31,57 @@ function presentBody(record: WorkgroupRecord) {
     .filter((line) => line && !blocked(line));
 }
 
+function presentPhoto(
+  photo: string | null | undefined,
+  baseURL: string,
+  apiBase: string,
+) {
+  if (!photo) return undefined;
+  return resolveContentFile(photo, { apiBase, siteBase: baseURL });
+}
+
 function presentManager(
   manager: WorkgroupRecord["manager"],
   baseURL: string,
+  apiBase: string,
 ): WorkgroupManager | undefined {
   const name = manager?.name?.trim();
   if (!name) return undefined;
-  const photo = manager?.photo ? withBase(baseURL, manager.photo) : undefined;
+  const photo = presentPhoto(manager?.photo, baseURL, apiBase);
   return photo ? { name, photo } : { name };
 }
 
 function presentPerson(
   person: WorkgroupRawPerson,
   baseURL: string,
+  apiBase: string,
 ): WorkgroupPerson | undefined {
   const name = person.name?.trim();
   if (!name) return undefined;
-  const photo = person.photo ? withBase(baseURL, person.photo) : undefined;
+  const photo = presentPhoto(person.photo, baseURL, apiBase);
   return photo
     ? { name, role: person.roleSource?.trim() ?? "", photo }
     : { name, role: person.roleSource?.trim() ?? "" };
 }
 
-function presentPeople(people: WorkgroupRawPerson[] | undefined, baseURL: string) {
+function presentPeople(
+  people: WorkgroupRawPerson[] | undefined,
+  baseURL: string,
+  apiBase: string,
+) {
   return (people ?? []).flatMap((person) => {
-    const card = presentPerson(person, baseURL);
+    const card = presentPerson(person, baseURL, apiBase);
     return card ? [card] : [];
   });
 }
 
-function presentLists(record: WorkgroupRecord, baseURL: string): WorkgroupMemberList[] {
+function presentLists(
+  record: WorkgroupRecord,
+  baseURL: string,
+  apiBase: string,
+): WorkgroupMemberList[] {
   return (record.memberLists ?? []).flatMap((list) => {
-    const members = presentPeople(list.members, baseURL);
+    const members = presentPeople(list.members, baseURL, apiBase);
     const heading = list.heading?.trim();
     if (!heading || !members.length) return [];
     return [{ heading, members }];
@@ -93,8 +112,12 @@ function presentLinks(record: WorkgroupRecord): WorkgroupLink[] {
   });
 }
 
-function presentSummary(record: WorkgroupRecord, baseURL: string): WorkgroupSummary {
-  const manager = presentManager(record.manager, baseURL);
+function presentSummary(
+  record: WorkgroupRecord,
+  baseURL: string,
+  apiBase: string,
+): WorkgroupSummary {
+  const manager = presentManager(record.manager, baseURL, apiBase);
   const excerpt = presentExcerpt(record);
   return {
     id: record.id,
@@ -114,11 +137,12 @@ function presentSummary(record: WorkgroupRecord, baseURL: string): WorkgroupSumm
 export function listFromWorkgroupFile(
   file: WorkgroupFile,
   baseURL: string,
+  apiBase = "",
 ): WorkgroupList {
   return {
     title: file.section.title,
     description: file.section.description,
-    groups: file.groups.map((group) => presentSummary(group, baseURL)),
+    groups: file.groups.map((group) => presentSummary(group, baseURL, apiBase)),
   };
 }
 
@@ -126,19 +150,20 @@ export function articleFromWorkgroupFile(
   file: WorkgroupFile,
   slug: string,
   baseURL: string,
+  apiBase = "",
 ): WorkgroupArticle | null {
   const index = file.groups.findIndex((group) => group.slug === slug);
   const record = file.groups[index];
   if (!record) return null;
-  const groups = file.groups.map((group) => presentSummary(group, baseURL));
+  const groups = file.groups.map((group) => presentSummary(group, baseURL, apiBase));
   const summary = groups[index];
   if (!summary) return null;
   return {
     ...summary,
     sectionTitle: file.section.title,
     body: presentBody(record),
-    members: presentPeople(record.members, baseURL),
-    memberLists: presentLists(record, baseURL),
+    members: presentPeople(record.members, baseURL, apiBase),
+    memberLists: presentLists(record, baseURL, apiBase),
     facts: presentFacts(record),
     links: presentLinks(record),
     others: groups.filter((group) => group.slug !== slug),

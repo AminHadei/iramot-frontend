@@ -15,7 +15,7 @@ import {
   jalaliToIso,
   parseMemberDate,
 } from "../app/utils/jalali";
-import { resolveContentFile } from "../app/utils/mediaUrl";
+import { resolveContentFile, rewriteStorageHtml } from "../app/utils/mediaUrl";
 import { asPage } from "../app/utils/pageResult";
 import {
   englishDigits,
@@ -245,7 +245,21 @@ assert.equal(
     apiBase: "https://api.example.test",
     siteBase: "/irmot/",
   }),
-  "/irmot/media/news/a.webp",
+  "https://api.example.test/media/news/a.webp",
+);
+assert.equal(
+  resolveContentFile("/images/hero.webp", {
+    apiBase: "https://api.example.test/api",
+    siteBase: "/irmot/",
+  }),
+  "/irmot/images/hero.webp",
+);
+assert.equal(
+  rewriteStorageHtml(
+    '<img src="/media/about/a.webp" alt="">',
+    "https://api.example.test/api",
+  ),
+  '<img src="https://api.example.test/media/about/a.webp" alt="">',
 );
 assert.equal(
   resolveContentFile("/media/files/card.png", {

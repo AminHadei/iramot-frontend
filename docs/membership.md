@@ -71,4 +71,4 @@ Public content reads: `/news`, `/news/:slug`, `/news/categories`, `/events`, `/e
 
 `GET` by slug returns 404 for a missing record and the client treats that as null. `GET /events/featured` may return JSON `null`. The opportunities client always drops items with `sample: true`.
 
-File fields that are absolute URLs are used as returned. Paths under `/uploads`, `/storage`, `/files`, or `/media/files` are joined to the API origin. Other site files such as `/media/news/...` are prefixed with the site base URL.
+File fields that are absolute URLs are used as returned. Relative upload paths under `/uploads`, `/storage`, `/files`, or `/media/` are joined to the origin of `NUXT_PUBLIC_API_BASE`. Site chrome such as `/images/` and `/brand/` stays on this site.

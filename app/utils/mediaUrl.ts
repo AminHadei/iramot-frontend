@@ -1,6 +1,6 @@
-import { withBase } from "~/utils/withBase";
+import { withBase } from "./withBase";
 
-const storagePath = /^\/(?:uploads|storage|files|media\/files)(?:\/|$)/;
+const storagePath = /^\/(?:uploads|storage|files|media)(?:\/|$)/;
 const filePath = /\.(?:png|jpe?g|webp|gif|svg|avif|pdf)(?:[?#].*)?$/i;
 const mediaKeys = new Set([
   "image",
@@ -28,6 +28,12 @@ export function apiOrigin(apiBase: string): string {
   } catch {
     return apiBase.replace(/\/$/, "");
   }
+}
+
+export function isUploadPath(src: string): boolean {
+  if (!src || isAbsoluteUrl(src)) return false;
+  const path = src.startsWith("/") ? src : `/${src}`;
+  return storagePath.test(path);
 }
 
 export function resolveContentFile(
@@ -71,7 +77,7 @@ export function rewriteStorageHtml(html: string, apiBase: string): string {
   if (!html || !apiBase) return html;
   const origin = apiOrigin(apiBase);
   return html.replace(
-    /(src|href)=(["'])(\/(?:uploads|storage|files|media\/files)\/[^"']*)\2/gi,
+    /(src|href)=(["'])(\/(?:uploads|storage|files|media)\/[^"']*)\2/gi,
     (_match, attr: string, quote: string, path: string) =>
       `${attr}=${quote}${origin}${path}${quote}`,
   );

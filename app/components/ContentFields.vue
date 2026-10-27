@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { ContentField } from "~/data/admin/contentTypes";
 import type { PanelCopy } from "~/types/panel";
+import { resolveContentFile } from "~/utils/mediaUrl";
 
 const props = defineProps<{
   fields: ContentField[];
@@ -20,6 +21,19 @@ function set(key: string, value: string) {
 
 function label(key: string) {
   return props.copy.fields[key] ?? props.copy.contentTypes[key] ?? key;
+}
+
+const config = useRuntimeConfig();
+
+function mediaPreview(value: string | undefined) {
+  if (!value) return "";
+  if (value.startsWith("blob:") || value.startsWith("data:")) return value;
+  return (
+    resolveContentFile(value, {
+      apiBase: config.public.apiBase,
+      siteBase: config.app.baseURL,
+    }) ?? ""
+  );
 }
 </script>
 
@@ -88,12 +102,7 @@ function label(key: string) {
         :choose-label="copy.actions.upload"
         accept="image/*,application/pdf"
         :file-name="modelValue[field.key]"
-        :preview="
-          modelValue[field.key]?.startsWith('http') ||
-          modelValue[field.key]?.startsWith('/')
-            ? modelValue[field.key]
-            : ''
-        "
+        :preview="mediaPreview(modelValue[field.key])"
         :error="errors[field.key]"
         @select="(file) => file && emit('upload', field.key, file)"
       />

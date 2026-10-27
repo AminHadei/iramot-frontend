@@ -6,6 +6,7 @@ import type {
   NewsRepository,
   NewsSummary,
 } from "~/data/news/types";
+import { useMediaRewriteBase } from "~/composables/useContentApiBase";
 import { fetchJsonOrNull } from "~/data/fetchJson";
 import { articleHtml } from "~/utils/articleHtml";
 import {
@@ -21,7 +22,8 @@ export function createApiNewsRepository(
   siteBase = "/",
 ): NewsRepository {
   const root = apiBase.replace(/\/$/, "");
-  const media: MediaContext = { apiBase: root, siteBase };
+  const mediaRoot = useMediaRewriteBase(root);
+  const media: MediaContext = { apiBase: mediaRoot, siteBase };
 
   function mapSummary<T extends NewsSummary>(item: T): T {
     return rewriteMediaTree(item, media);
@@ -40,8 +42,10 @@ export function createApiNewsRepository(
       );
       if (!post) return null;
       const prepared = articleHtml(
-        rewriteStorageHtml(post.contentHtml || "", root),
+        rewriteStorageHtml(post.contentHtml || "", mediaRoot),
         siteBase,
+        undefined,
+        mediaRoot,
       );
       return { ...mapSummary(post), contentHtml: prepared.html };
     },

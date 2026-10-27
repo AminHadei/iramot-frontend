@@ -1,4 +1,5 @@
 import type { ArchiveItem } from "~/types/content";
+import { useMediaRewriteBase } from "~/composables/useContentApiBase";
 import { fetchJsonOrNull } from "~/data/fetchJson";
 import { articleHtml } from "~/utils/articleHtml";
 import { rewriteStorageHtml } from "~/utils/mediaUrl";
@@ -12,6 +13,7 @@ export function createApiPageRepository(
   siteBase = "/",
 ): PageRepository {
   const root = apiBase.replace(/\/$/, "");
+  const mediaRoot = useMediaRewriteBase(root);
   return {
     async get(id: number) {
       if (!root) return null;
@@ -20,7 +22,12 @@ export function createApiPageRepository(
       return {
         ...record,
         content: record.content
-          ? articleHtml(rewriteStorageHtml(record.content, root), siteBase).html
+          ? articleHtml(
+              rewriteStorageHtml(record.content, mediaRoot),
+              siteBase,
+              undefined,
+              mediaRoot,
+            ).html
           : record.content,
       };
     },

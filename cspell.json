@@ -20,7 +20,6 @@
     "cspell.json",
     "CHANGELOG.md",
     "public/animations/**",
-    "public/media/**",
     "tests/fixtures/**",
     "app/assets/css/ifp.rtl.css",
     "app/copy/panel.json"

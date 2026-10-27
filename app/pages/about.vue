@@ -3,6 +3,7 @@ import type { CSSProperties } from "vue";
 import type { SiteContent } from "~/types/content";
 import { createApiAboutRepository } from "~/data/singletons/api";
 import { aboutHashAliases } from "~/utils/aboutHash";
+import { resolveContentFile } from "~/utils/mediaUrl";
 import { withBase } from "~/utils/withBase";
 
 interface AboutLink {
@@ -154,13 +155,12 @@ usePageSeo({
 });
 
 function mediaPath(src: string) {
-  const file = decodeURIComponent(src.split("/").pop() ?? "");
-  const located = src.match(/uploads\/(\d{4})\/(\d{2})\//);
-  const sized = file.match(/^(.*)-\d+x\d+(\.[a-z0-9]+)$/i);
-  if (located && sized) {
-    return `/media/${located[1]}/${located[2]}/${sized[1]}${sized[2]}`;
-  }
-  return `/media/about/${file}`;
+  return (
+    resolveContentFile(src, {
+      apiBase: config.public.apiBase,
+      siteBase: config.app.baseURL,
+    }) ?? src
+  );
 }
 
 function labelFor(type: string) {

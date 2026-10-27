@@ -1,4 +1,5 @@
 import type { Partner, PartnerList, PartnerRepository } from "~/data/partners/types";
+import { useMediaRewriteBase } from "~/composables/useContentApiBase";
 import { asPage } from "~/utils/pageResult";
 import { rewriteMediaTree, type MediaContext } from "~/utils/mediaUrl";
 
@@ -9,7 +10,7 @@ export function createApiPartnerRepository(
   siteBase = "/",
 ): PartnerRepository {
   const root = apiBase.replace(/\/$/, "");
-  const media: MediaContext = { apiBase: root, siteBase };
+  const media: MediaContext = { apiBase: useMediaRewriteBase(root), siteBase };
 
   return {
     async list(): Promise<PartnerList> {

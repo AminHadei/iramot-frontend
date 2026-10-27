@@ -6,6 +6,7 @@ import type {
   EventRepository,
   EventSummary,
 } from "~/data/events/types";
+import { useMediaRewriteBase } from "~/composables/useContentApiBase";
 import { fetchJsonOrNull } from "~/data/fetchJson";
 import { isNotFoundError } from "~/utils/httpStatus";
 import { articleHtml } from "~/utils/articleHtml";
@@ -22,7 +23,8 @@ export function createApiEventRepository(
   siteBase = "/",
 ): EventRepository {
   const root = apiBase.replace(/\/$/, "");
-  const media: MediaContext = { apiBase: root, siteBase };
+  const mediaRoot = useMediaRewriteBase(root);
+  const media: MediaContext = { apiBase: mediaRoot, siteBase };
 
   function mapSummary<T extends EventSummary>(item: T): T {
     return rewriteMediaTree(item, media);
@@ -54,8 +56,10 @@ export function createApiEventRepository(
       );
       if (!event) return null;
       const prepared = articleHtml(
-        rewriteStorageHtml(event.bodyHtml || "", root),
+        rewriteStorageHtml(event.bodyHtml || "", mediaRoot),
         siteBase,
+        undefined,
+        mediaRoot,
       );
       return { ...mapSummary(event), bodyHtml: prepared.html };
     },

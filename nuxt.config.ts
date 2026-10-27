@@ -1,3 +1,16 @@
+function apiImageDomains(): string[] {
+  const env = (globalThis as { process?: { env?: Record<string, string | undefined> } })
+    .process?.env;
+  const raw = env?.NUXT_PUBLIC_API_BASE?.trim();
+  if (!raw) return [];
+  try {
+    const hostname = new URL(raw).hostname;
+    return hostname ? [hostname] : [];
+  } catch {
+    return [];
+  }
+}
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: "2026-10-21",
@@ -63,6 +76,8 @@ export default defineNuxtConfig({
     },
   },
   image: {
+    provider: "none",
+    domains: apiImageDomains(),
     providers: {
       none: {
         name: "none",

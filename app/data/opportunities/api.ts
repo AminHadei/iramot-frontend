@@ -3,6 +3,7 @@ import type {
   OpportunityList,
   OpportunityRepository,
 } from "~/data/opportunities/types";
+import { useMediaRewriteBase } from "~/composables/useContentApiBase";
 import { asPage } from "~/utils/pageResult";
 import { rewriteMediaTree, type MediaContext } from "~/utils/mediaUrl";
 
@@ -13,7 +14,7 @@ export function createApiOpportunityRepository(
   siteBase = "/",
 ): OpportunityRepository {
   const root = apiBase.replace(/\/$/, "");
-  const media: MediaContext = { apiBase: root, siteBase };
+  const media: MediaContext = { apiBase: useMediaRewriteBase(root), siteBase };
 
   return {
     async list(): Promise<OpportunityList> {

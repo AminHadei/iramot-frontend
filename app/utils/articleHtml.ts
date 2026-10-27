@@ -1,3 +1,4 @@
+import { isUploadPath, resolveContentFile } from "~/utils/mediaUrl";
 import { plainText } from "~/utils/plainText";
 import { withBase } from "~/utils/withBase";
 
@@ -11,20 +12,20 @@ const blocked =
   /<(script|style|iframe|object|embed|noscript|form)\b[^>]*>[\s\S]*?<\/\1>/gi;
 const blockedVoid = /<(script|style|iframe|object|embed|noscript|form)\b[^>]*\/?>/gi;
 
-function prefixMedia(baseURL: string, value: string): string {
+function prefixMedia(siteBase: string, value: string, mediaBase: string): string {
   return value
     .split(",")
     .map((part) => {
       const bits = part.trim().split(/\s+/);
       const url = bits[0];
-      if (!url?.startsWith("/media/")) return part.trim();
-      bits[0] = withBase(baseURL, url);
+      if (!url || !isUploadPath(url)) return part.trim();
+      bits[0] = resolveContentFile(url, { apiBase: mediaBase, siteBase }) ?? url;
       return bits.join(" ");
     })
     .join(", ");
 }
 
-function cleanTag(tag: string, baseURL: string) {
+function cleanTag(tag: string, siteBase: string, mediaBase: string) {
   return tag
     .replace(/\s+on[a-z]+\s*=\s*("[^"]*"|'[^']*'|[^\s>]+)/gi, "")
     .replace(/\s+(href|src)\s*=\s*(["'])\s*(?:javascript:|data:)[^"']*\2/gi, "")
@@ -33,15 +34,17 @@ function cleanTag(tag: string, baseURL: string) {
     .replace(
       /\s+src\s*=\s*(["'])([^"']*)\1/gi,
       (match, quote: string, value: string) => {
-        if (!value.includes("/media/")) return match;
-        return ` src=${quote}${prefixMedia(baseURL, value)}${quote}`;
+        if (!isUploadPath(value)) return match;
+        return ` src=${quote}${prefixMedia(siteBase, value, mediaBase)}${quote}`;
       },
     )
     .replace(
       /\s+href\s*=\s*(["'])([^"']*)\1/gi,
       (match, quote: string, value: string) => {
-        if (!value.startsWith("/media/")) return match;
-        return ` href=${quote}${withBase(baseURL, value)}${quote}`;
+        if (!isUploadPath(value)) return match;
+        const next =
+          resolveContentFile(value, { apiBase: mediaBase, siteBase }) ?? value;
+        return ` href=${quote}${next}${quote}`;
       },
     );
 }
@@ -96,6 +99,7 @@ export function articleHtml(
   source: string,
   baseURL = "/",
   slugs?: ReadonlySet<string>,
+  mediaBase = "",
 ): { html: string; toc: ArticleHeading[] } {
   const cleaned = rewriteIramotLinks(
     source
@@ -103,7 +107,7 @@ export function articleHtml(
       .replace(blocked, "")
       .replace(blockedVoid, "")
       .replace(/\[\/?[a-zA-Z_:][^\]]*\]/g, "")
-      .replace(/<[^>]+>/g, (tag) => cleanTag(tag, baseURL)),
+      .replace(/<[^>]+>/g, (tag) => cleanTag(tag, baseURL, mediaBase)),
     baseURL,
     slugs,
   );

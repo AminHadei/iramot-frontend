@@ -70,6 +70,7 @@ function withColor(cards: ListingCard[]): HomeCard[] {
 
 const { data: home } = await useAsyncData("home-page", async () => {
   const apiBase = useContentApiBase();
+  const pages = createApiPageRepository(apiBase, config.app.baseURL);
   const homeRequest = createApiHomeRepository(apiBase, config.app.baseURL).get();
   const aboutRequest = createApiAboutRepository(apiBase, config.app.baseURL).get();
   const [pageFile, aboutFile, newsList, eventList] = await Promise.all([
@@ -81,7 +82,6 @@ const { data: home } = await useAsyncData("home-page", async () => {
   if (!pageFile || !aboutFile) return null;
   const page = pageFile as HomeContent;
   const about = aboutFile as AboutFields;
-  const pages = createApiPageRepository(apiBase, config.app.baseURL);
   const publicationCards: HomeCard[] = newsList.items.map((item: NewsSummary) => {
     const category = primaryNewsCategory(item.categories);
     return {

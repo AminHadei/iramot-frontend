@@ -3,6 +3,7 @@ import type {
   QuarterlyList,
   QuarterlyRepository,
 } from "~/data/quarterlies/types";
+import { useMediaRewriteBase } from "~/composables/useContentApiBase";
 import { asPage } from "~/utils/pageResult";
 import { rewriteMediaTree, type MediaContext } from "~/utils/mediaUrl";
 
@@ -13,7 +14,7 @@ export function createApiQuarterlyRepository(
   siteBase = "/",
 ): QuarterlyRepository {
   const root = apiBase.replace(/\/$/, "");
-  const media: MediaContext = { apiBase: root, siteBase };
+  const media: MediaContext = { apiBase: useMediaRewriteBase(root), siteBase };
 
   return {
     async list(): Promise<QuarterlyList> {
