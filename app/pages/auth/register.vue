@@ -58,12 +58,6 @@ async function submit() {
 
 <template>
   <div class="page-wrap py-16">
-    <div class="hero-intro">
-      <h1 class="hero-intro__title">{{ copy.seo.registerTitle }}</h1>
-      <div class="hero-intro__body">
-        <p>{{ copy.seo.registerDescription }}</p>
-      </div>
-    </div>
     <form class="mt-8 grid max-w-xl gap-5" @submit.prevent="submit">
       <p v-if="formError" class="text-accent" role="alert">{{ formError }}</p>
       <AccountField

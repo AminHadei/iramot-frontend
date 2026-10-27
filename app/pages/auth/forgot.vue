@@ -81,12 +81,6 @@ async function reset() {
 
 <template>
   <div class="page-wrap py-16">
-    <div class="hero-intro">
-      <h1 class="hero-intro__title">{{ copy.seo.forgotTitle }}</h1>
-      <div class="hero-intro__body">
-        <p>{{ copy.seo.forgotDescription }}</p>
-      </div>
-    </div>
     <form
       v-if="step === 'mobile'"
       class="mt-8 grid max-w-xl gap-5"

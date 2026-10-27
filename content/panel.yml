@@ -1,11 +1,5 @@
 placeholder: true
 seo:
-  loginTitle: ورود
-  loginDescription: ورود اعضا با شمارهٔ موبایل و گذرواژه.
-  registerTitle: ثبت‌نام
-  registerDescription: ساخت حساب برای درخواست عضویت در انجمن.
-  forgotTitle: بازیابی گذرواژه
-  forgotDescription: دریافت رمز یک‌بارمصرف و انتخاب گذرواژهٔ تازه.
   panelTitle: پیشخوان
   panelDescription: وضعیت عضویت و کارهای باز حساب شما.
   profileTitle: مشخصات
