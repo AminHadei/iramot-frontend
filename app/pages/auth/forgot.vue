@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { isApiError, messageOf } from "~/utils/apiError";
+import { applyFieldErrors, isApiError } from "~/utils/apiError";
 import {
   englishDigits,
   isIranMobile,
@@ -26,10 +26,15 @@ function text(code: ValidationCode | null) {
   return code ? copy.validation[code] : "";
 }
 
-function fail(error: unknown) {
-  formError.value = isApiError(error)
-    ? messageOf(error.payload) || copy.validation.request
-    : copy.validation.request;
+function fail(error: unknown, fields: string[]) {
+  if (!isApiError(error)) {
+    formError.value = copy.validation.request;
+    return;
+  }
+  const rest = applyFieldErrors(error.payload, errors, fields);
+  if (errors.newPassword) errors.password = errors.newPassword;
+  formError.value =
+    rest || (Object.values(errors).some(Boolean) ? "" : copy.validation.request);
 }
 
 async function sendCode() {
@@ -47,7 +52,7 @@ async function sendCode() {
     });
     step.value = "reset";
   } catch (error) {
-    fail(error);
+    fail(error, ["mobile"]);
   } finally {
     pending.value = false;
   }
@@ -72,7 +77,7 @@ async function reset() {
     });
     step.value = "done";
   } catch (error) {
-    fail(error);
+    fail(error, ["otp", "newPassword", "password", "mobile"]);
   } finally {
     pending.value = false;
   }

@@ -53,7 +53,6 @@ const statusLabel = computed(() => {
       <p v-if="info?.membershipNumber" class="mt-2">
         {{ copy.fields.memberCode }}: {{ info.membershipNumber }}
       </p>
-      <p v-if="!info" class="mt-2 text-secondary">{{ copy.fields.noMembership }}</p>
       <NuxtLink class="button mt-6 inline-block" to="/panel/membership">
         {{ copy.actions.apply }}
       </NuxtLink>

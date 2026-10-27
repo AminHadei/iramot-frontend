@@ -4,6 +4,7 @@ export type FieldKind =
   | "html"
   | "number"
   | "date"
+  | "datetime"
   | "slug"
   | "status"
   | "media"
@@ -29,7 +30,7 @@ export interface ContentTypeConfig {
 const meta: ContentField[] = [
   { key: "slug", kind: "slug", required: true, scope: "meta" },
   { key: "status", kind: "status", scope: "meta" },
-  { key: "publishedAt", kind: "date", scope: "meta" },
+  { key: "publishedAt", kind: "datetime", scope: "meta" },
   { key: "sortOrder", kind: "number", scope: "meta" },
   { key: "seoTitle", kind: "text", scope: "seo" },
   { key: "seoDescription", kind: "textarea", scope: "seo" },
@@ -43,7 +44,6 @@ const article: ContentField[] = [
   { key: "body", kind: "html" },
   { key: "date", kind: "date" },
   { key: "image", kind: "media" },
-  { key: "document", kind: "json" },
 ];
 
 function collection(type: string, fields: ContentField[] = article): ContentTypeConfig {
@@ -72,7 +72,16 @@ const documentFields: ContentField[] = [
   { key: "title", kind: "text" },
   { key: "body", kind: "html" },
   { key: "image", kind: "media" },
-  { key: "document", kind: "json" },
+];
+
+const eventFields: ContentField[] = [
+  ...meta,
+  { key: "title", kind: "text", required: true },
+  { key: "excerpt", kind: "textarea" },
+  { key: "body", kind: "html" },
+  { key: "program", kind: "text", required: true },
+  { key: "startsAt", kind: "datetime" },
+  { key: "location", kind: "text" },
 ];
 
 export const contentTypeConfigs: ContentTypeConfig[] = [
@@ -81,31 +90,21 @@ export const contentTypeConfigs: ContentTypeConfig[] = [
     ...meta,
     { key: "name", kind: "text", required: true },
     { key: "description", kind: "textarea" },
-    { key: "document", kind: "json" },
   ]),
-  collection("news-tag", [
-    ...meta,
-    { key: "name", kind: "text", required: true },
-    { key: "document", kind: "json" },
-  ]),
-  collection("event"),
+  collection("news-tag", [...meta, { key: "name", kind: "text", required: true }]),
+  collection("event", eventFields),
   collection("opportunity"),
   collection("quarterly"),
   collection("partner"),
   collection("workgroup"),
   collection("term"),
-  collection("term-source", [
-    ...meta,
-    { key: "name", kind: "text", required: true },
-    { key: "document", kind: "json" },
-  ]),
+  collection("term-source", [...meta, { key: "name", kind: "text", required: true }]),
   collection("project"),
   collection("area", [
     ...meta,
     { key: "title", kind: "text", required: true },
     { key: "question", kind: "textarea", required: true },
     { key: "to", kind: "text" },
-    { key: "document", kind: "json" },
   ]),
   collection("research"),
   collection("guide", [
@@ -113,7 +112,6 @@ export const contentTypeConfigs: ContentTypeConfig[] = [
     { key: "title", kind: "text", required: true },
     { key: "description", kind: "textarea" },
     { key: "body", kind: "html" },
-    { key: "document", kind: "json" },
   ]),
   collection("page"),
   singleton("settings", "/admin/settings", documentFields),

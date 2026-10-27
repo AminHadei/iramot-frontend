@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import type { MembershipPlan } from "~/types/membership";
-import { isApiError, messageOf } from "~/utils/apiError";
+import { applyFieldErrors, isApiError } from "~/utils/apiError";
 import { recordId } from "~/utils/money";
+import { englishDigits } from "~/utils/validators";
 
 const props = defineProps<{ planId: string }>();
 
@@ -20,6 +21,7 @@ const form = reactive({
   description: "",
 });
 const error = ref("");
+const fieldErrors = reactive<Record<string, string>>({});
 const message = ref("");
 const pending = ref(false);
 const creating = computed(() => props.planId === "new");
@@ -50,8 +52,8 @@ function payload() {
     title: form.title.trim(),
     category: form.category,
     personType: form.personType,
-    price: Number(form.price),
-    durationMonths: Number(form.durationMonths),
+    price: Number(englishDigits(form.price)),
+    durationMonths: Number(englishDigits(form.durationMonths)),
     benefits: form.benefits
       .split("\n")
       .map((line) => line.trim())
@@ -61,18 +63,21 @@ function payload() {
       .map((line) => line.trim())
       .filter(Boolean),
     isActive: form.active === "true",
-    sortOrder: Number(form.order || 0),
+    sortOrder: Number(englishDigits(form.order || "0")),
     description: form.description.trim(),
   };
 }
 
 async function save() {
-  if (!form.title.trim()) {
-    error.value = copy.validation.required;
-    return;
-  }
-  pending.value = true;
   error.value = "";
+  fieldErrors.title = form.title.trim() ? "" : copy.validation.required;
+  fieldErrors.price = Number.isFinite(Number(englishDigits(form.price)))
+    ? ""
+    : copy.validation.required;
+  fieldErrors.durationMonths =
+    Number(englishDigits(form.durationMonths)) >= 1 ? "" : copy.validation.required;
+  if (Object.values(fieldErrors).some(Boolean)) return;
+  pending.value = true;
   try {
     if (creating.value) {
       const created = await auth.api().request<MembershipPlan>("/membership-plans", {
@@ -90,9 +95,27 @@ async function save() {
       message.value = copy.actions.save;
     }
   } catch (reason) {
-    error.value = isApiError(reason)
-      ? messageOf(reason.payload) || copy.validation.request
-      : copy.validation.request;
+    if (!isApiError(reason)) {
+      error.value = copy.validation.request;
+      return;
+    }
+    error.value =
+      applyFieldErrors(reason.payload, fieldErrors, [
+        "title",
+        "category",
+        "personType",
+        "price",
+        "durationMonths",
+        "benefits",
+        "requiredDocuments",
+        "description",
+        "isActive",
+        "sortOrder",
+      ]) || (Object.values(fieldErrors).some(Boolean) ? "" : copy.validation.request);
+    if (fieldErrors.requiredDocuments)
+      fieldErrors.documents = fieldErrors.requiredDocuments;
+    if (fieldErrors.sortOrder) fieldErrors.order = fieldErrors.sortOrder;
+    if (fieldErrors.isActive) fieldErrors.active = fieldErrors.isActive;
   } finally {
     pending.value = false;
   }
@@ -115,7 +138,12 @@ async function remove() {
     </p>
     <p v-if="error" class="text-accent" role="alert">{{ error }}</p>
     <p v-if="message" role="status">{{ message }}</p>
-    <AccountField v-model="form.title" :label="copy.fields.title" required />
+    <AccountField
+      v-model="form.title"
+      :label="copy.fields.title"
+      :error="fieldErrors.title"
+      required
+    />
     <AccountSelect
       v-model="form.category"
       :label="copy.fields.category"
@@ -138,11 +166,13 @@ async function remove() {
     <AccountField
       v-model="form.price"
       :label="`${copy.fields.price} (${copy.fields.toman})`"
+      :error="fieldErrors.price"
       required
     />
     <AccountField
       v-model="form.durationMonths"
       :label="copy.fields.durationMonths"
+      :error="fieldErrors.durationMonths"
       required
     />
     <AccountField v-model="form.order" :label="copy.fields.sortOrder" />
@@ -155,8 +185,11 @@ async function remove() {
         id="plan-benefits"
         v-model="form.benefits"
         rows="5"
-        class="border border-line bg-paper p-3"
+        class="account-textarea"
       />
+      <p v-if="fieldErrors.benefits" class="text-sm text-accent" role="alert">
+        {{ fieldErrors.benefits }}
+      </p>
     </div>
     <div class="grid gap-1">
       <label class="text-sm text-secondary" for="plan-documents">{{
@@ -166,9 +199,12 @@ async function remove() {
         id="plan-documents"
         v-model="form.documents"
         rows="5"
-        class="border border-line bg-paper p-3"
+        class="account-textarea"
         dir="ltr"
       />
+      <p v-if="fieldErrors.documents" class="text-sm text-accent" role="alert">
+        {{ fieldErrors.documents }}
+      </p>
     </div>
     <AccountSelect
       v-model="form.active"

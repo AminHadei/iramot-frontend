@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { isApiError, messageOf } from "~/utils/apiError";
+import { applyFieldErrors, isApiError } from "~/utils/apiError";
 import {
   isIranMobile,
   normalizeIranMobile,
@@ -38,9 +38,13 @@ async function submit() {
     });
     await navigateTo(safeNextPath(route.query.next));
   } catch (error) {
-    formError.value = isApiError(error)
-      ? messageOf(error.payload) || copy.validation.request
-      : copy.validation.request;
+    if (!isApiError(error)) {
+      formError.value = copy.validation.request;
+      return;
+    }
+    const rest = applyFieldErrors(error.payload, errors, ["mobile", "password"]);
+    formError.value =
+      rest || (errors.mobile || errors.password ? "" : copy.validation.request);
   } finally {
     pending.value = false;
   }

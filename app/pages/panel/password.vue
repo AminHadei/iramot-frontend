@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { isApiError, messageOf } from "~/utils/apiError";
+import { applyFieldErrors, isApiError } from "~/utils/apiError";
 import { passwordCode, requiredCode } from "~/utils/validators";
 
 definePageMeta({ layout: "panel", middleware: "auth" });
@@ -30,9 +30,16 @@ async function submit() {
     await auth.logout();
     await navigateTo("/auth/login");
   } catch (error) {
-    formError.value = isApiError(error)
-      ? messageOf(error.payload) || copy.validation.request
-      : copy.validation.request;
+    if (!isApiError(error)) {
+      formError.value = copy.validation.request;
+      return;
+    }
+    const rest = applyFieldErrors(error.payload, errors, [
+      "currentPassword",
+      "newPassword",
+    ]);
+    formError.value =
+      rest || (Object.values(errors).some(Boolean) ? "" : copy.validation.request);
   } finally {
     pending.value = false;
   }

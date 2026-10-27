@@ -3612,3 +3612,20 @@ a.conference-banner:focus-visible .hero-intro__link--featured {
     transition: none;
   }
 }
+
+form textarea,
+textarea.account-textarea {
+  box-sizing: border-box;
+  width: 100%;
+  border: 1px solid #2b2b33;
+  background-color: #fffdf5;
+  color: #2b2b33;
+  padding: 0.75rem;
+  font-family: IRANYekan, Tahoma, sans-serif;
+}
+
+form textarea:focus,
+textarea.account-textarea:focus {
+  border-color: #2d317a;
+  outline: 0;
+}

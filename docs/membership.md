@@ -27,20 +27,20 @@ GitHub Pages deep links use `404.html`, copied from the login shell after `nuxt 
 
 ## Routes
 
-| Path                                                                       | Who                                       |
-| -------------------------------------------------------------------------- | ----------------------------------------- |
-| `/auth/login`, `/auth/register`, `/auth/forgot`                            | guests                                    |
-| `/panel`, `/panel/profile`, `/panel/password`                              | signed-in users                           |
-| `/panel/membership`, `/panel/membership/apply`, `/panel/membership/return` | membership and mock-gateway return        |
-| `/panel/applications`, `/panel/applications/:id`                           | status, rejection reason, resubmit        |
-| `/panel/payments`, `/panel/card`                                           | payments and PNG card                     |
-| `/admin`                                                                   | stats and publish (`POST /admin/rebuild`) |
-| `/admin/applications`, `/admin/applications/:id`                           | approval queue                            |
-| `/admin/memberships`, `/admin/payments`                                    | filtered lists                            |
-| `/admin/plans`, `/admin/plans/new`, `/admin/plans/:id`                     | plan CRUD                                 |
-| `/admin/discounts`, `/admin/discounts/new`, `/admin/discounts/:id`         | discount CRUD                             |
-| `/admin/users`, `/admin/users/:id`                                         | search, role, active flag                 |
-| `/admin/content`, `/admin/content/:type`, `/admin/content/:type/:id`       | content editor                            |
+| Path                                                                                            | Who                                       |
+| ----------------------------------------------------------------------------------------------- | ----------------------------------------- |
+| `/auth/login`, `/auth/register`, `/auth/forgot`                                                 | guests                                    |
+| `/panel`, `/panel/profile`, `/panel/password`                                                   | signed-in users                           |
+| `/panel/membership`, `/panel/membership/apply`, `/panel/membership/return`, `/payment/callback` | membership and mock-gateway return        |
+| `/panel/applications`, `/panel/applications/:id`                                                | status, rejection reason, resubmit        |
+| `/panel/payments`, `/panel/card`                                                                | payments and PNG card                     |
+| `/admin`                                                                                        | stats and publish (`POST /admin/rebuild`) |
+| `/admin/applications`, `/admin/applications/:id`                                                | approval queue                            |
+| `/admin/memberships`, `/admin/payments`                                                         | filtered lists                            |
+| `/admin/plans`, `/admin/plans/new`, `/admin/plans/:id`                                          | plan CRUD                                 |
+| `/admin/discounts`, `/admin/discounts/new`, `/admin/discounts/:id`                              | discount CRUD                             |
+| `/admin/users`, `/admin/users/:id`                                                              | search, role, active flag                 |
+| `/admin/content`, `/admin/content/:type`, `/admin/content/:type/:id`                            | content editor                            |
 
 Persian interface copy is `content/panel.yml`.
 
@@ -54,21 +54,21 @@ The access token stays in memory. The refresh token is in `sessionStorage` under
 
 Prices are integer toman. The interface formats them with Persian digits and a thousands separator, and labels the unit "toman" in Persian script.
 
-Auth: `POST /auth/register`, `/auth/login`, `/auth/refresh` with `{ refreshToken }`, `POST /auth/logout` with the access token and `{ refreshToken }`, `POST /auth/forgot-password` with `{ mobile }`, `POST /auth/reset-password` with `{ mobile, otp, newPassword }`, `POST /auth/change-password` with `{ currentPassword, newPassword }`. Profile is `GET` and `PUT /users/me`. Login JSON is `{ accessToken, refreshToken, user }`. Refresh returns tokens. A password change clears the local session.
+Auth: `POST /auth/register`, `/auth/login`, `/auth/refresh` with `{ refreshToken }`, `POST /auth/logout` with the access token and `{ refreshToken }`, `POST /auth/forgot-password` with `{ mobile }`, `POST /auth/reset-password` with `{ mobile, otp, newPassword }`, `POST /auth/change-password` with `{ currentPassword, newPassword }`. Profile is `GET` and `PUT /users/me`. The profile form sends `email` only. `firstName`, `lastName`, and `mobile` are shown read-only and are changed by an admin. Login JSON is `{ accessToken, refreshToken, user }`. Refresh returns tokens. A password change clears the local session.
 
-Users admin: `GET /users` with `search`, `role`, `page`, and `limit`. `GET /users/:id`. `PATCH /users/:id/role` with `{ role }`. `PATCH /users/:id/status` with `{ isActive }`.
+Users admin: `GET /users` returns `{ users, total, page, limit, totalPages }` and accepts `search`, `role`, `page`, and `limit`. `GET /users/:id`. `PUT /users/:id` with `{ firstName?, lastName?, mobile?, email? }` updates identity. A duplicate mobile returns 409. `PATCH /users/:id/role` with `{ role }`. `PATCH /users/:id/status` with `{ isActive }`.
 
-Plans: public `GET /membership-plans` and `GET /membership-plans/:id`. Admin create, update, and delete use the same paths (`POST`, `PUT`, `DELETE`). Fields are `title`, `category`, `personType`, `durationMonths`, `price`, `benefits`, `description`, `requiredDocuments`, `isActive`, and `sortOrder`. `personType` is `natural` or `legal`.
+Plans: public `GET /membership-plans` returns `{ plans, total, page, limit, totalPages }`. `GET /membership-plans/:id` returns one plan. Admin create, update, and delete use the same paths (`POST`, `PUT`, `DELETE`). Fields are `title`, `category`, `personType`, `durationMonths`, `price`, `benefits`, `description`, `requiredDocuments`, `isActive`, and `sortOrder`. `personType` is `natural` or `legal`.
 
-Discounts: admin CRUD is `/discount-codes`. Validate is `POST /discount-codes/validate` with `{ code, planId, originalPrice }` and returns `{ valid, discountCodeId, discountAmount, finalPrice, message }`. A code is `percent` or `fixed`, with `value`, optional `maxDiscount`, `validFrom`, `validUntil`, `totalUsageLimit`, `perUserLimit`, `allowedPlans`, and `isActive`.
+Discounts: admin CRUD is `/discount-codes`. The list is `{ codes, total, page, limit, totalPages }`. Validate is `POST /discount-codes/validate` with `{ code, planId, originalPrice }` and returns `{ valid, discountCodeId, discountAmount, finalPrice, message }`. A code is `percent` or `fixed`, with `value`, optional `maxDiscount`, `validFrom`, `validUntil`, `totalUsageLimit`, `perUserLimit`, `allowedPlans`, and `isActive`.
 
 Applications: `POST /membership-applications` with `{ planId }` creates a draft. `PUT /membership-applications/:id` updates a draft or a rejected application. Document upload is `POST /membership-applications/:id/upload/:documentType` with multipart field `file`. Download is `GET /membership-applications/:id/documents/:documentType`. Document types are `personnel_photo`, `latest_degree`, `student_card`, `resume`, and `company_logo`. `POST /membership-applications/:id/submit` moves the draft to payment. Lists are `GET /membership-applications/my`, `GET /membership-applications/my/membership`, and `GET /membership-applications/my/active-membership`. Statuses are `draft`, `pending_payment`, `pending_review`, `approved`, and `rejected`. An approved application also has `membershipState` of `active` or `expired`. Natural fields include `educationStatus`, `fieldOfStudy`, `firstName`, `lastName`, `phone`, `nationalCode`, `fatherName`, `birthDate`, `email`, `university`, `address`, and `postalCode`. Legal fields include `companyName`, `fieldOfActivity`, `companyPhone`, `nationalId`, `ceoFullName`, `representativeName`, `representativePosition`, and `representativePhone`.
 
-Payments: `POST /payments` with `{ applicationId, discountCode? }` returns `{ paymentId, redirectUrl, authority }`. The client stores `paymentId` in `sessionStorage` under `irmot.pendingPayment` and follows `redirectUrl`. The gateway returns to the site with `authority` and `status` (`OK` or `NOK`). The return page calls `POST /payments/:id/verify?authority=&status=`. History is `GET /payments/my`. Statuses are `pending`, `success`, `failed`, and `cancelled`. Amounts are `amount`, `discountAmount`, and `finalAmount`.
+Payments: `POST /payments` with `{ applicationId, discountCode? }` returns `{ paymentId, redirectUrl, authority }`. The client stores `paymentId` in `sessionStorage` under `irmot.pendingPayment` and follows `redirectUrl`. The mock gateway sends the browser to `/payment/callback` with `paymentId`, `authority`, and `status` (`OK` or `NOK`). That page calls `POST /payments/:id/verify?authority=&status=`. `/panel/membership/return` verifies the same query. History is `GET /payments/my`. Admin payment lists are `{ payments, total, page, limit, totalPages }`. Statuses are `pending`, `success`, `failed`, and `cancelled`. Amounts are `amount`, `discountAmount`, and `finalAmount`.
 
 The membership card is `GET /membership-card/:applicationId` and returns a PNG for an approved application owned by the caller or an admin.
 
-Admin membership: `GET /admin/membership/queue`, `GET /admin/membership/applications` (`status`, `planId`, `page`, `limit`; `expired` selects approved memberships past their expiry), `GET /admin/membership/payments`, and `GET /admin/membership/stats` (`applicationsByStatus`, `revenue`, `successfulPayments`). Approve is `POST /membership-applications/:id/approve` with optional `{ membershipNumber }`. Reject is `POST /membership-applications/:id/reject` with `{ reason }`. The queue shows each plan's `title` from `GET /membership-plans`.
+Admin membership: `GET /admin/membership/queue` and `GET /admin/membership/applications` return `{ applications, total, page, limit, totalPages }`. `GET /admin/membership/applications` (`status`, `planId`, `page`, `limit`; `expired` selects approved memberships past their expiry), `GET /admin/membership/payments`, and `GET /admin/membership/stats` (`applicationsByStatus`, `revenue`, `successfulPayments`). Approve is `POST /membership-applications/:id/approve` with optional `{ membershipNumber }`. Reject is `POST /membership-applications/:id/reject` with `{ reason }`. The queue shows each plan's `title` from `GET /membership-plans`.
 
 Content admin types are singular: `news`, `news-category`, `news-tag`, `event`, `opportunity`, `quarterly`, `partner`, `workgroup`, `term`, `term-source`, `project`, `area`, `research`, `guide`, and `page`. Create sends `{ slug, publicId?, status?, publishedAt?, sortOrder?, seo?, payload }`. Update is `PUT /admin/content/:type/:id`. Also `POST /admin/content/:type/bulk-delete` and `PUT /admin/content/:type/reorder`. Singletons are `GET` and `PUT` on `/admin/settings`, `/admin/home`, `/admin/about`, `/admin/conference`, `/admin/award`, and `/admin/workgroups/section`, with `{ status?, payload }`. Media is `POST /admin/media` (multipart `file` and optional `alt`), `GET /admin/media`, and `DELETE /admin/media/:id`. Public files are `GET /media/files/:name`. Rebuild is `GET` and `POST /admin/rebuild`. `POST` returns `{ enabled, triggered }` and stays successful when the GitHub hook is unset.
 

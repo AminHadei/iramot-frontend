@@ -4,10 +4,16 @@ import {
   createMemoryTokenStore,
   readTokens,
 } from "../app/utils/apiClient";
+import { applyFieldErrors, errorsByField } from "../app/utils/apiError";
 import { createAuthController } from "../app/utils/authController";
 import { readUser } from "../app/utils/authUser";
 import { sectionApiBase, sectionMode } from "../app/utils/contentSource";
-import { jalaliToIso, parseMemberDate } from "../app/utils/jalali";
+import {
+  composeIsoDateTime,
+  isoToJalali,
+  jalaliToIso,
+  parseMemberDate,
+} from "../app/utils/jalali";
 import { resolveContentFile } from "../app/utils/mediaUrl";
 import { asPage } from "../app/utils/pageResult";
 import {
@@ -107,6 +113,7 @@ await assert.rejects(() =>
 assert.equal(login.hits.get("/auth/refresh"), undefined);
 
 let logoutInit: RequestInit | undefined;
+let profileBody: Record<string, unknown> = {};
 const session = install((url, init) => {
   const path = new URL(url).pathname;
   if (path === "/auth/login") {
@@ -122,12 +129,14 @@ const session = install((url, init) => {
     });
   }
   if (path === "/users/me" && (init?.method ?? "GET") === "PUT") {
+    profileBody = JSON.parse(String(init?.body ?? "{}"));
     return json(200, {
       id: "u1",
       mobile: "09120000000",
       role: "admin",
-      firstName: "C",
+      firstName: "A",
       lastName: "B",
+      email: "a@b.co",
       isActive: true,
     });
   }
@@ -152,8 +161,12 @@ const auth = createAuthController(session.client);
 const user = await auth.login({ mobile: "09120000000", password: "secret1" });
 assert.equal(user.role, "admin");
 assert.equal(session.store.getAccess(), "access-1");
-const updated = await auth.updateProfile({ firstName: "C" });
-assert.equal(updated.firstName, "C");
+const updated = await auth.updateProfile({ email: "a@b.co" });
+assert.equal(updated.email, "a@b.co");
+assert.equal(profileBody.email, "a@b.co");
+assert.equal("firstName" in profileBody, false);
+assert.equal("lastName" in profileBody, false);
+assert.equal("mobile" in profileBody, false);
 await auth.logout();
 assert.equal(session.store.getRefresh(), null);
 assert.equal(auth.user(), null);
@@ -198,6 +211,8 @@ assert.equal(safeNextPath("https://evil.test"), "/panel");
 assert.equal(safeNextPath("//evil.test"), "/panel");
 
 assert.equal(jalaliToIso(1404, 1, 1), "2025-03-21");
+assert.deepEqual(isoToJalali("2025-03-21"), { year: 1404, month: 1, day: 1 });
+assert.equal(composeIsoDateTime("2025-03-21", 8, 5), "2025-03-21T08:05:00.000Z");
 assert.equal(parseMemberDate("۱۴۰۴/۰۱/۰۱"), "2025-03-21");
 assert.equal(parseMemberDate("2025-03-21"), "2025-03-21");
 assert.equal(parseMemberDate("not-a-date"), null);
@@ -261,6 +276,36 @@ assert.deepEqual(asPage([{ id: 1 }]), {
   page: 1,
   pages: 1,
 });
+assert.deepEqual(asPage({ users: [{ id: "u" }], total: 4, page: 2, totalPages: 3 }), {
+  items: [{ id: "u" }],
+  total: 4,
+  page: 2,
+  pages: 3,
+});
+assert.equal(asPage({ plans: [{ id: "p" }] }).items.length, 1);
+assert.equal(asPage({ applications: [], total: 0, page: 1, totalPages: 0 }).pages, 0);
+assert.equal(asPage({ codes: [{ id: "c" }] }).items.length, 1);
+assert.equal(asPage({ payments: [{ id: "pay" }] }).items.length, 1);
+assert.deepEqual(
+  errorsByField(
+    {
+      message: [
+        "firstName must be longer than or equal to 2 characters",
+        "nationalCode is invalid",
+        "Natural person applications require firstName, lastName, and nationalCode",
+      ],
+    },
+    ["firstName", "lastName", "nationalCode", "email"],
+  ).fields.firstName?.includes("firstName"),
+  true,
+);
+assert.equal(
+  applyFieldErrors({ message: ["mobile must be a valid Iranian mobile number"] }, {}, [
+    "mobile",
+    "email",
+  ]),
+  "",
+);
 assert.equal(readTokens({ access_token: "a", refresh_token: "b" })?.accessToken, "a");
 
 console.log("membership unit tests passed");

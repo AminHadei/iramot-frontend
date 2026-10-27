@@ -62,7 +62,7 @@ function label(key: string) {
           :id="field.key"
           :value="modelValue[field.key] || ''"
           rows="8"
-          class="min-h-40 w-full border border-line bg-paper p-3 font-sans focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+          class="account-textarea min-h-40"
           :dir="field.kind === 'json' ? 'ltr' : undefined"
           @input="set(field.key, ($event.target as HTMLTextAreaElement).value)"
         />
@@ -73,6 +73,15 @@ function label(key: string) {
           {{ errors[field.key] }}
         </p>
       </div>
+      <JalaliDateField
+        v-else-if="field.kind === 'date' || field.kind === 'datetime'"
+        :label="label(field.key)"
+        :required="field.required"
+        :mode="field.kind === 'datetime' ? 'datetime' : 'date'"
+        :model-value="modelValue[field.key] || ''"
+        :error="errors[field.key]"
+        @update:model-value="set(field.key, $event)"
+      />
       <AccountFile
         v-else-if="field.kind === 'media'"
         :label="label(field.key)"
@@ -94,9 +103,7 @@ function label(key: string) {
         :required="field.required"
         :model-value="modelValue[field.key] || ''"
         :error="errors[field.key]"
-        :type="
-          field.kind === 'number' ? 'number' : field.kind === 'date' ? 'text' : 'text'
-        "
+        :type="field.kind === 'number' ? 'number' : 'text'"
         @update:model-value="set(field.key, $event)"
       />
     </template>

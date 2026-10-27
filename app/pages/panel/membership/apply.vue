@@ -8,7 +8,7 @@ import type {
   PaymentStart,
 } from "~/types/membership";
 import type { PanelDocumentSlot } from "~/types/panel";
-import { isApiError, messageOf } from "~/utils/apiError";
+import { applyFieldErrors, isApiError } from "~/utils/apiError";
 import { parseMemberDate } from "~/utils/jalali";
 import { formatAmount, recordId } from "~/utils/money";
 import { loadPlans, pendingPaymentKey } from "~/utils/membershipRead";
@@ -87,13 +87,21 @@ const priceLabel = computed(() => {
   return `${formatAmount(finalPrice)} ${copy.fields.toman}`;
 });
 
+function lockIdentity() {
+  form.firstName = auth.user.value?.firstName ?? "";
+  form.lastName = auth.user.value?.lastName ?? "";
+}
+
 function assignApplication(item: MembershipApplication) {
   applicationId.value = recordId(item);
   const fields = form as Record<string, string | undefined>;
   for (const key of Object.keys(fields)) {
+    if (key === "firstName" || key === "lastName") continue;
     const value = item[key as keyof MembershipApplication];
-    if (typeof value === "string") fields[key] = value;
+    if (typeof value !== "string") continue;
+    fields[key] = key === "birthDate" ? value.slice(0, 10) : value;
   }
+  lockIdentity();
 }
 
 onMounted(async () => {
@@ -112,6 +120,7 @@ onMounted(async () => {
       return;
     }
     plan.value = plans.find((entry) => entry.id === planId) ?? null;
+    lockIdentity();
   } catch {
     formError.value = copy.validation.request;
   }
@@ -245,10 +254,7 @@ async function submit() {
     formError.value = copy.fields.choosePlan;
     return;
   }
-  if (!validate()) {
-    formError.value = copy.validation.form;
-    return;
-  }
+  if (!validate()) return;
   pending.value = true;
   try {
     let id = applicationId.value;
@@ -292,9 +298,22 @@ async function submit() {
     }
     await navigateTo("/panel/membership/return");
   } catch (error) {
-    formError.value = isApiError(error)
-      ? messageOf(error.payload) || copy.validation.request
-      : copy.validation.request;
+    if (!isApiError(error)) {
+      formError.value = copy.validation.request;
+      return;
+    }
+    const names = [
+      ...Object.keys(form),
+      "discount",
+      ...slots.value.flatMap((slot) => [slot.key, `file-${slot.key}`]),
+    ];
+    formError.value = applyFieldErrors(error.payload, errors, names);
+    for (const slot of slots.value) {
+      if (errors[slot.key]) errors[`file-${slot.key}`] = errors[slot.key] ?? "";
+    }
+    if (!formError.value && !Object.values(errors).some(Boolean)) {
+      formError.value = copy.validation.request;
+    }
   } finally {
     pending.value = false;
   }
@@ -320,6 +339,15 @@ onBeforeUnmount(() => {
         {{ legal ? copy.fields.legal : copy.fields.natural }}
       </p>
       <p v-if="formError" class="text-accent" role="alert">{{ formError }}</p>
+      <AccountLocked :label="copy.auth.firstName" :value="form.firstName" />
+      <p v-if="errors.firstName" class="text-sm text-accent" role="alert">
+        {{ errors.firstName }}
+      </p>
+      <AccountLocked :label="copy.auth.lastName" :value="form.lastName" />
+      <p v-if="errors.lastName" class="text-sm text-accent" role="alert">
+        {{ errors.lastName }}
+      </p>
+      <AccountLocked :label="copy.auth.mobile" :value="auth.user.value?.mobile || ''" />
       <template v-if="!legal">
         <AccountSelect
           v-model="form.educationStatus"
@@ -343,18 +371,6 @@ onBeforeUnmount(() => {
           ]"
         />
         <AccountField
-          v-model="form.firstName"
-          :label="copy.auth.firstName"
-          :error="errors.firstName"
-          required
-        />
-        <AccountField
-          v-model="form.lastName"
-          :label="copy.auth.lastName"
-          :error="errors.lastName"
-          required
-        />
-        <AccountField
           v-model="form.fatherName"
           :label="copy.fields.fatherName"
           :error="errors.fatherName"
@@ -366,11 +382,10 @@ onBeforeUnmount(() => {
           :error="errors.nationalCode"
           required
         />
-        <AccountField
+        <JalaliDateField
           v-model="form.birthDate"
           :label="copy.fields.birthDate"
           :error="errors.birthDate"
-          :hint="copy.hints.birthDate"
           required
         />
         <AccountField

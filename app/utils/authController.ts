@@ -13,7 +13,7 @@ export interface AuthController {
   logout(): Promise<void>;
   restore(): Promise<AuthUser | null>;
   updateProfile(
-    patch: Partial<Pick<AuthUser, "firstName" | "lastName" | "email">>,
+    patch: Partial<Pick<AuthUser, "email" | "nationalCode">>,
   ): Promise<AuthUser>;
 }
 

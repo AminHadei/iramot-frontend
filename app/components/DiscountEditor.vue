@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import type { DiscountCode } from "~/types/membership";
-import { isApiError, messageOf } from "~/utils/apiError";
+import { applyFieldErrors, isApiError } from "~/utils/apiError";
 import { recordId } from "~/utils/money";
+import { englishDigits } from "~/utils/validators";
 
 const props = defineProps<{ codeId: string }>();
 const copy = await useAccountPage("discountEditTitle", "discountEditDescription");
@@ -20,6 +21,7 @@ const form = reactive({
   allowedPlans: "",
 });
 const error = ref("");
+const fieldErrors = reactive<Record<string, string>>({});
 const message = ref("");
 
 onMounted(async () => {
@@ -32,8 +34,8 @@ onMounted(async () => {
   form.value = String(item.value ?? "");
   form.maxDiscount = item.maxDiscount == null ? "" : String(item.maxDiscount);
   form.active = item.isActive ? "true" : "false";
-  form.validFrom = item.validFrom ? String(item.validFrom).slice(0, 10) : "";
-  form.validUntil = item.validUntil ? String(item.validUntil).slice(0, 10) : "";
+  form.validFrom = item.validFrom ? String(item.validFrom) : "";
+  form.validUntil = item.validUntil ? String(item.validUntil) : "";
   form.totalUsageLimit =
     item.totalUsageLimit == null ? "" : String(item.totalUsageLimit);
   form.perUserLimit = item.perUserLimit == null ? "" : String(item.perUserLimit);
@@ -44,13 +46,17 @@ function payload() {
   return {
     code: form.code.trim(),
     type: form.type,
-    value: Number(form.value),
-    maxDiscount: form.maxDiscount ? Number(form.maxDiscount) : undefined,
+    value: Number(englishDigits(form.value)),
+    maxDiscount: form.maxDiscount ? Number(englishDigits(form.maxDiscount)) : undefined,
     isActive: form.active === "true",
     validFrom: form.validFrom || undefined,
     validUntil: form.validUntil || undefined,
-    totalUsageLimit: form.totalUsageLimit ? Number(form.totalUsageLimit) : undefined,
-    perUserLimit: form.perUserLimit ? Number(form.perUserLimit) : undefined,
+    totalUsageLimit: form.totalUsageLimit
+      ? Number(englishDigits(form.totalUsageLimit))
+      : undefined,
+    perUserLimit: form.perUserLimit
+      ? Number(englishDigits(form.perUserLimit))
+      : undefined,
     allowedPlans: form.allowedPlans
       .split(",")
       .map((item) => item.trim())
@@ -60,6 +66,11 @@ function payload() {
 
 async function save() {
   error.value = "";
+  fieldErrors.code = form.code.trim() ? "" : copy.validation.required;
+  fieldErrors.value = Number.isFinite(Number(englishDigits(form.value)))
+    ? ""
+    : copy.validation.required;
+  if (Object.values(fieldErrors).some(Boolean)) return;
   try {
     if (creating.value) {
       const created = await auth.api().request<DiscountCode>("/discount-codes", {
@@ -75,9 +86,23 @@ async function save() {
       message.value = copy.actions.save;
     }
   } catch (reason) {
-    error.value = isApiError(reason)
-      ? messageOf(reason.payload) || copy.validation.request
-      : copy.validation.request;
+    if (!isApiError(reason)) {
+      error.value = copy.validation.request;
+      return;
+    }
+    error.value =
+      applyFieldErrors(reason.payload, fieldErrors, [
+        "code",
+        "type",
+        "value",
+        "maxDiscount",
+        "validFrom",
+        "validUntil",
+        "totalUsageLimit",
+        "perUserLimit",
+        "allowedPlans",
+        "isActive",
+      ]) || (Object.values(fieldErrors).some(Boolean) ? "" : copy.validation.request);
   }
 }
 
@@ -95,7 +120,12 @@ async function remove() {
     <h1 class="font-heading text-4xl text-primary">{{ copy.seo.discountEditTitle }}</h1>
     <p v-if="error" class="text-accent" role="alert">{{ error }}</p>
     <p v-if="message" role="status">{{ message }}</p>
-    <AccountField v-model="form.code" :label="copy.fields.code" required />
+    <AccountField
+      v-model="form.code"
+      :label="copy.fields.code"
+      :error="fieldErrors.code"
+      required
+    />
     <AccountSelect
       v-model="form.type"
       :label="copy.fields.type"
@@ -111,17 +141,25 @@ async function remove() {
           ? `${copy.fields.amount} (${copy.fields.toman})`
           : copy.fields.amount
       "
+      :error="fieldErrors.value"
       required
     />
     <AccountField
       v-model="form.maxDiscount"
       :label="`${copy.fields.maxDiscount} (${copy.fields.toman})`"
+      :error="fieldErrors.maxDiscount"
     />
-    <AccountField v-model="form.validFrom" :label="copy.fields.validFrom" type="date" />
-    <AccountField
+    <JalaliDateField
+      v-model="form.validFrom"
+      :label="copy.fields.validFrom"
+      :error="fieldErrors.validFrom"
+      mode="datetime"
+    />
+    <JalaliDateField
       v-model="form.validUntil"
       :label="copy.fields.validUntil"
-      type="date"
+      :error="fieldErrors.validUntil"
+      mode="datetime"
     />
     <AccountField v-model="form.totalUsageLimit" :label="copy.fields.usageLimit" />
     <AccountField v-model="form.perUserLimit" :label="copy.fields.perUserLimit" />

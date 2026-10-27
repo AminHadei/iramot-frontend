@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { contentTypeConfig, type ContentField } from "~/data/admin/contentTypes";
 import type { ContentRecord } from "~/types/membership";
-import { isApiError, messageOf } from "~/utils/apiError";
+import { applyFieldErrors, isApiError } from "~/utils/apiError";
 import { recordId } from "~/utils/money";
 
 const props = defineProps<{
@@ -14,11 +14,10 @@ const auth = useAuth();
 const config = computed(() => contentTypeConfig(props.type));
 const values = reactive<Record<string, string>>({});
 const errors = reactive<Record<string, string>>({});
+const sourcePayload = ref<Record<string, unknown>>({});
+const htmlKey = ref("contentHtml");
 const error = ref("");
 const message = ref("");
-const known = computed(
-  () => new Set((config.value?.fields ?? []).map((field) => field.key)),
-);
 
 function textValue(value: unknown): string {
   if (value === null || value === undefined) return "";
@@ -40,8 +39,27 @@ function fill(record: ContentRecord) {
   for (const field of current.fields) {
     if (field.key === "document") continue;
     if (field.key === "body") {
+      if (
+        typeof source.bodyHtml === "string" &&
+        typeof source.contentHtml !== "string"
+      ) {
+        htmlKey.value = "bodyHtml";
+      } else if (
+        typeof source.body === "string" &&
+        typeof source.contentHtml !== "string"
+      ) {
+        htmlKey.value = "body";
+      } else if (props.type === "event") {
+        htmlKey.value = "bodyHtml";
+      } else {
+        htmlKey.value = "contentHtml";
+      }
       values.body = textValue(
-        source.contentHtml ?? source.bodyHtml ?? source.body ?? "",
+        source[htmlKey.value] ??
+          source.contentHtml ??
+          source.bodyHtml ??
+          source.body ??
+          "",
       );
       continue;
     }
@@ -66,23 +84,18 @@ function fill(record: ContentRecord) {
     }
     values[field.key] = textValue(source[field.key]);
   }
-  if (known.value.has("document")) {
-    const extra: Record<string, unknown> = {};
-    for (const [key, value] of Object.entries(source)) {
-      if (key === "contentHtml" || key === "bodyHtml" || key === "body") continue;
-      if (!known.value.has(key)) extra[key] = value;
-    }
-    values.document = Object.keys(extra).length ? JSON.stringify(extra, null, 2) : "";
-  }
+  sourcePayload.value = { ...source };
 }
 
 onMounted(async () => {
   const current = config.value;
   if (!current) return;
   if (props.itemId === "new") {
+    if (props.type === "event") htmlKey.value = "bodyHtml";
     for (const field of current.fields) {
       values[field.key] = field.kind === "status" ? "draft" : "";
     }
+    if (props.type === "event") values.program = "workshops";
     return;
   }
   try {
@@ -97,19 +110,16 @@ onMounted(async () => {
 
 function payloadBody() {
   const current = config.value;
-  const payload: Record<string, unknown> = {};
+  const payload: Record<string, unknown> = { ...sourcePayload.value };
   if (props.type === "news") {
-    payload.categories = [];
-    payload.tags = [];
-    payload.feed = false;
+    payload.categories ??= [];
+    payload.tags ??= [];
+    payload.feed ??= false;
   }
-  if (values.document) {
-    Object.assign(payload, JSON.parse(values.document) as Record<string, unknown>);
-  }
+  if (props.type === "event") payload.program ??= values.program || "workshops";
   const seo: Record<string, string> = {};
   const meta: Record<string, unknown> = {};
   for (const field of current?.fields ?? []) {
-    if (field.key === "document") continue;
     const raw = values[field.key] ?? "";
     if (field.scope === "meta") {
       if (field.kind === "number")
@@ -129,7 +139,7 @@ function payloadBody() {
       continue;
     }
     if (field.key === "body") {
-      payload.contentHtml = raw;
+      payload[htmlKey.value] = raw;
       continue;
     }
     if (field.key === "image" && raw && props.type === "news") {
@@ -175,12 +185,6 @@ async function save() {
     return;
   }
   try {
-    JSON.parse(values.document || "{}");
-  } catch {
-    errors.document = copy.validation.form;
-    return;
-  }
-  try {
     const body = payloadBody();
     if (current.singleton) {
       await auth.api().request(current.path, { method: "PUT", body });
@@ -198,9 +202,17 @@ async function save() {
     }
     message.value = copy.actions.save;
   } catch (reason) {
-    error.value = isApiError(reason)
-      ? messageOf(reason.payload) || copy.validation.request
-      : copy.validation.request;
+    if (!isApiError(reason)) {
+      error.value = copy.validation.request;
+      return;
+    }
+    const rest = applyFieldErrors(
+      reason.payload,
+      errors,
+      current.fields.map((field) => field.key),
+    );
+    error.value =
+      rest || (Object.values(errors).some(Boolean) ? "" : copy.validation.request);
   }
 }
 

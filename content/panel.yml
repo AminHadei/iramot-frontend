@@ -3,7 +3,7 @@ seo:
   panelTitle: پیشخوان
   panelDescription: وضعیت عضویت و کارهای باز حساب شما.
   profileTitle: مشخصات
-  profileDescription: ویرایش نام و نشانی ایمیل.
+  profileDescription: نام و شمارهٔ موبایل فقط خواندنی است. ایمیل را می‌توانید ویرایش کنید.
   passwordTitle: گذرواژه
   passwordDescription: تغییر گذرواژهٔ حساب.
   plansTitle: طرح‌های عضویت
@@ -99,7 +99,7 @@ validation:
   nationalCode: کد ملی معتبر نیست.
   companyId: شناسهٔ ملی معتبر نیست.
   email: نشانی ایمیل معتبر نیست.
-  date: تاریخ را به‌صورت ۱۳۷۰/۰۱/۱۵ یا تاریخ میلادی وارد کنید.
+  date: تاریخ را انتخاب کنید.
   fileType: این نوع پرونده پذیرفته نیست.
   fileSize: حجم پرونده بیش از اندازهٔ مجاز است.
   discount: این کد تخفیف معتبر نیست.
@@ -283,6 +283,13 @@ fields:
   seoDescription: توضیح سئو
   seoImage: تصویر سئو
   publishedAt: تاریخ انتشار
+  program: برنامه
+  startsAt: شروع
+  location: مکان
+  previousMonth: ماه قبل
+  nextMonth: ماه بعد
+  hour: ساعت
+  minute: دقیقه
 hints:
   mobile: رقم‌های فارسی پذیرفته می‌شوند.
   birthDate: "نمونه: ۱۳۷۰/۰۱/۱۵"

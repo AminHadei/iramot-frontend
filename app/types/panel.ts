@@ -315,6 +315,13 @@ export type PanelFields = Bag<
   | "seoDescription"
   | "seoImage"
   | "publishedAt"
+  | "program"
+  | "startsAt"
+  | "location"
+  | "previousMonth"
+  | "nextMonth"
+  | "hour"
+  | "minute"
 >;
 
 export type PanelHints = Bag<"mobile" | "birthDate" | "password">;

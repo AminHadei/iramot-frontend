@@ -76,6 +76,41 @@ export function jalaliToIso(year: number, month: number, day: number): string | 
   return iso;
 }
 
+export function isoToJalali(
+  iso: string,
+): { year: number; month: number; day: number } | null {
+  const match = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso);
+  if (!match) return null;
+  const gregorianYear = Number(match[1]);
+  const date = iso.slice(0, 10);
+  let year = gregorianYear - 621;
+  const probe = jalaliToIso(year, 1, 1);
+  if (!probe) return null;
+  if (probe > date) year -= 1;
+  for (let month = 1; month <= 12; month += 1) {
+    const length = jalaliMonthLength(year, month);
+    for (let day = 1; day <= length; day += 1) {
+      if (jalaliToIso(year, month, day) === date) return { year, month, day };
+    }
+  }
+  return null;
+}
+
+export function jalaliMonthLength(year: number, month: number): number {
+  if (month < 1 || month > 12) return 0;
+  if (month <= 6) return 31;
+  if (month <= 11) return 30;
+  const last = jalaliToIso(year, 12, 30);
+  const next = jalaliToIso(year + 1, 1, 1);
+  return last && last !== next ? 30 : 29;
+}
+
+export function composeIsoDateTime(date: string, hour: number, minute: number): string {
+  const hh = String(hour).padStart(2, "0");
+  const mm = String(minute).padStart(2, "0");
+  return `${date}T${hh}:${mm}:00.000Z`;
+}
+
 export function parseMemberDate(value: string): string | null {
   const text = value
     .trim()
