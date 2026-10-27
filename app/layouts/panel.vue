@@ -82,5 +82,6 @@ useHead({
       </div>
     </main>
     <AppFooter :site="site as SiteContent" />
+    <ConfirmDialog />
   </div>
 </template>

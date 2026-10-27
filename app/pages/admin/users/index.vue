@@ -41,17 +41,10 @@ onMounted(load);
 <template>
   <div>
     <h1 class="font-heading text-4xl text-primary">{{ copy.seo.usersTitle }}</h1>
-    <form
-      class="mt-6 grid max-w-xl gap-4 md:grid-cols-[1fr_auto]"
-      @submit.prevent="load"
-    >
-      <AccountField
-        v-model="q"
-        :label="copy.actions.search"
-        :hint="copy.fields.searchPlaceholder"
-      />
-      <button class="button self-end" type="submit">{{ copy.actions.search }}</button>
-    </form>
+    <AdminFilterBar :label="copy.actions.search" @submit="load">
+      <AccountField v-model="q" :label="copy.actions.search" />
+    </AdminFilterBar>
+    <p class="mt-2 text-sm text-secondary">{{ copy.fields.searchPlaceholder }}</p>
     <p v-if="error" class="mt-4 text-accent" role="alert">{{ error }}</p>
     <AccountTable
       class="mt-6"
@@ -61,12 +54,12 @@ onMounted(load);
         { key: 'mobile', label: copy.auth.mobile },
         { key: 'role', label: copy.fields.role },
         { key: 'active', label: copy.fields.status },
-        { key: 'open', label: copy.actions.edit },
+        { key: 'open', label: copy.actions.operations },
       ]"
       :rows="rows"
     >
       <template #open="{ row }">
-        <NuxtLink :to="row.href">{{ copy.actions.edit }}</NuxtLink>
+        <AdminRowActions :href="row.href || ''" :edit-label="copy.actions.edit" />
       </template>
     </AccountTable>
   </div>

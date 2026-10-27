@@ -287,6 +287,17 @@ assert.equal(asPage({ applications: [], total: 0, page: 1, totalPages: 0 }).page
 assert.equal(asPage({ codes: [{ id: "c" }] }).items.length, 1);
 assert.equal(asPage({ payments: [{ id: "pay" }] }).items.length, 1);
 assert.deepEqual(
+  asPage({
+    items: [{ id: "new" }],
+    users: [{ id: "old" }],
+    pages: 2,
+    totalPages: 9,
+    total: 3,
+    page: 1,
+  }),
+  { items: [{ id: "new" }], total: 3, page: 1, pages: 2 },
+);
+assert.deepEqual(
   errorsByField(
     {
       message: [

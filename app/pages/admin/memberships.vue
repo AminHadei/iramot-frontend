@@ -51,7 +51,7 @@ onMounted(load);
 <template>
   <div>
     <h1 class="font-heading text-4xl text-primary">{{ copy.seo.membershipsTitle }}</h1>
-    <form class="mt-6 grid max-w-sm gap-4" @submit.prevent="filter">
+    <AdminFilterBar :label="copy.actions.filter" @submit="filter">
       <AccountSelect
         v-model="status"
         :label="copy.fields.status"
@@ -61,8 +61,7 @@ onMounted(load);
           { value: '', label: copy.fields.allStatuses },
         ]"
       />
-      <button class="button" type="submit">{{ copy.actions.filter }}</button>
-    </form>
+    </AdminFilterBar>
     <p v-if="error" class="mt-4 text-accent" role="alert">{{ error }}</p>
     <AccountTable
       class="mt-6"

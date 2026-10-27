@@ -56,7 +56,7 @@ onMounted(load);
 <template>
   <div>
     <h1 class="font-heading text-4xl text-primary">{{ copy.seo.queueTitle }}</h1>
-    <form class="mt-6 grid max-w-sm gap-4" @submit.prevent="filter">
+    <AdminFilterBar :label="copy.actions.filter" @submit="filter">
       <AccountSelect
         v-model="status"
         :label="copy.fields.status"
@@ -69,8 +69,7 @@ onMounted(load);
           { value: 'expired', label: copy.status.expired },
         ]"
       />
-      <button class="button" type="submit">{{ copy.actions.filter }}</button>
-    </form>
+    </AdminFilterBar>
     <p v-if="error" class="mt-4 text-accent" role="alert">{{ error }}</p>
     <AccountTable
       class="mt-6"
@@ -79,12 +78,12 @@ onMounted(load);
         { key: 'title', label: copy.fields.plan },
         { key: 'person', label: copy.fields.personType },
         { key: 'status', label: copy.fields.status },
-        { key: 'open', label: copy.actions.edit },
+        { key: 'open', label: copy.actions.operations },
       ]"
       :rows="rows"
     >
       <template #open="{ row }">
-        <NuxtLink :to="row.href">{{ copy.actions.edit }}</NuxtLink>
+        <AdminRowActions :href="row.href || ''" :edit-label="copy.actions.edit" />
       </template>
     </AccountTable>
   </div>

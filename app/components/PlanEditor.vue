@@ -25,6 +25,7 @@ const fieldErrors = reactive<Record<string, string>>({});
 const message = ref("");
 const pending = ref(false);
 const creating = computed(() => props.planId === "new");
+const { ask } = useConfirmDialog();
 
 onMounted(async () => {
   if (creating.value) return;
@@ -122,11 +123,22 @@ async function save() {
 }
 
 async function remove() {
-  if (creating.value || !window.confirm(copy.fields.deleteConfirm)) return;
-  await auth.api().request(`/membership-plans/${encodeURIComponent(props.planId)}`, {
-    method: "DELETE",
+  if (creating.value) return;
+  const confirmed = await ask({
+    title: copy.actions.remove,
+    message: copy.fields.deleteConfirm,
+    confirmLabel: copy.actions.remove,
+    cancelLabel: copy.actions.cancel,
   });
-  await navigateTo("/admin/plans");
+  if (!confirmed) return;
+  try {
+    await auth.api().request(`/membership-plans/${encodeURIComponent(props.planId)}`, {
+      method: "DELETE",
+    });
+    await navigateTo("/admin/plans");
+  } catch {
+    error.value = copy.fields.deleteFailed;
+  }
 }
 </script>
 

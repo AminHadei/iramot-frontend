@@ -13,8 +13,10 @@ const type = computed(() => String(route.params.type ?? ""));
 const config = computed(() => contentTypeConfig(type.value));
 const rows = ref<Array<Record<string, string>>>([]);
 const error = ref("");
+const message = ref("");
 const status = ref("");
 const q = ref("");
+const { ask } = useConfirmDialog();
 
 async function loadList() {
   const current = config.value;
@@ -42,6 +44,28 @@ async function loadList() {
   });
 }
 
+async function remove(id: string) {
+  const current = config.value;
+  if (!current) return;
+  error.value = "";
+  const confirmed = await ask({
+    title: copy.actions.remove,
+    message: copy.fields.deleteConfirm,
+    confirmLabel: copy.actions.remove,
+    cancelLabel: copy.actions.cancel,
+  });
+  if (!confirmed) return;
+  try {
+    await auth.api().request(`${current.path}/${encodeURIComponent(id)}`, {
+      method: "DELETE",
+    });
+    message.value = copy.fields.deleteDone;
+    await loadList();
+  } catch {
+    error.value = copy.fields.deleteFailed;
+  }
+}
+
 onMounted(async () => {
   if (!config.value) {
     error.value = copy.validation.request;
@@ -61,13 +85,11 @@ onMounted(async () => {
     <h1 class="font-heading text-4xl text-primary">
       {{ copy.contentTypes[type] || copy.seo.contentListTitle }}
     </h1>
+    <p v-if="message" class="mt-4" role="status">{{ message }}</p>
     <p v-if="error" class="mt-4 text-accent" role="alert">{{ error }}</p>
     <ContentRecordForm v-if="config?.singleton" :type="type" />
     <template v-else-if="config">
-      <form
-        class="mt-6 grid gap-4 md:grid-cols-[12rem_1fr_auto]"
-        @submit.prevent="loadList"
-      >
+      <AdminFilterBar :label="copy.actions.filter" @submit="loadList">
         <AccountSelect
           v-model="status"
           :label="copy.fields.status"
@@ -78,8 +100,7 @@ onMounted(async () => {
           ]"
         />
         <AccountField v-model="q" :label="copy.actions.search" />
-        <button class="button self-end" type="submit">{{ copy.actions.filter }}</button>
-      </form>
+      </AdminFilterBar>
       <NuxtLink class="button mt-4 inline-block" :to="`/admin/content/${type}/new`">
         {{ copy.actions.create }}
       </NuxtLink>
@@ -90,12 +111,17 @@ onMounted(async () => {
           { key: 'title', label: copy.fields.title },
           { key: 'status', label: copy.fields.status },
           { key: 'order', label: copy.fields.order },
-          { key: 'open', label: copy.actions.edit },
+          { key: 'open', label: copy.actions.operations },
         ]"
         :rows="rows"
       >
         <template #open="{ row }">
-          <NuxtLink :to="row.href">{{ copy.actions.edit }}</NuxtLink>
+          <AdminRowActions
+            :href="row.href || ''"
+            :edit-label="copy.actions.edit"
+            :remove-label="copy.actions.remove"
+            @remove="remove(row.id || '')"
+          />
         </template>
       </AccountTable>
     </template>

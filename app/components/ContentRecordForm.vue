@@ -18,6 +18,7 @@ const sourcePayload = ref<Record<string, unknown>>({});
 const htmlKey = ref("contentHtml");
 const error = ref("");
 const message = ref("");
+const { ask } = useConfirmDialog();
 
 function textValue(value: unknown): string {
   if (value === null || value === undefined) return "";
@@ -219,11 +220,21 @@ async function save() {
 async function remove() {
   const current = config.value;
   if (!current || current.singleton || !props.itemId || props.itemId === "new") return;
-  if (!window.confirm(copy.fields.deleteConfirm)) return;
-  await auth.api().request(`${current.path}/${encodeURIComponent(props.itemId)}`, {
-    method: "DELETE",
+  const confirmed = await ask({
+    title: copy.actions.remove,
+    message: copy.fields.deleteConfirm,
+    confirmLabel: copy.actions.remove,
+    cancelLabel: copy.actions.cancel,
   });
-  await navigateTo(`/admin/content/${props.type}`);
+  if (!confirmed) return;
+  try {
+    await auth.api().request(`${current.path}/${encodeURIComponent(props.itemId)}`, {
+      method: "DELETE",
+    });
+    await navigateTo(`/admin/content/${props.type}`);
+  } catch {
+    error.value = copy.fields.deleteFailed;
+  }
 }
 </script>
 

@@ -23,6 +23,7 @@ const form = reactive({
 const error = ref("");
 const fieldErrors = reactive<Record<string, string>>({});
 const message = ref("");
+const { ask } = useConfirmDialog();
 
 onMounted(async () => {
   if (creating.value) return;
@@ -107,11 +108,21 @@ async function save() {
 }
 
 async function remove() {
-  if (!window.confirm(copy.fields.deleteConfirm)) return;
-  await auth.api().request(`/discount-codes/${encodeURIComponent(props.codeId)}`, {
-    method: "DELETE",
+  const confirmed = await ask({
+    title: copy.actions.remove,
+    message: copy.fields.deleteConfirm,
+    confirmLabel: copy.actions.remove,
+    cancelLabel: copy.actions.cancel,
   });
-  await navigateTo("/admin/discounts");
+  if (!confirmed) return;
+  try {
+    await auth.api().request(`/discount-codes/${encodeURIComponent(props.codeId)}`, {
+      method: "DELETE",
+    });
+    await navigateTo("/admin/discounts");
+  } catch {
+    error.value = copy.fields.deleteFailed;
+  }
 }
 </script>
 

@@ -86,7 +86,8 @@ actions:
   add: افزودن
   edit: ویرایش
   search: جست‌وجو
-  filter: اعمال صافی
+  filter: اعمال فیلتر
+  operations: عملیات‌ها
   publish: انتشار سایت
   back: بازگشت
   applyDiscount: اعمال کد
@@ -231,13 +232,20 @@ fields:
   returnFailed: پرداخت انجام نشد. می‌توانید دوباره تلاش کنید.
   returnUnknown: وضعیت پرداخت هنوز مشخص نیست.
   rebuildPending: درخواست ساخت سایت ثبت شد.
-  rebuildOk: ساخت سایت آغاز شد.
+  rebuildOk: انتشار آغاز شد. ساخت سایت به‌زودی انجام می‌شود.
   rebuildError: ساخت سایت آغاز نشد.
+  rebuildNote: >-
+    انتشار، سایت ایستا را دوباره می‌سازد و روی گیت‌هاب پیجز منتشر می‌کند تا
+    ویرایش‌های محتوا در دسترس قرار بگیرند. تا وقتی GITHUB_REBUILD_TOKEN و
+    GITHUB_REBUILD_REPO در سرویس تنظیم نشده باشند، این دکمه غیرفعال است.
+  publishConfirm: سایت دوباره ساخته و روی گیت‌هاب پیجز منتشر شود؟
   queueEmpty: درخواستی در صف بررسی نیست.
   resubmitHint: پس از اصلاح، درخواست را دوباره بفرستید.
   jsonHint: فیلدهای شناخته‌شده جدا ذخیره می‌شوند. بقیهٔ سند را در این کادر، به صورت JSON، نگه دارید.
   newItem: مورد تازه
-  deleteConfirm: این مورد حذف شود؟
+  deleteConfirm: این مورد حذف شود؟ این کار برگشت‌پذیر نیست.
+  deleteDone: حذف شد.
+  deleteFailed: حذف انجام نشد.
   searchPlaceholder: نام، موبایل یا عنوان
   allStatuses: همهٔ وضعیت‌ها
   page: صفحه
