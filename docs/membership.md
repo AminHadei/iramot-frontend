@@ -52,7 +52,7 @@ The access token stays in memory. The refresh token is in `sessionStorage` under
 
 ## API contract
 
-Prices are integer toman. The interface formats them with Persian digits and a thousands separator, and labels the unit تومان.
+Prices are integer toman. The interface formats them with Persian digits and a thousands separator, and labels the unit "toman" in Persian script.
 
 Auth: `POST /auth/register`, `/auth/login`, `/auth/refresh` with `{ refreshToken }`, `POST /auth/logout` with the access token and `{ refreshToken }`, `POST /auth/forgot-password` with `{ mobile }`, `POST /auth/reset-password` with `{ mobile, otp, newPassword }`, `POST /auth/change-password` with `{ currentPassword, newPassword }`. Profile is `GET` and `PUT /users/me`. Login JSON is `{ accessToken, refreshToken, user }`. Refresh returns tokens. A password change clears the local session.
 
