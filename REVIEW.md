@@ -4,11 +4,11 @@ Severity calibration for code review. Used by the `code-review` skill.
 
 ## Blocker
 
-- `pnpm generate` fails, or a linked route is missing from `.output/public`.
-- A new runtime dependency on a Node server (`server/api/*`) for content that can live in `content/`.
+- `pnpm build` fails.
+- A new `server/api` route for content that belongs in the content API.
 - RTL regressions: physical `left`/`right` / `ml` / `mr` / `pl` / `pr` where logical properties are required.
 - Directional icons (arrow, chevron) shipped without `rtl:-scale-x-100`.
-- Copy or interface text hardcoded in a component instead of `content/`.
+- Copy or interface text hardcoded in a component instead of the API or `app/copy/panel.json`.
 - `html` `lang` or `dir` no longer `fa` / `rtl`.
 
 ## Major

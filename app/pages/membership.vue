@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { SiteContent } from "~/types/content";
 import { createApiPageRepository } from "~/data/pages/api";
-import { sectionApiBase, sectionMode, withJsonFallback } from "~/utils/contentSource";
 
 const siteState = useSite();
 const config = useRuntimeConfig();
@@ -9,16 +8,8 @@ const baseURL = config.app.baseURL;
 const state = useAsyncData("membership-page", async () => {
   const site = (await siteState).data.value as SiteContent | null;
   if (!site) return null;
-  const record = await withJsonFallback(
-    sectionMode(config.public, "pages"),
-    () =>
-      createApiPageRepository(sectionApiBase(config.public, "pages"), baseURL).get(
-        site.pages.membership,
-      ),
-    async () =>
-      archiveItems(await queryCollection("archivePages").first()).find(
-        (item) => item.id === site.pages.membership,
-      ) ?? null,
+  const record = await createApiPageRepository(useContentApiBase(), baseURL).get(
+    site.pages.membership,
   );
   if (!record) return null;
   const prepared = articleHtml(record.content ?? "", baseURL);

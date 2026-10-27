@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { SiteContent } from "~/types/content";
 import { createApiPageRepository } from "~/data/pages/api";
-import { sectionApiBase, sectionMode, withJsonFallback } from "~/utils/contentSource";
 import { privacySections } from "~/utils/privacySections";
 
 const { data: siteData } = await useSite();
@@ -13,16 +12,8 @@ const config = useRuntimeConfig();
 const baseURL = config.app.baseURL;
 
 const { data: privacy } = await useAsyncData("privacy-page", async () => {
-  const record = await withJsonFallback(
-    sectionMode(config.public, "pages"),
-    () =>
-      createApiPageRepository(sectionApiBase(config.public, "pages"), baseURL).get(
-        site.pages.privacy,
-      ),
-    async () =>
-      archiveItems(await queryCollection("archivePages").first()).find(
-        (item) => item.id === site.pages.privacy,
-      ) ?? null,
+  const record = await createApiPageRepository(useContentApiBase(), baseURL).get(
+    site.pages.privacy,
   );
   if (!record) return null;
   const title = record.title;

@@ -7,7 +7,7 @@ import {
 import { applyFieldErrors, errorsByField } from "../app/utils/apiError";
 import { createAuthController } from "../app/utils/authController";
 import { readUser } from "../app/utils/authUser";
-import { sectionApiBase, sectionMode } from "../app/utils/contentSource";
+import { resolveContentApiBase } from "../app/utils/contentSource";
 import {
   composeIsoDateTime,
   formatJalaliField,
@@ -266,18 +266,26 @@ assert.equal(
   false,
 );
 
-assert.equal(sectionMode({}, "news"), "json");
-assert.equal(sectionMode({ apiBase: "https://api.example.test" }, "news"), "api");
+assert.equal(resolveContentApiBase({ publicBase: "", server: true }), "");
 assert.equal(
-  sectionMode({ apiBase: "https://api.example.test", newsSource: "json" }, "news"),
-  "json",
+  resolveContentApiBase({ publicBase: "https://api.example.test/", server: false }),
+  "https://api.example.test",
 );
 assert.equal(
-  sectionApiBase(
-    { apiBase: "https://api.example.test/", newsApiBase: "https://news.example.test/" },
-    "news",
-  ),
-  "https://news.example.test",
+  resolveContentApiBase({
+    internal: "http://api:3000/",
+    publicBase: "https://api.example.test",
+    server: true,
+  }),
+  "http://api:3000",
+);
+assert.equal(
+  resolveContentApiBase({
+    internal: "http://api:3000",
+    publicBase: "https://api.example.test/",
+    server: false,
+  }),
+  "https://api.example.test",
 );
 assert.deepEqual(asPage([{ id: 1 }]), {
   items: [{ id: 1 }],

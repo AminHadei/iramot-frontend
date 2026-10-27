@@ -1,20 +1,21 @@
 # irmot
 
-Static site for the Iran Technology and Innovation Management Association. Nuxt 4, Persian, RTL.
+Site for the Iran Technology and Innovation Management Association. Nuxt 4, server-rendered, Persian, RTL. Public pages read a content API on each request.
 
 ```bash
 pnpm install
 pnpm dev          # http://localhost:3000
-pnpm generate     # .output/public
+pnpm build        # .output/server
+pnpm start        # node .output/server/index.mjs
 pnpm check        # typecheck, lint, format, spellcheck
 pnpm test         # unit tests
 pnpm changeset    # changelog entry for a user-visible change
 ```
 
-Account and admin screens call an HTTP API when `NUXT_PUBLIC_API_BASE` is set. Leave it empty to build and browse the static JSON site. See [docs/membership.md](docs/membership.md).
-
 ```bash
-NUXT_PUBLIC_API_BASE=http://localhost:3001 pnpm dev
+NUXT_PUBLIC_API_BASE=http://localhost:4000 pnpm dev
 ```
+
+`NUXT_API_BASE_INTERNAL` is the origin the server uses. When it is empty, the server uses `NUXT_PUBLIC_API_BASE`. Account and admin routes stay client-rendered. See [docs/deployment.md](docs/deployment.md) and [docs/membership.md](docs/membership.md).
 
 Agent orientation: `AGENTS.md`.

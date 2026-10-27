@@ -18,10 +18,10 @@ Read [`REVIEW.md`](../../../REVIEW.md) in full. It overrides default review beha
 ## Focus
 
 - RTL logical properties and mirrored icons
-- Content from `content/`, `placeholder: true` on temporary copy
+- Public content from the API, account copy in `app/copy/panel.json`
 - `usePageSeo` on pages
 - Jalali dates
-- `pnpm generate` still prerenders linked routes
+- `pnpm build` produces a server bundle
 - Changelog left to Changesets
 
 ## Don't

@@ -3,7 +3,6 @@ import type { CSSProperties } from "vue";
 import type { SiteContent } from "~/types/content";
 import { createApiAboutRepository } from "~/data/singletons/api";
 import { aboutHashAliases } from "~/utils/aboutHash";
-import { sectionApiBase, sectionMode, withJsonFallback } from "~/utils/contentSource";
 import { withBase } from "~/utils/withBase";
 
 interface AboutLink {
@@ -124,15 +123,7 @@ const site = siteData.value as SiteContent;
 const contentConfig = useRuntimeConfig();
 
 const { data } = await useAsyncData("about-landing", () =>
-  withJsonFallback(
-    sectionMode(contentConfig.public, "about"),
-    () =>
-      createApiAboutRepository(
-        sectionApiBase(contentConfig.public, "about"),
-        contentConfig.app.baseURL,
-      ).get(),
-    () => queryCollection("aboutPage").first(),
-  ),
+  createApiAboutRepository(useContentApiBase(), contentConfig.app.baseURL).get(),
 );
 
 const record = data.value as {

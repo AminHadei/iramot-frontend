@@ -1,14 +1,10 @@
-# IFP design system
+# Design system
 
-هدف، کپی ۱:۱ مارکاپ و CSS سایت ifp.org است، آینه‌شده برای RTL. فقط متن، تصاویر، لوگو و فونت عوض می‌شوند. هیچ کامپوننتی از روی توضیح متنی بازسازی نمی‌شود؛ منبع حقیقت فایل‌های ref/ifp/ است. کلاس‌های اصلی IFP (site-header، home-splash، home-spotlight-intro، post-listing__*، project-list--layout-3-col، newsletter-pre-footer، site-footer و...) دقیقاً حفظ شوند.
+The living stylesheet is `app/assets/css/ifp.rtl.css`. Keep its class names (`site-header`, `home-splash`, `home-spotlight-intro`, `post-listing__*`, `project-list--layout-3-col`, `newsletter-pre-footer`, `site-footer`, and the rest). Match that sheet and the current templates when changing layout. Both Söhne and Tiempos Text map to `IRANYekan, Tahoma, sans-serif`.
 
-Measured from the files in `ref/ifp/`. Nothing here is inferred. The site loads the rtlcss copy at `app/assets/css/ifp.rtl.css`. That copy keeps the IFP selectors and replaces the IFP palette with custom properties on `:root`: paper `#FFFDF5`, ink `#2B2B33`, hero `#2D317A`, emphasis `#6866AD` for text, links, icons, and hairlines, emphasis fill `#6A64AB` for solid surfaces, dark bands `#06011E`, meta `#999`, panels `#FAF9F7`. Topic colours cycle `#2D317A`, `#6967AC`, `#9A96CA`, `#3F50A0`. Label text on `#9A96CA` is `#06011E`. Text on `#6866AD` and `#6A64AB` is `#FFFDF5`.
+Colours in that sheet are custom properties on `:root`: paper `#FFFDF5`, ink `#2B2B33`, hero `#2D317A`, emphasis `#6866AD` for text, links, icons, and hairlines, emphasis fill `#6A64AB` for solid surfaces, dark bands `#06011E`, meta `#999`, panels `#FAF9F7`. Topic colours cycle `#2D317A`, `#6967AC`, `#9A96CA`, `#3F50A0`. Label text on `#9A96CA` is `#06011E`. Text on `#6866AD` and `#6A64AB` is `#FFFDF5`.
 
-Sources:
-
-- Critical `<style>` in `ref/ifp/html/home.html`, unless a rule is marked otherwise.
-- `ref/ifp/css/main.css`, from the URL in `ref/ifp/css/SOURCE.txt`.
-- Inline `style` attributes in the saved HTML, named by file.
+The tables below record measurements taken while the stylesheet was assembled. The stylesheet is the source of truth when a table and the sheet disagree.
 
 WordPress `--wp--preset--*` custom properties are declared in the home critical CSS. They are the bundled WordPress presets, not selectors on the IFP components below, so they are not copied into these tables.
 

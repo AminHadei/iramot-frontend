@@ -140,7 +140,7 @@ check(
   [3, 1],
 );
 
-const index = JSON.parse(readFileSync("public/data/terms/index.json", "utf8"));
+const index = JSON.parse(readFileSync("tests/fixtures/terms-index.json", "utf8"));
 const all = index.items.map((item) => ({
   id: item.id,
   en: item.title,

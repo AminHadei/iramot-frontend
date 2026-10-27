@@ -59,7 +59,7 @@ jobs:
         env:
           HUSKY: "0"
 
-      - name: Generate static site
-        run: pnpm generate
+      - name: Build server
+        run: pnpm build
         env:
-          NUXT_APP_BASE_URL: /irmot/
+          NUXT_TELEMETRY_DISABLED: "1"

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { AdminStats } from "~/types/membership";
-import { isApiError, messageOf } from "~/utils/apiError";
 import { formatAmount } from "~/utils/money";
 
 definePageMeta({ layout: "panel", middleware: "admin" });
@@ -9,56 +8,14 @@ const copy = await useAccountPage("adminTitle", "adminDescription");
 const auth = useAuth();
 const stats = ref<AdminStats | null>(null);
 const error = ref("");
-const rebuild = ref("");
-const pending = ref(false);
-const publishReady = ref(false);
-const publishEnabled = ref(false);
-const { ask } = useConfirmDialog();
 
 onMounted(async () => {
-  const [statsResult, rebuildResult] = await Promise.allSettled([
-    auth.api().request<AdminStats>("/admin/membership/stats"),
-    auth.api().request<{ enabled?: boolean }>("/admin/rebuild"),
-  ]);
-  if (statsResult.status === "fulfilled") stats.value = statsResult.value;
-  else error.value = copy.validation.request;
-  publishEnabled.value =
-    rebuildResult.status === "fulfilled" && rebuildResult.value.enabled === true;
-  publishReady.value = true;
-});
-
-async function publish() {
-  if (!publishEnabled.value) return;
-  const confirmed = await ask({
-    title: copy.actions.publish,
-    message: copy.fields.publishConfirm,
-    confirmLabel: copy.actions.publish,
-    cancelLabel: copy.actions.cancel,
-  });
-  if (!confirmed) return;
-  pending.value = true;
-  rebuild.value = copy.fields.rebuildPending;
   try {
-    const result = await auth
-      .api()
-      .request<{ enabled?: boolean; triggered?: boolean }>("/admin/rebuild", {
-        method: "POST",
-        body: {},
-      });
-    if (result.enabled === false) {
-      publishEnabled.value = false;
-      rebuild.value = "";
-      return;
-    }
-    rebuild.value = copy.fields.rebuildOk;
-  } catch (reason) {
-    rebuild.value = isApiError(reason)
-      ? messageOf(reason.payload) || copy.fields.rebuildError
-      : copy.fields.rebuildError;
-  } finally {
-    pending.value = false;
+    stats.value = await auth.api().request<AdminStats>("/admin/membership/stats");
+  } catch {
+    error.value = copy.validation.request;
   }
-}
+});
 
 const byStatus = computed(() => stats.value?.applicationsByStatus ?? {});
 const applicationTotal = computed(() =>
@@ -89,20 +46,5 @@ const cards = computed(() => [
       {{ copy.fields.revenue }}: {{ formatAmount(stats.revenue) }}
       {{ copy.fields.toman }}
     </p>
-    <section class="mt-8 grid max-w-2xl gap-3">
-      <p v-if="publishReady && !publishEnabled" id="rebuild-note">
-        {{ copy.fields.rebuildNote }}
-      </p>
-      <button
-        type="button"
-        class="button w-fit bg-primary px-4 py-2 text-paper"
-        :disabled="pending || !publishEnabled"
-        :aria-describedby="publishEnabled ? undefined : 'rebuild-note'"
-        @click="publish"
-      >
-        {{ copy.actions.publish }}
-      </button>
-      <p v-if="rebuild" role="status">{{ rebuild }}</p>
-    </section>
   </div>
 </template>
