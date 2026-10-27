@@ -59,4 +59,4 @@ jobs:
       - name: Generate static site
         run: pnpm generate
         env:
-          NUXT_APP_BASE_URL: /irmot/
+          NUXT_APP_BASE_URL: /${{ github.event.repository.name }}/
