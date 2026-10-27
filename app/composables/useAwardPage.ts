@@ -1,6 +1,8 @@
 import type { NuxtApp } from "#app";
 import type { NewsList, NewsSummary } from "~/data/news/types";
+import { createApiAwardRepository } from "~/data/singletons/api";
 import type { SiteContent } from "~/types/content";
+import { sectionApiBase, sectionMode, withJsonFallback } from "~/utils/contentSource";
 import { withBase } from "~/utils/withBase";
 
 interface AwardBlock {
@@ -50,10 +52,25 @@ export async function useAwardPage() {
   const documentState = useAsyncData(
     "award-document",
     async () => {
-      const file = import.meta.server
-        ? await readAwardFile()
-        : await $fetch<AwardFile>(withBase(baseURL, "/data/award/page.json"));
-      const lead = file.blocks.find((block) => block.type === "paragraph")?.text ?? "";
+      const file = await withJsonFallback(
+        sectionMode(useRuntimeConfig().public, "award"),
+        async () =>
+          (await createApiAwardRepository(
+            sectionApiBase(useRuntimeConfig().public, "award"),
+            baseURL,
+          ).get()) as AwardFile | null,
+        () =>
+          import.meta.server
+            ? readAwardFile()
+            : $fetch<AwardFile>(withBase(baseURL, "/data/award/page.json")),
+      );
+      if (!file) return null;
+      const blocks = Array.isArray(file.blocks) ? file.blocks : [];
+      const lead =
+        blocks.find((block) => block.type === "paragraph")?.text ??
+        (typeof (file as unknown as { lead?: unknown }).lead === "string"
+          ? (file as unknown as { lead: string }).lead
+          : "");
       return { title: file.title, lead } satisfies AwardDocument;
     },
     { getCachedData: cached },

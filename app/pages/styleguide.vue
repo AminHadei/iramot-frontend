@@ -1,5 +1,10 @@
 <script setup lang="ts">
 import type { ArchiveItem, FocusArea, HomeContent, SiteContent } from "~/types/content";
+import {
+  createApiHomeRepository,
+  createApiSiteRepository,
+} from "~/data/singletons/api";
+import { sectionApiBase, sectionMode, withJsonFallback } from "~/utils/contentSource";
 
 interface ArchiveFile {
   body?: ArchiveItem[];
@@ -35,13 +40,40 @@ function toCards(items: ArchiveItem[] | undefined, to: string, limit: number) {
   }));
 }
 
+const areasRepo = useAreaRepository();
+const projectsRepo = useProjectRepository();
+const contentConfig = useRuntimeConfig();
 const { data } = await useAsyncData("styleguide", async () => {
+  const jsonAreas = () => queryCollection("areas").order("stem", "ASC").all();
+  const jsonProjects = () => queryCollection("projects").order("stem", "ASC").all();
+  const siteRequest = withJsonFallback(
+    sectionMode(contentConfig.public, "site"),
+    () =>
+      createApiSiteRepository(
+        sectionApiBase(contentConfig.public, "site"),
+        contentConfig.app.baseURL,
+      ).get(),
+    () => queryCollection("site").first(),
+  );
+  const homeRequest = withJsonFallback(
+    sectionMode(contentConfig.public, "home"),
+    () =>
+      createApiHomeRepository(
+        sectionApiBase(contentConfig.public, "home"),
+        contentConfig.app.baseURL,
+      ).get(),
+    () => queryCollection("home").first(),
+  );
   const [site, home, areas, projects, about, postsFile, eventsFile, termsFile] =
     await Promise.all([
-      queryCollection("site").first(),
-      queryCollection("home").first(),
-      queryCollection("areas").order("stem", "ASC").all(),
-      queryCollection("projects").order("stem", "ASC").all(),
+      siteRequest,
+      homeRequest,
+      sectionMode(contentConfig.public, "areas") === "api"
+        ? areasRepo.list()
+        : jsonAreas(),
+      sectionMode(contentConfig.public, "projects") === "api"
+        ? projectsRepo.list()
+        : jsonProjects(),
       queryCollection("pages").path("/about").first(),
       queryCollection("archivePosts").first(),
       queryCollection("archiveEvents").first(),

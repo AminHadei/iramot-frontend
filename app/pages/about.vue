@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import type { CSSProperties } from "vue";
 import type { SiteContent } from "~/types/content";
+import { createApiAboutRepository } from "~/data/singletons/api";
 import { aboutHashAliases } from "~/utils/aboutHash";
+import { sectionApiBase, sectionMode, withJsonFallback } from "~/utils/contentSource";
 import { withBase } from "~/utils/withBase";
 
 interface AboutLink {
@@ -119,21 +121,35 @@ if (!siteData.value) {
   throw createError({ statusCode: 500, statusMessage: "محتوای سایت پیدا نشد" });
 }
 const site = siteData.value as SiteContent;
+const contentConfig = useRuntimeConfig();
 
 const { data } = await useAsyncData("about-landing", () =>
-  queryCollection("aboutPage").first(),
+  withJsonFallback(
+    sectionMode(contentConfig.public, "about"),
+    () =>
+      createApiAboutRepository(
+        sectionApiBase(contentConfig.public, "about"),
+        contentConfig.app.baseURL,
+      ).get(),
+    () => queryCollection("aboutPage").first(),
+  ),
 );
 
-const record = data.value as { title: string; meta?: unknown } | null;
+const record = data.value as {
+  title?: string;
+  meta?: unknown;
+  section_nav?: unknown;
+} | null;
 if (!record) {
   throw createError({ statusCode: 404, statusMessage: site.ui.notFound });
 }
 
-const nested =
-  typeof record.meta === "string"
+const nested = record.section_nav
+  ? (record as Partial<AboutDocument>)
+  : typeof record.meta === "string"
     ? (JSON.parse(record.meta) as Partial<AboutDocument>)
     : (record.meta as Partial<AboutDocument> | undefined);
-const page = { ...nested, title: record.title } as AboutDocument;
+const page = { ...nested, title: record.title ?? nested?.title ?? "" } as AboutDocument;
 if (!page.section_nav || !page.about || !page.contact) {
   throw createError({ statusCode: 404, statusMessage: site.ui.notFound });
 }

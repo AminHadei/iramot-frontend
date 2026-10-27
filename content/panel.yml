@@ -1,0 +1,306 @@
+placeholder: true
+seo:
+  loginTitle: ورود
+  loginDescription: ورود اعضا با شمارهٔ موبایل و گذرواژه.
+  registerTitle: ثبت‌نام
+  registerDescription: ساخت حساب برای درخواست عضویت در انجمن.
+  forgotTitle: بازیابی گذرواژه
+  forgotDescription: دریافت رمز یک‌بارمصرف و انتخاب گذرواژهٔ تازه.
+  panelTitle: پیشخوان
+  panelDescription: وضعیت عضویت و کارهای باز حساب شما.
+  profileTitle: مشخصات
+  profileDescription: ویرایش نام و نشانی ایمیل.
+  passwordTitle: گذرواژه
+  passwordDescription: تغییر گذرواژهٔ حساب.
+  plansTitle: طرح‌های عضویت
+  plansDescription: انتخاب طرح، مدت و مبلغ حق عضویت.
+  applyTitle: درخواست عضویت
+  applyDescription: تکمیل فرم شخص حقیقی یا حقوقی و بارگذاری مدارک.
+  returnTitle: نتیجهٔ پرداخت
+  returnDescription: وضعیت بازگشت از درگاه پرداخت.
+  applicationsTitle: درخواست‌ها
+  applicationsDescription: تاریخچهٔ درخواست‌های عضویت.
+  applicationTitle: جزئیات درخواست
+  applicationDescription: وضعیت، دلیل رد و ارسال دوباره.
+  paymentsTitle: پرداخت‌ها
+  paymentsDescription: فهرست پرداخت‌های عضویت.
+  cardTitle: کارت عضویت
+  cardDescription: دریافت تصویر کارت عضویت پس از تأیید.
+  adminTitle: مدیریت
+  adminDescription: نمای کلی عضویت و انتشار سایت.
+  queueTitle: صف بررسی
+  queueDescription: درخواست‌های در انتظار تأیید.
+  reviewTitle: بررسی درخواست
+  reviewDescription: مشاهدهٔ مدارک و تأیید یا رد درخواست.
+  membershipsTitle: عضویت‌ها
+  membershipsDescription: فهرست عضویت‌های ثبت‌شده.
+  adminPaymentsTitle: پرداخت‌ها
+  adminPaymentsDescription: فهرست پرداخت‌ها با صافی وضعیت.
+  plansAdminTitle: طرح‌های عضویت
+  plansAdminDescription: تعریف مدت، مبلغ و مدارک لازم.
+  planEditTitle: ویرایش طرح
+  planEditDescription: مدت، مبلغ، مزایا و مدارک طرح عضویت.
+  discountsTitle: کدهای تخفیف
+  discountsDescription: ساخت و ویرایش کدهای تخفیف.
+  discountEditTitle: ویرایش کد تخفیف
+  discountEditDescription: نوع، مقدار و اعتبار کد تخفیف.
+  usersTitle: کاربران
+  usersDescription: جست‌وجو، نقش و وضعیت حساب‌ها.
+  userEditTitle: کاربر
+  userEditDescription: تغییر نقش و فعال یا غیرفعال کردن حساب.
+  contentTitle: محتوا
+  contentDescription: بخش‌های قابل ویرایش سایت.
+  contentListTitle: فهرست محتوا
+  contentListDescription: ویرایش، ترتیب و وضعیت انتشار.
+  contentEditTitle: ویرایش محتوا
+  contentEditDescription: فرم فیلدهای این بخش، متن و پروندهٔ رسانه.
+nav:
+  dashboard: پیشخوان
+  profile: مشخصات
+  password: گذرواژه
+  membership: عضویت
+  applications: درخواست‌ها
+  payments: پرداخت‌ها
+  card: کارت عضویت
+adminNav:
+  dashboard: پیشخوان
+  queue: صف بررسی
+  applications: درخواست‌ها
+  memberships: عضویت‌ها
+  payments: پرداخت‌ها
+  plans: طرح‌ها
+  discounts: کدهای تخفیف
+  users: کاربران
+  content: محتوا
+actions:
+  submit: ثبت
+  save: ذخیره
+  cancel: انصراف
+  login: ورود
+  register: ثبت‌نام
+  logout: خروج
+  sendCode: دریافت رمز
+  resetPassword: ثبت گذرواژهٔ تازه
+  apply: ادامه و تکمیل فرم
+  pay: پرداخت
+  approve: تأیید
+  reject: رد درخواست
+  resubmit: ارسال دوباره
+  download: دریافت کارت
+  upload: بارگذاری
+  remove: حذف
+  add: افزودن
+  edit: ویرایش
+  search: جست‌وجو
+  filter: اعمال صافی
+  publish: انتشار سایت
+  back: بازگشت
+  applyDiscount: اعمال کد
+  create: ایجاد
+validation:
+  required: این فیلد را پر کنید.
+  mobile: شمارهٔ موبایل را با ۱۱ رقم و پیش‌شمارهٔ ۰۹ وارد کنید.
+  password: گذرواژه باید دست‌کم ۸ نویسه و شامل حرف و عدد باشد.
+  confirm: تکرار گذرواژه یکسان نیست.
+  nationalCode: کد ملی معتبر نیست.
+  companyId: شناسهٔ ملی معتبر نیست.
+  email: نشانی ایمیل معتبر نیست.
+  date: تاریخ را به‌صورت ۱۳۷۰/۰۱/۱۵ یا تاریخ میلادی وارد کنید.
+  fileType: این نوع پرونده پذیرفته نیست.
+  fileSize: حجم پرونده بیش از اندازهٔ مجاز است.
+  discount: این کد تخفیف معتبر نیست.
+  form: خطاهای فرم را برطرف کنید.
+  request: درخواست انجام نشد. دوباره تلاش کنید.
+status:
+  draft: پیش‌نویس
+  pending: در انتظار بررسی
+  approved: تأییدشده
+  rejected: ردشده
+  paid: پرداخت‌شده
+  expired: پایان‌یافته
+  active: فعال
+  inactive: غیرفعال
+  success: موفق
+  failed: ناموفق
+  published: منتشرشده
+  unknown: نامشخص
+auth:
+  firstName: نام
+  lastName: نام خانوادگی
+  mobile: شمارهٔ موبایل
+  password: گذرواژه
+  confirm: تکرار گذرواژه
+  currentPassword: گذرواژهٔ فعلی
+  newPassword: گذرواژهٔ تازه
+  otp: رمز یک‌بارمصرف
+  noAccount: حساب ندارید؟
+  hasAccount: حساب دارید؟
+  forgot: گذرواژه را فراموش کرده‌اید؟
+  sent: رمز به همین شماره پیامک شد.
+  resetDone: گذرواژه عوض شد. اکنون وارد شوید.
+  email: ایمیل
+fields:
+  title: عنوان
+  slug: نشانی
+  excerpt: خلاصه
+  body: متن
+  date: تاریخ
+  status: وضعیت
+  order: ترتیب
+  image: تصویر
+  question: پرسش
+  to: پیوند
+  description: توضیح
+  document: سند داده‌ها
+  name: نام
+  price: مبلغ
+  durationDays: مدت به روز
+  benefits: مزایا
+  requiredDocuments: مدارک لازم
+  active: فعال
+  code: کد
+  type: نوع
+  amount: مقدار
+  expiresAt: تاریخ پایان
+  maxUses: سقف استفاده
+  role: نقش
+  personType: نوع عضویت
+  natural: شخص حقیقی
+  legal: شخص حقوقی
+  fatherName: نام پدر
+  nationalCode: کد ملی
+  birthDate: تاریخ تولد
+  gender: جنسیت
+  phone: تلفن
+  educationLevel: مقطع تحصیلی
+  fieldOfStudy: رشته
+  university: دانشگاه یا مؤسسه
+  jobTitle: سمت
+  organization: سازمان
+  province: استان
+  city: شهر
+  address: نشانی
+  postalCode: کد پستی
+  organizationName: نام سازمان
+  organizationType: نوع سازمان
+  nationalId: شناسهٔ ملی
+  registrationNumber: شمارهٔ ثبت
+  economicCode: کد اقتصادی
+  establishedAt: تاریخ تأسیس
+  ceoName: مدیرعامل
+  representativeFirstName: نام نماینده
+  representativeLastName: نام خانوادگی نماینده
+  representativeNationalCode: کد ملی نماینده
+  representativeRole: سمت نماینده
+  representativeMobile: موبایل نماینده
+  website: وب‌سایت
+  activity: زمینهٔ فعالیت
+  reason: دلیل رد
+  plan: طرح
+  discount: کد تخفیف
+  finalPrice: مبلغ قابل پرداخت
+  benefitsLabel: مزایا
+  documents: مدارک
+  rial: ریال
+  day: روز
+  percent: درصد
+  fixed: مبلغ ثابت
+  user: کاربر
+  adminRole: مدیر
+  yes: بله
+  no: خیر
+  female: زن
+  male: مرد
+  other: سایر
+  governmental: دولتی
+  private: خصوصی
+  cooperative: تعاونی
+  public: عمومی
+  empty: موردی برای نمایش نیست.
+  loading: در حال دریافت…
+  unavailable: اتصال به خدمت عضویت تنظیم نشده است.
+  rejection: دلیل رد
+  expires: اعتبار عضویت
+  memberCode: شمارهٔ عضویت
+  noMembership: هنوز عضویت فعالی ندارید.
+  choosePlan: یک طرح را انتخاب کنید.
+  preview: پیش‌نمایش
+  fileName: نام پرونده
+  maxSize: حداکثر حجم هر پرونده ۸ مگابایت است.
+  returnSuccess: پرداخت ثبت شد. درخواست شما در صف بررسی است.
+  returnFailed: پرداخت انجام نشد. می‌توانید دوباره تلاش کنید.
+  returnUnknown: وضعیت پرداخت هنوز مشخص نیست.
+  rebuildPending: درخواست ساخت سایت ثبت شد.
+  rebuildOk: ساخت سایت آغاز شد.
+  rebuildError: ساخت سایت آغاز نشد.
+  queueEmpty: درخواستی در صف بررسی نیست.
+  resubmitHint: پس از اصلاح، درخواست را دوباره بفرستید.
+  jsonHint: فیلدهای شناخته‌شده جدا ذخیره می‌شوند. بقیهٔ سند را در این کادر، به صورت JSON، نگه دارید.
+  newItem: مورد تازه
+  deleteConfirm: این مورد حذف شود؟
+  searchPlaceholder: نام، موبایل یا عنوان
+  allStatuses: همهٔ وضعیت‌ها
+  page: صفحه
+  of: از
+  reference: شناسه
+  createdAt: تاریخ
+  amountLabel: مبلغ
+  none: —
+hints:
+  mobile: رقم‌های فارسی پذیرفته می‌شوند.
+  birthDate: "نمونه: ۱۳۷۰/۰۱/۱۵"
+  password: دست‌کم ۸ نویسه، با حرف و عدد.
+documents:
+  natural:
+    - key: photo
+      label: تصویر پرسنلی
+      accept: image/jpeg,image/png,image/webp
+      required: true
+    - key: nationalCard
+      label: تصویر کارت ملی
+      accept: image/jpeg,image/png,image/webp,application/pdf
+      required: true
+    - key: degree
+      label: مدرک تحصیلی
+      accept: image/jpeg,image/png,image/webp,application/pdf
+      required: false
+    - key: resume
+      label: رزومه
+      accept: application/pdf
+      required: false
+  legal:
+    - key: logo
+      label: نشان سازمان
+      accept: image/jpeg,image/png,image/webp,image/svg+xml
+      required: false
+    - key: registration
+      label: آگهی تأسیس
+      accept: application/pdf,image/jpeg,image/png
+      required: true
+    - key: newspaper
+      label: روزنامهٔ رسمی
+      accept: application/pdf
+      required: true
+    - key: introduction
+      label: معرفی‌نامهٔ نماینده
+      accept: application/pdf,image/jpeg,image/png
+      required: true
+contentTypes:
+  news: اخبار
+  events: رویدادها
+  opportunities: فرصت‌ها
+  partners: همراهان
+  quarterlies: فصلنامه‌ها
+  terms: واژه‌ها
+  workgroups: کارگروه‌ها
+  projects: پروژه‌ها
+  areas: حوزه‌ها
+  research: پژوهش
+  guides: راهنماها
+  pages: برگه‌ها
+  settings: تنظیمات سایت
+  home: خانه
+  about: درباره
+  conference: کنفرانس
+  award: جایزه
+  workgroup-section: معرفی کارگروه‌ها

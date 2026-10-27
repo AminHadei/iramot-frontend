@@ -1,11 +1,20 @@
 import { createApiPartnerRepository } from "~/data/partners/api";
 import { createJsonPartnerRepository } from "~/data/partners/json";
 import type { PartnerRepository } from "~/data/partners/types";
+import {
+  repositoryWithJsonFallback,
+  sectionApiBase,
+  sectionMode,
+} from "~/utils/contentSource";
 
 export function usePartnerRepository(): PartnerRepository {
   const config = useRuntimeConfig();
-  if (config.public.partnersSource === "api") {
-    return createApiPartnerRepository(config.public.partnersApiBase);
-  }
-  return createJsonPartnerRepository(config.app.baseURL);
+  return repositoryWithJsonFallback(
+    sectionMode(config.public, "partners"),
+    createApiPartnerRepository(
+      sectionApiBase(config.public, "partners"),
+      config.app.baseURL,
+    ),
+    createJsonPartnerRepository(config.app.baseURL),
+  );
 }

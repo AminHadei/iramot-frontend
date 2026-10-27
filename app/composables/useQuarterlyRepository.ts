@@ -1,11 +1,20 @@
 import { createApiQuarterlyRepository } from "~/data/quarterlies/api";
 import { createJsonQuarterlyRepository } from "~/data/quarterlies/json";
 import type { QuarterlyRepository } from "~/data/quarterlies/types";
+import {
+  repositoryWithJsonFallback,
+  sectionApiBase,
+  sectionMode,
+} from "~/utils/contentSource";
 
 export function useQuarterlyRepository(): QuarterlyRepository {
   const config = useRuntimeConfig();
-  if (config.public.quarterliesSource === "api") {
-    return createApiQuarterlyRepository(config.public.quarterliesApiBase);
-  }
-  return createJsonQuarterlyRepository(config.app.baseURL);
+  return repositoryWithJsonFallback(
+    sectionMode(config.public, "quarterlies"),
+    createApiQuarterlyRepository(
+      sectionApiBase(config.public, "quarterlies"),
+      config.app.baseURL,
+    ),
+    createJsonQuarterlyRepository(config.app.baseURL),
+  );
 }

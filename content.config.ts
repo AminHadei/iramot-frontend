@@ -255,6 +255,9 @@ export default defineContentConfig({
           conferenceNews: z.string(),
           conferenceTitle: z.string(),
           conferenceNeutral: z.string().nullable(),
+          login: z.string(),
+          account: z.string(),
+          admin: z.string(),
         }),
         styleguide: z.object({
           title: z.string(),
@@ -432,6 +435,15 @@ export default defineContentConfig({
           .default([]),
         placeholder: z.boolean().default(true),
       }),
+    }),
+    panel: defineCollection({
+      type: "data",
+      source: "panel.yml",
+      schema: z
+        .object({
+          placeholder: z.boolean().default(true),
+        })
+        .passthrough(),
     }),
     aboutPage: defineCollection({
       type: "data",

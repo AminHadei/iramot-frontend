@@ -32,6 +32,9 @@ jobs:
       - name: Lint, format, spellcheck, typecheck
         run: pnpm lint && pnpm format && pnpm spellcheck && pnpm typecheck
 
+      - name: Unit tests
+        run: pnpm test
+
       - name: Check changeset
         if: github.event_name == 'pull_request'
         env:

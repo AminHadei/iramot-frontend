@@ -1,7 +1,12 @@
 <script setup lang="ts">
 import type { HomeContent, SiteContent } from "~/types/content";
 import type { NewsSummary } from "~/data/news/types";
+import {
+  createApiAboutRepository,
+  createApiHomeRepository,
+} from "~/data/singletons/api";
 import type { ListingCard } from "~/utils/archive";
+import { sectionApiBase, sectionMode, withJsonFallback } from "~/utils/contentSource";
 
 interface AboutFields {
   description?: string;
@@ -21,6 +26,7 @@ interface ProgramCard {
 const siteState = useSite();
 const newsRepo = useNewsRepository();
 const eventRepo = useEventRepository();
+const config = useRuntimeConfig();
 const { data: siteData } = await siteState;
 if (!siteData.value) {
   throw createError({ statusCode: 500, statusMessage: "محتوای خانه پیدا نشد" });
@@ -63,9 +69,27 @@ function withColor(cards: ListingCard[]): HomeCard[] {
 }
 
 const { data: home } = await useAsyncData("home-page", async () => {
+  const homeRequest = withJsonFallback(
+    sectionMode(config.public, "home"),
+    () =>
+      createApiHomeRepository(
+        sectionApiBase(config.public, "home"),
+        config.app.baseURL,
+      ).get(),
+    () => queryCollection("home").first(),
+  );
+  const aboutRequest = withJsonFallback(
+    sectionMode(config.public, "about"),
+    () =>
+      createApiAboutRepository(
+        sectionApiBase(config.public, "about"),
+        config.app.baseURL,
+      ).get(),
+    () => queryCollection("pages").path("/about").first(),
+  );
   const [pageFile, aboutFile, pagesFile, newsList, eventList] = await Promise.all([
-    queryCollection("home").first(),
-    queryCollection("pages").path("/about").first(),
+    homeRequest,
+    aboutRequest,
     queryCollection("archivePages").first(),
     newsRepo.list({ page: 1, perPage: 12, order: "desc" }),
     eventRepo.list({ page: 1, perPage: 12, order: "desc" }),

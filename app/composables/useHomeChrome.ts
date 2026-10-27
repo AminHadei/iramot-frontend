@@ -1,7 +1,18 @@
-function loadHomeChrome() {
-  return queryCollection("home").first();
-}
+import { createApiHomeRepository } from "~/data/singletons/api";
+import type { HomeContent } from "~/types/content";
+import { sectionApiBase, sectionMode, withJsonFallback } from "~/utils/contentSource";
 
 export function useHomeChrome() {
-  return useAsyncData("home-chrome", loadHomeChrome);
+  const config = useRuntimeConfig();
+  return useAsyncData("home-chrome", () =>
+    withJsonFallback(
+      sectionMode(config.public, "home"),
+      () =>
+        createApiHomeRepository(
+          sectionApiBase(config.public, "home"),
+          config.app.baseURL,
+        ).get(),
+      async () => (await queryCollection("home").first()) as HomeContent | null,
+    ),
+  );
 }

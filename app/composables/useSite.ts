@@ -1,3 +1,17 @@
+import { createApiSiteRepository } from "~/data/singletons/api";
+import { sectionApiBase, sectionMode, withJsonFallback } from "~/utils/contentSource";
+
 export function useSite() {
-  return useAsyncData("site", () => queryCollection("site").first());
+  const config = useRuntimeConfig();
+  return useAsyncData("site", () =>
+    withJsonFallback(
+      sectionMode(config.public, "site"),
+      () =>
+        createApiSiteRepository(
+          sectionApiBase(config.public, "site"),
+          config.app.baseURL,
+        ).get(),
+      () => queryCollection("site").first(),
+    ),
+  );
 }

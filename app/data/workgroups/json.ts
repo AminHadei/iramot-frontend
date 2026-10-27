@@ -141,6 +141,42 @@ function presentSummary(record: WorkgroupRecord, baseURL: string): WorkgroupSumm
   };
 }
 
+export function listFromWorkgroupFile(
+  file: WorkgroupFile,
+  baseURL: string,
+): WorkgroupList {
+  return {
+    title: file.section.title,
+    description: file.section.description,
+    groups: file.groups.map((group) => presentSummary(group, baseURL)),
+  };
+}
+
+export function articleFromWorkgroupFile(
+  file: WorkgroupFile,
+  slug: string,
+  baseURL: string,
+): WorkgroupArticle | null {
+  const index = file.groups.findIndex((group) => group.slug === slug);
+  const record = file.groups[index];
+  if (!record) return null;
+  const groups = file.groups.map((group) => presentSummary(group, baseURL));
+  const summary = groups[index];
+  if (!summary) return null;
+  return {
+    ...summary,
+    sectionTitle: file.section.title,
+    body: presentBody(record),
+    members: presentPeople(record.members, baseURL),
+    memberLists: presentLists(record, baseURL),
+    facts: presentFacts(record),
+    links: presentLinks(record),
+    others: groups.filter((group) => group.slug !== slug),
+    previous: groups[index - 1],
+    next: groups[index + 1],
+  };
+}
+
 export function createJsonWorkgroupRepository(baseURL: string): WorkgroupRepository {
   const href = (path: string) => withBase(baseURL, path);
   const source = "content/workgroups.json";
@@ -152,33 +188,10 @@ export function createJsonWorkgroupRepository(baseURL: string): WorkgroupReposit
 
   return {
     async list(): Promise<WorkgroupList> {
-      const file = await load();
-      return {
-        title: file.section.title,
-        description: file.section.description,
-        groups: file.groups.map((group) => presentSummary(group, baseURL)),
-      };
+      return listFromWorkgroupFile(await load(), baseURL);
     },
     async get(slug: string): Promise<WorkgroupArticle | null> {
-      const file = await load();
-      const index = file.groups.findIndex((group) => group.slug === slug);
-      const record = file.groups[index];
-      if (!record) return null;
-      const groups = file.groups.map((group) => presentSummary(group, baseURL));
-      const summary = groups[index];
-      if (!summary) return null;
-      return {
-        ...summary,
-        sectionTitle: file.section.title,
-        body: presentBody(record),
-        members: presentPeople(record.members, baseURL),
-        memberLists: presentLists(record, baseURL),
-        facts: presentFacts(record),
-        links: presentLinks(record),
-        others: groups.filter((group) => group.slug !== slug),
-        previous: groups[index - 1],
-        next: groups[index + 1],
-      };
+      return articleFromWorkgroupFile(await load(), slug, baseURL);
     },
   };
 }

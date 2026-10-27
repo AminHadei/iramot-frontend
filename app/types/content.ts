@@ -180,6 +180,9 @@ export interface SiteContent {
     conferenceNews: string;
     conferenceTitle: string;
     conferenceNeutral: string | null;
+    login: string;
+    account: string;
+    admin: string;
   };
   styleguide: {
     title: string;

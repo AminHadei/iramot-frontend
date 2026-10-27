@@ -1,6 +1,8 @@
 import type { NuxtApp } from "#app";
 import type { NewsList, NewsSummary } from "~/data/news/types";
+import { createApiConferenceRepository } from "~/data/singletons/api";
 import type { SiteContent } from "~/types/content";
+import { sectionApiBase, sectionMode, withJsonFallback } from "~/utils/contentSource";
 
 function cached<T>(key: string, nuxtApp: NuxtApp): T | undefined {
   if (!nuxtApp.isHydrating) return undefined;
@@ -11,6 +13,7 @@ export async function useConferencePage() {
   const route = useRoute();
   const repo = useNewsRepository();
   const siteState = useSite();
+  const config = useRuntimeConfig();
   const page = pageNumber(route.params.page);
   const order = ref<"asc" | "desc">(route.query.order === "asc" ? "asc" : "desc");
   const list = ref<NewsList | null>(null);
@@ -60,12 +63,21 @@ export async function useConferencePage() {
 
   list.value = data.value;
   featured.value = featuredData.data.value?.items[0] ?? null;
+  const remote = await withJsonFallback(
+    sectionMode(config.public, "conference"),
+    () =>
+      createApiConferenceRepository(
+        sectionApiBase(config.public, "conference"),
+        config.app.baseURL,
+      ).get(),
+    async () => null,
+  );
 
   return reactive({
     site,
     page,
     order,
-    intro: site.conference.intro,
+    intro: remote?.intro ?? site.conference.intro,
     list: list as Ref<NewsList>,
     featured,
   });

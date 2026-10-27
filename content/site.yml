@@ -292,6 +292,9 @@ ui:
   conferenceNews: اخبار کنفرانس
   conferenceTitle: کنفرانس
   conferenceNeutral: null
+  login: ورود
+  account: حساب کاربری
+  admin: مدیریت
 conference:
   intro: null
   banner:

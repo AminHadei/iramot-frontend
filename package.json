@@ -7,7 +7,8 @@
   "scripts": {
     "build": "nuxt build",
     "dev": "TMPDIR=/tmp nuxt dev",
-    "generate": "nuxt generate",
+    "generate": "nuxt generate && node tools/deploy/spa-fallback.mjs",
+    "test": "node tests/terminology-unit.mjs && node tests/membership-unit.mjs",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "prepare": "husky",

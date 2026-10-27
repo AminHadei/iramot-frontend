@@ -1,0 +1,324 @@
+type Bag<K extends string> = {
+  [P in K]: string;
+} & {
+  [key: string]: string | undefined;
+};
+
+export interface PanelDocumentSlot {
+  key: string;
+  label: string;
+  accept: string;
+  required: boolean;
+}
+
+export type PanelSeo = Bag<
+  | "loginTitle"
+  | "loginDescription"
+  | "registerTitle"
+  | "registerDescription"
+  | "forgotTitle"
+  | "forgotDescription"
+  | "panelTitle"
+  | "panelDescription"
+  | "profileTitle"
+  | "profileDescription"
+  | "passwordTitle"
+  | "passwordDescription"
+  | "plansTitle"
+  | "plansDescription"
+  | "applyTitle"
+  | "applyDescription"
+  | "returnTitle"
+  | "returnDescription"
+  | "applicationsTitle"
+  | "applicationsDescription"
+  | "applicationTitle"
+  | "applicationDescription"
+  | "paymentsTitle"
+  | "paymentsDescription"
+  | "cardTitle"
+  | "cardDescription"
+  | "adminTitle"
+  | "adminDescription"
+  | "queueTitle"
+  | "queueDescription"
+  | "reviewTitle"
+  | "reviewDescription"
+  | "membershipsTitle"
+  | "membershipsDescription"
+  | "adminPaymentsTitle"
+  | "adminPaymentsDescription"
+  | "plansAdminTitle"
+  | "plansAdminDescription"
+  | "planEditTitle"
+  | "planEditDescription"
+  | "discountsTitle"
+  | "discountsDescription"
+  | "discountEditTitle"
+  | "discountEditDescription"
+  | "usersTitle"
+  | "usersDescription"
+  | "userEditTitle"
+  | "userEditDescription"
+  | "contentTitle"
+  | "contentDescription"
+  | "contentListTitle"
+  | "contentListDescription"
+  | "contentEditTitle"
+  | "contentEditDescription"
+>;
+
+export type PanelNav = Bag<
+  | "dashboard"
+  | "profile"
+  | "password"
+  | "membership"
+  | "applications"
+  | "payments"
+  | "card"
+>;
+
+export type PanelAdminNav = Bag<
+  | "dashboard"
+  | "queue"
+  | "applications"
+  | "memberships"
+  | "payments"
+  | "plans"
+  | "discounts"
+  | "users"
+  | "content"
+>;
+
+export type PanelActions = Bag<
+  | "submit"
+  | "save"
+  | "cancel"
+  | "login"
+  | "register"
+  | "logout"
+  | "sendCode"
+  | "resetPassword"
+  | "apply"
+  | "pay"
+  | "approve"
+  | "reject"
+  | "resubmit"
+  | "download"
+  | "upload"
+  | "remove"
+  | "add"
+  | "edit"
+  | "search"
+  | "filter"
+  | "publish"
+  | "back"
+  | "applyDiscount"
+  | "create"
+>;
+
+export type PanelValidation = Bag<
+  | "required"
+  | "mobile"
+  | "password"
+  | "confirm"
+  | "nationalCode"
+  | "companyId"
+  | "email"
+  | "date"
+  | "fileType"
+  | "fileSize"
+  | "discount"
+  | "form"
+  | "request"
+>;
+
+export type PanelStatus = Bag<
+  | "draft"
+  | "pending"
+  | "approved"
+  | "rejected"
+  | "paid"
+  | "expired"
+  | "active"
+  | "inactive"
+  | "success"
+  | "failed"
+  | "published"
+  | "unknown"
+>;
+
+export type PanelAuth = Bag<
+  | "firstName"
+  | "lastName"
+  | "mobile"
+  | "password"
+  | "confirm"
+  | "currentPassword"
+  | "newPassword"
+  | "otp"
+  | "noAccount"
+  | "hasAccount"
+  | "forgot"
+  | "sent"
+  | "resetDone"
+  | "email"
+>;
+
+export type PanelFields = Bag<
+  | "title"
+  | "slug"
+  | "excerpt"
+  | "body"
+  | "date"
+  | "status"
+  | "order"
+  | "image"
+  | "question"
+  | "to"
+  | "description"
+  | "document"
+  | "name"
+  | "price"
+  | "durationDays"
+  | "benefits"
+  | "requiredDocuments"
+  | "active"
+  | "code"
+  | "type"
+  | "amount"
+  | "expiresAt"
+  | "maxUses"
+  | "role"
+  | "personType"
+  | "natural"
+  | "legal"
+  | "fatherName"
+  | "nationalCode"
+  | "birthDate"
+  | "gender"
+  | "phone"
+  | "educationLevel"
+  | "fieldOfStudy"
+  | "university"
+  | "jobTitle"
+  | "organization"
+  | "province"
+  | "city"
+  | "address"
+  | "postalCode"
+  | "organizationName"
+  | "organizationType"
+  | "nationalId"
+  | "registrationNumber"
+  | "economicCode"
+  | "establishedAt"
+  | "ceoName"
+  | "representativeFirstName"
+  | "representativeLastName"
+  | "representativeNationalCode"
+  | "representativeRole"
+  | "representativeMobile"
+  | "website"
+  | "activity"
+  | "reason"
+  | "plan"
+  | "discount"
+  | "finalPrice"
+  | "benefitsLabel"
+  | "documents"
+  | "rial"
+  | "day"
+  | "percent"
+  | "fixed"
+  | "user"
+  | "adminRole"
+  | "yes"
+  | "no"
+  | "female"
+  | "male"
+  | "other"
+  | "governmental"
+  | "private"
+  | "cooperative"
+  | "public"
+  | "empty"
+  | "loading"
+  | "unavailable"
+  | "rejection"
+  | "expires"
+  | "memberCode"
+  | "noMembership"
+  | "choosePlan"
+  | "preview"
+  | "fileName"
+  | "maxSize"
+  | "returnSuccess"
+  | "returnFailed"
+  | "returnUnknown"
+  | "rebuildPending"
+  | "rebuildOk"
+  | "rebuildError"
+  | "queueEmpty"
+  | "resubmitHint"
+  | "jsonHint"
+  | "newItem"
+  | "deleteConfirm"
+  | "searchPlaceholder"
+  | "allStatuses"
+  | "page"
+  | "of"
+  | "reference"
+  | "createdAt"
+  | "amountLabel"
+  | "none"
+>;
+
+export type PanelHints = Bag<"mobile" | "birthDate" | "password">;
+
+export type PanelContentTypes = Bag<
+  | "news"
+  | "events"
+  | "opportunities"
+  | "partners"
+  | "quarterlies"
+  | "terms"
+  | "workgroups"
+  | "projects"
+  | "areas"
+  | "research"
+  | "guides"
+  | "pages"
+  | "settings"
+  | "home"
+  | "about"
+  | "conference"
+  | "award"
+  | "workgroup-section"
+>;
+
+export interface PanelCopy {
+  placeholder?: boolean;
+  seo: PanelSeo;
+  nav: PanelNav;
+  adminNav: PanelAdminNav;
+  actions: PanelActions;
+  validation: PanelValidation;
+  status: PanelStatus;
+  auth: PanelAuth;
+  fields: PanelFields;
+  hints: PanelHints;
+  documents: {
+    natural: PanelDocumentSlot[];
+    legal: PanelDocumentSlot[];
+  };
+  contentTypes: PanelContentTypes;
+}
+
+export function panelText(
+  copy: PanelCopy,
+  group: "validation" | "status" | "fields" | "actions" | "seo",
+  key: string,
+) {
+  return copy[group][key] ?? key;
+}
