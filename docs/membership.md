@@ -21,7 +21,7 @@ Sections: `news`, `terms`, `events`, `partners`, `opportunities`, `quarterlies`,
 NUXT_PUBLIC_API_BASE=http://localhost:3001 pnpm dev
 ```
 
-Generate still succeeds without the variable. Setting the variable also switches public sections to the API at prerender time. If a content request fails while prerendering, that read falls back to the JSON files so the static build can finish. A successful API response, including an empty list, is used as returned. Account routes stay `ssr: false` and do not call the API during generate.
+Generate still succeeds without the variable. Setting the variable also switches public sections to the API at prerender time. To keep public pages on the JSON files while account screens call the API, set `NUXT_PUBLIC_<SECTION>_SOURCE=json` for each section. If a content request fails while prerendering, that read falls back to the JSON files so the static build can finish. A successful API response, including an empty list, is used as returned. Account routes stay `ssr: false` and do not call the API during generate.
 
 GitHub Pages deep links use `404.html`, copied from the login shell after `nuxt generate`, so a refresh under `/irmot/` still boots the client router.
 

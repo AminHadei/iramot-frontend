@@ -480,6 +480,7 @@ onBeforeUnmount(() => {
           v-for="slot in slots"
           :key="slot.key"
           :label="slot.label"
+          :choose-label="copy.actions.upload"
           :accept="slot.accept || ''"
           :required="slot.required"
           :file-name="files[slot.key]?.file.name"

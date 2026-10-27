@@ -2,6 +2,7 @@
 defineProps<{
   label: string;
   accept: string;
+  chooseLabel: string;
   required?: boolean;
   error?: string;
   fileName?: string;
@@ -27,11 +28,14 @@ function onChange(event: Event) {
       {{ label }}
       <span v-if="required" class="rwmb-required">*</span>
     </label>
+    <label :for="id" class="button inline-block w-fit cursor-pointer">{{
+      chooseLabel
+    }}</label>
     <input
       :id="id"
       type="file"
       :accept="accept"
-      class="text-sm"
+      class="sr-only"
       :aria-invalid="error ? 'true' : undefined"
       @change="onChange"
     />

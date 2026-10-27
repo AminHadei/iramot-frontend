@@ -78,7 +78,9 @@ async function decide(kind: "approve" | "reject") {
       </p>
       <dl class="grid gap-2">
         <div v-for="[key, value] in details" :key="key">
-          <dt class="text-sm text-secondary">{{ copy.fields[key] || key }}</dt>
+          <dt class="text-sm text-secondary">
+            {{ copy.fields[key] || copy.auth[key] || key }}
+          </dt>
           <dd>{{ value }}</dd>
         </div>
       </dl>

@@ -76,6 +76,7 @@ function label(key: string) {
       <AccountFile
         v-else-if="field.kind === 'media'"
         :label="label(field.key)"
+        :choose-label="copy.actions.upload"
         accept="image/*,application/pdf"
         :file-name="modelValue[field.key]"
         :preview="
