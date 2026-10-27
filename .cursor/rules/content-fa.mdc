@@ -1,6 +1,6 @@
 ---
-description: Persian copy, Jalali dates, and content collections
-globs: content/**/*.{md,yml,yaml}
+description: Persian interface copy in app/copy/panel.json, and Jalali dates
+globs: app/copy/**,app/**/*.{vue,ts}
 alwaysApply: false
 ---
 

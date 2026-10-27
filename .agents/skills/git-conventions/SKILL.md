@@ -29,7 +29,7 @@ description: Use when creating branches, writing commit messages, or splitting w
 
 ## Scopes
 
-`app`, `content`, `config`, `deploy`, `agents`, `public`, `docs`
+`app`, `copy`, `config`, `deploy`, `agents`, `public`, `docs`
 
 ## Branches
 

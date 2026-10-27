@@ -34,8 +34,7 @@ Canonical: [`.agents/skills/`](./.agents/skills/). Cursor: [`.cursor/rules/`](./
 | ------------------ | --------------------------------------- |
 | `nuxt-app`         | `app/**`, `nuxt.config.ts`, Vue/TS      |
 | `design-system`    | Layout, type, colour, RTL               |
-| `content-fa`       | Persian UI copy                         |
-| `static-deploy`    | Build, Docker, Nginx, GitHub Actions    |
+| `content-fa`       | Persian UI copy and Jalali dates        |
 | `code-conventions` | Cross-cutting Vue/TS and tooling        |
 | `git-conventions`  | Commits, branches, hooks                |
 | `pre-commit`       | Verification before declaring work done |

@@ -7,7 +7,7 @@ description: Use when writing Persian interface copy. Covers voice, orthography,
 
 ## Where copy lives
 
-Account and admin strings live in `app/copy/panel.json`. Public page titles and bodies come from the content API. Do not hardcode those strings in Vue files.
+Account and admin strings live in `app/copy/panel.json`. There is no `content/` directory. Public page titles and bodies come from the content API. Do not hardcode those strings in Vue files.
 
 ## Voice
 

@@ -1,6 +1,6 @@
 ---
 name: design-system
-description: Use when changing layout, spacing, typography, colour, or component appearance. RTL mirror of ifp.org with this association's tokens.
+description: Use when changing layout, spacing, typography, colour, or component appearance. The living sheet is app/assets/css/ifp.rtl.css.
 ---
 
 # Design system — irmot

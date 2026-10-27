@@ -13,11 +13,11 @@ Severity calibration for code review. Used by the `code-review` skill.
 
 ## Major
 
-- Design drift from the IFP-derived structure, or IFP fonts/logo copied in.
+- Design drift from the class names in `app/assets/css/ifp.rtl.css`, or a font other than IRANYekan.
 - Colours or fonts outside `paper`, `ink`, `primary`, `secondary`, `secondary-soft`, `accent`, `line`, `font-heading`, `font-sans`.
 - A page without `usePageSeo`.
 - Dates shown in Gregorian form or with Latin digits.
-- Placeholder copy added without `placeholder: true`.
+- Temporary account copy in `app/copy/panel.json` without `placeholder: true`.
 - `CHANGELOG.md` or `package.json` `version` edited by hand.
 
 ## Minor
