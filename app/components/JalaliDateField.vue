@@ -133,33 +133,46 @@ function syncView() {
 }
 
 function place() {
-  const trigger = triggerEl.value;
+  const anchor = root.value;
   const pop = popEl.value;
-  if (!trigger || !pop || typeof window === "undefined") return;
-  if (window.innerWidth <= 640) {
+  if (!anchor || !pop || typeof window === "undefined") return;
+  const frame = fixedFrame();
+  if (frame.width <= 640) {
     sheet.value = true;
     popStyle.value = {};
     return;
   }
   sheet.value = false;
-  const rect = trigger.getBoundingClientRect();
-  const width = Math.min(300, window.innerWidth - 16);
+  const rect = anchor.getBoundingClientRect();
+  const width = Math.min(300, frame.width - 16);
   const height = pop.offsetHeight || 320;
-  const spaceBelow = window.innerHeight - rect.bottom;
-  const spaceAbove = rect.top;
+  const spaceBelow = frame.bottom - rect.bottom;
+  const spaceAbove = rect.top - frame.top;
   const above = spaceBelow < height + 8 && spaceAbove > spaceBelow;
-  const maxStart = Math.max(8, window.innerWidth - width - 8);
-  const aligned = window.innerWidth - rect.right;
-  const start = Math.min(Math.max(8, aligned), maxStart);
-  const block = above
-    ? Math.max(8, rect.top - height - 6)
-    : Math.min(rect.bottom + 6, Math.max(8, window.innerHeight - height - 8));
+  const minStart = 8;
+  const maxStart = Math.max(minStart, frame.width - width - 8);
+  const aligned = frame.right - rect.right;
+  const start = Math.min(Math.max(minStart, aligned), maxStart);
+  const block = above ? rect.top - height - 6 : rect.bottom + 6;
   popStyle.value = {
     position: "fixed",
     insetInlineStart: `${start}px`,
-    top: `${block}px`,
+    insetInlineEnd: "auto",
+    top: `${Math.max(frame.top + 8, Math.min(block, frame.bottom - height - 8))}px`,
     width: `${width}px`,
   };
+}
+
+function fixedFrame() {
+  const probe = document.createElement("div");
+  probe.style.position = "fixed";
+  probe.style.inset = "0";
+  probe.style.visibility = "hidden";
+  probe.style.pointerEvents = "none";
+  document.body.appendChild(probe);
+  const box = probe.getBoundingClientRect();
+  probe.remove();
+  return box;
 }
 
 async function focusCursor() {
@@ -392,6 +405,7 @@ onBeforeUnmount(() => {
         :id="`${id}-dialog`"
         ref="popEl"
         class="jalali-popover"
+        dir="rtl"
         :class="{ 'jalali-popover--sheet': sheet }"
         role="dialog"
         aria-modal="true"
