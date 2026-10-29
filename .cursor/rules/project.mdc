@@ -9,9 +9,9 @@ alwaysApply: true
 
 - Nuxt and Vue 3. Only `<script setup lang="ts">`.
 - Routes live in `app/pages/`. Components live in `app/components/` and are auto-imported.
-- Data comes only from `content/` via `@nuxt/content` and `queryCollection`. Do not hardcode interface or body copy in components.
+- Public pages read the content API with `useAsyncData` or `useFetch` on the server. Do not hardcode interface or body copy in components. Account UI strings live in `app/copy/panel.json`.
 - Images use `NuxtImg` or `NuxtPicture` from `@nuxt/image`.
-- Static output with `nuxt generate`.
+- Production is `pnpm build`, then `node .output/server/index.mjs`. Account, admin, and payment routes stay `ssr: false`.
 
 ## RTL
 
@@ -28,15 +28,15 @@ The site is fully right-to-left (`lang=fa` and `dir=rtl` on `html`). Logical pro
 
 ## Design
 
-هدف، کپی ۱:۱ مارکاپ و CSS سایت ifp.org است، آینه‌شده برای RTL. فقط متن، تصاویر، لوگو و فونت عوض می‌شوند. هیچ کامپوننتی از روی توضیح متنی بازسازی نمی‌شود؛ منبع حقیقت فایل‌های ref/ifp/ است. کلاس‌های اصلی IFP (site-header، home-splash، home-spotlight-intro، post-listing__*، project-list--layout-3-col، newsletter-pre-footer، site-footer و...) دقیقاً حفظ شوند.
+Keep the class names and rules in `app/assets/css/ifp.rtl.css` (`site-header`, `home-splash`, `home-spotlight-intro`, `post-listing__*`, `project-list--layout-3-col`, `newsletter-pre-footer`, `site-footer`, and the rest). Match that stylesheet and the current templates.
 
-- The global stylesheet is `app/assets/css/ifp.rtl.css`, built with rtlcss from `ref/ifp/css/main.css` and the `<style>` blocks in `ref/ifp/html/`. Both Söhne and Tiempos Text map to `IRANYekan, Tahoma, sans-serif`. Uppercase and letter-spacing are neutralized; font-weight stays.
-- IFP colours in that sheet are custom properties on `:root`. Paper is `#FFFDF5`, ink and rules are `#2B2B33`, the hero is `#2D317A` with paper text, emphasis is `#6866AD` for text, links, icons, and hairlines, and `#6A64AB` for solid fills. The newsletter, footer, and dark header are `#06011E`. Meta stays `#999`. Panels are `#FAF9F7`. Topic colours cycle `#2D317A`, `#6967AC`, `#9A96CA`, `#3F50A0`. Label text on `#9A96CA` is `#06011E`. Text on `#6866AD` and `#6A64AB` is `#FFFDF5`.
+- Both Söhne and Tiempos Text map to `IRANYekan, Tahoma, sans-serif`. Uppercase and letter-spacing are neutralized; font-weight stays.
+- Colours in that sheet are custom properties on `:root`. Paper is `#FFFDF5`, ink and rules are `#2B2B33`, the hero is `#2D317A` with paper text, emphasis is `#6866AD` for text, links, icons, and hairlines, and `#6A64AB` for solid fills. The newsletter, footer, and dark header are `#06011E`. Meta stays `#999`. Panels are `#FAF9F7`. Topic colours cycle `#2D317A`, `#6967AC`, `#9A96CA`, `#3F50A0`. Label text on `#9A96CA` is `#06011E`. Text on `#6866AD` and `#6A64AB` is `#FFFDF5`.
 - Tailwind preflight is off. Use Tailwind only for association-specific UI.
 - Headings, text, and labels use IRANYekan (`font-heading`, `font-sans`, and `font-serif`), with Tahoma as the fallback. The FaNum woff2 and woff files live in `public/fonts/iranyekan/` and are declared in `app/assets/css/fonts.css`.
-- Display dates are Jalali with Persian digits (`formatPersianDate`). Keep dates as ISO in content.
+- Display dates are Jalali with Persian digits (`formatPersianDate`). Keep dates as ISO in the API.
 
 ## Content and SEO
 
 - Every page calls `usePageSeo` with a Persian title and description and `ogLocale: fa_IR`.
-- Temporary content, including the first structure taken from IFP, sets `placeholder: true` in frontmatter.
+- A missing public record throws `createError({ statusCode: 404 })`.

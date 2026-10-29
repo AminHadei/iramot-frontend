@@ -1,6 +1,6 @@
 ---
 name: design-system
-description: Use when changing layout, spacing, typography, colour, or component appearance. RTL mirror of ifp.org with this association's tokens.
+description: Use when changing layout, spacing, typography, colour, or component appearance. The living sheet is app/assets/css/ifp.rtl.css.
 ---
 
 # Design system — irmot
@@ -9,7 +9,7 @@ The always-on rule is [`.cursor/rules/project.mdc`](../../../.cursor/rules/proje
 
 ## Reference
 
-The global sheet is [`app/assets/css/ifp.rtl.css`](../../../app/assets/css/ifp.rtl.css): rtlcss output of `ref/ifp/css/main.css` and the `<style>` blocks in `ref/ifp/html/`. Both Söhne and Tiempos Text map to `IRANYekan, Tahoma, sans-serif`. IFP colours in that sheet are `:root` custom properties, listed in [`docs/design-system.md`](../../../docs/design-system.md). Do not ship the IFP font files or the IFP mark. Tailwind preflight is off; use Tailwind only for association-specific UI.
+The global sheet is [`app/assets/css/ifp.rtl.css`](../../../app/assets/css/ifp.rtl.css). Both Söhne and Tiempos Text map to `IRANYekan, Tahoma, sans-serif`. Colours in that sheet are `:root` custom properties, listed in [`docs/design-system.md`](../../../docs/design-system.md). Tailwind preflight is off; use Tailwind only for association-specific UI.
 
 ## Tokens
 

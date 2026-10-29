@@ -6,6 +6,9 @@ defineProps<{
 }>();
 
 const route = useRoute();
+const auth = useAuth();
+const authUser = auth.user;
+const authEnabled = auth.enabled;
 const open = ref(false);
 const panel = ref<string | null>(null);
 const opaque = ref(false);
@@ -45,6 +48,7 @@ watch(
 onMounted(() => {
   syncOpaque();
   window.addEventListener("scroll", syncOpaque, { passive: true });
+  if (authEnabled.value) void auth.restore();
 });
 
 onBeforeUnmount(() => {
@@ -64,6 +68,7 @@ onBeforeUnmount(() => {
       >
         <a
           v-if="item.children?.length"
+          class="whitespace-nowrap"
           :href="item.to"
           @click.prevent="panel = item.to"
         >
@@ -71,6 +76,7 @@ onBeforeUnmount(() => {
         </a>
         <NuxtLink
           v-else
+          class="whitespace-nowrap"
           :to="item.to"
           :aria-current="isCurrent(item.to) ? 'page' : undefined"
         >
@@ -106,6 +112,17 @@ onBeforeUnmount(() => {
             <NuxtLink :to="child.to">{{ child.label }}</NuxtLink>
           </li>
         </ul>
+      </li>
+      <li v-if="authEnabled" class="menu-item">
+        <NuxtLink v-if="authUser" class="whitespace-nowrap" to="/panel">{{
+          site.ui.account
+        }}</NuxtLink>
+        <NuxtLink v-else class="whitespace-nowrap" to="/auth/login">{{
+          site.ui.login
+        }}</NuxtLink>
+      </li>
+      <li v-if="authEnabled && authUser?.role === 'admin'" class="menu-item">
+        <NuxtLink class="whitespace-nowrap" to="/admin">{{ site.ui.admin }}</NuxtLink>
       </li>
     </ul>
   </div>
@@ -164,6 +181,7 @@ onBeforeUnmount(() => {
             :class="item.children?.length ? 'menu-item-has-children' : ''"
           >
             <NuxtLink
+              class="whitespace-nowrap"
               :to="item.to"
               :aria-current="isCurrent(item.to) ? 'page' : undefined"
             >
@@ -177,6 +195,19 @@ onBeforeUnmount(() => {
                 <NuxtLink :to="child.to">{{ child.label }}</NuxtLink>
               </li>
             </ul>
+          </li>
+          <li v-if="authEnabled" class="menu-item">
+            <NuxtLink v-if="authUser" class="whitespace-nowrap" to="/panel">{{
+              site.ui.account
+            }}</NuxtLink>
+            <NuxtLink v-else class="whitespace-nowrap" to="/auth/login">{{
+              site.ui.login
+            }}</NuxtLink>
+          </li>
+          <li v-if="authEnabled && authUser?.role === 'admin'" class="menu-item">
+            <NuxtLink class="whitespace-nowrap" to="/admin">{{
+              site.ui.admin
+            }}</NuxtLink>
           </li>
         </ul>
       </nav>

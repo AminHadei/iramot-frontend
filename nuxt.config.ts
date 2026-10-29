@@ -1,31 +1,21 @@
-import { withBase } from "./app/utils/withBase";
-import { eventPrerenderRoutes } from "./app/data/events/prerender-routes";
-import { newsPrerenderRoutes } from "./app/data/news/prerender-routes";
-import { termPrerenderRoutes } from "./app/data/terms/prerender-routes";
-import { workgroupPrerenderRoutes } from "./app/data/workgroups/prerender-routes";
-
-// Root-absolute font urls are not prefixed by Vite. Apply app.baseURL once here.
-function prefixPublicFontUrls() {
+function apiImageDomains(): string[] {
   const env = (globalThis as { process?: { env?: Record<string, string | undefined> } })
     .process?.env;
-  const base = env?.NUXT_APP_BASE_URL || "/";
-  return {
-    name: "prefix-public-font-urls",
-    enforce: "pre" as const,
-    transform(code: string, id: string) {
-      if (!id.includes(".css") || !code.includes('url("/fonts/')) return;
-      return code.replace(/url\("(\/fonts\/[^"]+)"\)/g, (_match, path: string) => {
-        return `url("${withBase(base, path)}")`;
-      });
-    },
-  };
+  const raw = env?.NUXT_PUBLIC_API_BASE?.trim();
+  if (!raw) return [];
+  try {
+    const hostname = new URL(raw).hostname;
+    return hostname ? [hostname] : [];
+  } catch {
+    return [];
+  }
 }
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: "2026-10-21",
   devtools: { enabled: true },
-  modules: ["@nuxt/eslint", "@nuxtjs/tailwindcss", "@nuxt/content", "@nuxt/image"],
+  modules: ["@nuxt/eslint", "@nuxtjs/tailwindcss", "@nuxt/image"],
   eslint: {
     config: {
       stylistic: false,
@@ -47,7 +37,10 @@ export default defineNuxtConfig({
     },
   },
   routeRules: {
-    "/**": { prerender: true },
+    "/auth/**": { ssr: false },
+    "/panel/**": { ssr: false },
+    "/admin/**": { ssr: false },
+    "/payment/**": { ssr: false },
     "/statute": { redirect: "/about#statute" },
     "/contact": { redirect: "/about#contact" },
     "/research": { redirect: "/news" },
@@ -67,55 +60,10 @@ export default defineNuxtConfig({
     "/جایزه-ملی-مدیریت-فناوری-و-نوآوری": { redirect: "/award" },
   },
   runtimeConfig: {
+    apiBaseInternal: "",
     public: {
-      newsSource: "json",
-      newsApiBase: "",
-      termsSource: "json",
-      termsApiBase: "",
-      eventsSource: "json",
-      eventsApiBase: "",
-      partnersSource: "json",
-      partnersApiBase: "",
-      opportunitiesSource: "json",
-      opportunitiesApiBase: "",
-      opportunitiesSamples: true,
-      quarterliesSource: "json",
-      quarterliesApiBase: "",
+      apiBase: "",
     },
-  },
-  nitro: {
-    prerender: {
-      crawlLinks: true,
-      routes: [
-        "/styleguide",
-        "/the-launch-sequence",
-        "/transit-abundance-playbook",
-        "/economics-of-ideas",
-        "/economics-of-ideas/syllabus",
-        "/economics-of-ideas/apply",
-        "/independent-filmmaker-project",
-        "/statute",
-        "/contact",
-        "/committees",
-        "/کارگروه-واژه-گزینی",
-        "/مدیریت-نوآوری",
-        "/کارگروه-متناظر-استانداردسازی-مدیریت",
-        "/category/quarterly-magazine",
-        "/quarterlies/category/quarterly-magazine",
-        "/quarterlies/category/فصلنامه-سیاست-علم-و-فناوری",
-        "/quarterlies/page/2",
-        "/award/category/جایزه-ملی-مدیریت-نوآوری",
-        "/category/جایزه-ملی-مدیریت-نوآوری",
-        "/جایزه-ملی-مدیریت-فناوری-و-نوآوری",
-        ...newsPrerenderRoutes,
-        ...termPrerenderRoutes,
-        ...eventPrerenderRoutes,
-        ...workgroupPrerenderRoutes,
-      ],
-    },
-  },
-  vite: {
-    plugins: [prefixPublicFontUrls()],
   },
   tailwindcss: {
     cssPath: "~/assets/css/tailwind.css",
@@ -128,6 +76,8 @@ export default defineNuxtConfig({
     },
   },
   image: {
+    provider: "none",
+    domains: apiImageDomains(),
     providers: {
       none: {
         name: "none",

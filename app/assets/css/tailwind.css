@@ -3612,3 +3612,317 @@ a.conference-banner:focus-visible .hero-intro__link--featured {
     transition: none;
   }
 }
+
+form textarea,
+textarea.account-textarea {
+  box-sizing: border-box;
+  width: 100%;
+  border: 1px solid #2b2b33;
+  background-color: #fffdf5;
+  color: #2b2b33;
+  padding: 0.75rem;
+  font-family: IRANYekan, Tahoma, sans-serif;
+}
+
+form textarea:focus,
+textarea.account-textarea:focus {
+  border-color: #2d317a;
+  outline: 0;
+}
+
+.article__content img,
+.wg-prose img,
+.rich-text img,
+.list-card__text img,
+.term-card__text img,
+.hero-intro__body img {
+  max-width: 100%;
+  height: auto;
+}
+
+.single-article .article__content ul > li::before {
+  background: #2b2b33;
+  border-radius: 50%;
+}
+
+.ql-align-center {
+  text-align: center;
+}
+
+.ql-align-right {
+  text-align: start;
+}
+
+.ql-align-left {
+  text-align: end;
+}
+
+.ql-align-justify {
+  text-align: justify;
+}
+
+form.admin-filter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 1rem 1.25rem;
+  margin-block-start: 1.5rem;
+}
+
+form.admin-filter > :not(button) {
+  flex: 1 1 14rem;
+  min-width: min(100%, 12rem);
+  display: grid;
+  grid-template-rows: auto 2.75rem;
+  align-items: end;
+  gap: 0.25rem;
+}
+
+form.admin-filter input,
+form.admin-filter select,
+form.admin-filter > button {
+  box-sizing: border-box;
+  height: 2.75rem;
+  margin: 0;
+  padding-block: 0;
+  line-height: 2.75rem;
+}
+
+form.admin-filter > button {
+  flex: 0 0 auto;
+  align-self: flex-end;
+  display: inline-flex;
+  align-items: center;
+  padding-inline: 0.25rem;
+}
+
+button.admin-action {
+  border: 0;
+  background: transparent;
+  color: #2d317a;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+button.button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+dialog.confirm-dialog {
+  position: fixed;
+  inset: 0;
+  width: min(32rem, calc(100% - 2rem));
+  height: fit-content;
+  margin: auto;
+  border: 1px solid #2b2b33;
+  background: #fffdf5;
+  color: #2b2b33;
+  padding: 1.5rem;
+  text-align: start;
+}
+
+dialog.confirm-dialog::backdrop {
+  background: rgb(6 1 30 / 45%);
+}
+
+.jalali-field {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.jalali-field__line {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.75rem;
+}
+
+button.jalali-field__trigger {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  width: 100%;
+  min-height: 2.15rem;
+  margin: 0;
+  padding-block: 0.35rem;
+  padding-inline: 0;
+  border: 0;
+  border-bottom: 1px solid #373737;
+  background: transparent;
+  color: #2b2b33;
+  font: inherit;
+  font-weight: 400;
+  line-height: 1.4;
+  text-align: start;
+  text-transform: none;
+  cursor: pointer;
+}
+
+button.jalali-field__trigger:focus {
+  border-bottom-color: #2d317a;
+  outline: 0;
+}
+
+.jalali-field__value {
+  min-height: 1.2em;
+}
+
+.jalali-field__icon {
+  width: 1.05rem;
+  height: 1.05rem;
+  flex: 0 0 auto;
+  stroke-width: 1.25;
+}
+
+button.jalali-field__clear,
+button.jalali-icon-button,
+button.jalali-day {
+  border: 0;
+  background: transparent;
+  color: #2d317a;
+  font: inherit;
+  font-weight: 400;
+  text-transform: none;
+  cursor: pointer;
+}
+
+button.jalali-field__clear {
+  flex: 0 0 auto;
+  padding: 0.35rem 0;
+  text-decoration: underline;
+  white-space: nowrap;
+}
+
+.jalali-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.jalali-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  background: rgb(6 1 30 / 45%);
+}
+
+.jalali-popover {
+  z-index: 61;
+  box-sizing: border-box;
+  max-height: min(32rem, calc(100vh - 1rem));
+  overflow: auto;
+  margin: 0;
+  border: 1px solid #2b2b33;
+  background-color: #fffdf5;
+  color: #2b2b33;
+  padding: 0.75rem;
+  box-shadow: 0 8px 24px rgb(6 1 30 / 16%);
+}
+
+.jalali-popover--sheet {
+  position: fixed;
+  inset-inline: 0;
+  inset-block: auto 0;
+  width: 100%;
+  max-height: min(32rem, 85vh);
+}
+
+.jalali-popover__nav,
+.jalali-time {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.jalali-popover__nav {
+  margin-block-end: 0.5rem;
+}
+
+.jalali-time {
+  margin-block-end: 0.75rem;
+}
+
+.jalali-time__field {
+  display: flex;
+  flex: 1 1 0;
+  align-items: center;
+  gap: 0.35rem;
+  color: #6967ac;
+  font-size: 0.875rem;
+}
+
+.jalali-select {
+  min-width: 0;
+  border: 0;
+  border-bottom: 1px solid #373737;
+  background: transparent;
+  color: #2b2b33;
+  font: inherit;
+  padding-block: 0.2rem;
+}
+
+button.jalali-icon-button {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+}
+
+button.jalali-icon-button svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.jalali-grid {
+  display: grid;
+  gap: 0.15rem;
+}
+
+.jalali-grid__row {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+
+.jalali-grid__head {
+  color: #6967ac;
+  font-size: 0.75rem;
+  text-align: center;
+}
+
+button.jalali-day {
+  width: 100%;
+  min-height: 2rem;
+  padding: 0;
+  color: #2b2b33;
+  text-align: center;
+}
+
+button.jalali-day[aria-current="date"]:not([aria-selected="true"]) {
+  background: #9a96ca;
+  color: #06011e;
+}
+
+button.jalali-day[aria-selected="true"] {
+  background: #2d317a;
+  color: #fffdf5;
+}
+
+button.jalali-day:focus-visible,
+button.jalali-icon-button:focus-visible,
+button.jalali-field__clear:focus-visible {
+  outline: 2px solid #2d317a;
+  outline-offset: 2px;
+}

@@ -1,6 +1,7 @@
-import { createJsonWorkgroupRepository } from "~/data/workgroups/json";
+import { createApiWorkgroupRepository } from "~/data/workgroups/api";
 import type { WorkgroupRepository } from "~/data/workgroups/types";
 
 export function useWorkgroupRepository(): WorkgroupRepository {
-  return createJsonWorkgroupRepository(useRuntimeConfig().app.baseURL);
+  const config = useRuntimeConfig();
+  return createApiWorkgroupRepository(useContentApiBase(), config.app.baseURL);
 }

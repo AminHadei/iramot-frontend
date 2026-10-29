@@ -4,6 +4,7 @@ import type {
   TermRepository,
   TermSource,
 } from "~/data/terms/types";
+import { fetchJsonOrNull } from "~/data/fetchJson";
 
 const emptyList: TermList = { items: [], total: 0 };
 
@@ -13,11 +14,13 @@ export function createApiTermRepository(apiBase: string): TermRepository {
   return {
     async list(query?: TermListQuery): Promise<TermList> {
       if (!root) return emptyList;
-      return $fetch<TermList>(`${root}/terms`, { query });
+      const data = await fetchJsonOrNull<TermList>(`${root}/terms`, query);
+      return data ?? emptyList;
     },
     async sources(): Promise<TermSource[]> {
       if (!root) return [];
-      return $fetch<TermSource[]>(`${root}/terms/sources`);
+      const data = await fetchJsonOrNull<TermSource[]>(`${root}/terms/sources`);
+      return data ?? [];
     },
   };
 }

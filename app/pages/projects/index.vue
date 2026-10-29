@@ -1,7 +1,8 @@
 <script setup lang="ts">
 const { data: site } = await useSite();
+const projectsRepo = useProjectRepository();
 const { data: projects } = await useAsyncData("projects-index", () =>
-  queryCollection("projects").order("stem", "ASC").all(),
+  projectsRepo.list(),
 );
 
 if (!site.value) {

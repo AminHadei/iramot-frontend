@@ -18,8 +18,7 @@ app/
   types/
   assets/css/
   providers/        # Nuxt Image providers
-content/            # @nuxt/content sources
-content.config.ts
+  copy/             # account UI strings
 nuxt.config.ts
 ```
 
@@ -32,17 +31,18 @@ nuxt.config.ts
 
 ## Data
 
-- Read copy with `queryCollection`. Do not hardcode interface or body text.
+- Read public content from the API with `useAsyncData`. Account strings live in `app/copy/panel.json`.
 - Images go through `NuxtImg`.
 - Every page calls `usePageSeo` (Persian title, description, `ogLocale: fa_IR`).
+- A missing public record throws `createError({ statusCode: 404 })`.
 
 ## Config
 
 - `app.head.htmlAttrs` stays `{ lang: 'fa', dir: 'rtl' }`.
-- Static output is `nuxt generate` (`routeRules` prerender + `nitro.prerender.crawlLinks`).
-- New routes must be linked from a crawled page so generate discovers them.
+- Production is `pnpm build` and `node .output/server/index.mjs`.
+- Account, admin, and payment routes stay `ssr: false`.
 
 ## Don't
 
-- Don't add `server/` routes for content that belongs in `content/`.
+- Don't add `server/api` routes for content. Content belongs in the API.
 - Don't introduce a UI kit for layout this site already builds with Tailwind.

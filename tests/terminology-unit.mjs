@@ -1,13 +1,20 @@
 import { execSync } from "node:child_process";
-import { readFileSync, mkdtempSync } from "node:fs";
+import { readFileSync, mkdtempSync, readdirSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { pathToFileURL } from "node:url";
 
+function esbuildBin() {
+  const root = "node_modules/.pnpm";
+  const entry = readdirSync(root).find((name) => name.startsWith("esbuild@"));
+  if (!entry) throw new Error("esbuild is not installed");
+  return join(root, entry, "node_modules/esbuild/bin/esbuild");
+}
+
 const dir = mkdtempSync(join(tmpdir(), "term-search-"));
 const out = join(dir, "persianSearch.mjs");
 execSync(
-  `pnpm exec esbuild app/utils/persianSearch.ts --bundle --format=esm --outfile=${out}`,
+  `"${esbuildBin()}" app/utils/persianSearch.ts --bundle --format=esm --outfile=${out}`,
   { stdio: "inherit" },
 );
 const { foldText, queryTokens, compareByDateDesc, searchTerms, splitByRanges } =
@@ -133,7 +140,7 @@ check(
   [3, 1],
 );
 
-const index = JSON.parse(readFileSync("public/data/terms/index.json", "utf8"));
+const index = JSON.parse(readFileSync("tests/fixtures/terms-index.json", "utf8"));
 const all = index.items.map((item) => ({
   id: item.id,
   en: item.title,

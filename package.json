@@ -7,7 +7,8 @@
   "scripts": {
     "build": "nuxt build",
     "dev": "TMPDIR=/tmp nuxt dev",
-    "generate": "nuxt generate",
+    "start": "node .output/server/index.mjs",
+    "test": "node tests/terminology-unit.mjs && node tests/membership-unit.mjs",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "prepare": "husky",
@@ -21,16 +22,14 @@
     "check:fix": "pnpm lint:fix && pnpm format:fix && pnpm check",
     "changeset": "changeset",
     "changeset:version": "changeset version",
-    "changeset:status": "changeset status --verbose",
-    "css:ifp": "node tools/css/build-ifp-rtl.mjs",
-    "visual:ifp": "node tools/visual/compare-ifp.mjs"
+    "changeset:status": "changeset status --verbose"
   },
   "dependencies": {
-    "@nuxt/content": "^3.16.2",
     "@nuxt/image": "^2.2.0",
-    "better-sqlite3": "^13.0.3",
+    "isomorphic-dompurify": "^4.6.0",
     "lottie-web": "^5.13.0",
     "nuxt": "^4.6.2",
+    "quill": "^2.0.3",
     "swiper": "^14.3.0",
     "vue": "^3.5.43",
     "vue-router": "^5.3.1"
@@ -49,12 +48,8 @@
     "globals": "^17.13.0",
     "husky": "^9.1.7",
     "lint-staged": "^17.6.0",
-    "pixelmatch": "^8.0.0",
-    "playwright": "^1.64.1",
-    "pngjs": "^7.0.0",
     "prettier": "^3.9.10",
     "prettier-plugin-tailwindcss": "^0.6.14",
-    "rtlcss": "^4.3.0",
     "tailwindcss": "~3.4.19",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.72.0",
@@ -62,7 +57,6 @@
   },
   "pnpm": {
     "onlyBuiltDependencies": [
-      "better-sqlite3",
       "esbuild",
       "unrs-resolver"
     ]

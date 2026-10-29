@@ -6,31 +6,62 @@ import type {
   EventRepository,
   EventSummary,
 } from "~/data/events/types";
+import { useMediaRewriteBase } from "~/composables/useContentApiBase";
+import { fetchJsonOrNull } from "~/data/fetchJson";
+import { isNotFoundError } from "~/utils/httpStatus";
 import { articleHtml } from "~/utils/articleHtml";
+import {
+  rewriteMediaTree,
+  rewriteStorageHtml,
+  type MediaContext,
+} from "~/utils/mediaUrl";
 
 const emptyList: EventList = { items: [], total: 0, pages: 0 };
 
-export function createApiEventRepository(apiBase: string): EventRepository {
+export function createApiEventRepository(
+  apiBase: string,
+  siteBase = "/",
+): EventRepository {
   const root = apiBase.replace(/\/$/, "");
+  const mediaRoot = useMediaRewriteBase(root);
+  const media: MediaContext = { apiBase: mediaRoot, siteBase };
+
+  function mapSummary<T extends EventSummary>(item: T): T {
+    return rewriteMediaTree(item, media);
+  }
 
   return {
     async list(query: EventListQuery): Promise<EventList> {
       if (!root) return emptyList;
-      return $fetch<EventList>(`${root}/events`, { query });
+      const data = await $fetch<EventList>(`${root}/events`, { query });
+      return { ...data, items: (data.items ?? []).map((item) => mapSummary(item)) };
     },
     async featured(program?: EventProgram): Promise<EventSummary | null> {
       if (!root) return null;
-      return $fetch<EventSummary | null>(`${root}/events/featured`, {
-        query: { program },
-      });
+      try {
+        const body = await $fetch<EventSummary | null>(`${root}/events/featured`, {
+          query: { program },
+        });
+        if (body == null) return null;
+        return mapSummary(body);
+      } catch (error) {
+        if (isNotFoundError(error)) return null;
+        throw error;
+      }
     },
     async get(slug: string): Promise<EventArticle | null> {
       if (!root) return null;
-      const event = await $fetch<EventArticle>(
+      const event = await fetchJsonOrNull<EventArticle>(
         `${root}/events/${encodeURIComponent(slug)}`,
       );
-      const prepared = articleHtml(event.bodyHtml || "");
-      return { ...event, bodyHtml: prepared.html };
+      if (!event) return null;
+      const prepared = articleHtml(
+        rewriteStorageHtml(event.bodyHtml || "", mediaRoot),
+        siteBase,
+        undefined,
+        mediaRoot,
+      );
+      return { ...mapSummary(event), bodyHtml: prepared.html };
     },
   };
 }

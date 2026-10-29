@@ -1,5 +1,6 @@
 import type { NuxtApp } from "#app";
 import type { NewsList, NewsSummary } from "~/data/news/types";
+import { createApiConferenceRepository } from "~/data/singletons/api";
 import type { SiteContent } from "~/types/content";
 
 function cached<T>(key: string, nuxtApp: NuxtApp): T | undefined {
@@ -11,6 +12,7 @@ export async function useConferencePage() {
   const route = useRoute();
   const repo = useNewsRepository();
   const siteState = useSite();
+  const config = useRuntimeConfig();
   const page = pageNumber(route.params.page);
   const order = ref<"asc" | "desc">(route.query.order === "asc" ? "asc" : "desc");
   const list = ref<NewsList | null>(null);
@@ -60,12 +62,16 @@ export async function useConferencePage() {
 
   list.value = data.value;
   featured.value = featuredData.data.value?.items[0] ?? null;
+  const remote = await createApiConferenceRepository(
+    useContentApiBase(),
+    config.app.baseURL,
+  ).get();
 
   return reactive({
     site,
     page,
     order,
-    intro: site.conference.intro,
+    intro: remote?.intro ?? site.conference.intro,
     list: list as Ref<NewsList>,
     featured,
   });

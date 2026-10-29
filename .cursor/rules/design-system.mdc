@@ -1,5 +1,5 @@
 ---
-description: RTL layout, type, and colour tokens mirrored from ifp.org
+description: RTL layout, type, and colour from app/assets/css/ifp.rtl.css
 globs: app/**/*.{vue,css},tailwind.config.ts
 alwaysApply: false
 ---

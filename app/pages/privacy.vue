@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { SiteContent } from "~/types/content";
+import { createApiPageRepository } from "~/data/pages/api";
 import { privacySections } from "~/utils/privacySections";
 
 const { data: siteData } = await useSite();
@@ -7,11 +8,12 @@ if (!siteData.value) {
   throw createError({ statusCode: 500, statusMessage: "محتوای سایت پیدا نشد" });
 }
 const site = siteData.value as SiteContent;
-const baseURL = useRuntimeConfig().app.baseURL;
+const config = useRuntimeConfig();
+const baseURL = config.app.baseURL;
 
 const { data: privacy } = await useAsyncData("privacy-page", async () => {
-  const record = archiveItems(await queryCollection("archivePages").first()).find(
-    (item) => item.id === site.pages.privacy,
+  const record = await createApiPageRepository(useContentApiBase(), baseURL).get(
+    site.pages.privacy,
   );
   if (!record) return null;
   const title = record.title;

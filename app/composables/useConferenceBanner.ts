@@ -1,6 +1,6 @@
 import type { ConferenceContent, SiteContent } from "~/types/content";
 import { formatConferenceDates } from "~/utils/conferenceDates";
-import { withBase } from "~/utils/withBase";
+import { resolveContentFile } from "~/utils/mediaUrl";
 
 export interface ConferenceBannerView {
   state: "neutral" | "image" | "tint";
@@ -21,6 +21,7 @@ function filled(value: string | null | undefined): string | null {
 export function conferenceBannerView(
   conference: ConferenceContent | null | undefined,
   baseURL: string,
+  apiBase = "",
 ): ConferenceBannerView {
   const banner = conference?.banner;
   const title = filled(banner?.title);
@@ -37,7 +38,9 @@ export function conferenceBannerView(
       filled(banner?.dateText) ??
       formatConferenceDates(banner?.startDate ?? null, banner?.endDate ?? null),
     place: filled(banner?.place),
-    imageUrl: image ? withBase(baseURL, image) : null,
+    imageUrl: image
+      ? (resolveContentFile(image, { apiBase, siteBase: baseURL }) ?? null)
+      : null,
     ctaLabel,
     ctaUrl,
     isLink: state !== "neutral" && Boolean(ctaUrl),
@@ -46,9 +49,13 @@ export function conferenceBannerView(
 
 export function useConferenceBanner() {
   const siteState = useSite();
-  const baseURL = useRuntimeConfig().app.baseURL;
+  const config = useRuntimeConfig();
   return computed(() => {
     const site = siteState.data.value as SiteContent | null;
-    return conferenceBannerView(site?.conference, baseURL);
+    return conferenceBannerView(
+      site?.conference,
+      config.app.baseURL,
+      config.public.apiBase,
+    );
   });
 }

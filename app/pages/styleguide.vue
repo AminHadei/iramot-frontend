@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import type { ArchiveItem, FocusArea, HomeContent, SiteContent } from "~/types/content";
-
-interface ArchiveFile {
-  body?: ArchiveItem[];
-}
+import {
+  createApiAboutRepository,
+  createApiHomeRepository,
+  createApiSiteRepository,
+} from "~/data/singletons/api";
 
 interface GuideCard {
   id: number;
@@ -35,26 +36,64 @@ function toCards(items: ArchiveItem[] | undefined, to: string, limit: number) {
   }));
 }
 
+const areasRepo = useAreaRepository();
+const projectsRepo = useProjectRepository();
+const newsRepo = useNewsRepository();
+const eventRepo = useEventRepository();
+const termRepo = useTermRepository();
+const contentConfig = useRuntimeConfig();
 const { data } = await useAsyncData("styleguide", async () => {
-  const [site, home, areas, projects, about, postsFile, eventsFile, termsFile] =
+  const apiBase = useContentApiBase();
+  const [site, home, areas, projects, aboutDoc, newsList, eventList, termList] =
     await Promise.all([
-      queryCollection("site").first(),
-      queryCollection("home").first(),
-      queryCollection("areas").order("stem", "ASC").all(),
-      queryCollection("projects").order("stem", "ASC").all(),
-      queryCollection("pages").path("/about").first(),
-      queryCollection("archivePosts").first(),
-      queryCollection("archiveEvents").first(),
-      queryCollection("archiveTerms").first(),
+      createApiSiteRepository(apiBase, contentConfig.app.baseURL).get(),
+      createApiHomeRepository(apiBase, contentConfig.app.baseURL).get(),
+      areasRepo.list(),
+      projectsRepo.list(),
+      createApiAboutRepository(apiBase, contentConfig.app.baseURL).get(),
+      newsRepo.list({ page: 1, perPage: 4, order: "desc" }),
+      eventRepo.list({ page: 1, perPage: 2, order: "desc" }),
+      termRepo.list(),
     ]);
 
-  const posts = ((postsFile as ArchiveFile | null)?.body ?? []).filter(
-    (item) => item.featuredImage?.localPath,
-  );
-  const events = ((eventsFile as ArchiveFile | null)?.body ?? []).filter(
-    (item) => item.featuredImage?.localPath,
-  );
-  const terms = (termsFile as ArchiveFile | null)?.body;
+  const aboutRecord = aboutDoc as {
+    title?: string;
+    about?: { body?: string[] };
+  } | null;
+  const about = aboutRecord
+    ? {
+        title: aboutRecord.title ?? "",
+        description: aboutRecord.about?.body?.[0] ?? "",
+      }
+    : null;
+  const posts: ArchiveItem[] = (newsList.items ?? []).map((item) => ({
+    id: Number(item.id) || 0,
+    slug: item.slug,
+    title: item.title,
+    excerpt: item.excerpt,
+    date: item.date,
+    categories: item.categories.map((category) => ({
+      id: 0,
+      slug: category.slug,
+      name: category.name,
+    })),
+    featuredImage: item.image?.url ? { localPath: item.image.url } : null,
+  }));
+  const events: ArchiveItem[] = (eventList.items ?? []).map((item) => ({
+    id: Number(item.id) || 0,
+    slug: item.slug,
+    title: item.title,
+    excerpt: item.excerpt,
+    date: item.dateText ?? item.startsAt ?? "",
+    featuredImage: item.poster ? { localPath: item.poster } : null,
+  }));
+  const terms: ArchiveItem[] = (termList.items ?? []).slice(0, 3).map((item) => ({
+    id: Number(item.id) || 0,
+    slug: item.slug,
+    title: item.title,
+    excerpt: item.text,
+    date: item.date ?? "",
+  }));
 
   return {
     site,

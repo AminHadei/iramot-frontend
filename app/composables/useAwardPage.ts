@@ -1,7 +1,7 @@
 import type { NuxtApp } from "#app";
 import type { NewsList, NewsSummary } from "~/data/news/types";
+import { createApiAwardRepository } from "~/data/singletons/api";
 import type { SiteContent } from "~/types/content";
-import { withBase } from "~/utils/withBase";
 
 interface AwardBlock {
   type: string;
@@ -24,19 +24,6 @@ function cached<T>(key: string, nuxtApp: NuxtApp): T | undefined {
   return nuxtApp.payload.data[key] as T | undefined;
 }
 
-function projectFile(path: string): string {
-  const cwd =
-    (globalThis as { process?: { cwd?: () => string } }).process?.cwd?.() ?? ".";
-  return `${cwd}/${path.replace(/^\//, "")}`;
-}
-
-async function readAwardFile(): Promise<AwardFile> {
-  const { readFile } = await import("node:fs/promises");
-  return JSON.parse(
-    await readFile(projectFile("content/award.json"), "utf8"),
-  ) as AwardFile;
-}
-
 export async function useAwardPage() {
   const route = useRoute();
   const repo = useNewsRepository();
@@ -50,10 +37,17 @@ export async function useAwardPage() {
   const documentState = useAsyncData(
     "award-document",
     async () => {
-      const file = import.meta.server
-        ? await readAwardFile()
-        : await $fetch<AwardFile>(withBase(baseURL, "/data/award/page.json"));
-      const lead = file.blocks.find((block) => block.type === "paragraph")?.text ?? "";
+      const file = (await createApiAwardRepository(
+        useContentApiBase(),
+        baseURL,
+      ).get()) as AwardFile | null;
+      if (!file) return null;
+      const blocks = Array.isArray(file.blocks) ? file.blocks : [];
+      const lead =
+        blocks.find((block) => block.type === "paragraph")?.text ??
+        (typeof (file as unknown as { lead?: unknown }).lead === "string"
+          ? (file as unknown as { lead: string }).lead
+          : "");
       return { title: file.title, lead } satisfies AwardDocument;
     },
     { getCachedData: cached },

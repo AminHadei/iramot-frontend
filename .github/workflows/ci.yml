@@ -32,6 +32,9 @@ jobs:
       - name: Lint, format, spellcheck, typecheck
         run: pnpm lint && pnpm format && pnpm spellcheck && pnpm typecheck
 
+      - name: Unit tests
+        run: pnpm test
+
       - name: Check changeset
         if: github.event_name == 'pull_request'
         env:
@@ -56,7 +59,7 @@ jobs:
         env:
           HUSKY: "0"
 
-      - name: Generate static site
-        run: pnpm generate
+      - name: Build server
+        run: pnpm build
         env:
-          NUXT_APP_BASE_URL: /${{ github.event.repository.name }}/
+          NUXT_TELEMETRY_DISABLED: "1"

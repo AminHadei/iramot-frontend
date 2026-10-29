@@ -1,22 +1,27 @@
 <script setup lang="ts">
-import type { HomeContent, SiteContent } from "~/types/content";
+import footerCopy from "~/copy/footer.json";
+import type { SiteContent } from "~/types/content";
 
 defineProps<{
   site: SiteContent;
 }>();
 
-const { data: home } = await useHomeChrome();
+const auth = useAuth();
+const membershipTo = computed(() =>
+  auth.user.value ? footerCopy.membership : footerCopy.signup,
+);
 
-const page = computed(() => home.value as HomeContent | null);
+onMounted(() => {
+  if (auth.enabled.value) void auth.restore();
+});
 </script>
 
 <template>
   <NewsletterForm
-    v-if="page"
-    :title="page.sections.newsletter"
-    :note="page.newsletter.note"
-    :link="page.newsletter.link"
-    :to="page.newsletter.to"
+    :title="footerCopy.title"
+    :note="footerCopy.note"
+    :link="footerCopy.link"
+    :to="membershipTo"
   />
   <footer class="site-footer">
     <address class="site-footer__address">

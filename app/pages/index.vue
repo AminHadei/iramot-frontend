@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import type { HomeContent, SiteContent } from "~/types/content";
 import type { NewsSummary } from "~/data/news/types";
+import { createApiPageRepository } from "~/data/pages/api";
+import {
+  createApiAboutRepository,
+  createApiHomeRepository,
+} from "~/data/singletons/api";
 import type { ListingCard } from "~/utils/archive";
 
 interface AboutFields {
@@ -21,6 +26,7 @@ interface ProgramCard {
 const siteState = useSite();
 const newsRepo = useNewsRepository();
 const eventRepo = useEventRepository();
+const config = useRuntimeConfig();
 const { data: siteData } = await siteState;
 if (!siteData.value) {
   throw createError({ statusCode: 500, statusMessage: "محتوای خانه پیدا نشد" });
@@ -63,17 +69,19 @@ function withColor(cards: ListingCard[]): HomeCard[] {
 }
 
 const { data: home } = await useAsyncData("home-page", async () => {
-  const [pageFile, aboutFile, pagesFile, newsList, eventList] = await Promise.all([
-    queryCollection("home").first(),
-    queryCollection("pages").path("/about").first(),
-    queryCollection("archivePages").first(),
+  const apiBase = useContentApiBase();
+  const pages = createApiPageRepository(apiBase, config.app.baseURL);
+  const homeRequest = createApiHomeRepository(apiBase, config.app.baseURL).get();
+  const aboutRequest = createApiAboutRepository(apiBase, config.app.baseURL).get();
+  const [pageFile, aboutFile, newsList, eventList] = await Promise.all([
+    homeRequest,
+    aboutRequest,
     newsRepo.list({ page: 1, perPage: 12, order: "desc" }),
     eventRepo.list({ page: 1, perPage: 12, order: "desc" }),
   ]);
   if (!pageFile || !aboutFile) return null;
   const page = pageFile as HomeContent;
   const about = aboutFile as AboutFields;
-  const pages = archiveItems(pagesFile);
   const publicationCards: HomeCard[] = newsList.items.map((item: NewsSummary) => {
     const category = primaryNewsCategory(item.categories);
     return {
@@ -117,8 +125,11 @@ const { data: home } = await useAsyncData("home-page", async () => {
       };
     }),
   );
-  const programs: ProgramCard[] = page.programs.map((program) => {
-    const record = pages.find((item) => item.id === program.page);
+  const programRecords = await Promise.all(
+    page.programs.map((program) => pages.get(program.page)),
+  );
+  const programs: ProgramCard[] = page.programs.map((program, index) => {
+    const record = programRecords[index];
     const description =
       program.to === "/terminology"
         ? site.listings.terminology.description
