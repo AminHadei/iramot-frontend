@@ -24,6 +24,8 @@ Copy `.env.example`.
 
 Serve the site at `/`.
 
+GitHub Pages used to publish a static `pnpm generate` at `/${{ github.event.repository.name }}/` (this repository: `/iramot-frontend/`). Do not hardcode `/irmot/`. This server does not use that workflow. Leave `NUXT_APP_BASE_URL` unset on `pnpm build`. Nuxt copies that variable into the client build, and a project prefix breaks pages served at `/`.
+
 ## Docker
 
 The image is multi-stage: Node 22, pnpm 10.33.4, a non-root `node` user, and a health check against `/healthz`.
